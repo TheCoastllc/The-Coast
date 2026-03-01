@@ -23,6 +23,7 @@
     "@payloadcms/next": "3.78.0",
     "@payloadcms/richtext-lexical": "3.78.0",
     "@payloadcms/ui": "3.78.0",
+    "@studio-freight/react-lenis": "^0.0.47",
     "@tailwindcss/postcss": "^4.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

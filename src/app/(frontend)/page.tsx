@@ -8,6 +8,7 @@ import config from '@/payload.config'
 import './styles.css'
 import Header from '@/components/Header'
 import Hero from '@/components/pages/landingPage/Hero'
+import SmoothScrolling from '@/components/SmoothScrolling'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -18,12 +19,14 @@ export default async function HomePage() {
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
   return (
-    <div className='flex flex-col gap-2 min-h-dvh'>
-      <Header />
-      <main className='flex-1'>
-        <Hero />
-      </main>
-      <footer>Footer</footer>
-    </div>
+    <SmoothScrolling>
+      <div className='flex flex-col gap-2 min-h-dvh'>
+        <Header />
+        <main className='flex-1'>
+          <Hero />
+        </main>
+        <footer>Footer</footer>
+      </div>
+    </SmoothScrolling>
   )
 }
