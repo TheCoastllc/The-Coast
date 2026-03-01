@@ -8,6 +8,9 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 
+import { resendAdapter } from '@payloadcms/email-resend'
+
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -18,6 +21,11 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  email: resendAdapter({
+    defaultFromAddress: 'dev@admin.coastglobal.org',
+    defaultFromName: 'The Coast',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   collections: [Users, Media],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -27,6 +35,7 @@ export default buildConfig({
   db: sqliteAdapter({
     client: {
       url: process.env.DATABASE_URL || '',
+      authToken: process.env.DATABASE_AUTH_TOKEN || '',
     },
   }),
   sharp,
