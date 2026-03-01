@@ -9,14 +9,14 @@ import BlurLayer from '@/components/BlurLayer'
 const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['100','200','300','400', '500', '600', '700', '800', '900'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-geist',
 })
 
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['100','200','300','400', '500', '600', '700', '800', '900'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-geist-mono',
 })
 
@@ -37,11 +37,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             attribute="class"
             defaultTheme="system"
             enableSystem
-            // disableTransitionOnChange
+          // disableTransitionOnChange
           >
             <NoiseLayer />
             <BlurLayer />
-          {children}
+            {children}
           </ThemeProvider>
         </main>
       </body>
