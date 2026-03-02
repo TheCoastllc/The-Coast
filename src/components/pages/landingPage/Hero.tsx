@@ -2,7 +2,6 @@
 import Container from '@/components/Container'
 import { TextAnimate } from '@/components/ui/text-animate'
 import { LucideAsterisk } from 'lucide-react'
-import React from 'react'
 import HeroVideoAnimation from './HeroVideoAnimation'
 
 const Hero = () => {
@@ -40,7 +39,7 @@ const Hero = () => {
                                 Visions Into
                             </TextAnimate>
                         </div>
-                        <TextAnimate className='text-[12rem] font-bold' delay={1}>
+                        <TextAnimate className='text-[12rem] font-semibold'>
                             Empires
                         </TextAnimate>
                     </h1>
