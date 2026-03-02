@@ -11,13 +11,14 @@ import Image from 'next/image';
 
 const Hero = () => {
     return (
-        <section id="hero-container" className='relative pt-20 h-full min-h-dvh overflow-hidden space-y-10'>
+        <section id="hero-container" className='relative pt-20 h-full min-h-dvh overflow-hidden space-y-10 z-50'>
             <HeroVideoAnimation />
             <div id="hero-video-wrapper" className="absolute right-0 z-0 opacity-0 pointer-events-none flex items-center justify-center rounded-3xl overflow-hidden">
                 <video className='w-full h-full object-cover' autoPlay loop muted playsInline>
                     <source src="/coastVid.webm" type="video/webm" />
                 </video>
             </div>
+
             <div id="hero-text-wrapper" className="absolute z-0 opacity-0 pointer-events-none flex items-center justify-center text-center">
                 <p>Business Strategy • Brand Positioning • Category Definition • Brand Design • Brand Transformation</p>
             </div>
@@ -44,9 +45,12 @@ const Hero = () => {
                                 Visions Into
                             </TextAnimate>
                         </div>
-                        <TextAnimate once delay={4} className='empire'>
-                            Empires
-                        </TextAnimate>
+                        <div className='flex items-center gap-4'>
+                            <TextAnimate once delay={4} className='empire'>
+                                Empires
+                            </TextAnimate>
+                            <span id="hero-initial-video" className="hidden md:inline-flex w-[240px] h-[120px] rounded-xl overflow-hidden translate-y-3"></span>
+                        </div>
                     </h1>
                     <TextAnimate once delay={4}>
                         <div className='flex gap-2 items-center mt-2'>
@@ -75,8 +79,8 @@ const Hero = () => {
                             <HeroMobileVideo />
                         </TextAnimate>
 
-                        <div id="hero-initial-text" className='max-w-xs text-center mt-4'>
-                            <p className="opacity-100 md:opacity-0">Business Strategy • Brand Positioning • Category Definition • Brand Design • Brand Transformation</p>
+                        <div id="hero-initial-text" className='max-w-xs text-center mt-4 md:hidden'>
+                            <p className="opacity-100">Business Strategy • Brand Positioning • Category Definition • Brand Design • Brand Transformation</p>
                         </div>
 
                     </div>

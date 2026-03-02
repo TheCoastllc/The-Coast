@@ -18,13 +18,10 @@ const HeroVideoAnimation = () => {
             const targetVideo = document.getElementById('hero-target-video');
             const videoWrapper = document.getElementById('hero-video-wrapper');
 
-            const initialText = document.getElementById('hero-initial-text');
-            const textWrapper = document.getElementById('hero-text-wrapper');
+            if (!container || !initialVideo || !targetVideo || !videoWrapper) return;
 
-            if (!container || !initialVideo || !targetVideo || !videoWrapper || !initialText || !textWrapper) return;
-
-            // Make wrappers initially visible
-            gsap.set([videoWrapper, textWrapper], { autoAlpha: 1 });
+            // Make wrapper initially visible
+            gsap.set(videoWrapper, { autoAlpha: 1 });
 
             const createTimelines = () => {
                 const sectionRect = container.getBoundingClientRect();
@@ -51,16 +48,6 @@ const HeroVideoAnimation = () => {
                 const midTop = (vh - midHeight) / 2;
                 const midLeft = (vw - midWidth) / 2;
 
-                // --- TEXT COORDS ---
-                const initialTextRect = initialText.getBoundingClientRect();
-                const initTextTop = initialTextRect.top - sectionRect.top;
-                const initTextLeft = initialTextRect.left - sectionRect.left;
-                const initTextWidth = initialTextRect.width;
-
-                // Enlarge step bounds for text: directly under the enlarged video
-                const midTextTop = midTop + midHeight + 20;
-                const midTextLeft = (vw - initTextWidth) / 2;
-
                 // Initial states (absolute to the section container)
                 gsap.set(videoWrapper, {
                     position: 'absolute',
@@ -69,16 +56,6 @@ const HeroVideoAnimation = () => {
                     width: initWidth,
                     height: initHeight,
                     borderRadius: '8px',
-                    zIndex: 40,
-                });
-
-                gsap.set(textWrapper, {
-                    position: 'absolute',
-                    top: initTextTop,
-                    left: initTextLeft,
-                    width: initTextWidth,
-                    opacity: 1,
-                    scale: 1,
                     zIndex: 40,
                 });
 
@@ -103,20 +80,9 @@ const HeroVideoAnimation = () => {
                     zIndex: 50,
                     duration: 1,
                     ease: "power1.inOut"
-                }, 0)
-                    .to(textWrapper, {
-                        top: midTextTop,
-                        left: midTextLeft,
-                        scale: 1.5,
-                        opacity: 1,
-                        zIndex: 50,
-                        duration: 1,
-                        ease: "power1.inOut"
-                    }, 0);
+                }, 0);
 
                 // Timeline 2: Shrink into place (UNPINNED - normal scrolling)
-                // As the user scrolls down perfectly normally, the absolute targetTop
-                // natively ensures the video meets the span wherever it goes!
                 const unpinTl = gsap.timeline({
                     scrollTrigger: {
                         // Start exactly when the pin ends
@@ -124,10 +90,6 @@ const HeroVideoAnimation = () => {
                             const pinST = ScrollTrigger.getById("pinTl");
                             return pinST ? pinST.end : 0;
                         },
-                        // We map the shrink animation exactly to the distance to the target
-                        // By making the scroll end distance `targetTop - vh / 2 + targetHeight / 2`,
-                        // the visual CENTER of the video stays perfectly vertically anchored in the center of the screen!
-                        // This ensures the word 'Branding' meets the video squarely in the middle of the viewport.
                         end: () => `+=${Math.max(0, targetTop - (vh / 2) + (targetHeight / 2))}`,
                         scrub: 1,
                     }
@@ -142,14 +104,7 @@ const HeroVideoAnimation = () => {
                     zIndex: 0,
                     duration: 1,
                     ease: "none" // Linear ensures it matches scrolling speed perfectly
-                }, 0)
-                    .to(textWrapper, {
-                        top: midTextTop + 100, // Drift down completely as it fades
-                        opacity: 0,
-                        scale: 0.8,
-                        duration: 0.8, // Fades out slightly earlier
-                        ease: "power1.inOut"
-                    }, 0);
+                }, 0);
 
                 return [pinTl, unpinTl];
             };
@@ -161,8 +116,8 @@ const HeroVideoAnimation = () => {
                     tl.scrollTrigger?.kill();
                     tl.kill();
                 });
-                gsap.set([videoWrapper, textWrapper], { clearProps: "all" });
-                gsap.set([videoWrapper, textWrapper], { autoAlpha: 1 });
+                gsap.set(videoWrapper, { clearProps: "all" });
+                gsap.set(videoWrapper, { autoAlpha: 1 });
                 timelines = createTimelines();
             }
 
@@ -174,7 +129,7 @@ const HeroVideoAnimation = () => {
                     tl.scrollTrigger?.kill();
                     tl.kill();
                 });
-                gsap.set([videoWrapper, textWrapper], { clearProps: "all" });
+                gsap.set(videoWrapper, { clearProps: "all" });
             };
         });
     }, []);
