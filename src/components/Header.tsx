@@ -35,7 +35,7 @@ const Header = () => {
 
     return (
         <header className={cn(
-            'fixed top-0 left-0 w-full py-2 z-50 text-xs transition-colors duration-300',
+            'fixed top-0 left-0 w-full py-2 z-50000 text-xs transition-colors duration-300',
             scrolled
                 ? 'bg-background border-b dark:border-b-gray-800 border-b-gray-300'
                 : 'bg-transparent border-b-transparent'
