@@ -13,9 +13,9 @@ const Hero = () => {
     return (
         <section id="hero-container" className='relative pt-20 h-full min-h-dvh overflow-hidden space-y-10'>
             <HeroVideoAnimation />
-            <div id="hero-video-wrapper" className="absolute right-0 z-0 opacity-0 pointer-events-none flex items-center justify-center">
+            <div id="hero-video-wrapper" className="absolute right-0 z-0 opacity-0 pointer-events-none flex items-center justify-center rounded-3xl overflow-hidden">
                 <video className='w-full h-full object-cover' autoPlay loop muted playsInline>
-                    <source src="/coastVid.mp4" type="video/mp4" />
+                    <source src="/coastVid.webm" type="video/webm" />
                 </video>
             </div>
             <div id="hero-text-wrapper" className="absolute z-0 opacity-0 pointer-events-none flex items-center justify-center text-center">
@@ -44,7 +44,7 @@ const Hero = () => {
                                 Visions Into
                             </TextAnimate>
                         </div>
-                        <TextAnimate once delay={4} className='empire font-semibold'>
+                        <TextAnimate once delay={4} className='empire'>
                             Empires
                         </TextAnimate>
                     </h1>

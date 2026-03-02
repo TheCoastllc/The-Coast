@@ -7,7 +7,7 @@ import React from 'react'
 
 const FeaturesSection = () => {
     return (
-        <section className=''>
+        <section className='pt-20'>
             <Container>
                 <div className='grid grid-cols-1 md:grid-cols-2 relative gap-10 md:gap-0'>
                     <div className='md:sticky h-fit md:top-25 left-0 max-w-xs space-y-5 pb-10 md:pb-0'>

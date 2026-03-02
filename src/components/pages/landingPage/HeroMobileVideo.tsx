@@ -25,7 +25,7 @@ const HeroMobileVideo = () => {
                 muted
                 loop
             >
-                <source src="coastVid.mp4" type="video/mp4" />
+                <source src="coastVid.webm" type="video/webm" />
             </video>
         </div>
     )

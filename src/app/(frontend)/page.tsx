@@ -9,6 +9,9 @@ import SmoothScrolling from '@/components/SmoothScrolling'
 import FeaturesSection from '@/components/pages/landingPage/FeaturesSection'
 import FooterSection from '@/components/footer'
 import { ReviewsSection } from '@/components/pages/landingPage/ReviewsSection'
+import WorksSection from '@/components/pages/landingPage/WorksSection'
+import CurvedLoop from '@/components/CurvedLoop'
+import ScrollVelocity from '@/components/ScrollVelocity'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -22,6 +25,11 @@ export default async function HomePage() {
         <Header />
         <main className='flex-1'>
           <Hero />
+          <WorksSection />
+          <ScrollVelocity
+            texts={['Be Creative ✦ With The Coast ✦', 'Be Creative ✦ With The Coast ✦']}
+            velocity={100}
+          />
           <FeaturesSection />
           <ReviewsSection />
         </main>

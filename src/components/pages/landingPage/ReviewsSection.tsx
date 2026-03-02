@@ -84,7 +84,7 @@ export function ReviewsSection() {
     return (
         <div className="pt-25 pb-20">
             <Container>
-                <p className="uppercase text-xs">words from founders</p>
+                <p className="uppercase text-xs text-primary mb-4">words from founders</p>
                 <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
                     <Marquee pauseOnHover className="[--duration:20s]">
                         {firstRow.map((review) => (
