@@ -21,7 +21,7 @@ const Hero = () => {
 
             <Container>
                 <div className="relative z-10">
-                    <h1 className='leading-none uppercase'>
+                    <h1 className='text-balance leading-none uppercase'>
                         <div className='flex items-center'>
                             <LucideAsterisk size={100} className='animate-spin text-primary' />
                             <TextAnimate className='text-[8rem] font-light'>
@@ -54,7 +54,7 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    <h2 className='text-[5rem] pt-20 pb-40 leading-none uppercase'>
+                    <h2 className='text-[5rem] pt-20 pb-40 leading-none uppercase text-balance'>
                         Branding <span id="hero-target-video" className='w-[250px] text-sm inline-flex items-center justify-center h-[100px] mr-4'>{/* Video target */}</span>
                         that makes you unforgettable.
                     </h2>

@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -123,8 +122,10 @@ const HeroVideoAnimation = () => {
                         return pinST ? pinST.end : 0;
                     },
                     // We map the shrink animation exactly to the distance to the target
-                    // This creates a perfect "stay perfectly centered" illusion as the screen moves up to meet it
-                    end: () => `+=${targetTop - midTop}`,
+                    // By making the scroll end distance `targetTop - vh / 2 + targetHeight / 2`,
+                    // the visual CENTER of the video stays perfectly vertically anchored in the center of the screen!
+                    // This ensures the word 'Branding' meets the video squarely in the middle of the viewport.
+                    end: () => `+=${Math.max(0, targetTop - (vh / 2) + (targetHeight / 2))}`,
                     scrub: 1,
                 }
             });
