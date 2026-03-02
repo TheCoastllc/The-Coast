@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from "@/components/theme-provider"
 import NoiseLayer from '@/components/NoiseLayer'
 import BlurLayer from '@/components/BlurLayer'
+import Preloader from '@/components/Preloader'
 
 
 const geist = Geist({
@@ -32,6 +33,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning >
       <body className={`${geistMono.variable} ${geist.className} text-sm`}>
+        <Preloader />
         <main>
           <ThemeProvider
             attribute="class"

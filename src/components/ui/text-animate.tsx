@@ -1,6 +1,6 @@
 "use client"
 
-import { ElementType, memo } from "react"
+import { Children, ElementType, isValidElement, memo, ReactNode } from "react"
 import { AnimatePresence, motion, MotionProps, Variants } from "motion/react"
 
 import { cn } from "@/lib/utils"
@@ -20,9 +20,10 @@ type AnimationVariant =
 
 interface TextAnimateProps extends MotionProps {
   /**
-   * The text content to animate
+   * The content to animate — either a plain string (enables word/character/line splitting)
+   * or React nodes (each top-level child becomes one animated segment)
    */
-  children: string
+  children: string | ReactNode
   /**
    * The class name to be applied to the component
    */
@@ -48,7 +49,9 @@ interface TextAnimateProps extends MotionProps {
    */
   as?: ElementType
   /**
-   * How to split the text ("text", "word", "character")
+   * How to split the text ("text", "word", "character", "line").
+   * Only applies when children is a string. When children is ReactNode,
+   * each top-level child is treated as one segment regardless of this prop.
    */
   by?: AnimationType
   /**
@@ -64,7 +67,8 @@ interface TextAnimateProps extends MotionProps {
    */
   animation?: AnimationVariant
   /**
-   * Whether to enable accessibility features (default: true)
+   * Whether to enable accessibility features (default: true).
+   * Only applies when children is a string.
    */
   accessible?: boolean
 }
@@ -112,36 +116,16 @@ const defaultItemAnimationVariants: Record<
     container: defaultContainerVariants,
     item: {
       hidden: { opacity: 0, y: 20 },
-      show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.3,
-        },
-      },
-      exit: {
-        opacity: 0,
-        y: 20,
-        transition: { duration: 0.3 },
-      },
+      show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+      exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
     },
   },
   blurIn: {
     container: defaultContainerVariants,
     item: {
       hidden: { opacity: 0, filter: "blur(10px)" },
-      show: {
-        opacity: 1,
-        filter: "blur(0px)",
-        transition: {
-          duration: 0.3,
-        },
-      },
-      exit: {
-        opacity: 0,
-        filter: "blur(10px)",
-        transition: { duration: 0.3 },
-      },
+      show: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.3 } },
+      exit: { opacity: 0, filter: "blur(10px)", transition: { duration: 0.3 } },
     },
   },
   blurInUp: {
@@ -190,68 +174,32 @@ const defaultItemAnimationVariants: Record<
     container: defaultContainerVariants,
     item: {
       hidden: { y: 20, opacity: 0 },
-      show: {
-        y: 0,
-        opacity: 1,
-        transition: {
-          duration: 0.3,
-        },
-      },
-      exit: {
-        y: -20,
-        opacity: 0,
-        transition: {
-          duration: 0.3,
-        },
-      },
+      show: { y: 0, opacity: 1, transition: { duration: 0.3 } },
+      exit: { y: -20, opacity: 0, transition: { duration: 0.3 } },
     },
   },
   slideDown: {
     container: defaultContainerVariants,
     item: {
       hidden: { y: -20, opacity: 0 },
-      show: {
-        y: 0,
-        opacity: 1,
-        transition: { duration: 0.3 },
-      },
-      exit: {
-        y: 20,
-        opacity: 0,
-        transition: { duration: 0.3 },
-      },
+      show: { y: 0, opacity: 1, transition: { duration: 0.3 } },
+      exit: { y: 20, opacity: 0, transition: { duration: 0.3 } },
     },
   },
   slideLeft: {
     container: defaultContainerVariants,
     item: {
       hidden: { x: 20, opacity: 0 },
-      show: {
-        x: 0,
-        opacity: 1,
-        transition: { duration: 0.3 },
-      },
-      exit: {
-        x: -20,
-        opacity: 0,
-        transition: { duration: 0.3 },
-      },
+      show: { x: 0, opacity: 1, transition: { duration: 0.3 } },
+      exit: { x: -20, opacity: 0, transition: { duration: 0.3 } },
     },
   },
   slideRight: {
     container: defaultContainerVariants,
     item: {
       hidden: { x: -20, opacity: 0 },
-      show: {
-        x: 0,
-        opacity: 1,
-        transition: { duration: 0.3 },
-      },
-      exit: {
-        x: 20,
-        opacity: 0,
-        transition: { duration: 0.3 },
-      },
+      show: { x: 0, opacity: 1, transition: { duration: 0.3 } },
+      exit: { x: 20, opacity: 0, transition: { duration: 0.3 } },
     },
   },
   scaleUp: {
@@ -263,18 +211,10 @@ const defaultItemAnimationVariants: Record<
         opacity: 1,
         transition: {
           duration: 0.3,
-          scale: {
-            type: "spring",
-            damping: 15,
-            stiffness: 300,
-          },
+          scale: { type: "spring", damping: 15, stiffness: 300 },
         },
       },
-      exit: {
-        scale: 0.5,
-        opacity: 0,
-        transition: { duration: 0.3 },
-      },
+      exit: { scale: 0.5, opacity: 0, transition: { duration: 0.3 } },
     },
   },
   scaleDown: {
@@ -286,21 +226,30 @@ const defaultItemAnimationVariants: Record<
         opacity: 1,
         transition: {
           duration: 0.3,
-          scale: {
-            type: "spring",
-            damping: 15,
-            stiffness: 300,
-          },
+          scale: { type: "spring", damping: 15, stiffness: 300 },
         },
       },
-      exit: {
-        scale: 1.5,
-        opacity: 0,
-        transition: { duration: 0.3 },
-      },
+      exit: { scale: 1.5, opacity: 0, transition: { duration: 0.3 } },
     },
   },
 }
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
+
+function isStringChildren(children: string | ReactNode): children is string {
+  return typeof children === "string"
+}
+
+/**
+ * Flatten ReactNode children into a stable array of segments, one per
+ * top-level child. Strings inside the array are kept as-is so mixed
+ * content like `<strong>Bold</strong> and plain` works naturally.
+ */
+function toNodeSegments(children: ReactNode): ReactNode[] {
+  return Children.toArray(children)
+}
+
+// ─── Component ──────────────────────────────────────────────────────────────
 
 const TextAnimateBase = ({
   children,
@@ -309,33 +258,44 @@ const TextAnimateBase = ({
   variants,
   className,
   segmentClassName,
-  as: Component = "p",
+  as,
   startOnView = true,
-  once = false,
+  once = true,
   by = "word",
   animation = "fadeIn",
   accessible = true,
   ...props
 }: TextAnimateProps) => {
+  const isString = isStringChildren(children)
+  const Component = as ?? (isString ? "p" : "div")
   const MotionComponent = motion.create(Component)
 
-  let segments: string[] = []
-  switch (by) {
-    case "word":
-      segments = children.split(/(\s+)/)
-      break
-    case "character":
-      segments = children.split("")
-      break
-    case "line":
-      segments = children.split("\n")
-      break
-    case "text":
-    default:
-      segments = [children]
-      break
+  // ── String path: split into text segments exactly as before ──────────────
+  let stringSegments: string[] = []
+  if (isString) {
+    switch (by) {
+      case "word":
+        stringSegments = children.split(/(\s+)/)
+        break
+      case "character":
+        stringSegments = children.split("")
+        break
+      case "line":
+        stringSegments = children.split("\n")
+        break
+      case "text":
+      default:
+        stringSegments = [children]
+        break
+    }
   }
 
+  // ── Node path: each top-level child is one animated segment ──────────────
+  const nodeSegments: ReactNode[] = isString ? [] : toNodeSegments(children)
+
+  const segmentCount = isString ? stringSegments.length : nodeSegments.length
+
+  // ── Build variants ────────────────────────────────────────────────────────
   const finalVariants = variants
     ? {
       container: {
@@ -345,13 +305,13 @@ const TextAnimateBase = ({
           transition: {
             opacity: { duration: 0.01, delay },
             delayChildren: delay,
-            staggerChildren: duration / segments.length,
+            staggerChildren: duration / segmentCount,
           },
         },
         exit: {
           opacity: 0,
           transition: {
-            staggerChildren: duration / segments.length,
+            staggerChildren: duration / segmentCount,
             staggerDirection: -1,
           },
         },
@@ -366,13 +326,13 @@ const TextAnimateBase = ({
             ...defaultItemAnimationVariants[animation].container.show,
             transition: {
               delayChildren: delay,
-              staggerChildren: duration / segments.length,
+              staggerChildren: duration / segmentCount,
             },
           },
           exit: {
             ...defaultItemAnimationVariants[animation].container.exit,
             transition: {
-              staggerChildren: duration / segments.length,
+              staggerChildren: duration / segmentCount,
               staggerDirection: -1,
             },
           },
@@ -391,29 +351,47 @@ const TextAnimateBase = ({
         exit="exit"
         className={cn("whitespace-pre-wrap", className)}
         viewport={{ once }}
-        aria-label={accessible ? children : undefined}
+        // Aria label only makes sense for plain string children
+        aria-label={accessible && isString ? children : undefined}
         {...props}
       >
-        {accessible && <span className="sr-only">{children}</span>}
-        {segments.map((segment, i) => (
-          <motion.span
-            key={`${by}-${segment}-${i}`}
-            variants={finalVariants.item}
-            custom={i * staggerTimings[by]}
-            className={cn(
-              by === "line" ? "block" : "inline-block whitespace-pre",
-              by === "character" && "",
-              segmentClassName
-            )}
-            aria-hidden={accessible ? true : undefined}
-          >
-            {segment}
-          </motion.span>
-        ))}
+        {/* Screen-reader text for string children */}
+        {accessible && isString && (
+          <span className="sr-only">{children}</span>
+        )}
+
+        {/* ── String segments ── */}
+        {isString &&
+          stringSegments.map((segment, i) => (
+            <motion.span
+              key={`${by}-${segment}-${i}`}
+              variants={finalVariants.item}
+              custom={i * staggerTimings[by]}
+              className={cn(
+                by === "line" ? "block" : "inline-block whitespace-pre",
+                segmentClassName
+              )}
+              aria-hidden={accessible ? true : undefined}
+            >
+              {segment}
+            </motion.span>
+          ))}
+
+        {/* ── React node segments ── */}
+        {!isString &&
+          nodeSegments.map((segment, i) => (
+            <motion.div
+              key={i}
+              variants={finalVariants.item}
+              custom={i * staggerTimings["text"]}
+              className={cn("inline-block", segmentClassName)}
+            >
+              {segment}
+            </motion.div>
+          ))}
       </MotionComponent>
     </AnimatePresence>
   )
 }
 
-// Export the memoized version
 export const TextAnimate = memo(TextAnimateBase)

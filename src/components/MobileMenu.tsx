@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 
 interface MobileMenuProps {
     isOpen: boolean
@@ -101,7 +100,7 @@ const MobileMenu = ({ isOpen, onClose, navLinks }: MobileMenuProps) => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 0.6 }}
                                 transition={{ delay: 1.1 }}
-                                className="flex flex-col gap-1 hidden sm:flex"
+                                className="hidden sm:flex flex-col gap-1"
                             >
                                 <span className="text-[10px] uppercase tracking-tighter font-bold mb-2">Location</span>
                                 <span className="text-xs">Based in Lagos</span>
