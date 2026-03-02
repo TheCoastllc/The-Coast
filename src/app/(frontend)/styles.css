@@ -82,6 +82,28 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-geist: var(--font-geist);
   --font-geist-mono: var(--font-geist-mono);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
 }
 
 .dark {
@@ -154,9 +176,42 @@ html::-moz-scrollbar {
 }
 
 .hero-large-text {
-  /* font-size: 10rem; */
+  font-size: 4rem;
+  font-size: clamp(2.5rem, 0.9286rem + 7.8571vw, 8rem);
 }
 
+.empire {
+  font-size: clamp(4rem, 2.2857rem + 8.5714vw, 10rem);
+}
+
+.brand {
+  font-size: clamp(2rem, 1.1429rem + 4.2857vw, 5rem);
+}
+
+@theme inline {
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+}
 
 
 .link {
@@ -180,7 +235,6 @@ html::-moz-scrollbar {
   content: '';
   /* show by default */
 }
-
 
 .link--mneme::before {
   height: 100%;

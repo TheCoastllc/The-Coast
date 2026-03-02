@@ -10,6 +10,7 @@ import Header from '@/components/Header'
 import Hero from '@/components/pages/landingPage/Hero'
 import SmoothScrolling from '@/components/SmoothScrolling'
 import FeaturesSection from '@/components/pages/landingPage/FeaturesSection'
+import FooterSection from '@/components/footer'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -27,7 +28,7 @@ export default async function HomePage() {
           <Hero />
           <FeaturesSection />
         </main>
-        <footer>Footer</footer>
+        <FooterSection />
       </div>
     </SmoothScrolling>
   )

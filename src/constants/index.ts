@@ -15,6 +15,16 @@ const THE_APPROACH: ApproachFAQ[] = [
     answer:
       'We start by defining scope, goals, and constraints. Then I move straight into design, share progress early, iterate quickly, and ship. No long workshops, no unnecessary steps. We communicate through Slack or Telegram.',
   },
+  {
+    question: 'What does your process look like?',
+    answer:
+      'We start by defining scope, goals, and constraints. Then I move straight into design, share progress early, iterate quickly, and ship. No long workshops, no unnecessary steps. We communicate through Slack or Telegram.',
+  },
+  {
+    question: 'What does your process look like?',
+    answer:
+      'We start by defining scope, goals, and constraints. Then I move straight into design, share progress early, iterate quickly, and ship. No long workshops, no unnecessary steps. We communicate through Slack or Telegram.',
+  },
 ]
 
 export { BEST_AT, THE_APPROACH, CLIENTS }

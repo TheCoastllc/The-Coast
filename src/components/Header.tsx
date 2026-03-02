@@ -6,9 +6,12 @@ import Link from 'next/link'
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import MobileMenu from './MobileMenu'
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -39,8 +42,11 @@ const Header = () => {
         )}>
             <Container>
                 <div className='flex items-center justify-between'>
-                    <div><Link href={'/'}>Coast</Link></div>
-                    <nav>
+                    <div><Link href={'/'}>
+                        <Image className='hidden dark:block' src="/logo.png" alt="Logo" width={40} height={40} />
+                        <Image className='dark:hidden' src="/logolight.png" alt="Logo" width={40} height={40} />
+                    </Link></div>
+                    <nav className='hidden md:block'>
                         <ul className='flex gap-3 items-center'>
                             {navLinks.map((link) => (
                                 <li key={link.label}>
@@ -50,11 +56,24 @@ const Header = () => {
                         </ul>
                     </nav>
                     <div className='flex items-center gap-3'>
-                        <Button animate className='uppercase text-[10px] rounded-xs cursor-pointer'>Start a project</Button>
+                        <Button
+                            variant={'ghost'}
+                            className='cursor-pointer text-primary md:hidden'
+                            onClick={() => setIsMenuOpen(true)}
+                        >
+                            [Menu]
+                        </Button>
+                        <Button animate className='uppercase text-[10px] rounded-xs cursor-pointer hidden md:block'>Start a project</Button>
                         <AnimatedThemeToggler />
                     </div>
                 </div>
             </Container>
+
+            <MobileMenu
+                isOpen={isMenuOpen}
+                onClose={() => setIsMenuOpen(false)}
+                navLinks={navLinks}
+            />
         </header>
     )
 }
