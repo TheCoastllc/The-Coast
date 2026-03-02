@@ -136,7 +136,7 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
     const spans = [];
     for (let i = 0; i < numCopies!; i++) {
       spans.push(
-        <span className={`flex-shrink-0 ${className}`} key={i} ref={i === 0 ? copyRef : null}>
+        <span className={`shrink-0 ${className}`} key={i} ref={i === 0 ? copyRef : null}>
           {children}
         </span>
       );
@@ -145,7 +145,7 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
     return (
       <div className={`${parallaxClassName} relative overflow-hidden`} style={parallaxStyle}>
         <motion.div
-          className={`${scrollerClassName} flex whitespace-nowrap text-center font-sans text-5xl tracking-[-0.02em] drop-shadow md:text-[5rem] md:leading-[5rem]`}
+          className={`${scrollerClassName} flex whitespace-nowrap text-center font-sans text-5xl tracking-[-0.02em] drop-shadow md:text-[5rem] md:leading-20`}
           style={{ x, ...scrollerStyle }}
         >
           {spans}

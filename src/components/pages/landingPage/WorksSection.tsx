@@ -24,20 +24,20 @@ const WorksSection = () => {
                             {WORKS.map((work) => (
                                 <div
                                     key={work.title}
-                                    className="works-info-card h-screen flex flex-col justify-center"
+                                    className="works-info-card min-h-screen md:h-screen flex flex-col justify-center py-20 md:py-0"
                                 >
                                     {/* Mobile Only Image View */}
                                     <div className="md:hidden w-full mb-6">
-                                        <div className="relative h-[280px] w-full rounded-[10px] overflow-hidden">
+                                        <div className="relative h-[200px] sm:h-[280px] w-full rounded-[10px] overflow-hidden">
                                             <Image src={work.image} alt={work.title} fill className="object-cover" />
                                         </div>
                                     </div>
 
                                     {/* Text Content + Grid Background Wrapper */}
-                                    <div className="max-w-[400px] min-h-[400px] relative flex flex-col justify-center p-8 md:p-0">
+                                    <div className="max-w-[400px] min-h-[300px] md:min-h-[400px] relative flex flex-col justify-center p-8 md:p-0">
 
                                         {/* The DotGrid acting as Background */}
-                                        <div className="absolute inset-0 h-[400px] w-full -z-10 dark:opacity-20 opacity-50 pointer-events-none overflow-hidden rounded-2xl border border-white/5">
+                                        <div className="absolute inset-0 h-full w-full -z-10 dark:opacity-20 opacity-50 pointer-events-none overflow-hidden rounded-2xl border border-white/5">
                                             <DotGrid
                                                 dotSize={2}
                                                 gap={6}
@@ -90,7 +90,7 @@ const WorksSection = () => {
                                         priority={i === 0}
                                     />
                                     {/* Subtle overlay to help blend with the UI */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent pointer-events-none" />
                                 </div>
                             ))}
                         </div>
