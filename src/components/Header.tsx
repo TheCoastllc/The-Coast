@@ -36,18 +36,17 @@ export default function Header() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled && !menuOpen ? 'bg-background/90 backdrop-blur-md border-b border-border' : ''
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled && !menuOpen ? 'bg-background/90 backdrop-blur-md border-b border-border' : ''
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
           <a href="/" title="The Coast - Home" className="flex items-center">
             <Image
               src="/coast-logo.png"
               alt="The Coast Logo"
-              width={140}
+              width={70}
               height={48}
-              className="h-10 md:h-12 w-auto object-contain"
+              className="object-contain"
               priority
             />
           </a>
