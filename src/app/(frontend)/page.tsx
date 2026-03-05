@@ -1,40 +1,36 @@
-import { headers as getHeaders } from 'next/headers.js'
-import { getPayload } from 'payload'
-import React from 'react'
-import config from '@/payload.config'
-import './styles.css'
+import { Suspense } from 'react'
 import Header from '@/components/Header'
 import Hero from '@/components/pages/landingPage/Hero'
-import SmoothScrolling from '@/components/SmoothScrolling'
-import FeaturesSection from '@/components/pages/landingPage/FeaturesSection'
-import FooterSection from '@/components/footer'
-import { ReviewsSection } from '@/components/pages/landingPage/ReviewsSection'
-import WorksSection from '@/components/pages/landingPage/WorksSection'
-import CurvedLoop from '@/components/CurvedLoop'
-import ScrollVelocity from '@/components/ScrollVelocity'
+import VideoShowcase from '@/components/pages/landingPage/VideoShowcase'
+import Portfolio from '@/components/pages/landingPage/Portfolio'
+import Services from '@/components/pages/landingPage/Services'
+import ProcessSection from '@/components/pages/landingPage/ProcessSection'
+import StatsCounter from '@/components/pages/landingPage/StatsCounter'
+import About from '@/components/pages/landingPage/About'
+import GoogleReviews from '@/components/pages/landingPage/GoogleReviews'
+import BlogPreview from '@/components/pages/landingPage/BlogPreview'
+import Contact from '@/components/pages/landingPage/Contact'
+import Footer from '@/components/footer'
 
-export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  await payload.auth({ headers })
-
+export default function HomePage() {
   return (
-    <SmoothScrolling>
-      <div className='flex flex-col gap-2 min-h-dvh'>
-        <Header />
-        <main className='flex-1'>
-          <Hero />
-          <WorksSection />
-          <ScrollVelocity
-            texts={['Be Creative ✦ With The Coast ✦', 'Be Creative ✦ With The Coast ✦']}
-            velocity={100}
-          />
-          <FeaturesSection />
-          <ReviewsSection />
-        </main>
-        <FooterSection />
-      </div>
-    </SmoothScrolling>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main>
+        <Hero />
+        <VideoShowcase />
+        <Portfolio />
+        <Services />
+        <ProcessSection />
+        <StatsCounter />
+        <About />
+        <GoogleReviews />
+        <Suspense>
+          <BlogPreview />
+        </Suspense>
+        <Contact />
+      </main>
+      <Footer />
+    </div>
   )
 }

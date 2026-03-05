@@ -7,6 +7,7 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Posts } from './collections/Posts'
 
 import { resendAdapter } from '@payloadcms/email-resend'
 
@@ -26,7 +27,7 @@ export default buildConfig({
     defaultFromName: 'The Coast',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
-  collections: [Users, Media],
+  collections: [Users, Media, Posts],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
