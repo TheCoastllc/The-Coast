@@ -68,5 +68,15 @@ export const Posts: CollectionConfig = {
       name: 'content',
       type: 'richText',
     },
+    {
+      name: 'tags',
+      type: 'array',
+      fields: [
+        {
+          name: 'tag',
+          type: 'text',
+        },
+      ],
+    },
   ],
 }

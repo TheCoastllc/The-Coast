@@ -195,6 +195,12 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -330,6 +336,12 @@ export interface PostsSelect<T extends boolean = true> {
   category?: T;
   readingTime?: T;
   content?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
