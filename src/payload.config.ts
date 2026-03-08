@@ -10,7 +10,7 @@ import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 
 import { resendAdapter } from '@payloadcms/email-resend'
-
+import { cloudinaryStorage } from 'payload-cloudinary'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -40,5 +40,16 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    cloudinaryStorage({
+      config: {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '',
+        api_key: process.env.CLOUDINARY_API_KEY || '',
+        api_secret: process.env.CLOUDINARY_API_SECRET || '',
+      },
+      collections: { media: true },
+      folder: 'payload-media',
+      disableLocalStorage: true,
+    }),
+  ],
 })
