@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase/client'
+import { authClient } from '@/lib/auth-client'
 import { toast } from 'sonner'
 import { Loader2, Mail, Lock, ArrowLeft } from 'lucide-react'
 
@@ -16,10 +16,13 @@ export default function PortalLoginPage() {
   const router = useRouter()
 
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.user) {
-        const { data: clientId } = await supabase.rpc('get_current_client_id')
-        if (clientId) router.push('/portal')
+    authClient.getSession().then(async (session) => {
+      if (session?.data?.user) {
+        const res = await fetch('/api/portal/me')
+        if (res.ok) {
+          const client = await res.json()
+          if (client && !client.error) router.push('/portal')
+        }
       }
     })
   }, [router])
@@ -28,15 +31,20 @@ export default function PortalLoginPage() {
     e.preventDefault()
     setIsLoading(true)
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await authClient.signIn.email({
         email: email.trim().toLowerCase(),
         password,
       })
       if (error) throw error
 
-      const { data: clientId, error: clientError } = await supabase.rpc('get_current_client_id')
-      if (clientError || !clientId) {
-        await supabase.auth.signOut()
+      const res = await fetch('/api/portal/me')
+      if (!res.ok) {
+        await authClient.signOut()
+        throw new Error('This account is not associated with a client portal.')
+      }
+      const clientData = await res.json()
+      if (clientData.error) {
+        await authClient.signOut()
         throw new Error('This account is not associated with a client portal.')
       }
 
@@ -57,8 +65,9 @@ export default function PortalLoginPage() {
     }
     setIsResettingPassword(true)
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
-        redirectTo: `${window.location.origin}/portal/set-password`,
+      const { error } = await authClient.requestPasswordReset({
+        email: email.trim().toLowerCase(),
+        redirectTo: '/portal/set-password',
       })
       if (error) throw error
       toast.success('Check your email — we\'ve sent you a password reset link.')

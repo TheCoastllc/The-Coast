@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase/client'
 import { useClientAuth } from '@/hooks/use-client-auth'
 import { toast } from 'sonner'
 import { Loader2, ArrowLeft, ArrowRight, Check, Upload, X } from 'lucide-react'
@@ -52,8 +51,11 @@ export default function SubmitRequestPage() {
       for (const file of files) {
         const formData = new FormData()
         formData.append('file', file, file.name)
-        const { data, error: uploadError } = await supabase.functions.invoke('upload-client-file', { body: formData })
-        if (!uploadError && data?.path) uploadedFileUrls.push(data.path)
+        const res = await fetch('/api/portal/upload', { method: 'POST', body: formData })
+        if (res.ok) {
+          const data = await res.json()
+          if (data?.url) uploadedFileUrls.push(data.url)
+        }
       }
 
       const fullDescription = [
@@ -62,16 +64,17 @@ export default function SubmitRequestPage() {
         uploadedFileUrls.length > 0 ? `\n\nAttached files: ${uploadedFileUrls.join(', ')}` : '',
       ].join('')
 
-      const { error } = await supabase.from('requests').insert({
-        client_id: client.id,
-        title: title.trim(),
-        description: fullDescription,
-        service_type: serviceType,
-        priority,
+      const res = await fetch('/api/portal/requests', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title.trim(),
+          description: fullDescription,
+          serviceType,
+          priority,
+        }),
       })
-      if (error) throw error
-
-      await supabase.functions.invoke('request-notification', { body: { clientId: client.id, serviceType, title: title.trim() } }).catch(() => {})
+      if (!res.ok) throw new Error('Failed to submit request')
 
       toast.success('Request submitted successfully!')
       router.push('/portal')

@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase/client'
 import { useClientAuth } from '@/hooks/use-client-auth'
 import { toast } from 'sonner'
 import { ArrowLeft, Calendar, Loader2, Download, CheckCircle, XCircle, MessageSquare, Send } from 'lucide-react'
@@ -30,9 +29,9 @@ export default function ProjectDetailPage() {
   const { data: project, isLoading: projectLoading } = useQuery({
     queryKey: ['portal-project', id],
     queryFn: async () => {
-      const { data, error } = await supabase.from('projects').select('*').eq('id', id).maybeSingle()
-      if (error) throw error
-      return data
+      const res = await fetch(`/api/portal/projects/${id}`)
+      if (!res.ok) return null
+      return res.json()
     },
     enabled: !!id && !!client,
   })
@@ -40,14 +39,9 @@ export default function ProjectDetailPage() {
   const { data: updates } = useQuery({
     queryKey: ['portal-project-updates', id],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('project_updates')
-        .select('*')
-        .eq('project_id', id)
-        .eq('is_internal', false)
-        .order('created_at', { ascending: true })
-      if (error) throw error
-      return data
+      const res = await fetch(`/api/portal/projects/${id}/updates`)
+      if (!res.ok) throw new Error('Failed to fetch updates')
+      return res.json()
     },
     enabled: !!id && !!client,
   })
@@ -55,26 +49,21 @@ export default function ProjectDetailPage() {
   const { data: files } = useQuery({
     queryKey: ['portal-project-files', id],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('project_files')
-        .select('*')
-        .eq('project_id', id)
-        .order('created_at', { ascending: false })
-      if (error) throw error
-      return data
+      const res = await fetch(`/api/portal/projects/${id}/files`)
+      if (!res.ok) throw new Error('Failed to fetch files')
+      return res.json()
     },
     enabled: !!id && !!client,
   })
 
   const addCommentMutation = useMutation({
     mutationFn: async (message: string) => {
-      const { error } = await supabase.from('project_updates').insert({
-        project_id: id,
-        message,
-        is_internal: false,
-        created_by: client?.user_id,
+      const res = await fetch(`/api/portal/projects/${id}/updates`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
       })
-      if (error) throw error
+      if (!res.ok) throw new Error('Failed to add comment')
     },
     onSuccess: () => {
       setComment('')
@@ -86,12 +75,12 @@ export default function ProjectDetailPage() {
 
   const fileActionMutation = useMutation({
     mutationFn: async ({ fileId, action, feedback }: { fileId: string; action: 'approved' | 'revision_requested'; feedback?: string }) => {
-      const { error } = await supabase
-        .from('project_files')
-        .update({ status: action, client_feedback: feedback || null })
-        .eq('id', fileId)
-      if (error) throw error
-      await supabase.functions.invoke('file-notification', { body: { fileId, action } }).catch(() => {})
+      const res = await fetch(`/api/portal/files/${fileId}/action`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, feedback }),
+      })
+      if (!res.ok) throw new Error('Action failed')
     },
     onSuccess: (_, { action }) => {
       queryClient.invalidateQueries({ queryKey: ['portal-project-files', id] })
@@ -134,10 +123,10 @@ export default function ProjectDetailPage() {
             {statusInfo.label}
           </span>
         </div>
-        {project.due_date && (
+        {project.dueDate && (
           <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            Due {format(new Date(project.due_date), 'MMM d, yyyy')}
+            Due {format(new Date(project.dueDate), 'MMM d, yyyy')}
           </p>
         )}
       </div>
@@ -161,9 +150,9 @@ export default function ProjectDetailPage() {
                 {files.map((file: any) => (
                   <div key={file.id} className="flex items-center gap-3 p-3 rounded-lg border border-border bg-background">
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">{file.file_name}</p>
+                      <p className="text-sm font-medium text-foreground truncate">{file.fileName}</p>
                       <p className="text-xs text-muted-foreground">
-                        {format(new Date(file.created_at), 'MMM d, yyyy')}
+                        {format(new Date(file.createdAt), 'MMM d, yyyy')}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -194,8 +183,8 @@ export default function ProjectDetailPage() {
                           {file.status === 'approved' ? 'Approved' : 'Revision Requested'}
                         </span>
                       )}
-                      {file.file_url && (
-                        <a href={file.file_url} target="_blank" rel="noopener noreferrer"
+                      {file.fileUrl && (
+                        <a href={file.fileUrl} target="_blank" rel="noopener noreferrer"
                           className="p-1 text-muted-foreground hover:text-foreground transition-colors"
                         >
                           <Download className="h-4 w-4" />
@@ -225,7 +214,7 @@ export default function ProjectDetailPage() {
                     <div className="flex-1">
                       <p className="text-sm text-foreground">{update.message}</p>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        {formatDistanceToNow(new Date(update.created_at), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(update.createdAt), { addSuffix: true })}
                       </p>
                     </div>
                   </div>
@@ -262,7 +251,7 @@ export default function ProjectDetailPage() {
             <dl className="space-y-3">
               <div>
                 <dt className="text-xs text-muted-foreground">Service Type</dt>
-                <dd className="text-sm text-foreground capitalize mt-0.5">{project.service_type?.replace(/_/g, ' ')}</dd>
+                <dd className="text-sm text-foreground capitalize mt-0.5">{project.serviceType?.replace(/_/g, ' ')}</dd>
               </div>
               <div>
                 <dt className="text-xs text-muted-foreground">Status</dt>
@@ -280,7 +269,7 @@ export default function ProjectDetailPage() {
               )}
               <div>
                 <dt className="text-xs text-muted-foreground">Created</dt>
-                <dd className="text-sm text-foreground mt-0.5">{format(new Date(project.created_at), 'MMM d, yyyy')}</dd>
+                <dd className="text-sm text-foreground mt-0.5">{format(new Date(project.createdAt), 'MMM d, yyyy')}</dd>
               </div>
             </dl>
           </div>

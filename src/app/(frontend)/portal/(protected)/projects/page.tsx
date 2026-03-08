@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase/client'
 import { useClientAuth } from '@/hooks/use-client-auth'
 import ProjectCard from '@/components/portal/ProjectCard'
 import { FolderKanban, PlusCircle, Loader2 } from 'lucide-react'
@@ -36,21 +35,16 @@ export default function ProjectsPage() {
   const { data: projects, isLoading } = useQuery({
     queryKey: ['portal-all-projects', client?.id],
     queryFn: async () => {
-      if (!client) return []
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('client_id', client.id)
-        .order('created_at', { ascending: false })
-      if (error) throw error
-      return data
+      const res = await fetch('/api/portal/projects')
+      if (!res.ok) throw new Error('Failed to fetch projects')
+      return res.json()
     },
     enabled: !!client,
   })
 
   const filteredProjects = projects?.filter((project: any) => {
     const matchesStatus = statusFilter === 'all' || project.status === statusFilter
-    const matchesService = serviceFilter === 'all' || project.service_type === serviceFilter
+    const matchesService = serviceFilter === 'all' || project.serviceType === serviceFilter
     return matchesStatus && matchesService
   }) || []
 
@@ -121,9 +115,9 @@ export default function ProjectsPage() {
               key={project.id}
               id={project.id}
               title={project.title}
-              serviceType={project.service_type}
+              serviceType={project.serviceType}
               status={project.status}
-              dueDate={project.due_date}
+              dueDate={project.dueDate}
             />
           ))}
         </div>

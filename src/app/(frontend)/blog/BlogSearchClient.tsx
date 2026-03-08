@@ -4,6 +4,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Search } from 'lucide-react'
 import { useCallback } from 'react'
 
+const formatCategory = (slug: string) =>
+  slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+
 interface BlogSearchClientProps {
   categories: string[]
   currentSearch?: string
@@ -49,11 +52,11 @@ export default function BlogSearchClient({ categories, currentSearch, currentCat
           <button
             key={cat}
             onClick={() => updateParams({ category: cat })}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors capitalize ${
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
               currentCategory === cat ? 'bg-foreground text-background' : 'bg-muted text-muted-foreground hover:bg-muted/80'
             }`}
           >
-            {cat}
+            {formatCategory(cat)}
           </button>
         ))}
       </div>

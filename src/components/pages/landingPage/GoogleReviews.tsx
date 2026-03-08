@@ -1,7 +1,6 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase/client'
 
 const StarIcon = ({ className }: { className: string }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 20 20">
@@ -26,12 +25,10 @@ const GoogleReviews = () => {
   const { data: reviews = [] } = useQuery<Review[]>({
     queryKey: ['google-reviews'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('google_reviews')
-        .select('*')
-        .order('display_order', { ascending: true })
-      if (error) throw error
-      return data ?? []
+      const res = await fetch('/api/google-reviews?sort=displayOrder')
+      if (!res.ok) throw new Error('Failed to fetch reviews')
+      const data = await res.json()
+      return data.docs ?? []
     },
   })
 

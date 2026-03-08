@@ -7,6 +7,9 @@ import Header from '@/components/Header'
 import Footer from '@/components/footer'
 import BlogSearchClient from './BlogSearchClient'
 
+const formatCategory = (slug: string) =>
+  slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+
 export const metadata = {
   title: 'Blog | The Coast',
   description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses.',
@@ -110,8 +113,8 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
                     <div className="p-5">
                       <div className="flex items-center gap-3 mb-3">
                         {post.category && (
-                          <span className="text-mono text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full capitalize">
-                            {post.category}
+                          <span className="text-mono text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
+                            {formatCategory(post.category)}
                           </span>
                         )}
                         {post.readingTime && (

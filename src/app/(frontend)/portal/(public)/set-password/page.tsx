@@ -1,40 +1,36 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase/client'
+import { authClient } from '@/lib/auth-client'
+import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { Loader2, Lock, Check } from 'lucide-react'
 
-export default function SetPasswordPage() {
+function SetPasswordContent() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isValidSession, setIsValidSession] = useState(false)
   const [isCheckingSession, setIsCheckingSession] = useState(true)
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session?.user) {
-        setIsValidSession(true)
-        setIsCheckingSession(false)
-        return
-      }
-
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-        if (event === 'PASSWORD_RECOVERY' || (event === 'SIGNED_IN' && session)) {
+    const token = searchParams.get('token')
+    if (token) {
+      setIsValidSession(true)
+    } else {
+      // Check if already logged in
+      authClient.getSession().then((session) => {
+        if (session?.data?.user) {
           setIsValidSession(true)
         }
       })
-
-      setTimeout(() => setIsCheckingSession(false), 2000)
-      return () => subscription.unsubscribe()
     }
-    checkSession()
-  }, [])
+    setTimeout(() => setIsCheckingSession(false), 1000)
+  }, [searchParams])
 
   const handleSetPassword = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -48,9 +44,17 @@ export default function SetPasswordPage() {
     }
     setIsLoading(true)
     try {
-      const { error } = await supabase.auth.updateUser({ password })
-      if (error) throw error
-      await supabase.rpc('mark_client_invite_accepted')
+      const token = searchParams.get('token')
+      if (token) {
+        const { error } = await authClient.resetPassword({
+          newPassword: password,
+          token,
+        })
+        if (error) throw error
+      } else {
+        throw new Error('No reset token found')
+      }
+      await fetch('/api/portal/accept-invite', { method: 'POST' })
       toast.success('Password set successfully! Redirecting to your portal...')
       setTimeout(() => router.push('/portal'), 1500)
     } catch (error: unknown) {
@@ -165,5 +169,17 @@ export default function SetPasswordPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SetPasswordPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    }>
+      <SetPasswordContent />
+    </Suspense>
   )
 }

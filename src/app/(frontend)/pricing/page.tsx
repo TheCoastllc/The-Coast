@@ -1,13 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'motion/react'
 import { ArrowRight, Check, Zap, Star, Rocket, Crown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 import Header from '@/components/Header'
 import Footer from '@/components/footer'
-import { supabase } from '@/lib/supabase/client'
 
 const packages = [
   {
@@ -75,29 +72,8 @@ const packages = [
 
 export default function PricingPage() {
   const router = useRouter()
-  const [loadingId, setLoadingId] = useState<string | null>(null)
-
-  const handleCheckout = async (priceId: string) => {
-    setLoadingId(priceId)
-    try {
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: {
-          priceId,
-          mode: 'subscription',
-          successUrl: `${window.location.origin}/subscription-success`,
-          cancelUrl: `${window.location.origin}/pricing`,
-        },
-      })
-      if (error) throw error
-      if (data?.url) {
-        window.open(data.url, '_blank')
-      }
-    } catch (err) {
-      console.error('Checkout error:', err)
-      toast.error('Something went wrong. Please try again.')
-    } finally {
-      setLoadingId(null)
-    }
+  const handleGetStarted = () => {
+    router.push('/intake')
   }
 
   return (
@@ -168,16 +144,15 @@ export default function PricingPage() {
                   </ul>
 
                   <button
-                    onClick={() => handleCheckout(pkg.priceId)}
-                    disabled={loadingId === pkg.priceId}
-                    className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-mono text-sm font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
+                    onClick={handleGetStarted}
+                    className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-mono text-sm font-medium transition-all duration-300 ${
                       pkg.popular
                         ? 'bg-primary text-primary-foreground hover:bg-primary/90'
                         : 'border border-border text-foreground hover:border-primary hover:bg-primary/10'
                     }`}
                   >
-                    {loadingId === pkg.priceId ? 'Loading...' : 'Get Started'}
-                    {loadingId !== pkg.priceId && <ArrowRight className="w-4 h-4" />}
+                    Get Started
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </motion.div>
               )

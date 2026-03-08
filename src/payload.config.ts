@@ -8,6 +8,14 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
+import { Clients } from './collections/Clients'
+import { Projects } from './collections/Projects'
+import { ProjectFiles } from './collections/ProjectFiles'
+import { ProjectUpdates } from './collections/ProjectUpdates'
+import { Requests } from './collections/Requests'
+import { IntakeSubmissions } from './collections/IntakeSubmissions'
+import { EventIntakeSubmissions } from './collections/EventIntakeSubmissions'
+import { GoogleReviews } from './collections/GoogleReviews'
 
 import { resendAdapter } from '@payloadcms/email-resend'
 import { cloudinaryStorage } from 'payload-cloudinary'
@@ -21,13 +29,35 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      titleSuffix: '- The Coast',
+      icons: [{ rel: 'icon', type: 'image/png', url: '/logolight.png' }],
+    },
+    components: {
+      graphics: {
+        Logo: '@/components/PayloadAdmin/CMSLogo#CMSLogo',
+        Icon: '@/components/PayloadAdmin/CMSIcon#CMSIcon',
+      },
+    },
   },
   email: resendAdapter({
     defaultFromAddress: 'dev@admin.coastglobal.org',
     defaultFromName: 'The Coast',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
-  collections: [Users, Media, Posts],
+  collections: [
+    Users,
+    Media,
+    Posts,
+    Clients,
+    Projects,
+    ProjectFiles,
+    ProjectUpdates,
+    Requests,
+    IntakeSubmissions,
+    EventIntakeSubmissions,
+    GoogleReviews,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

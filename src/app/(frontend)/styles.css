@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ─── Dark Theme CSS Variables (HSL) ─── */
 :root {
@@ -276,4 +277,52 @@
     -webkit-background-clip: text;
     background-clip: text;
   }
+}
+
+/* ─── Blog Prose Styling ─── */
+.prose {
+  --tw-prose-body: hsl(var(--foreground) / 0.85);
+  --tw-prose-headings: hsl(var(--foreground));
+  --tw-prose-links: hsl(var(--primary));
+  --tw-prose-bold: hsl(var(--foreground));
+  --tw-prose-quotes: hsl(var(--muted-foreground));
+  --tw-prose-quote-borders: hsl(var(--primary) / 0.4);
+  --tw-prose-code: hsl(var(--foreground));
+  --tw-prose-pre-bg: hsl(var(--secondary));
+  --tw-prose-pre-code: hsl(var(--foreground));
+  --tw-prose-hr: hsl(var(--border));
+  --tw-prose-captions: hsl(var(--muted-foreground));
+  --tw-prose-counters: hsl(var(--muted-foreground));
+  --tw-prose-bullets: hsl(var(--primary) / 0.6);
+}
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: hsl(var(--accent-teal));
+}
+
+.prose blockquote {
+  font-style: italic;
+  border-left-width: 3px;
+}
+
+.prose img {
+  border-radius: 1rem;
+}
+
+.prose code {
+  background: hsl(var(--secondary));
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
 }

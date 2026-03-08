@@ -8,6 +8,9 @@ import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/footer'
 
+const formatCategory = (slug: string) =>
+  slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+
 type Params = Promise<{ slug: string }>
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -82,8 +85,8 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           {/* Meta */}
           <div className="flex items-center gap-3 mb-6">
             {post.category && (
-              <span className="text-mono text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full capitalize">
-                {post.category}
+              <span className="text-mono text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
+                {formatCategory(post.category)}
               </span>
             )}
             {post.readingTime && (
@@ -124,7 +127,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
           {/* Content */}
           {post.content && (
-            <div className="prose prose-invert prose-lg max-w-none">
+            <div className="prose prose-lg max-w-none">
               <RichText data={post.content} />
             </div>
           )}
