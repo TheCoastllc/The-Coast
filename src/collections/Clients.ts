@@ -5,6 +5,7 @@ export const Clients: CollectionConfig = {
   admin: {
     useAsTitle: 'businessName',
     defaultColumns: ['businessName', 'contactName', 'email', 'status', 'subscriptionTier'],
+    group: 'Projects & Clients',
   },
   access: {
     read: ({ req: { user } }) => Boolean(user),

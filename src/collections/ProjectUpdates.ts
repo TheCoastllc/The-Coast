@@ -5,6 +5,7 @@ export const ProjectUpdates: CollectionConfig = {
   admin: {
     useAsTitle: 'message',
     defaultColumns: ['project', 'message', 'isInternal', 'createdAt'],
+    group: 'Projects & Clients',
   },
   access: {
     read: ({ req: { user } }) => Boolean(user),

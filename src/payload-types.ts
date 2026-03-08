@@ -248,16 +248,33 @@ export interface Post {
   id: number;
   title: string;
   /**
-   * URL-friendly identifier (e.g. "my-first-post")
+   * Auto-generated from title. Edit to customize.
    */
   slug: string;
   status?: ('draft' | 'published') | null;
+  /**
+   * Auto-set when published. Override to schedule.
+   */
   publishedAt?: string | null;
-  excerpt?: string | null;
-  coverImage?: (number | null) | Media;
-  category?: string | null;
+  category:
+    | 'brand-strategy'
+    | 'visual-identity'
+    | 'logo-design'
+    | 'web-design'
+    | 'social-media'
+    | 'creative-direction'
+    | 'case-study'
+    | 'industry-insights';
+  /**
+   * Auto-calculated from content.
+   */
   readingTime?: number | null;
-  content?: {
+  /**
+   * Brief summary shown on blog cards and SEO meta.
+   */
+  excerpt?: string | null;
+  coverImage: number | Media;
+  content: {
     root: {
       type: string;
       children: {
@@ -271,7 +288,10 @@ export interface Post {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
+  /**
+   * Add relevant tags for filtering.
+   */
   tags?:
     | {
         tag?: string | null;
@@ -635,10 +655,10 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   status?: T;
   publishedAt?: T;
-  excerpt?: T;
-  coverImage?: T;
   category?: T;
   readingTime?: T;
+  excerpt?: T;
+  coverImage?: T;
   content?: T;
   tags?:
     | T

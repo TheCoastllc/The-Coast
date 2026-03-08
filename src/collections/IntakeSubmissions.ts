@@ -5,6 +5,7 @@ export const IntakeSubmissions: CollectionConfig = {
   admin: {
     useAsTitle: 'fullName',
     defaultColumns: ['fullName', 'email', 'businessName', 'createdAt'],
+    group: 'Intake & Requests',
   },
   access: {
     read: ({ req: { user } }) => Boolean(user),

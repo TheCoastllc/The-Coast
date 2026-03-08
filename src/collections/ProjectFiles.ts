@@ -6,6 +6,7 @@ export const ProjectFiles: CollectionConfig = {
   admin: {
     useAsTitle: 'fileName',
     defaultColumns: ['fileName', 'project', 'status', 'createdAt'],
+    group: 'Projects & Clients',
   },
   hooks: {
     afterChange: [

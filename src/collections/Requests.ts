@@ -6,6 +6,7 @@ export const Requests: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'client', 'serviceType', 'priority', 'createdAt'],
+    group: 'Intake & Requests',
   },
   hooks: {
     afterChange: [

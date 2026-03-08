@@ -5,6 +5,7 @@ export const EventIntakeSubmissions: CollectionConfig = {
   admin: {
     useAsTitle: 'contactName',
     defaultColumns: ['contactName', 'eventName', 'email', 'eventType', 'createdAt'],
+    group: 'Intake & Requests',
   },
   access: {
     read: ({ req: { user } }) => Boolean(user),

@@ -29,6 +29,16 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      titleSuffix: '- The Coast',
+      icons: [{ rel: 'icon', type: 'image/png', url: '/logolight.png' }],
+    },
+    components: {
+      graphics: {
+        Logo: '@/components/PayloadAdmin/CMSLogo#CMSLogo',
+        Icon: '@/components/PayloadAdmin/CMSIcon#CMSIcon',
+      },
+    },
   },
   email: resendAdapter({
     defaultFromAddress: 'dev@admin.coastglobal.org',

@@ -5,6 +5,7 @@ export const GoogleReviews: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'category', 'rating', 'displayOrder'],
+    group: 'Content',
   },
   access: {
     read: () => true,
