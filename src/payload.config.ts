@@ -8,6 +8,14 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
+import { Clients } from './collections/Clients'
+import { Projects } from './collections/Projects'
+import { ProjectFiles } from './collections/ProjectFiles'
+import { ProjectUpdates } from './collections/ProjectUpdates'
+import { Requests } from './collections/Requests'
+import { IntakeSubmissions } from './collections/IntakeSubmissions'
+import { EventIntakeSubmissions } from './collections/EventIntakeSubmissions'
+import { GoogleReviews } from './collections/GoogleReviews'
 
 import { resendAdapter } from '@payloadcms/email-resend'
 import { cloudinaryStorage } from 'payload-cloudinary'
@@ -27,7 +35,19 @@ export default buildConfig({
     defaultFromName: 'The Coast',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
-  collections: [Users, Media, Posts],
+  collections: [
+    Users,
+    Media,
+    Posts,
+    Clients,
+    Projects,
+    ProjectFiles,
+    ProjectUpdates,
+    Requests,
+    IntakeSubmissions,
+    EventIntakeSubmissions,
+    GoogleReviews,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

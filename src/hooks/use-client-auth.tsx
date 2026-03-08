@@ -2,27 +2,26 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase/client'
-import type { User } from '@supabase/supabase-js'
+import { authClient } from '@/lib/auth-client'
 
 export type ClientPublic = {
-  id: string
-  user_id: string
+  id: number
+  betterAuthUserId: string
   email: string
-  contact_name: string
-  business_name: string
-  logo_url: string | null
+  contactName: string
+  businessName: string
+  logoUrl: string | null
   phone: string | null
   status: string
-  subscription_tier: string | null
+  subscriptionTier: string | null
   website: string | null
   industry: string
-  created_at: string
+  createdAt: string
   notes: string | null
 }
 
 export function useClientAuth() {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<{ id: string; email: string; name?: string } | null>(null)
   const [client, setClient] = useState<ClientPublic | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
@@ -38,60 +37,48 @@ export function useClientAuth() {
     isMounted.current = true
     isLoadingRef.current = true
 
-    const fetchClientData = async (): Promise<ClientPublic | null> => {
+    async function checkAuth() {
       try {
-        const { data, error } = await supabase.rpc('get_own_client_data')
-        if (error) {
-          console.error('Error fetching client data:', error)
-          return null
+        const session = await authClient.getSession()
+        if (!isMounted.current) return
+
+        if (!session?.data?.user) {
+          router.push('/portal/login')
+          updateLoading(false)
+          return
         }
-        const row = Array.isArray(data) ? data[0] : data
-        return (row as ClientPublic) || null
-      } catch (err) {
-        console.error('Error fetching client data:', err)
-        return null
+
+        setUser(session.data.user)
+
+        const res = await fetch('/api/portal/me')
+        if (!isMounted.current) return
+
+        if (!res.ok) {
+          router.push('/portal/login')
+          updateLoading(false)
+          return
+        }
+
+        const clientData = await res.json()
+        if (!isMounted.current) return
+
+        if (clientData.error) {
+          router.push('/portal/login')
+          updateLoading(false)
+          return
+        }
+
+        setClient(clientData)
+        updateLoading(false)
+      } catch {
+        if (isMounted.current) {
+          router.push('/portal/login')
+          updateLoading(false)
+        }
       }
     }
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (!isMounted.current) return
-
-        if (session?.user) {
-          setUser(session.user)
-          const clientData = await fetchClientData()
-          if (!isMounted.current) return
-          setClient(clientData)
-          if (!clientData) {
-            router.push('/portal/login')
-          }
-        } else {
-          setUser(null)
-          setClient(null)
-          router.push('/portal/login')
-        }
-        updateLoading(false)
-      }
-    )
-
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (!isMounted.current) return
-      if (session?.user) {
-        setUser(session.user)
-        const clientData = await fetchClientData()
-        if (!isMounted.current) return
-        setClient(clientData)
-        if (!clientData) {
-          router.push('/portal/login')
-        }
-      } else {
-        router.push('/portal/login')
-      }
-      updateLoading(false)
-    }).catch((err) => {
-      console.error('Error getting session:', err)
-      if (isMounted.current) updateLoading(false)
-    })
+    checkAuth()
 
     const timeout = setTimeout(() => {
       if (isMounted.current && isLoadingRef.current) {
@@ -104,13 +91,12 @@ export function useClientAuth() {
     return () => {
       clearTimeout(timeout)
       isMounted.current = false
-      subscription.unsubscribe()
     }
   }, [router])
 
   const signOut = async () => {
     try {
-      await supabase.auth.signOut()
+      await authClient.signOut()
       router.push('/portal/login')
     } catch (err) {
       console.error('Sign out error:', err)

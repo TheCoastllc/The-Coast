@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react'
-import { supabase } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import Header from '@/components/Header'
 import Footer from '@/components/footer'
@@ -56,24 +55,26 @@ export default function ExperienceIntakePage() {
   const handleSubmit = async () => {
     setIsSubmitting(true)
     try {
-      const { error } = await supabase.from('event_intake_submissions').insert({
-        contact_name: contactName,
-        email,
-        phone: phone || null,
-        event_name: eventName,
-        event_type: eventType,
-        event_date: eventDate || null,
-        event_location: eventLocation || null,
-        expected_attendees: attendees || null,
-        services_needed: selectedServices,
-        budget,
-        timeline,
-        event_description: eventDescription,
-        additional_notes: additionalNotes || null,
+      const res = await fetch('/api/intake/experience', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contactName,
+          email,
+          phone: phone || null,
+          eventName,
+          eventType,
+          eventDate: eventDate || null,
+          eventLocation: eventLocation || null,
+          expectedAttendees: attendees || null,
+          servicesNeeded: selectedServices,
+          budget,
+          timeline,
+          eventDescription,
+          additionalNotes: additionalNotes || null,
+        }),
       })
-      if (error) throw error
-
-      await supabase.functions.invoke('experience-intake-notification', { body: { email, name: contactName } }).catch(() => {})
+      if (!res.ok) throw new Error('Submission failed')
       setSubmitted(true)
     } catch (err) {
       console.error(err)

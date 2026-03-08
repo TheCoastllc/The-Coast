@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react'
-import { supabase } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import Header from '@/components/Header'
 import Footer from '@/components/footer'
@@ -97,26 +96,28 @@ export default function IntakePage() {
   const handleSubmit = async () => {
     setIsSubmitting(true)
     try {
-      const { error } = await supabase.from('intake_submissions').insert({
-        full_name: form.fullName,
-        email: form.email,
-        phone: form.phone || null,
-        business_name: form.businessName,
-        website: form.website || null,
-        business_description: form.businessDescription,
-        ideal_customer: form.idealCustomer,
-        services_interested: form.servicesInterested,
-        brand_vibes: form.brandVibes,
-        color_preferences: form.colorPreferences,
-        colors_to_avoid: form.colorsToAvoid || null,
-        brands_admired: form.brandsAdmired || null,
-        budget: form.budget,
-        timeline: form.timeline,
-        additional_vision: form.additionalVision || null,
+      const res = await fetch('/api/intake', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: form.fullName,
+          email: form.email,
+          phone: form.phone || null,
+          businessName: form.businessName,
+          website: form.website || null,
+          businessDescription: form.businessDescription,
+          idealCustomer: form.idealCustomer,
+          servicesInterested: form.servicesInterested,
+          brandVibes: form.brandVibes,
+          colorPreferences: form.colorPreferences,
+          colorsToAvoid: form.colorsToAvoid || null,
+          brandsAdmired: form.brandsAdmired || null,
+          budget: form.budget,
+          timeline: form.timeline,
+          additionalVision: form.additionalVision || null,
+        }),
       })
-      if (error) throw error
-
-      await supabase.functions.invoke('intake-notification', { body: { email: form.email, name: form.fullName } }).catch(() => {})
+      if (!res.ok) throw new Error('Submission failed')
 
       localStorage.removeItem(STORAGE_KEY)
       localStorage.removeItem('inquiry_prefill')

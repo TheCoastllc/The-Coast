@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase/client'
 import { useClientAuth } from '@/hooks/use-client-auth'
 import { toast } from 'sonner'
 import { Download, Loader2, File, Image, CheckCircle, XCircle } from 'lucide-react'
@@ -32,9 +31,9 @@ export default function FilesPage() {
   const { data: projects } = useQuery({
     queryKey: ['portal-projects-list'],
     queryFn: async () => {
-      const { data, error } = await supabase.from('projects').select('id, title').order('title')
-      if (error) throw error
-      return data
+      const res = await fetch('/api/portal/projects?fields=id,title')
+      if (!res.ok) throw new Error('Failed to fetch projects')
+      return res.json()
     },
     enabled: !!client,
   })
@@ -42,27 +41,24 @@ export default function FilesPage() {
   const { data: files, isLoading } = useQuery({
     queryKey: ['portal-all-files', projectFilter, statusFilter],
     queryFn: async () => {
-      let query = supabase
-        .from('project_files')
-        .select('*, projects(id, title)')
-        .order('created_at', { ascending: false })
-      if (projectFilter !== 'all') query = query.eq('project_id', projectFilter)
-      if (statusFilter !== 'all') query = query.eq('status', statusFilter)
-      const { data, error } = await query
-      if (error) throw error
-      return data
+      const params = new URLSearchParams()
+      if (projectFilter !== 'all') params.set('project', projectFilter)
+      if (statusFilter !== 'all') params.set('status', statusFilter)
+      const res = await fetch(`/api/portal/files?${params}`)
+      if (!res.ok) throw new Error('Failed to fetch files')
+      return res.json()
     },
     enabled: !!client,
   })
 
   const fileActionMutation = useMutation({
     mutationFn: async ({ fileId, action, feedback }: { fileId: string; action: 'approved' | 'revision_requested'; feedback?: string }) => {
-      const { error } = await supabase
-        .from('project_files')
-        .update({ status: action, client_feedback: feedback || null })
-        .eq('id', fileId)
-      if (error) throw error
-      await supabase.functions.invoke('file-notification', { body: { fileId, action } }).catch(() => {})
+      const res = await fetch(`/api/portal/files/${fileId}/action`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, feedback }),
+      })
+      if (!res.ok) throw new Error('Action failed')
     },
     onSuccess: (_, { action }) => {
       queryClient.invalidateQueries({ queryKey: ['portal-all-files'] })
@@ -116,7 +112,7 @@ export default function FilesPage() {
       ) : (
         <div className="space-y-3">
           {files.map((file: any) => {
-            const isImage = file.file_type?.startsWith('image/')
+            const isImage = file.fileType?.startsWith('image/')
             const statusInfo = statusConfig[file.status] || statusConfig.pending_review
             return (
               <div key={file.id} className="bg-card border border-border rounded-xl p-4 flex items-center gap-4">
@@ -124,13 +120,13 @@ export default function FilesPage() {
                   {isImage ? <Image className="h-5 w-5 text-muted-foreground" /> : <File className="h-5 w-5 text-muted-foreground" />}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">{file.file_name}</p>
+                  <p className="text-sm font-medium text-foreground truncate">{file.fileName}</p>
                   <div className="flex items-center gap-3 mt-0.5">
-                    {file.projects?.title && (
-                      <span className="text-xs text-muted-foreground">{file.projects.title}</span>
+                    {file.project?.title && (
+                      <span className="text-xs text-muted-foreground">{file.project.title}</span>
                     )}
-                    <span className="text-xs text-muted-foreground">{formatFileSize(file.file_size)}</span>
-                    <span className="text-xs text-muted-foreground">{format(new Date(file.created_at), 'MMM d, yyyy')}</span>
+                    <span className="text-xs text-muted-foreground">{formatFileSize(file.fileSize)}</span>
+                    <span className="text-xs text-muted-foreground">{format(new Date(file.createdAt), 'MMM d, yyyy')}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
@@ -158,9 +154,9 @@ export default function FilesPage() {
                       </button>
                     </>
                   )}
-                  {file.file_url && (
+                  {file.fileUrl && (
                     <a
-                      href={file.file_url}
+                      href={file.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-1.5 text-muted-foreground hover:text-foreground border border-border rounded hover:border-primary/50 transition-colors"

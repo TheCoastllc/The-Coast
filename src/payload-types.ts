@@ -70,6 +70,14 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
+    clients: Client;
+    projects: Project;
+    'project-files': ProjectFile;
+    'project-updates': ProjectUpdate;
+    requests: Request;
+    'intake-submissions': IntakeSubmission;
+    'event-intake-submissions': EventIntakeSubmission;
+    'google-reviews': GoogleReview;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +88,14 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    clients: ClientsSelect<false> | ClientsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    'project-files': ProjectFilesSelect<false> | ProjectFilesSelect<true>;
+    'project-updates': ProjectUpdatesSelect<false> | ProjectUpdatesSelect<true>;
+    requests: RequestsSelect<false> | RequestsSelect<true>;
+    'intake-submissions': IntakeSubmissionsSelect<false> | IntakeSubmissionsSelect<true>;
+    'event-intake-submissions': EventIntakeSubmissionsSelect<false> | EventIntakeSubmissionsSelect<true>;
+    'google-reviews': GoogleReviewsSelect<false> | GoogleReviewsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -267,6 +283,183 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients".
+ */
+export interface Client {
+  id: number;
+  /**
+   * Better Auth user ID linking this client to their auth account
+   */
+  betterAuthUserId: string;
+  email: string;
+  contactName: string;
+  businessName: string;
+  logoUrl?: string | null;
+  phone?: string | null;
+  status?: ('active' | 'invited' | 'inactive') | null;
+  subscriptionTier?: ('starter' | 'pro' | 'ultimate' | 'custom') | null;
+  website?: string | null;
+  industry?: string | null;
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  client: number | Client;
+  title: string;
+  description?: string | null;
+  serviceType: 'logo' | 'flyer' | 'epk' | 'social' | 'rebrand' | 'website';
+  status?: ('pending' | 'in_progress' | 'review' | 'revision' | 'completed' | 'cancelled') | null;
+  priority?: ('normal' | 'high' | 'urgent') | null;
+  dueDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-files".
+ */
+export interface ProjectFile {
+  id: number;
+  project: number | Project;
+  fileName: string;
+  fileType?: string | null;
+  fileSize?: number | null;
+  fileUrl?: string | null;
+  file?: (number | null) | Media;
+  status?: ('pending_review' | 'approved' | 'revision_requested') | null;
+  clientFeedback?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-updates".
+ */
+export interface ProjectUpdate {
+  id: number;
+  project: number | Project;
+  message: string;
+  isInternal?: boolean | null;
+  createdBy?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "requests".
+ */
+export interface Request {
+  id: number;
+  client: number | Client;
+  title: string;
+  description: string;
+  serviceType?: ('logo' | 'flyer' | 'epk' | 'social' | 'website' | 'rebrand' | 'other') | null;
+  priority?: ('normal' | 'high' | 'urgent') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intake-submissions".
+ */
+export interface IntakeSubmission {
+  id: number;
+  fullName: string;
+  email: string;
+  phone?: string | null;
+  businessName: string;
+  website?: string | null;
+  businessDescription: string;
+  idealCustomer?: string | null;
+  servicesInterested?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  brandVibes?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  colorPreferences?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  colorsToAvoid?: string | null;
+  brandsAdmired?: string | null;
+  budget?: string | null;
+  timeline?: string | null;
+  additionalVision?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-intake-submissions".
+ */
+export interface EventIntakeSubmission {
+  id: number;
+  contactName: string;
+  email: string;
+  phone?: string | null;
+  eventName: string;
+  eventType?: string | null;
+  eventDate?: string | null;
+  eventLocation?: string | null;
+  expectedAttendees?: string | null;
+  servicesNeeded?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  budget?: string | null;
+  timeline?: string | null;
+  eventDescription: string;
+  additionalNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "google-reviews".
+ */
+export interface GoogleReview {
+  id: number;
+  name: string;
+  initial: string;
+  color: string;
+  category: string;
+  text: string;
+  rating: number;
+  displayOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -300,6 +493,38 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'clients';
+        value: number | Client;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'project-files';
+        value: number | ProjectFile;
+      } | null)
+    | ({
+        relationTo: 'project-updates';
+        value: number | ProjectUpdate;
+      } | null)
+    | ({
+        relationTo: 'requests';
+        value: number | Request;
+      } | null)
+    | ({
+        relationTo: 'intake-submissions';
+        value: number | IntakeSubmission;
+      } | null)
+    | ({
+        relationTo: 'event-intake-submissions';
+        value: number | EventIntakeSubmission;
+      } | null)
+    | ({
+        relationTo: 'google-reviews';
+        value: number | GoogleReview;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -421,6 +646,140 @@ export interface PostsSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients_select".
+ */
+export interface ClientsSelect<T extends boolean = true> {
+  betterAuthUserId?: T;
+  email?: T;
+  contactName?: T;
+  businessName?: T;
+  logoUrl?: T;
+  phone?: T;
+  status?: T;
+  subscriptionTier?: T;
+  website?: T;
+  industry?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  client?: T;
+  title?: T;
+  description?: T;
+  serviceType?: T;
+  status?: T;
+  priority?: T;
+  dueDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-files_select".
+ */
+export interface ProjectFilesSelect<T extends boolean = true> {
+  project?: T;
+  fileName?: T;
+  fileType?: T;
+  fileSize?: T;
+  fileUrl?: T;
+  file?: T;
+  status?: T;
+  clientFeedback?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-updates_select".
+ */
+export interface ProjectUpdatesSelect<T extends boolean = true> {
+  project?: T;
+  message?: T;
+  isInternal?: T;
+  createdBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "requests_select".
+ */
+export interface RequestsSelect<T extends boolean = true> {
+  client?: T;
+  title?: T;
+  description?: T;
+  serviceType?: T;
+  priority?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intake-submissions_select".
+ */
+export interface IntakeSubmissionsSelect<T extends boolean = true> {
+  fullName?: T;
+  email?: T;
+  phone?: T;
+  businessName?: T;
+  website?: T;
+  businessDescription?: T;
+  idealCustomer?: T;
+  servicesInterested?: T;
+  brandVibes?: T;
+  colorPreferences?: T;
+  colorsToAvoid?: T;
+  brandsAdmired?: T;
+  budget?: T;
+  timeline?: T;
+  additionalVision?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-intake-submissions_select".
+ */
+export interface EventIntakeSubmissionsSelect<T extends boolean = true> {
+  contactName?: T;
+  email?: T;
+  phone?: T;
+  eventName?: T;
+  eventType?: T;
+  eventDate?: T;
+  eventLocation?: T;
+  expectedAttendees?: T;
+  servicesNeeded?: T;
+  budget?: T;
+  timeline?: T;
+  eventDescription?: T;
+  additionalNotes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "google-reviews_select".
+ */
+export interface GoogleReviewsSelect<T extends boolean = true> {
+  name?: T;
+  initial?: T;
+  color?: T;
+  category?: T;
+  text?: T;
+  rating?: T;
+  displayOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
