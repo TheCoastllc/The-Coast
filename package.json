@@ -15,7 +15,8 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
-    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "postinstall": "node scripts/patch-noble-ciphers.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -39,7 +40,7 @@
     "embla-carousel-react": "^8.6.0",
     "graphql": "^16.13.0",
     "lucide-react": "^0.575.0",
-    "motion": "^12.34.3",
+    "motion": "^12.35.1",
     "next": "16.1.6",
     "payload": "3.78.0",
     "payload-cloudinary": "^2.3.0",
