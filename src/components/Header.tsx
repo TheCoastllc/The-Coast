@@ -4,6 +4,7 @@ import { motion } from 'motion/react'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import MobileMenu from './MobileMenu'
+import { ShineButton } from './ui/ShineButton'
 
 const navItems = [
   { label: 'Work', href: '/work', isRoute: true, title: 'Brand Design Portfolio' },
@@ -35,14 +36,18 @@ export default function Header() {
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled && !menuOpen ? 'bg-background/90 backdrop-blur-md border-b border-border' : ''
-          }`}
+        transition={{ duration: 0.6, delay: 2.2 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled && !menuOpen ? 'bg-[#0a0a0a]/80 backdrop-blur-md' : ''
+        }`}
+        style={{
+          borderBottom: scrolled && !menuOpen ? '1px solid rgba(201,162,75,0.1)' : '1px solid transparent',
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-          <a href="/" title="The Coast - Home" className="flex items-center">
+          <a href="/" title="The Coast - Home" className="flex items-center" data-cursor="pointer">
             <Image
-              src="/coast-logo.png"
+              src="/logo.png"
               alt="The Coast Logo"
               width={70}
               height={48}
@@ -51,13 +56,13 @@ export default function Header() {
             />
           </a>
 
-          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8 lg:gap-12">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 title={item.title}
+                data-cursor="pointer"
                 onClick={(e) => {
                   if (item.href.startsWith('#')) {
                     e.preventDefault()
@@ -65,7 +70,7 @@ export default function Header() {
                     if (el) el.scrollIntoView({ behavior: 'smooth' })
                   }
                 }}
-                className="text-mono text-muted-foreground hover:text-foreground transition-colors duration-300"
+                className="text-mono text-muted-foreground hover:text-[#C9A24B] transition-colors duration-300"
               >
                 {item.label}
               </a>
@@ -73,16 +78,12 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-4 md:gap-6">
-            {/* Desktop CTA */}
-            <a
-              href="/get-started"
-              title="Start Your Brand Design Project"
-              className="hidden md:inline-flex items-center justify-center px-6 py-2.5 bg-foreground text-background text-mono text-xs font-medium rounded-lg hover:bg-foreground/90 transition-all duration-300"
-            >
-              Get Started
-            </a>
+            <div className="hidden md:block">
+              <ShineButton href="/get-started" size="sm">
+                Get Started
+              </ShineButton>
+            </div>
 
-            {/* Hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="relative z-50 w-10 h-10 flex items-center justify-center"

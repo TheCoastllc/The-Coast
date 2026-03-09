@@ -40,7 +40,7 @@ const GoogleReviews = () => {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-1 mb-4">
             {[...Array(5)].map((_, i) => (
-              <StarIcon key={i} className="w-6 h-6 text-yellow-400" />
+              <StarIcon key={i} className="w-6 h-6 text-[#C9A24B]" />
             ))}
           </div>
           <p className="text-muted-foreground text-sm mb-2">
@@ -59,7 +59,7 @@ const GoogleReviews = () => {
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(review.rating)].map((_, i) => (
-                  <StarIcon key={i} className="w-4 h-4 text-yellow-400" />
+                  <StarIcon key={i} className="w-4 h-4 text-[#C9A24B]" />
                 ))}
               </div>
               <p className="text-body text-muted-foreground text-sm mb-4 leading-relaxed">
@@ -86,7 +86,7 @@ const GoogleReviews = () => {
             href="https://www.google.com/maps/place/?q=place_id:237714582837436261"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-accent-teal transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-[#C9A24B] transition-colors text-sm"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path

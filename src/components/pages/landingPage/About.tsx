@@ -6,7 +6,7 @@ import { Building2, Sparkles } from 'lucide-react'
 
 const About = () => {
   return (
-    <section id="about" className="py-20 md:py-32 lg:py-48 relative bg-card">
+    <section id="about" className="py-20 md:py-32 lg:py-48 relative" style={{ backgroundColor: '#0a0a0a' }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Hero Statement */}
         <motion.div
@@ -166,7 +166,7 @@ const About = () => {
           className="mb-16 md:mb-20"
         >
           <h3 className="text-mono text-primary mb-6 text-sm tracking-wider">OUR VISION</h3>
-          <div className="relative rounded-2xl overflow-hidden ring-2 ring-primary/30 group cursor-pointer">
+          <div className="relative rounded-2xl overflow-hidden ring-1 ring-[#C9A24B]/20 group cursor-pointer" data-cursor="view">
             <img
               src="/images/Coast_HQ_nightglowing_beside-0.jpg"
               alt="The Coast HQ conceptual rendering, night view"
@@ -174,9 +174,9 @@ const About = () => {
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
-            <div className="absolute top-4 left-4 flex items-center gap-2 bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <Sparkles className="w-4 h-4 text-primary-foreground" />
-              <span className="text-sm font-medium text-primary-foreground">Conceptual Vision</span>
+            <div className="absolute top-4 left-4 flex items-center gap-2 bg-[#C9A24B]/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+              <Sparkles className="w-4 h-4 text-black" />
+              <span className="text-sm font-medium text-black">Conceptual Vision</span>
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
               <h4 className="text-heading text-2xl md:text-3xl text-foreground mb-2">

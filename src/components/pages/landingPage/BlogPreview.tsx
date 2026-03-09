@@ -46,7 +46,7 @@ export default async function BlogPreview() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-4">
           <div>
-            <span className="text-mono text-accent-cycle mb-3 block">From The Journal</span>
+            <span className="text-mono text-[#C9A24B] mb-3 block">From The Journal</span>
             <h2 className="text-heading text-3xl md:text-5xl lg:text-6xl text-foreground">
               Latest Insights
             </h2>

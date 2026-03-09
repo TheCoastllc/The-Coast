@@ -2,6 +2,9 @@ import React from 'react'
 import './styles.css'
 import { Bebas_Neue, Space_Grotesk } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
+import Preloader from '@/components/Preloader'
+import CustomCursor from '@/components/CustomCursor'
+import SmoothScrolling from '@/components/SmoothScrolling'
 
 const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
@@ -26,9 +29,15 @@ export const metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`${bebasNeue.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`dark ${bebasNeue.variable} ${spaceGrotesk.variable}`}>
       <body suppressHydrationWarning>
-        <QueryProvider>{children}</QueryProvider>
+        <Preloader />
+        <CustomCursor />
+        <QueryProvider>
+          <SmoothScrolling>
+            {children}
+          </SmoothScrolling>
+        </QueryProvider>
       </body>
     </html>
   )

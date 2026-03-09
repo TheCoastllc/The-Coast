@@ -111,6 +111,7 @@ const ProjectCard = ({
     transition={{ duration: mobile ? 0.5 : 0.6 }}
     viewport={{ once: true }}
     onClick={onClick}
+    data-cursor="view"
     className={`group relative overflow-hidden cursor-pointer rounded-${mobile ? 'xl' : '2xl'} ${
       mobile
         ? 'w-full h-[300px] sm:h-[350px]'
@@ -216,7 +217,7 @@ const Portfolio = () => {
   }, [isInView, isMobile])
 
   return (
-    <section id="work" ref={sectionRef} className="py-20 md:py-32 lg:py-48 relative">
+    <section id="work" ref={sectionRef} className="py-20 md:py-32 lg:py-48 relative" style={{ backgroundColor: '#0a0a0a' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -273,11 +274,11 @@ const Portfolio = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             onClick={() => router.push('/portfolio')}
-            className="group w-full h-[200px] rounded-xl border border-border hover:border-primary/50 transition-colors duration-300 flex flex-col items-center justify-center cursor-pointer"
+            className="group w-full h-[200px] rounded-xl border border-border hover:border-[#C9A24B]/50 transition-colors duration-300 flex flex-col items-center justify-center cursor-pointer"
           >
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full border-2 border-border group-hover:border-primary mx-auto mb-4 flex items-center justify-center transition-colors duration-300">
-                <ArrowUpRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+              <div className="w-16 h-16 rounded-full border-2 border-border group-hover:border-[#C9A24B] mx-auto mb-4 flex items-center justify-center transition-colors duration-300">
+                <ArrowUpRight className="w-6 h-6 text-muted-foreground group-hover:text-[#C9A24B] transition-colors duration-300" />
               </div>
               <h3 className="text-heading text-2xl text-foreground mb-1">View All</h3>
               <span className="text-mono text-muted-foreground text-sm">24 Projects</span>
@@ -306,11 +307,11 @@ const Portfolio = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
             onClick={() => router.push('/portfolio')}
-            className="group shrink-0 w-[350px] md:w-[450px] h-[450px] md:h-[550px] rounded-2xl border border-border hover:border-primary/50 transition-colors duration-300 flex flex-col items-center justify-center cursor-pointer"
+            className="group shrink-0 w-[350px] md:w-[450px] h-[450px] md:h-[550px] rounded-2xl border border-border hover:border-[#C9A24B]/50 transition-colors duration-300 flex flex-col items-center justify-center cursor-pointer"
           >
             <div className="text-center">
-              <div className="w-20 h-20 rounded-full border-2 border-border group-hover:border-primary mx-auto mb-6 flex items-center justify-center transition-colors duration-300">
-                <ArrowUpRight className="w-8 h-8 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
+              <div className="w-20 h-20 rounded-full border-2 border-border group-hover:border-[#C9A24B] mx-auto mb-6 flex items-center justify-center transition-colors duration-300">
+                <ArrowUpRight className="w-8 h-8 text-muted-foreground group-hover:text-[#C9A24B] transition-colors duration-300" />
               </div>
               <h3 className="text-heading text-3xl text-foreground mb-2">View All</h3>
               <span className="text-mono text-muted-foreground">24 Projects</span>

@@ -51,7 +51,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="inline-block text-heading text-3xl md:text-5xl lg:text-6xl text-foreground hover:text-primary transition-colors duration-300 mb-16"
+            className="inline-block text-heading text-3xl md:text-5xl lg:text-6xl text-foreground hover:text-[#C9A24B] transition-colors duration-300 mb-16"
           >
             hello@coastglobal.org
           </motion.a>
@@ -68,7 +68,7 @@ const Contact = () => {
               <h3 className="text-mono text-muted-foreground mb-3">New Business</h3>
               <a
                 href="tel:+16827020374"
-                className="text-body text-foreground text-lg hover:text-primary transition-colors duration-300"
+                className="text-body text-foreground text-lg hover:text-[#C9A24B] transition-colors duration-300"
               >
                 +1 (682) 702-0374
               </a>
@@ -77,7 +77,7 @@ const Contact = () => {
               <h3 className="text-mono text-muted-foreground mb-3">General</h3>
               <a
                 href="mailto:hello@coastglobal.org"
-                className="text-body text-foreground text-lg hover:text-primary transition-colors duration-300"
+                className="text-body text-foreground text-lg hover:text-[#C9A24B] transition-colors duration-300"
               >
                 hello@coastglobal.org
               </a>
@@ -101,7 +101,7 @@ const Contact = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                  className="text-muted-foreground hover:text-[#C9A24B] transition-colors duration-300"
                   aria-label={link.name}
                 >
                   {CustomIcon ? <CustomIcon size={24} /> : Icon ? <Icon size={24} /> : null}

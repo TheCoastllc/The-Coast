@@ -1,4 +1,7 @@
-import { Facebook, Instagram, Linkedin } from 'lucide-react'
+'use client'
+
+import Link from 'next/link'
+import { Instagram, Linkedin } from 'lucide-react'
 
 const XIcon = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -12,102 +15,107 @@ const PinterestIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 )
 
+const footerLinks = [
+  {
+    group: 'Services',
+    items: [
+      { title: 'Brand Strategy', href: '/services#brand-strategy' },
+      { title: 'Digital Design', href: '/services#digital-design' },
+      { title: 'Development', href: '/services#development' },
+      { title: 'Motion & Video', href: '/services#motion-video' },
+    ],
+  },
+  {
+    group: 'Company',
+    items: [
+      { title: 'About', href: '#about' },
+      { title: 'Work', href: '#work' },
+      { title: 'Blog', href: '/blog' },
+      { title: 'Contact', href: '#contact' },
+    ],
+  },
+  {
+    group: 'Legal',
+    items: [
+      { title: 'Privacy Policy', href: '/privacy' },
+      { title: 'Terms of Service', href: '/terms' },
+    ],
+  },
+]
+
 const socialLinks = [
-  { name: 'Facebook', href: 'https://www.facebook.com/coastglobal', icon: Facebook },
   { name: 'Instagram', href: 'https://www.instagram.com/coastglobal', icon: Instagram },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/company/thecoastcompanylimited/', icon: Linkedin },
   { name: 'X', href: 'https://x.com/TCoast13363', icon: null, customIcon: XIcon },
   { name: 'Pinterest', href: 'https://pin.it/nW5MRvKEz', icon: null, customIcon: PinterestIcon },
 ]
 
-export default function Footer() {
+export default function FooterSection() {
   return (
-    <footer id="contact" className="py-20 md:py-32 lg:py-48 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-        {/* Main CTA */}
-        <div className="mb-16 md:mb-24 text-center md:text-left">
-          <span className="text-mono text-accent-cycle mb-3 md:mb-4 block">Get In Touch</span>
-          <h2 className="text-heading text-3xl md:text-5xl lg:text-6xl xl:text-8xl mb-6 md:mb-8">
-            {"Let's create something great together"}
-          </h2>
-          <a
-            href="mailto:hello@coastglobal.org"
-            title="Email The Coast Agency"
-            className="group inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4"
-          >
-            <span className="text-display text-xl sm:text-2xl md:text-4xl lg:text-5xl text-accent-cycle group-hover:text-foreground transition-colors duration-300 break-all sm:break-normal">
-              hello@coastglobal.org
-            </span>
-            <div className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full border border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 shrink-0">
-              <svg
-                className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-primary group-hover:text-background -rotate-45 group-hover:rotate-0 transition-all duration-300"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </div>
-          </a>
+    <footer style={{ backgroundColor: '#050505' }} className="pt-16 md:pt-24 pb-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Top: Logo + Links */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
+          {/* Logo + tagline */}
+          <div className="md:col-span-4">
+            <Link href="/" className="block mb-4">
+              <img
+                src="/footerlogodark.png"
+                alt="The Coast"
+                className="h-10 w-auto"
+              />
+            </Link>
+            <p className="text-body text-muted-foreground text-sm max-w-xs">
+              Strategic brand design for entrepreneurs, artists, and growing businesses.
+            </p>
+          </div>
+
+          {/* Link groups */}
+          <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
+            {footerLinks.map((group) => (
+              <div key={group.group}>
+                <span className="text-mono text-foreground/60 mb-4 block">{group.group}</span>
+                <ul className="space-y-3">
+                  {group.items.map((item) => (
+                    <li key={item.title}>
+                      <Link
+                        href={item.href}
+                        className="text-body text-muted-foreground text-sm hover:text-[#C9A24B] transition-colors duration-200"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 md:pt-12 border-t border-border flex flex-col items-center md:flex-row md:justify-between gap-6 md:gap-8">
-          <div className="flex flex-col items-center md:items-start gap-2 md:gap-4 text-center md:text-left">
-            <span className="text-heading text-lg md:text-xl">THE COAST</span>
-            <span className="text-body text-accent-cycle italic text-sm md:text-base">
-              Bring us a drop, we&apos;ll deliver the ocean.
-            </span>
-            <span className="text-body text-muted-foreground text-xs md:text-sm">
-              © {new Date().getFullYear()} The Coast. All rights reserved.
-            </span>
-          </div>
+        <div className="border-t border-white/6 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-muted-foreground text-sm text-body">
+            &copy; {new Date().getFullYear()} The Coast. All rights reserved.
+          </p>
 
-          <div className="flex items-center gap-6 md:gap-8">
-            <div className="flex items-center gap-4">
-              {socialLinks.map((link) => {
-                const Icon = link.icon
-                const CustomIcon = (link as { customIcon?: typeof XIcon }).customIcon
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    title={`${link.name} Profile for The Coast`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-primary transition-colors duration-300"
-                    aria-label={link.name}
-                  >
-                    {CustomIcon ? <CustomIcon size={20} /> : Icon ? <Icon size={20} /> : null}
-                  </a>
-                )
-              })}
-            </div>
-
-            <div className="w-px h-6 bg-border/60" />
-
-            <a
-              href="/portal/login"
-              title="Access the Client Portal"
-              className="text-lg font-semibold text-primary hover:text-primary/80 transition-colors duration-300"
-            >
-              Client Portal
-            </a>
-
-            <div className="w-px h-6 bg-border/60" />
-
-            <a
-              href="https://www.google.com/maps/place/?q=place_id:237714582837436261"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Find us on Google Maps"
-              className="flex items-center gap-2 text-white/40 hover:text-white/60 text-xs transition-colors"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-              </svg>
-              Find us on Google
-            </a>
+          {/* Social icons */}
+          <div className="flex items-center gap-5">
+            {socialLinks.map((link) => {
+              const Icon = link.icon
+              const CustomIcon = (link as { customIcon?: typeof XIcon }).customIcon
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-[#C9A24B] transition-colors duration-200"
+                  aria-label={link.name}
+                >
+                  {CustomIcon ? <CustomIcon size={18} /> : Icon ? <Icon size={18} /> : null}
+                </a>
+              )
+            })}
           </div>
         </div>
       </div>

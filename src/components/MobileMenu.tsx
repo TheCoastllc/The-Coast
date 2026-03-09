@@ -78,7 +78,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   <span className="text-mono text-muted-foreground/60 text-xs sm:text-sm mt-1 sm:mt-2 md:mt-4">
                     {item.number}
                   </span>
-                  <span className="text-heading text-xl sm:text-2xl md:text-5xl lg:text-7xl text-foreground group-hover:text-primary group-hover:translate-x-2 md:group-hover:translate-x-4 transition-all duration-300 leading-tight">
+                  <span className="text-heading text-xl sm:text-2xl md:text-5xl lg:text-7xl text-foreground group-hover:text-[#C9A24B] group-hover:translate-x-2 md:group-hover:translate-x-4 transition-all duration-300 leading-tight">
                     {item.title}
                   </span>
                 </motion.button>
@@ -120,7 +120,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                         title={`${link.name} Profile for The Coast`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                        className="text-muted-foreground hover:text-[#C9A24B] transition-colors duration-300"
                         aria-label={link.name}
                       >
                         {CustomIcon ? <CustomIcon size={18} /> : Icon ? <Icon size={18} /> : null}
