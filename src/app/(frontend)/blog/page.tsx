@@ -100,10 +100,10 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
               {posts.map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
                   <article className="rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                    {post.coverImage?.url && (
+                    {(post.coverImage?.cloudinary?.secure_url || post.coverImage?.url) && (
                       <div className="aspect-16/10 overflow-hidden">
                         <img
-                          src={post.coverImage.url}
+                          src={post.coverImage.cloudinary?.secure_url || post.coverImage.url}
                           alt={post.coverImage.alt ?? post.title}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           loading="lazy"

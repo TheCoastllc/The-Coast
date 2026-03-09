@@ -11,7 +11,7 @@ type Post = {
   category?: string | null
   readingTime?: number | null
   publishedAt?: string | null
-  coverImage?: { url?: string | null; alt?: string | null } | null
+  coverImage?: { url?: string | null; alt?: string | null; cloudinary?: { secure_url?: string | null } | null } | null
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -65,10 +65,10 @@ export default async function BlogPreview() {
           {posts.map((post) => (
             <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
               <article className="rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
-                {post.coverImage?.url && (
+                {(post.coverImage?.cloudinary?.secure_url || post.coverImage?.url) && (
                   <div className="aspect-16/10 overflow-hidden">
                     <img
-                      src={post.coverImage.url}
+                      src={post.coverImage.cloudinary?.secure_url ?? post.coverImage.url ?? undefined}
                       alt={post.coverImage.alt ?? post.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"

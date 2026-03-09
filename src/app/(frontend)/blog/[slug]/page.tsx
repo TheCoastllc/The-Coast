@@ -33,7 +33,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       openGraph: {
         title: post.title,
         description: post.excerpt || '',
-        images: post.coverImage?.url ? [post.coverImage.url] : [],
+        images: post.coverImage?.cloudinary?.secure_url
+          ? [post.coverImage.cloudinary.secure_url]
+          : post.coverImage?.url ? [post.coverImage.url] : [],
         type: 'article',
         publishedTime: post.publishedAt,
       },
@@ -115,10 +117,10 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           )}
 
           {/* Cover image */}
-          {post.coverImage?.url && (
+          {(post.coverImage?.cloudinary?.secure_url || post.coverImage?.url) && (
             <div className="aspect-16/9 rounded-2xl overflow-hidden mb-12">
               <img
-                src={post.coverImage.url}
+                src={post.coverImage.cloudinary?.secure_url || post.coverImage.url}
                 alt={post.coverImage.alt ?? post.title}
                 className="w-full h-full object-cover"
               />
