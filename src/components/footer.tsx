@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'motion/react'
 import { ArrowUpRight, Instagram, Linkedin } from 'lucide-react'
+import TextReveal from '@/components/TextReveal'
 
 const XIcon = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -22,15 +23,12 @@ export default function FooterSection() {
       <div className="container mx-auto px-6 relative z-10">
         {/* CTA */}
         <div className="flex flex-col items-center text-center mb-32">
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+          <TextReveal
             className="text-3xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter leading-none mb-12"
+            highlight={["Create"]}
           >
-            Let&apos;s <span className="text-primary">Create</span>
-          </motion.h2>
+            {"Let's Create"}
+          </TextReveal>
 
           <motion.a
             href="/get-started"

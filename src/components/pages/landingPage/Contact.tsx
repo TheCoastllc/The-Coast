@@ -2,6 +2,8 @@
 
 import { motion } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
+import TextReveal from '@/components/TextReveal'
+import { ShineButton } from '@/components/ui/ShineButton'
 
 export default function Contact() {
   return (
@@ -18,20 +20,15 @@ export default function Contact() {
             <div className="w-12 h-px bg-white/20" />
             <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Contact</span>
           </motion.div>
-          <div className="overflow-hidden pb-4">
-            <motion.h2
-              initial={{ y: "100%", rotate: 2 }}
-              whileInView={{ y: 0, rotate: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter origin-bottom-left"
-            >
-              Let&apos;s <span className="text-primary">Talk</span>
-            </motion.h2>
-          </div>
+          <TextReveal
+            className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
+            highlight={["Talk"]}
+          >
+            {"Let's Talk"}
+          </TextReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -41,7 +38,7 @@ export default function Contact() {
             <p className="text-white/50 font-light leading-relaxed mb-12 max-w-md">
               Ready to build your empire? Whether you&apos;re opening your first coffee shop, launching a startup, or ready to rebrand and level up — we&apos;re here to make your brand unforgettable.
             </p>
-            <a href="mailto:hello@coastglobal.org" className="text-2xl md:text-4xl font-display uppercase tracking-tighter hover:text-primary transition-colors duration-300 flex items-center gap-4 group w-fit">
+            <a href="mailto:hello@coastglobal.org" className="text-2xl md:text-3xl font-display uppercase tracking-tighter hover:text-primary transition-colors duration-300 flex items-center gap-4 group w-fit">
               hello@coastglobal.org
               <ArrowUpRight className="w-8 h-8 group-hover:rotate-45 transition-transform duration-300 text-primary" />
             </a>
@@ -72,9 +69,9 @@ export default function Contact() {
               <label className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Message</label>
               <textarea className="bg-transparent border-b border-white/10 pb-4 text-white focus:outline-none focus:border-primary transition-colors resize-none h-24 rounded-none" placeholder="Tell us about your project..."></textarea>
             </div>
-            <button type="submit" className="self-start px-8 py-4 bg-white text-black font-mono text-xs uppercase tracking-widest hover:bg-primary transition-colors duration-300 mt-4">
+            <ShineButton size='md' type="submit">
               Send Message
-            </button>
+            </ShineButton>
           </motion.form>
         </div>
       </div>

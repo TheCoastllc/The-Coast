@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
+import TextReveal from '@/components/TextReveal'
 
 const projects = [
   {
@@ -118,17 +119,12 @@ export default function Portfolio() {
               <div className="w-12 h-px bg-white/20" />
               <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Portfolio</span>
             </div>
-            <div className="overflow-hidden pb-4">
-              <motion.h2
-                initial={{ y: "100%", rotate: 2 }}
-                whileInView={{ y: 0, rotate: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter mb-6 origin-bottom-left"
-              >
-                Selected <span className="text-primary">Works</span>
-              </motion.h2>
-            </div>
+            <TextReveal
+              className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter mb-6"
+              highlight={["Works"]}
+            >
+              Selected Works
+            </TextReveal>
           </div>
         </motion.div>
 

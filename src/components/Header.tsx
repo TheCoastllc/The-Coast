@@ -4,6 +4,8 @@ import { motion, useScroll, useSpring } from 'motion/react'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import MobileMenu from './MobileMenu'
+import Link from 'next/link'
+import { ShineButton } from './ui/ShineButton'
 
 const navItems = [
   { label: 'Work', href: '#work', title: 'Brand Design Portfolio' },
@@ -39,23 +41,23 @@ export default function Header() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
-        className="fixed top-0 left-0 right-0 z-40 px-6 py-4 mix-blend-difference"
+        className={`fixed top-0 left-0 right-0 px-6 py-4 ${menuOpen ? 'z-50' : 'z-40 mix-blend-difference'}`}
       >
         <div className="container mx-auto flex items-center justify-between">
-          <a href="/" title="The Coast - Home" className="flex items-center hover-target">
+          <Link href="/" title="The Coast - Home" className="flex items-center hover-target">
             <Image
               src="/logo.png"
               alt="The Coast Logo"
-              width={48}
-              height={48}
+              width={40}
+              height={40}
               className="object-contain"
               priority
             />
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest text-white">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 title={item.title}
@@ -69,11 +71,13 @@ export default function Header() {
                 className="hover:text-primary transition-colors hover-target"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
-            <a href="/get-started" className="px-5 py-2.5 bg-white text-black font-mono hover:bg-primary transition-colors duration-300 hover-target">
-              Start Project
-            </a>
+            <ShineButton size='sm'>
+              <Link href="/get-started" className=" font-mono ">
+                Start Project
+              </Link>
+            </ShineButton>
           </div>
 
           <button

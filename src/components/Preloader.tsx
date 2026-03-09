@@ -15,6 +15,9 @@ export default function Preloader() {
 
     document.body.style.overflow = 'hidden'
 
+    const dot = dotRef.current
+    const overlay = overlayRef.current
+
     const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = ''
@@ -31,7 +34,7 @@ export default function Preloader() {
 
     // 2. Fullstop dot rolls in from right
     tl.fromTo(
-      dotRef.current,
+      dot,
       { x: 80, opacity: 0, rotation: 0 },
       { x: 0, opacity: 1, rotation: 360, duration: 0.6, ease: 'power2.out' },
       '-=0.2'
@@ -40,19 +43,31 @@ export default function Preloader() {
     // 3. Brief hold
     tl.to({}, { duration: 0.3 })
 
-    // 4. Dot expands to fill screen with clip-path
-    tl.to(overlayRef.current, {
-      clipPath: 'circle(150% at 50% 50%)',
-      duration: 0.8,
-      ease: 'power3.inOut',
+    // 4. Calculate dot center position and expand clip-path from it
+    tl.add(() => {
+      const dotRect = dot.getBoundingClientRect()
+      const dotCenterX = dotRect.left + dotRect.width / 2
+      const dotCenterY = dotRect.top + dotRect.height / 2
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const xPercent = (dotCenterX / vw) * 100
+      const yPercent = (dotCenterY / vh) * 100
+
+      overlay.style.clipPath = `circle(0% at ${xPercent}% ${yPercent}%)`
+
+      gsap.to(overlay, {
+        clipPath: `circle(150% at ${xPercent}% ${yPercent}%)`,
+        duration: 0.8,
+        ease: 'power3.inOut',
+      })
     })
 
-    // 5. Slide the white container up
+    // 5. Slide the white container up (after clip-path finishes)
     tl.to(containerRef.current, {
       yPercent: -100,
       duration: 0.6,
       ease: 'power3.inOut',
-    })
+    }, '+=0.8')
 
     return () => {
       tl.kill()
@@ -65,7 +80,7 @@ export default function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex items-center justify-center"
+      className="fixed inset-0 z-9999 flex items-center justify-center"
       style={{ backgroundColor: '#fafafa' }}
     >
       {/* Dark overlay that expands from dot */}
@@ -90,7 +105,7 @@ export default function Preloader() {
         <div
           ref={dotRef}
           className="w-3 h-3 md:w-4 md:h-4 rounded-sm mb-1"
-          style={{ backgroundColor: '#C9A24B', opacity: 0 }}
+          style={{ backgroundColor: '#000000', opacity: 0 }}
         />
       </div>
     </div>

@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
+import TextReveal from '@/components/TextReveal'
 
 type Post = {
   id: string | number
@@ -48,14 +49,15 @@ export default async function BlogPreview() {
             <div className="w-12 h-px bg-white/20" />
             <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Insights</span>
           </div>
-          <div className="overflow-hidden pb-4">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter origin-bottom-left">
-              Latest <span className="text-primary">Thinking</span>
-            </h2>
-          </div>
+          <TextReveal
+            className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
+            highlight={["Thinking"]}
+          >
+            Latest Thinking
+          </TextReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3contact gap-0 border-y border-white/10">
           {posts.map((post, index) => (
             <Link
               href={`/blog/${post.slug}`}
@@ -66,10 +68,10 @@ export default async function BlogPreview() {
                 <span className="text-white/40 font-mono text-xs uppercase tracking-widest">
                   {post.publishedAt
                     ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })
                     : ''}
                 </span>
                 {post.category && (
@@ -77,7 +79,7 @@ export default async function BlogPreview() {
                 )}
               </div>
 
-              <h3 className="text-2xl md:text-4xl font-display uppercase tracking-tighter group-hover:text-primary transition-colors duration-500 mb-12">
+              <h3 className="text-2xl font-display uppercase tracking-tighter group-hover:text-primary transition-colors duration-500 mb-12">
                 {post.title}
               </h3>
 

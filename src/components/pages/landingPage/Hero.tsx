@@ -17,6 +17,19 @@ export default function Hero() {
 
   return (
     <section ref={ref} id="hero" className="relative h-screen min-h-[600px] flex flex-col justify-center bg-black overflow-hidden">
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
+        aria-hidden="true"
+      >
+        <source src="/bg-vid.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-black/80 pointer-events-none" aria-hidden="true" />
+
       <motion.div
         style={{ y, opacity, scale }}
         className="container mx-auto px-6 z-10"
@@ -25,7 +38,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 3.0 }}
             className="mb-8 flex items-center gap-4"
           >
             <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
@@ -34,50 +47,56 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          <h1 className="flex flex-col gap-0 mb-10">
-            <div className="overflow-hidden">
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 3.0 }}
+            className="flex flex-col gap-0 mb-10 text-5xl md:text-7xl lg:text-[7rem] font-display uppercase tracking-tighter leading-[0.85]"
+          >
+            <span className="overflow-hidden block">
               <motion.span
                 initial={{ y: "100%", rotate: 2 }}
                 animate={{ y: 0, rotate: 0 }}
-                transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="block text-5xl md:text-7xl lg:text-[7rem] font-display uppercase tracking-tighter leading-[0.85] origin-bottom-left"
+                transition={{ duration: 1.2, delay: 3.1, ease: [0.16, 1, 0.3, 1] }}
+                className="block origin-bottom-left"
               >
                 Design
               </motion.span>
-            </div>
-            <div className="overflow-hidden flex items-center gap-6">
-              <motion.div
+            </span>
+            <span className="overflow-hidden flex items-center gap-6">
+              <motion.span
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="hidden md:block h-[2px] w-16 lg:w-24 bg-white/20 origin-left"
+                transition={{ duration: 1.2, delay: 3.6, ease: [0.16, 1, 0.3, 1] }}
+                className="hidden md:block h-[2px] w-16 lg:w-24 bg-white/20 origin-left shrink-0"
+                aria-hidden="true"
               />
               <motion.span
                 initial={{ y: "100%", rotate: 2 }}
                 animate={{ y: 0, rotate: 0 }}
-                transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="block text-5xl md:text-7xl lg:text-[7rem] font-display uppercase tracking-tighter leading-[0.85] origin-bottom-left text-primary"
+                transition={{ duration: 1.2, delay: 3.2, ease: [0.16, 1, 0.3, 1] }}
+                className="block origin-bottom-left text-primary"
               >
                 The
               </motion.span>
-            </div>
-            <div className="overflow-hidden">
+            </span>
+            <span className="overflow-hidden block">
               <motion.span
                 initial={{ y: "100%", rotate: 2 }}
                 animate={{ y: 0, rotate: 0 }}
-                transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="block text-5xl md:text-7xl lg:text-[7rem] font-display uppercase tracking-tighter leading-[0.85] origin-bottom-left"
+                transition={{ duration: 1.2, delay: 3.3, ease: [0.16, 1, 0.3, 1] }}
+                className="block origin-bottom-left"
               >
                 Future.
               </motion.span>
-            </div>
-          </h1>
+            </span>
+          </motion.h1>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.9 }}
+              transition={{ duration: 1, delay: 3.7 }}
               className="md:col-span-5 md:col-start-8 flex flex-col items-start"
             >
               <p className="text-sm md:text-base text-white/50 font-light mb-6 leading-relaxed">
@@ -104,7 +123,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+        transition={{ delay: 4.3, duration: 1 }}
         className="absolute bottom-8 left-6 flex items-center gap-4"
       >
         <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">Scroll</span>

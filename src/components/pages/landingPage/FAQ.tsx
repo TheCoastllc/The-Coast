@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { Plus, Minus } from 'lucide-react'
+import TextReveal from '@/components/TextReveal'
 
 const faqs = [
   {
@@ -40,17 +41,12 @@ export default function FAQ() {
             <div className="w-12 h-px bg-white/20" />
             <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Questions</span>
           </motion.div>
-          <div className="overflow-hidden pb-4">
-            <motion.h2
-              initial={{ y: "100%", rotate: 2 }}
-              whileInView={{ y: 0, rotate: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter origin-bottom-left"
-            >
-              Common <span className="text-primary">Inquiries</span>
-            </motion.h2>
-          </div>
+          <TextReveal
+            className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
+            highlight={["Inquiries"]}
+          >
+            Common Inquiries
+          </TextReveal>
         </div>
 
         <div className="max-w-4xl mx-auto border-t border-white/10">

@@ -89,23 +89,21 @@ export default function CustomCursor() {
 
     // Delegate hover events for interactive elements
     const interactiveSelector = 'a, button, [role="button"], [data-cursor]'
+    const boundElements = new WeakSet<Element>()
+
+    const bindElement = (el: Element) => {
+      if (boundElements.has(el)) return
+      el.addEventListener('mouseenter', handleElementEnter)
+      el.addEventListener('mouseleave', handleElementLeave)
+      boundElements.add(el)
+    }
 
     const observer = new MutationObserver(() => {
-      document.querySelectorAll(interactiveSelector).forEach((el) => {
-        if (!(el as HTMLElement).dataset.cursorBound) {
-          el.addEventListener('mouseenter', handleElementEnter)
-          el.addEventListener('mouseleave', handleElementLeave)
-          ;(el as HTMLElement).dataset.cursorBound = 'true'
-        }
-      })
+      document.querySelectorAll(interactiveSelector).forEach(bindElement)
     })
 
     // Initial bind
-    document.querySelectorAll(interactiveSelector).forEach((el) => {
-      el.addEventListener('mouseenter', handleElementEnter)
-      el.addEventListener('mouseleave', handleElementLeave)
-      ;(el as HTMLElement).dataset.cursorBound = 'true'
-    })
+    document.querySelectorAll(interactiveSelector).forEach(bindElement)
 
     observer.observe(document.body, { childList: true, subtree: true })
 

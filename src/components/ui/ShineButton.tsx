@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { ButtonHTMLAttributes, useEffect, useRef, useState, type ReactNode } from 'react'
 
 interface SizeConfig {
   padding: string
@@ -37,6 +37,7 @@ interface ShineButtonProps {
   size?: 'sm' | 'md'
   onClick?: () => void
   href?: string
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
   className?: string
 }
 
@@ -45,6 +46,7 @@ export function ShineButton({
   size = 'md',
   onClick,
   href,
+  type,
   className = '',
 }: ShineButtonProps) {
   const rafRef = useRef<number | null>(null)
@@ -131,6 +133,7 @@ export function ShineButton({
           </a>
         ) : (
           <button
+            type={type}
             style={innerStyle}
             onClick={onClick}
             onMouseDown={e => { e.currentTarget.style.transform = 'scale(0.96)' }}

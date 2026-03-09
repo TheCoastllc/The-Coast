@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
+import TextReveal from '@/components/TextReveal'
 
 const clients = [
   'AMG Records', 'Zapped Co', 'OgaTicket', 'Coast Global', 'Brand Builders', 'Empire Studios', 'Vision Labs', 'Nova Creative'
@@ -21,17 +22,12 @@ export default function Clients() {
           <div className="w-12 h-px bg-white/20" />
           <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Partners</span>
         </motion.div>
-        <div className="overflow-hidden pb-4">
-          <motion.h2
-            initial={{ y: "100%", rotate: 2 }}
-            whileInView={{ y: 0, rotate: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter origin-bottom-left"
-          >
-            Trusted <span className="text-primary">By</span>
-          </motion.h2>
-        </div>
+        <TextReveal
+          className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
+          highlight={["By"]}
+        >
+          Trusted By
+        </TextReveal>
       </div>
 
       <div className="relative flex overflow-x-hidden">

@@ -1,6 +1,8 @@
 'use client'
 
 import { motion } from 'motion/react'
+import TextReveal from '@/components/TextReveal'
+import { HeroVideoDialog } from '@/components/ui/hero-video-dialog'
 
 export default function Manifesto() {
   return (
@@ -18,17 +20,24 @@ export default function Manifesto() {
             <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Manifesto</span>
           </motion.div>
 
-          <div className="overflow-hidden pb-4">
-            <motion.p
-              initial={{ y: "100%", rotate: 2 }}
-              whileInView={{ y: 0, rotate: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-xl md:text-2xl lg:text-4xl font-display uppercase leading-[1.1] tracking-tighter text-white/20 origin-bottom-left"
-            >
-              Most small businesses don&apos;t fail because they lack <span className="text-white">talent</span> or <span className="text-white">hustle</span>. They fail because they&apos;re <span className="text-primary">invisible</span>. We changed that.
-            </motion.p>
+          <TextReveal
+            as="p"
+            className="text-xl md:text-2xl lg:text-4xl font-display uppercase leading-[1.1] tracking-tighter text-white/20"
+            highlight={["invisible"]}
+            wordStyles={{ talent: "text-white", hustle: "text-white" }}
+            stagger={0.04}
+          >
+            {"Most small businesses don't fail because they lack talent or hustle. They fail because they're invisible. We changed that."}
+          </TextReveal>
+
+          <div className='h-40'>
+            <HeroVideoDialog
+              videoSrc="/coastVid.mp4"
+              thumbnailSrc="/coastthumbnail.webp"
+              thumbnailAlt='Image showing the coast Tower'
+            />
           </div>
+
         </div>
       </div>
     </section>
