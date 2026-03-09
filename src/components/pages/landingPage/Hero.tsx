@@ -1,183 +1,121 @@
 'use client'
 
-import { motion } from 'motion/react'
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ShineButton } from '@/components/ui/ShineButton'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { ArrowDownRight } from 'lucide-react'
+import { useRef } from 'react'
 
-gsap.registerPlugin(ScrollTrigger)
+export default function Hero() {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  })
 
-const Hero = () => {
-  const sectionRef = useRef<HTMLElement>(null)
-  const orb1Ref = useRef<HTMLDivElement>(null)
-  const orb2Ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!sectionRef.current) return
-
-    const ctx = gsap.context(() => {
-      if (orb1Ref.current) {
-        gsap.to(orb1Ref.current, {
-          y: -120,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        })
-      }
-
-      if (orb2Ref.current) {
-        gsap.to(orb2Ref.current, {
-          y: -80,
-          x: 40,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1.5,
-          },
-        })
-      }
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  const marqueeText = 'Design The Future \u2022 We Turn Visions Into Empires \u2022 Branding That Makes You Unforgettable \u2022 '
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95])
 
   return (
-    <section
-      ref={sectionRef}
-      id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden noise-bg"
-      style={{ backgroundColor: '#0a0a0a' }}
-    >
-      {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: `linear-gradient(rgba(201,162,75,0.3) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(201,162,75,0.3) 1px, transparent 1px)`,
-            backgroundSize: '80px 80px',
-          }}
-        />
-      </div>
-
-      {/* Parallax gold orbs */}
-      <div
-        ref={orb1Ref}
-        className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full blur-[180px]"
-        style={{ background: 'radial-gradient(circle, rgba(201,162,75,0.12) 0%, transparent 70%)' }}
-      />
-      <div
-        ref={orb2Ref}
-        className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full blur-[150px]"
-        style={{ background: 'radial-gradient(circle, rgba(201,162,75,0.08) 0%, transparent 70%)' }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-32 md:pt-40">
-        <div className="flex flex-col items-start">
+    <section ref={ref} id="hero" className="relative h-screen min-h-[600px] flex flex-col justify-center bg-black overflow-hidden">
+      <motion.div
+        style={{ y, opacity, scale }}
+        className="container mx-auto px-6 z-10"
+      >
+        <div className="max-w-7xl mx-auto mt-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 2.4 }}
-            className="flex items-center gap-4 mb-8"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-8 flex items-center gap-4"
           >
-            <div className="w-12 h-px" style={{ backgroundColor: '#C9A24B' }} />
-            <span className="text-mono text-muted-foreground">Brand Design Studio</span>
+            <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">
+              Brand Design Studio
+            </span>
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 2.6 }}
-            className="text-body text-lg md:text-xl mb-6"
-            style={{ color: '#C9A24B' }}
-          >
-            We turn visions into empires.
-          </motion.p>
+          <h1 className="flex flex-col gap-0 mb-10">
+            <div className="overflow-hidden">
+              <motion.span
+                initial={{ y: "100%", rotate: 2 }}
+                animate={{ y: 0, rotate: 0 }}
+                transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="block text-5xl md:text-7xl lg:text-[7rem] font-display uppercase tracking-tighter leading-[0.85] origin-bottom-left"
+              >
+                Design
+              </motion.span>
+            </div>
+            <div className="overflow-hidden flex items-center gap-6">
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="hidden md:block h-[2px] w-16 lg:w-24 bg-white/20 origin-left"
+              />
+              <motion.span
+                initial={{ y: "100%", rotate: 2 }}
+                animate={{ y: 0, rotate: 0 }}
+                transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="block text-5xl md:text-7xl lg:text-[7rem] font-display uppercase tracking-tighter leading-[0.85] origin-bottom-left text-primary"
+              >
+                The
+              </motion.span>
+            </div>
+            <div className="overflow-hidden">
+              <motion.span
+                initial={{ y: "100%", rotate: 2 }}
+                animate={{ y: 0, rotate: 0 }}
+                transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="block text-5xl md:text-7xl lg:text-[7rem] font-display uppercase tracking-tighter leading-[0.85] origin-bottom-left"
+              >
+                Future.
+              </motion.span>
+            </div>
+          </h1>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.8 }}
-            className="text-display text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] xl:text-[12rem] leading-none mb-8"
-          >
-            <span className="block text-foreground">Design</span>
-            <span className="block text-outline">The</span>
-            <span className="block gradient-text">Future</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 3.0 }}
-            className="text-body text-muted-foreground max-w-xl text-lg md:text-xl mb-10"
-          >
-            Strategic brand design for entrepreneurs, artists, and growing businesses.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 3.2 }}
-            className="flex flex-col gap-4 sm:flex-row sm:gap-6"
-          >
-            <ShineButton href="/brand-builder">
-              Build Your Brand
-            </ShineButton>
-            <a
-              href="#portfolio"
-              data-cursor="pointer"
-              onClick={(e) => {
-                e.preventDefault()
-                document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })
-              }}
-              className="inline-flex items-center justify-center px-8 py-4 border text-foreground text-mono font-medium rounded-lg transition-all duration-300 hover:border-[#C9A24B] hover:text-[#C9A24B]"
-              style={{ borderColor: 'rgba(255,255,255,0.15)' }}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.9 }}
+              className="md:col-span-5 md:col-start-8 flex flex-col items-start"
             >
-              View Our Work
-            </a>
-          </motion.div>
+              <p className="text-sm md:text-base text-white/50 font-light mb-6 leading-relaxed">
+                Strategic brand design for entrepreneurs, artists, and growing businesses. We turn visions into empires.
+              </p>
+              <a href="#work" className="group flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white hover:text-primary transition-colors duration-300 hover-target">
+                <span className="relative overflow-hidden pb-1">
+                  Explore Work
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary transform scale-x-0 origin-right group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-out" />
+                </span>
+                <motion.div
+                  className="p-3 border border-white/10 rounded-full group-hover:border-primary transition-colors duration-300"
+                  whileHover={{ rotate: 45 }}
+                >
+                  <ArrowDownRight className="w-4 h-4" />
+                </motion.div>
+              </a>
+            </motion.div>
+          </div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 3.6 }}
-        className="absolute bottom-24 left-6 md:left-12 flex items-center gap-4"
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-8 left-6 flex items-center gap-4"
       >
-        <span className="w-10 h-10 rounded-full border border-[#C9A24B]/30 flex items-center justify-center">
-          <svg className="w-4 h-4 text-[#C9A24B] animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </span>
-        <span className="text-mono text-muted-foreground hidden md:block">Scroll to explore</span>
-      </motion.div>
-
-      {/* Marquee */}
-      <div
-        className="absolute bottom-0 left-0 right-0 py-4 overflow-hidden"
-        style={{ borderTop: '1px solid rgba(201,162,75,0.08)' }}
-      >
-        <div className="animate-marquee whitespace-nowrap flex">
-          <span className="text-mono text-[#C9A24B]/20 text-xs mx-4">
-            {marqueeText.repeat(6)}
-          </span>
-          <span className="text-mono text-[#C9A24B]/20 text-xs mx-4">
-            {marqueeText.repeat(6)}
-          </span>
+        <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">Scroll</span>
+        <div className="w-16 h-[1px] bg-white/10 relative overflow-hidden">
+          <motion.div
+            animate={{ x: ["-100%", "100%"] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            className="absolute top-0 left-0 w-full h-full bg-primary"
+          />
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }
-
-export default Hero

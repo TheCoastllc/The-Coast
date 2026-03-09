@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Instagram, Linkedin } from 'lucide-react'
+import { motion } from 'motion/react'
+import { ArrowUpRight, Instagram, Linkedin } from 'lucide-react'
 
 const XIcon = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -15,107 +16,91 @@ const PinterestIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 )
 
-const footerLinks = [
-  {
-    group: 'Services',
-    items: [
-      { title: 'Brand Strategy', href: '/services#brand-strategy' },
-      { title: 'Digital Design', href: '/services#digital-design' },
-      { title: 'Development', href: '/services#development' },
-      { title: 'Motion & Video', href: '/services#motion-video' },
-    ],
-  },
-  {
-    group: 'Company',
-    items: [
-      { title: 'About', href: '#about' },
-      { title: 'Work', href: '#work' },
-      { title: 'Blog', href: '/blog' },
-      { title: 'Contact', href: '#contact' },
-    ],
-  },
-  {
-    group: 'Legal',
-    items: [
-      { title: 'Privacy Policy', href: '/privacy' },
-      { title: 'Terms of Service', href: '/terms' },
-    ],
-  },
-]
-
-const socialLinks = [
-  { name: 'Instagram', href: 'https://www.instagram.com/coastglobal', icon: Instagram },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/thecoastcompanylimited/', icon: Linkedin },
-  { name: 'X', href: 'https://x.com/TCoast13363', icon: null, customIcon: XIcon },
-  { name: 'Pinterest', href: 'https://pin.it/nW5MRvKEz', icon: null, customIcon: PinterestIcon },
-]
-
 export default function FooterSection() {
   return (
-    <footer style={{ backgroundColor: '#050505' }} className="pt-16 md:pt-24 pb-8">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Top: Logo + Links */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16">
-          {/* Logo + tagline */}
-          <div className="md:col-span-4">
-            <Link href="/" className="block mb-4">
-              <img
-                src="/footerlogodark.png"
-                alt="The Coast"
-                className="h-10 w-auto"
-              />
+    <footer className="bg-black pt-32 pb-12 relative overflow-hidden border-t border-white/5">
+      <div className="container mx-auto px-6 relative z-10">
+        {/* CTA */}
+        <div className="flex flex-col items-center text-center mb-32">
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-3xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter leading-none mb-12"
+          >
+            Let&apos;s <span className="text-primary">Create</span>
+          </motion.h2>
+
+          <motion.a
+            href="/get-started"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="group relative w-40 h-40 rounded-full border border-primary text-primary flex items-center justify-center text-sm font-display uppercase tracking-[0.2em] hover-target overflow-hidden"
+          >
+            <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors duration-300">
+              Start
+              <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+            </span>
+            <div className="absolute inset-0 bg-primary scale-0 group-hover:scale-100 rounded-full transition-transform duration-500 ease-out z-0" />
+          </motion.a>
+        </div>
+
+        {/* Links */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pt-12 border-t border-white/10">
+          <div className="md:col-span-2">
+            <Link href="/">
+              <h3 className="text-2xl font-display uppercase tracking-tight mb-6">The Coast.</h3>
             </Link>
-            <p className="text-body text-muted-foreground text-sm max-w-xs">
-              Strategic brand design for entrepreneurs, artists, and growing businesses.
+            <p className="text-gray-400 max-w-sm font-light text-sm">
+              Strategic brand design for entrepreneurs, artists, and growing businesses. We turn visions into empires.
             </p>
           </div>
 
-          {/* Link groups */}
-          <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8">
-            {footerLinks.map((group) => (
-              <div key={group.group}>
-                <span className="text-mono text-foreground/60 mb-4 block">{group.group}</span>
-                <ul className="space-y-3">
-                  {group.items.map((item) => (
-                    <li key={item.title}>
-                      <Link
-                        href={item.href}
-                        className="text-body text-muted-foreground text-sm hover:text-[#C9A24B] transition-colors duration-200"
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div>
+            <h4 className="text-xs uppercase tracking-[0.2em] text-primary mb-6">Socials</h4>
+            <ul className="space-y-4 text-gray-400 text-sm">
+              {[
+                { name: 'Instagram', href: 'https://www.instagram.com/coastglobal' },
+                { name: 'X (Twitter)', href: 'https://x.com/TCoast13363' },
+                { name: 'LinkedIn', href: 'https://www.linkedin.com/company/thecoastcompanylimited/' },
+                { name: 'Pinterest', href: 'https://pin.it/nW5MRvKEz' },
+              ].map((social) => (
+                <li key={social.name}>
+                  <a href={social.href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors hover-target inline-flex items-center gap-1 group">
+                    {social.name}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-[0.2em] text-primary mb-6">Contact</h4>
+            <ul className="space-y-4 text-gray-400 text-sm">
+              <li>
+                <a href="mailto:hello@coastglobal.org" className="hover:text-white transition-colors hover-target">
+                  hello@coastglobal.org
+                </a>
+              </li>
+              <li>
+                <a href="tel:+16827020374" className="hover:text-white transition-colors hover-target">
+                  +1 (682) 702-0374
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-white/6 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-muted-foreground text-sm text-body">
-            &copy; {new Date().getFullYear()} The Coast. All rights reserved.
-          </p>
-
-          {/* Social icons */}
-          <div className="flex items-center gap-5">
-            {socialLinks.map((link) => {
-              const Icon = link.icon
-              const CustomIcon = (link as { customIcon?: typeof XIcon }).customIcon
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-[#C9A24B] transition-colors duration-200"
-                  aria-label={link.name}
-                >
-                  {CustomIcon ? <CustomIcon size={18} /> : Icon ? <Icon size={18} /> : null}
-                </a>
-              )
-            })}
+        {/* Bottom */}
+        <div className="mt-24 flex flex-col md:flex-row items-center justify-between text-xs text-gray-600 uppercase tracking-[0.2em]">
+          <p>&copy; {new Date().getFullYear()} The Coast. All rights reserved.</p>
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <Link href="/privacy" className="hover:text-primary transition-colors hover-target">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-primary transition-colors hover-target">Terms of Service</Link>
           </div>
         </div>
       </div>

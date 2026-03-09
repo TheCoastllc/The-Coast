@@ -81,6 +81,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-bg: #000000;
 
   --color-gold: hsl(var(--gold));
   --color-gold-dark: hsl(var(--gold-dark));
@@ -92,45 +93,115 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
+  --font-display: var(--font-syncopate);
+  --font-sans: var(--font-inter, "Inter"), system-ui, sans-serif;
+
   @keyframes accordion-down {
-    from { height: 0 }
-    to { height: var(--radix-accordion-content-height) }
+    from {
+      height: 0
+    }
+
+    to {
+      height: var(--radix-accordion-content-height)
+    }
   }
+
   @keyframes accordion-up {
-    from { height: var(--radix-accordion-content-height) }
-    to { height: 0 }
+    from {
+      height: var(--radix-accordion-content-height)
+    }
+
+    to {
+      height: 0
+    }
   }
+
   @keyframes fade-up {
-    0% { opacity: 0; transform: translateY(40px) }
-    100% { opacity: 1; transform: translateY(0) }
+    0% {
+      opacity: 0;
+      transform: translateY(40px)
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0)
+    }
   }
+
   @keyframes fade-in {
-    0% { opacity: 0 }
-    100% { opacity: 1 }
+    0% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 1
+    }
   }
+
   @keyframes scale-in {
-    0% { opacity: 0; transform: scale(0.95) }
-    100% { opacity: 1; transform: scale(1) }
+    0% {
+      opacity: 0;
+      transform: scale(0.95)
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1)
+    }
   }
+
   @keyframes slide-left {
-    0% { transform: translateX(100px); opacity: 0 }
-    100% { transform: translateX(0); opacity: 1 }
+    0% {
+      transform: translateX(100px);
+      opacity: 0
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1
+    }
   }
+
   @keyframes marquee {
-    0% { transform: translateX(0) }
-    100% { transform: translateX(-50%) }
+    0% {
+      transform: translateX(0)
+    }
+
+    100% {
+      transform: translateX(-50%)
+    }
   }
+
   @keyframes reveal-up {
-    0% { clip-path: inset(100% 0 0 0) }
-    100% { clip-path: inset(0 0 0 0) }
+    0% {
+      clip-path: inset(100% 0 0 0)
+    }
+
+    100% {
+      clip-path: inset(0 0 0 0)
+    }
   }
+
   @keyframes text-reveal {
-    0% { clip-path: inset(0 100% 0 0) }
-    100% { clip-path: inset(0 0 0 0) }
+    0% {
+      clip-path: inset(0 100% 0 0)
+    }
+
+    100% {
+      clip-path: inset(0 0 0 0)
+    }
   }
+
   @keyframes gold-pulse {
-    0%, 100% { opacity: 0.4 }
-    50% { opacity: 0.8 }
+
+    0%,
+    100% {
+      opacity: 0.4
+    }
+
+    50% {
+      opacity: 0.8
+    }
   }
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
@@ -144,7 +215,6 @@
   --animate-text-reveal: text-reveal 0.6s ease-out forwards;
   --animate-gold-pulse: gold-pulse 3s ease-in-out infinite;
 
-  --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -172,7 +242,7 @@
 
   body {
     @apply antialiased bg-background text-foreground;
-    font-family: var(--font-space, 'Space Grotesk'), system-ui, sans-serif;
+    font-family: var(--font-inter, 'Inter'), system-ui, sans-serif;
     scrollbar-width: none;
     -ms-overflow-style: none;
     cursor: none;
@@ -185,11 +255,30 @@
   html {
     scroll-behavior: smooth;
     @apply font-sans;
-    background: oklch(0.07 0 0);
+    background: #000000;
+    cursor: none;
   }
 
   html::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C9A24B;
   }
 
   ::selection {
@@ -197,7 +286,12 @@
     color: hsl(var(--white));
   }
 
-  a, button, [role="button"], input, textarea, select {
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select {
     cursor: none;
   }
 }
@@ -205,30 +299,34 @@
 /* ─── Typography Utilities ─── */
 @layer utilities {
   .text-display {
-    font-family: var(--font-bebas, 'Bebas Neue'), sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    line-height: 0.9;
+    font-family: var(--font-syncopate, 'Syncopate'), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
     text-transform: uppercase;
   }
 
   .text-heading {
-    font-family: var(--font-bebas, 'Bebas Neue'), sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.01em;
+    font-family: var(--font-syncopate, 'Syncopate'), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
     line-height: 1;
     text-transform: uppercase;
   }
 
+  .font-display {
+    font-family: var(--font-syncopate, 'Syncopate'), sans-serif;
+  }
+
   .text-body {
-    font-family: var(--font-space, 'Space Grotesk'), system-ui, sans-serif;
-    font-weight: 400;
+    font-family: var(--font-inter, 'Inter'), system-ui, sans-serif;
+    font-weight: 300;
     letter-spacing: 0;
     line-height: 1.7;
   }
 
   .text-mono {
-    font-family: var(--font-space, 'Space Grotesk'), monospace;
+    font-family: var(--font-inter, 'Inter'), monospace;
     font-weight: 500;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -319,16 +417,19 @@
   display: none;
 }
 
-.horizontal-scroll > * {
+.horizontal-scroll>* {
   scroll-snap-align: start;
   flex-shrink: 0;
 }
 
 /* ─── Keyframes ─── */
 @keyframes gold-shimmer {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -384,7 +485,21 @@
 
 /* ─── Custom Cursor Visibility ─── */
 @media (max-width: 767px) {
-  body, a, button, [role="button"], input, textarea, select {
+
+  body,
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select {
+    cursor: auto;
+  }
+}
+
+/* ─── Hide cursor on touch devices ─── */
+@media (pointer: coarse) {
+  html {
     cursor: auto;
   }
 }
@@ -402,12 +517,10 @@
   position: absolute;
   inset: 0;
   padding: 1px;
-  background: radial-gradient(
-    300px circle at var(--glow-x) var(--glow-y),
-    rgba(201, 162, 75, calc(var(--glow-intensity) * 0.6)) 0%,
-    rgba(201, 162, 75, calc(var(--glow-intensity) * 0.2)) 40%,
-    transparent 70%
-  );
+  background: radial-gradient(300px circle at var(--glow-x) var(--glow-y),
+      rgba(201, 162, 75, calc(var(--glow-intensity) * 0.6)) 0%,
+      rgba(201, 162, 75, calc(var(--glow-intensity) * 0.2)) 40%,
+      transparent 70%);
   border-radius: inherit;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

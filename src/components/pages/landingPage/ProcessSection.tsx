@@ -1,117 +1,122 @@
 'use client'
 
-import { motion } from 'motion/react'
-import { Lightbulb, Palette, Code, Rocket } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { useRef } from 'react'
 
 const steps = [
   {
-    number: '01',
+    num: '01',
     title: 'Discover',
-    subtitle: 'Understanding Your Vision',
-    description:
-      "We dive deep into your brand's DNA: story, audience, competitors, and aspirations.",
-    icon: Lightbulb,
+    desc: "We dive deep into your brand's DNA: story, audience, competitors, and aspirations. Understanding your vision is where empires begin.",
   },
   {
-    number: '02',
+    num: '02',
     title: 'Design',
-    subtitle: 'Crafting Your Identity',
-    description:
-      'From mood boards to final concepts, every color and typeface chosen with purpose.',
-    icon: Palette,
+    desc: 'From mood boards to final concepts — every color, typeface, and element chosen with purpose. Crafting your identity with precision.',
   },
   {
-    number: '03',
+    num: '03',
     title: 'Develop',
-    subtitle: 'Building Your Presence',
-    description:
-      'Designs become real-world assets: websites, social templates, print materials.',
-    icon: Code,
+    desc: 'Designs become real-world assets: websites, social templates, print materials. Pixel-perfect and built for impact.',
   },
   {
-    number: '04',
+    num: '04',
     title: 'Launch',
-    subtitle: 'Releasing Your Empire',
-    description:
-      'Your brand goes live. Pixel-perfect, with guidelines for sustained growth.',
-    icon: Rocket,
+    desc: 'Your brand goes live. Pixel-perfect, with guidelines for sustained growth. Your empire, released into the world.',
   },
 ]
 
-const ProcessSection = () => {
+export default function ProcessSection() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  })
+
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
+
   return (
-    <section
-      className="py-20 md:py-32 lg:py-48 relative overflow-hidden"
-      style={{ backgroundColor: '#050505' }}
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-16 md:mb-20"
-        >
-          <h2 className="text-heading text-3xl md:text-5xl lg:text-6xl text-foreground mb-4">
-            How We Build Empires
-          </h2>
-          <div className="w-16 h-px" style={{ backgroundColor: '#C9A24B' }} />
-        </motion.div>
+    <section className="py-32 bg-black border-t border-white/5" ref={containerRef}>
+      <div className="container mx-auto px-6">
+        <div className="mb-24">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-8"
+          >
+            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">04</span>
+            <div className="w-12 h-px bg-white/20" />
+            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Methodology</span>
+          </motion.div>
+          <div className="overflow-hidden pb-4">
+            <motion.h2
+              initial={{ y: "100%", rotate: 2 }}
+              whileInView={{ y: 0, rotate: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter origin-bottom-left"
+            >
+              How We Build <span className="text-primary">Empires</span>
+            </motion.h2>
+          </div>
+        </div>
 
-        {/* Horizontal steps on desktop, vertical on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 relative">
-          {/* Connecting line — desktop only */}
-          <div
-            className="hidden md:block absolute top-[28px] left-[calc(12.5%+14px)] right-[calc(12.5%+14px)] h-px"
-            style={{ backgroundColor: 'rgba(201,162,75,0.2)' }}
-          />
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical Line */}
+          <div className="absolute left-[23px] md:left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2">
+            <motion.div
+              style={{ height: lineHeight }}
+              className="w-full bg-primary origin-top"
+            />
+          </div>
 
-          {steps.map((step, i) => {
-            const Icon = step.icon
-            return (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.12 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                {/* Step number circle */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className="w-14 h-14 rounded-full border flex items-center justify-center shrink-0"
-                    style={{
-                      borderColor: '#C9A24B',
-                      backgroundColor: 'rgba(201,162,75,0.05)',
-                    }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: '#C9A24B' }} />
+          <div className="flex flex-col gap-24">
+            {steps.map((step, index) => {
+              const isEven = index % 2 === 0
+              return (
+                <div key={index} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} gap-8 md:gap-16`}>
+
+                  {/* Timeline Node */}
+                  <div className="absolute left-[23px] md:left-1/2 top-0 -translate-x-1/2 w-3 h-3 bg-black border border-white/20 rounded-full z-10 flex items-center justify-center">
+                    <motion.div
+                      className="w-1.5 h-1.5 bg-primary rounded-full"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true, margin: "-200px" }}
+                      transition={{ duration: 0.4, delay: 0.2 }}
+                    />
                   </div>
-                  <span className="text-mono text-[#C9A24B]/50 text-xs md:hidden">
-                    Step {step.number}
-                  </span>
-                </div>
 
-                <span className="hidden md:block text-mono text-[#C9A24B]/50 text-xs mb-2">
-                  Step {step.number}
-                </span>
-                <h3 className="text-heading text-2xl md:text-3xl text-foreground mb-1">
-                  {step.title}
-                </h3>
-                <p className="text-body text-[#C9A24B] text-sm font-medium mb-2">
-                  {step.subtitle}
-                </p>
-                <p className="text-body text-muted-foreground text-sm leading-relaxed">
-                  {step.description}
-                </p>
-              </motion.div>
-            )
-          })}
+                  {/* Empty space for alternating layout on desktop */}
+                  <div className="hidden md:block md:w-1/2" />
+
+                  {/* Content Card */}
+                  <motion.div
+                    initial={{ opacity: 0, x: isEven ? 50 : -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="md:w-1/2 pl-16 md:pl-0 group hover-target"
+                  >
+                    <div className="p-8 bg-black border border-white/5 hover:border-white/20 transition-colors duration-500">
+                      <div className="text-primary/50 font-mono text-sm mb-6 group-hover:text-primary transition-colors duration-500">
+                        {step.num}
+                      </div>
+                      <h3 className="text-2xl font-display uppercase tracking-tight mb-4 text-white/80 group-hover:text-white transition-colors duration-500">
+                        {step.title}
+                      </h3>
+                      <p className="text-white/40 text-sm font-light leading-relaxed group-hover:text-white/60 transition-colors duration-500">
+                        {step.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>
   )
 }
-
-export default ProcessSection

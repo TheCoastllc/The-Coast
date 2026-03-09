@@ -1,22 +1,23 @@
 import React from 'react'
 import './styles.css'
-import { Bebas_Neue, Space_Grotesk } from 'next/font/google'
+import { Syncopate, Inter } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
 import CustomCursor from '@/components/CustomCursor'
 import SmoothScrolling from '@/components/SmoothScrolling'
+import Noise from '@/components/Noise'
 
-const bebasNeue = Bebas_Neue({
+const syncopate = Syncopate({
   subsets: ['latin'],
-  weight: '400',
-  variable: '--font-bebas',
+  weight: ['400', '700'],
+  variable: '--font-syncopate',
   display: 'swap',
 })
 
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-space',
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -29,10 +30,11 @@ export const metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${bebasNeue.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`dark ${syncopate.className} ${inter.variable}`}>
       <body suppressHydrationWarning>
         <Preloader />
         <CustomCursor />
+        <Noise />
         <QueryProvider>
           <SmoothScrolling>
             {children}
