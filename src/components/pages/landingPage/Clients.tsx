@@ -43,7 +43,7 @@ export default function Clients() {
           {[...clients, ...clients].map((client, index) => (
             <div
               key={index}
-              className="mx-12 text-2xl md:text-3xl font-display uppercase tracking-tighter text-white/10 hover:text-white/40 transition-colors duration-500 cursor-default"
+              className="mx-12  text-2xl md:text-3xl font-display uppercase tracking-tighter text-white/10 hover:text-white/40 transition-colors duration-500 cursor-default"
             >
               {client}
             </div>

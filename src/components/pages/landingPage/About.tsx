@@ -50,7 +50,7 @@ export default function About() {
             <span className="text-white/40 text-xs tracking-[0.3em] uppercase">About Us</span>
           </motion.div>
           <TextReveal
-            className="text-3xl md:text-4xl lg:text-5xl font-display uppercase tracking-tighter max-w-4xl leading-none"
+            className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-display uppercase tracking-tighter max-w-4xl leading-none"
             highlight={["designers", "strategists", "creatives"]}
             stagger={0.04}
           >

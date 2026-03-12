@@ -8,6 +8,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { ShineButton } from "./ui/ShineButton";
 import { HyperspaceBackground } from "./ui/hyperspace-background";
+import { LiveIndicator } from "./LiveIndicator";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const PRELOADER_DELAY = 2.5;
@@ -31,7 +32,7 @@ export function HeroSection() {
 
 	return (
 		<section>
-			<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-24 lg:py-28">
+			<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-20">
 				<HyperspaceBackground />
 
 				{/* Decorative Background Elements */}
@@ -54,22 +55,38 @@ export function HeroSection() {
 						transition={{ duration: 0.8, delay: d(0) }}
 						className="group mx-auto flex w-fit items-center gap-3 rounded-sm border bg-card p-1 shadow transition-all"
 					>
-						<span className="text-xs pl-1">Brand Design Studio</span>
+						<LiveIndicator />
+						<span className="text-xs pl-1">Brand Builders</span>
 						<span className="block h-5 border-l" />
 						<div className="pr-1">
 							<ArrowRightIcon className="size-3 -translate-x-0.5 duration-150 ease-out group-hover:translate-x-0.5" />
 						</div>
 					</motion.a>
 
-					{/* Headline - SSR Friendly */}
-					<h1 className="max-w-2xl text-balance text-center text-3xl text-foreground md:text-5xl lg:text-7xl uppercase">
+					{/* Headline - Giant Typography Style */}
+					<h1 className="relative z-10 text-center font-bold leading-[0.85] tracking-tighter uppercase 
+    text-5xl sm:text-7xl md:text-8xl lg:text-[7rem]">
+
 						{["Design", "The", "Future."].map((word, i) => (
-							<span key={word} className="overflow-hidden block">
+							<span key={word} className="block overflow-hidden">
 								<motion.span
-									initial={isFirstLoad ? { y: "100%", rotate: 2 } : false}
-									animate={{ y: 0, rotate: 0 }}
+									initial={isFirstLoad ? { y: "100%" } : false}
+									animate={{ y: 0 }}
 									transition={{ duration: 1.2, delay: d(i + 1), ease: EASE }}
-									className={cn("block origin-bottom-left", word === "The" && "text-primary")}
+									className={cn(
+										"block origin-bottom-left",
+										// Use opacity-80 or similar if you want a ghost look, 
+										// but keeping it transparent + stroke for the "outline" style
+										word === "The" ? "text-transparent" : "text-foreground"
+									)}
+									style={
+										word === "The"
+											? {
+												WebkitTextStroke: "2px #C9A24B",
+												stroke: "#C9A24B" // SVG fallback/standard
+											}
+											: {}
+									}
 								>
 									{word}
 								</motion.span>
@@ -130,3 +147,4 @@ export function HeroSection() {
 		</section>
 	);
 }
+

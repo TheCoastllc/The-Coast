@@ -15,7 +15,7 @@ export function SectionBoundary() {
 
 export function BlueprintLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="relative">
+		<div className="relative ">
 			{/* Persistent vertical guide lines — spans entire page */}
 			<div
 				aria-hidden="true"

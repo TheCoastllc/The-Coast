@@ -31,7 +31,9 @@ export default function HomePage() {
       <SectionBoundary />
       <Portfolio />
       <SectionBoundary />
-      <Clients />
+      <div className='w-full overflow-x-hidden'>
+        <Clients />
+      </div>
       <SectionBoundary />
       <FAQ />
       <SectionBoundary />
