@@ -255,7 +255,7 @@ const Hero = () => {
             <span className="block text-outline">The</span>
             <span className="flex items-end gap-2 md:gap-8 flex-wrap">
               <span>Future</span>
-              <span className="scale-[0.5] sm:scale-[0.6] md:scale-100 origin-bottom-left -mb-1 md:mb-0" style={{ marginRight: '-20px' }}>
+              <span className="scale-[0.5] hidden md:inline-block sm:scale-[0.6] md:scale-100 origin-bottom-left -mb-1 md:mb-0" style={{ marginRight: '-20px' }}>
                 <SciFiDashboardClock />
               </span>
             </span>
