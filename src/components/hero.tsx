@@ -9,6 +9,8 @@ import { useState } from "react";
 import { ShineButton } from "./ui/ShineButton";
 import { HyperspaceBackground } from "./ui/hyperspace-background";
 import { LiveIndicator } from "./LiveIndicator";
+import FaultyTerminal from "./FaultyTerminal";
+import FuzzyText from "./FuzzyText";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const PRELOADER_DELAY = 2.5;
@@ -32,8 +34,27 @@ export function HeroSection() {
 
 	return (
 		<section>
-			<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-20">
-				<HyperspaceBackground />
+			<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-20 ">
+				{/* <HyperspaceBackground /> */}
+				<FaultyTerminal
+					scale={1.5}
+					gridMul={[2, 1]}
+					digitSize={1.2}
+					timeScale={0.5}
+					pause={false}
+					scanlineIntensity={0.5}
+					glitchAmount={1}
+					flickerAmount={1}
+					noiseAmp={1}
+					chromaticAberration={0}
+					dither={0}
+					curvature={0.1}
+					tint="#e09410"
+					mouseReact
+					mouseStrength={0.5}
+					pageLoadAnimation
+					brightness={0.6}
+				/>
 
 				{/* Decorative Background Elements */}
 				<div aria-hidden="true" className="absolute inset-0 -z-1 size-full overflow-hidden">
@@ -46,7 +67,7 @@ export function HeroSection() {
 					<div className="absolute inset-y-0 right-4 w-px bg-linear-to-b from-transparent via-border to-border md:right-8" />
 				</div>
 
-				<div className="relative z-10 flex flex-col items-center gap-5 w-full">
+				<div className="relative z-100 flex flex-col items-center justify-center min-h-[75dvh] gap-5 w-full">
 					{/* Badge */}
 					<motion.a
 						href="#link"
@@ -77,18 +98,20 @@ export function HeroSection() {
 										"block origin-bottom-left",
 										// Use opacity-80 or similar if you want a ghost look, 
 										// but keeping it transparent + stroke for the "outline" style
-										word === "The" ? "text-transparent" : "text-foreground"
 									)}
-									style={
-										word === "The"
-											? {
-												WebkitTextStroke: "2px #C9A24B",
-												stroke: "#C9A24B" // SVG fallback/standard
-											}
-											: {}
-									}
 								>
-									{word}
+									{word === "Future." ? (
+										<FuzzyText
+											baseIntensity={0.2}
+											hoverIntensity={0.5}
+											enableHover
+											fontSize="clamp(3rem, 8vw, 7rem)"
+											fontWeight={700}
+											color="#c9a24b"
+										>
+											FUTURE.
+										</FuzzyText>
+									) : word}
 								</motion.span>
 							</span>
 						))}
