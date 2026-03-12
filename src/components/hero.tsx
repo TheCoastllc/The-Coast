@@ -50,7 +50,7 @@ export function HeroSection() {
 						<div className="absolute inset-y-0 right-4 w-px bg-linear-to-b from-transparent via-border to-border md:right-8" />
 					</div>
 
-					<div className="relative z-100 flex flex-col items-center justify-center min-h-[75dvh] gap-5 w-full">
+					<div className="relative z-100 flex flex-col items-center justify-center min-h-[90dvh] md:min-h-[75dvh] gap-5 w-full">
 						{/* Badge */}
 						<HeroAnimatedBadge step={0}>
 							<LiveIndicator />
