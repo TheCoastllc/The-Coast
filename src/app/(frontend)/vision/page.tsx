@@ -6,6 +6,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Building2, Sparkles } from 'luci
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
+import TextReveal from '@/components/TextReveal'
 
 const conceptImages = [
   {
@@ -55,7 +56,7 @@ export default function VisionPage() {
               {conceptImages.map((image) => (
                 <div key={image.id} className="flex-[0_0_100%] min-w-0 relative">
                   <div className="aspect-[16/9] md:aspect-[21/9] relative bg-muted">
-                    <img src={image.src} alt={image.alt} loading="lazy" className="w-full h-full object-contain" onError={(e) => { ;(e.target as HTMLImageElement).src = '/placeholder.svg' }} />
+                    <img src={image.src} alt={image.alt} loading="lazy" className="w-full h-full object-contain" onError={(e) => { ; (e.target as HTMLImageElement).src = '/placeholder.svg' }} />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                     <div className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-full">
                       <span className="text-xs text-muted-foreground font-medium">Conceptual Rendering – Not Actual Building</span>
@@ -85,7 +86,7 @@ export default function VisionPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-center mb-12">
             <span className="text-mono text-primary mb-4 block">VISION 2026</span>
-            <h1 className="text-display text-3xl md:text-5xl lg:text-6xl mb-6">Our Vision for The Coast HQ</h1>
+            <TextReveal as="h1" className="text-display text-3xl md:text-5xl lg:text-6xl mb-6">Our Vision for The Coast HQ</TextReveal>
             <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto">
               These conceptual renderings showcase a futuristic waterfront headquarters, blending innovation with coastal serenity. <strong className="text-foreground">Not actual buildings</strong>—pure inspiration for turning visions into empires.
             </p>
@@ -96,7 +97,7 @@ export default function VisionPage() {
               <motion.div key={image.id} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: index * 0.1 }} viewport={{ once: true }} className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}>
                 <div className="flex-1 w-full">
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img src={image.src} alt={image.alt} loading="lazy" className="w-full h-auto" onError={(e) => { ;(e.target as HTMLImageElement).src = '/placeholder.svg' }} />
+                    <img src={image.src} alt={image.alt} loading="lazy" className="w-full h-auto" onError={(e) => { ; (e.target as HTMLImageElement).src = '/placeholder.svg' }} />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 to-transparent p-4">
                       <span className="text-xs text-muted-foreground">Conceptual rendering – imagining the future</span>
                     </div>

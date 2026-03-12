@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
+import TextReveal from '@/components/TextReveal'
 
 const EVENT_TYPES = [
   'Corporate Event', 'Product Launch', 'Concert / Show', 'Wedding',
@@ -89,7 +90,7 @@ export default function ExperienceIntakePage() {
           <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
             <Sparkles className="w-10 h-10 text-primary" />
           </div>
-          <h1 className="text-heading text-4xl md:text-5xl mb-4">Request Received!</h1>
+          <TextReveal as="h1" className="text-heading text-4xl md:text-5xl mb-4">Request Received!</TextReveal>
           <p className="text-body text-muted-foreground text-lg max-w-md mb-8">
             We&apos;ll review your event brief and reach out within 24 hours with next steps.
           </p>
@@ -123,7 +124,7 @@ export default function ExperienceIntakePage() {
           <AnimatePresence mode="wait">
             {step === 0 && (
               <motion.div key="s0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
-                <h1 className="text-heading text-3xl md:text-4xl text-foreground mb-2">Experience Intake</h1>
+                <TextReveal as="h1" className="text-heading text-3xl md:text-4xl text-foreground mb-2">Experience Intake</TextReveal>
                 <p className="text-body text-muted-foreground mb-8">Tell us about your event and how we can make it unforgettable.</p>
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">

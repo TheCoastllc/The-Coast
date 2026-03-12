@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Clock, ArrowRight } from 'lucide-react'
 import BlogSearchClient from './BlogSearchClient'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
+import TextReveal from '@/components/TextReveal'
 
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -79,7 +80,7 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
     <BlueprintLayout>
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
-          <h1 className="text-heading text-4xl md:text-6xl text-foreground mb-4">The Journal</h1>
+          <TextReveal as="h1" className="text-heading text-4xl md:text-6xl text-foreground mb-4">The Journal</TextReveal>
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10">
             Insights on brand design, visual identity, and creative strategy.
           </p>
@@ -162,11 +163,10 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
                   <Link
                     key={i}
                     href={`/blog?${params.toString()}`}
-                    className={`w-10 h-10 rounded-full text-sm font-medium transition-colors flex items-center justify-center ${
-                      currentPage === i + 1
+                    className={`w-10 h-10 rounded-full text-sm font-medium transition-colors flex items-center justify-center ${currentPage === i + 1
                         ? 'bg-foreground text-background'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
+                      }`}
                   >
                     {i + 1}
                   </Link>

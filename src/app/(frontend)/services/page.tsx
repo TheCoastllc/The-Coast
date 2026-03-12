@@ -4,6 +4,7 @@ import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
+import TextReveal from '@/components/TextReveal'
 
 const designServices = [
   { number: '01', title: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds' },
@@ -33,7 +34,7 @@ export default function ServicesPage() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-mono text-muted-foreground/50 block mb-3 md:mb-4">Services</span>
-            <h1 className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">What We Create</h1>
+            <TextReveal as="h1" className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">What We Create</TextReveal>
             <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
               From identity design to complete brand transformations—everything you need to stand out.
             </p>

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, ArrowLeft, Check } from 'lucide-react'
 import { BlueprintLayout } from '@/components/blueprint-layout'
+import TextReveal from '@/components/TextReveal'
 
 const industries = [
   'Healthcare', 'E-commerce', 'Tech/SaaS', 'Food & Beverage', 'Fashion',
@@ -73,8 +74,8 @@ export default function GetStartedPage() {
 
   const canContinue =
     step === 1 ? name.trim() && businessName.trim() && email.trim() && industry :
-    step === 2 ? selectedServices.size > 0 :
-    !!budget
+      step === 2 ? selectedServices.size > 0 :
+        !!budget
 
   return (
     <BlueprintLayout>
@@ -84,11 +85,10 @@ export default function GetStartedPage() {
             {steps.map((s, i) => (
               <div key={s.number} className="flex items-center gap-3">
                 <div className={`flex items-center gap-2 ${step >= s.number ? 'text-foreground' : 'text-muted-foreground'}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
-                    step > s.number ? 'bg-primary text-primary-foreground' :
-                    step === s.number ? 'bg-primary/20 text-primary border border-primary/50' :
-                    'bg-muted text-muted-foreground'
-                  }`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${step > s.number ? 'bg-primary text-primary-foreground' :
+                      step === s.number ? 'bg-primary/20 text-primary border border-primary/50' :
+                        'bg-muted text-muted-foreground'
+                    }`}>
                     {step > s.number ? <Check className="h-4 w-4" /> : s.number}
                   </div>
                   <span className="text-sm hidden sm:block">{s.label}</span>
@@ -102,7 +102,7 @@ export default function GetStartedPage() {
             {step === 1 && (
               <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                 <span className="text-mono text-muted-foreground/50 block mb-2">Step 1 of 3</span>
-                <h1 className="text-heading text-3xl md:text-4xl text-foreground mb-2">Tell us about yourself</h1>
+                <TextReveal as="h1" className="text-heading text-3xl md:text-4xl text-foreground mb-2">Tell us about yourself</TextReveal>
                 <p className="text-body text-muted-foreground mb-8">We&apos;d love to learn about you and your business.</p>
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
 import { BlueprintLayout } from '@/components/blueprint-layout'
+import TextReveal from '@/components/TextReveal'
 
 const STORAGE_KEY = 'intake_form_progress'
 
@@ -52,13 +53,13 @@ export default function IntakePage() {
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved) { try { setForm({ ...initial, ...JSON.parse(saved) }) } catch {} }
+    if (saved) { try { setForm({ ...initial, ...JSON.parse(saved) }) } catch { } }
     const prefill = localStorage.getItem('inquiry_prefill')
     if (prefill) {
       try {
         const data = JSON.parse(prefill)
         setForm((prev) => ({ ...prev, fullName: data.name || prev.fullName, businessName: data.businessName || prev.businessName, email: data.email || prev.email, phone: data.phone || prev.phone, servicesInterested: data.services || prev.servicesInterested, budget: data.budget || prev.budget }))
-      } catch {}
+      } catch { }
     }
   }, [])
 
@@ -89,7 +90,7 @@ export default function IntakePage() {
       <BlueprintLayout>
         <div className="flex flex-col items-center justify-center min-h-[80vh] px-6 text-center">
           <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6"><Sparkles className="w-10 h-10 text-primary" /></div>
-          <h1 className="text-heading text-4xl md:text-5xl mb-4">We&apos;re On It!</h1>
+          <TextReveal as="h1" className="text-heading text-4xl md:text-5xl mb-4">We&apos;re On It!</TextReveal>
           <p className="text-body text-muted-foreground text-lg max-w-md mb-8">Your intake form has been submitted. Expect a personalized response within 24 hours.</p>
           <button onClick={() => router.push('/')} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full text-mono text-sm hover:bg-primary/90 transition-colors">Back to Home <ArrowRight className="w-4 h-4" /></button>
         </div>
@@ -116,7 +117,7 @@ export default function IntakePage() {
           <AnimatePresence mode="wait">
             {step === 0 && (
               <motion.div key="s0" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
-                <h1 className="text-heading text-3xl md:text-4xl text-foreground mb-2">About You</h1>
+                <TextReveal as="h1" className="text-heading text-3xl md:text-4xl text-foreground mb-2">About You</TextReveal>
                 <p className="text-body text-muted-foreground mb-8">Let&apos;s start with the basics.</p>
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">

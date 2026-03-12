@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import PricingSection from '@/components/pricing'
+import TextReveal from '@/components/TextReveal'
 
 export default function PricingPage() {
   const router = useRouter()
@@ -16,7 +17,7 @@ export default function PricingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <span className="text-mono text-muted-foreground/50 block mb-3">Pricing</span>
-            <h1 className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">Invest in Your Brand</h1>
+            <TextReveal as="h1" className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">Invest in Your Brand</TextReveal>
             <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
               Monthly retainer packages designed to keep your brand sharp, consistent, and always evolving.
             </p>
