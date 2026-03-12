@@ -221,7 +221,7 @@ const Hero = () => {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-24 md:pt-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full pt-20 md:pt-32">
         <div className="flex flex-col items-start">
           {/* Tagline with line */}
           <motion.div
@@ -249,13 +249,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-display text-4xl sm:text-6xl md:text-7xl lg:text-[10rem] xl:text-[12rem] leading-none mb-6 md:mb-8"
+            className="text-display text-5xl sm:text-6xl md:text-7xl lg:text-[10rem] xl:text-[12rem] leading-[0.9] mb-6 md:mb-8"
           >
             <span className="block">Design</span>
             <span className="block text-outline">The</span>
-            <span className="flex items-end gap-2 md:gap-8">
+            <span className="flex items-end gap-2 md:gap-8 flex-wrap">
               <span>Future</span>
-              <span className="scale-[0.45] origin-bottom-left md:scale-100 -mb-1 md:mb-0" style={{ marginRight: '-50px' }}>
+              <span className="scale-[0.5] sm:scale-[0.6] md:scale-100 origin-bottom-left -mb-1 md:mb-0" style={{ marginRight: '-20px' }}>
                 <SciFiDashboardClock />
               </span>
             </span>
