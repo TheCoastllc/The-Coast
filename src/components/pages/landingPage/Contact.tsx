@@ -7,8 +7,8 @@ import { ShineButton } from '@/components/ui/ShineButton'
 
 export default function Contact() {
   return (
-    <section className="py-32 bg-black border-t border-white/5" id="contact">
-      <div className="container mx-auto px-6">
+    <section className="py-32 bg-black" id="contact">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="mb-20">
           <motion.div
             initial={{ opacity: 0 }}
@@ -69,7 +69,7 @@ export default function Contact() {
               <label className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Message</label>
               <textarea className="bg-transparent border-b border-white/10 pb-4 text-white focus:outline-none focus:border-primary transition-colors resize-none h-24 rounded-none" placeholder="Tell us about your project..."></textarea>
             </div>
-            <ShineButton size='md' type="submit">
+            <ShineButton full size='md' type="submit">
               Send Message
             </ShineButton>
           </motion.form>

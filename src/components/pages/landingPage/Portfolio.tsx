@@ -104,8 +104,8 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
 
 export default function Portfolio() {
   return (
-    <section className="py-32 bg-black border-t border-white/5 relative" id="work">
-      <div className="container mx-auto px-6">
+    <section className="py-32 bg-black relative px-4" id="work">
+      <div className="max-w-6xl mx-auto px-2 sm:px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -41,7 +41,7 @@ export default function TextReveal({
         <motion.span
           initial={{ y: '100%', rotate: 2 }}
           whileInView={{ y: 0, rotate: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: false, margin: '-100px' }}
           transition={{ duration: 1.2, delay: delay + i * stagger, ease }}
           className={`inline-block origin-bottom-left ${getWordClassName(word)}`}
         >

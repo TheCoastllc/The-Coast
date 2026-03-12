@@ -1,107 +1,164 @@
-'use client'
+import { cn } from "@/lib/utils";
+import { Logo } from "@/components/logo";
+import { Button } from "@/components/ui/button";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaXTwitter, FaPinterestP } from "react-icons/fa6";
+import Link from "next/link";
+import Image from "next/image";
+import { DecorIcon } from "@/components/ui/decor-icon";
 
-import Link from 'next/link'
-import { motion } from 'motion/react'
-import { ArrowUpRight, Instagram, Linkedin } from 'lucide-react'
-import TextReveal from '@/components/TextReveal'
+export function Footer() {
+	return (
+		<footer className="relative w-full px-4">
+			<div
+				className={cn(
+					"relative mx-auto max-w-6xl",
+					"dark:bg-[radial-gradient(35%_80%_at_15%_0%,--theme(--color-foreground/.1),transparent)]"
+				)}
+			>
+				{/* Blueprint vertical lines */}
+				<div aria-hidden="true" className="absolute inset-y-0 -left-px w-px bg-border" />
+				<div aria-hidden="true" className="absolute inset-y-0 -right-px w-px bg-border" />
 
-const XIcon = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-)
+				{/* Top horizontal divider + DecorIcons */}
+				<div aria-hidden="true" className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
+				<DecorIcon position="top-left" className="size-4" />
+				<DecorIcon position="top-right" className="size-4" />
 
-const PinterestIcon = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0a12 12 0 0 0-4.373 23.17c-.1-.937-.2-2.376.04-3.4.218-.926 1.407-5.965 1.407-5.965s-.36-.718-.36-1.78c0-1.667.967-2.912 2.17-2.912 1.023 0 1.518.77 1.518 1.69 0 1.03-.655 2.57-.993 3.995-.282 1.193.598 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.868-2.063-4.872-5.008-4.872-3.41 0-5.41 2.556-5.41 5.2 0 1.03.397 2.133.893 2.733a.36.36 0 0 1 .083.345c-.091.38-.293 1.193-.333 1.36-.052.22-.174.267-.4.16-1.499-.698-2.436-2.89-2.436-4.649 0-3.785 2.75-7.262 7.93-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146A12 12 0 1 0 12 0z" />
-  </svg>
-)
+				<div className="grid max-w-5xl grid-cols-6 gap-6 p-4">
+					<div className="col-span-6 flex flex-col gap-4 pt-5 md:col-span-4">
+						<Link
+							href="/"
+							title="The Coast - Home"
+							className="flex items-center rounded-md p-2 hover:bg-muted dark:hover:bg-muted/50 hover-target"
+						>
+							<Image
+								src="/logo.png"
+								alt="The Coast Logo"
+								width={40}
+								height={40}
+								className="object-contain"
+								priority
+							/>
+						</Link>
+						<p className="max-w-sm text-balance text-muted-foreground text-sm">
+							Strategic brand design for entrepreneurs, artists, and growing businesses.
+						</p>
+						<div className="flex gap-2">
+							{socialLinks.map((item, index) => (
+								<Button key={`social-${item.link}-${index}`} size="icon-sm" variant="outline" render={<a href={item.link} target="_blank" />} nativeButton={false}>{item.icon}</Button>
+							))}
+						</div>
+					</div>
+					<div className="col-span-3 w-full md:col-span-1">
+						<span className="text-muted-foreground text-xs">Resources</span>
+						<div className="mt-2 flex flex-col gap-2">
+							{resources.map(({ href, title }) => (
+								<Link
+									className="w-max text-sm hover:underline"
+									href={href}
+									key={title}
+								>
+									{title}
+								</Link>
+							))}
+						</div>
+					</div>
+					<div className="col-span-3 w-full md:col-span-1">
+						<span className="text-muted-foreground text-xs">Company</span>
+						<div className="mt-2 flex flex-col gap-2">
+							{company.map(({ href, title }) => (
+								<Link
+									className="w-max text-sm hover:underline"
+									href={href}
+									key={title}
+								>
+									{title}
+								</Link>
+							))}
+						</div>
+					</div>
+				</div>
 
-export default function FooterSection() {
-  return (
-    <footer className="bg-black pt-32 pb-12 relative overflow-hidden border-t border-white/5">
-      <div className="container mx-auto px-6 relative z-10">
-        {/* CTA */}
-        <div className="flex flex-col items-center text-center mb-32">
-          <TextReveal
-            className="text-3xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter leading-none mb-12"
-            highlight={["Create"]}
-          >
-            {"Let's Create"}
-          </TextReveal>
+				{/* Bottom horizontal divider + DecorIcons */}
+				<div aria-hidden="true" className="absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
+				<DecorIcon position="bottom-left" className="size-4" />
+				<DecorIcon position="bottom-right" className="size-4" />
 
-          <motion.a
-            href="/get-started"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="group relative w-40 h-40 rounded-full border border-primary text-primary flex items-center justify-center text-sm font-display uppercase tracking-[0.2em] hover-target overflow-hidden"
-          >
-            <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors duration-300">
-              Start
-              <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
-            </span>
-            <div className="absolute inset-0 bg-primary scale-0 group-hover:scale-100 rounded-full transition-transform duration-500 ease-out z-0" />
-          </motion.a>
-        </div>
-
-        {/* Links */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pt-12 border-t border-white/10">
-          <div className="md:col-span-2">
-            <Link href="/">
-              <h3 className="text-2xl font-display uppercase tracking-tight mb-6">The Coast.</h3>
-            </Link>
-            <p className="text-gray-400 max-w-sm font-light text-sm">
-              Strategic brand design for entrepreneurs, artists, and growing businesses. We turn visions into empires.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] text-primary mb-6">Socials</h4>
-            <ul className="space-y-4 text-gray-400 text-sm">
-              {[
-                { name: 'Instagram', href: 'https://www.instagram.com/coastglobal' },
-                { name: 'X (Twitter)', href: 'https://x.com/TCoast13363' },
-                { name: 'LinkedIn', href: 'https://www.linkedin.com/company/thecoastcompanylimited/' },
-                { name: 'Pinterest', href: 'https://pin.it/nW5MRvKEz' },
-              ].map((social) => (
-                <li key={social.name}>
-                  <a href={social.href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors hover-target inline-flex items-center gap-1 group">
-                    {social.name}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-xs uppercase tracking-[0.2em] text-primary mb-6">Contact</h4>
-            <ul className="space-y-4 text-gray-400 text-sm">
-              <li>
-                <a href="mailto:hello@coastglobal.org" className="hover:text-white transition-colors hover-target">
-                  hello@coastglobal.org
-                </a>
-              </li>
-              <li>
-                <a href="tel:+16827020374" className="hover:text-white transition-colors hover-target">
-                  +1 (682) 702-0374
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="mt-24 flex flex-col md:flex-row items-center justify-between text-xs text-gray-600 uppercase tracking-[0.2em]">
-          <p>&copy; {new Date().getFullYear()} The Coast. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-primary transition-colors hover-target">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-primary transition-colors hover-target">Terms of Service</Link>
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
+				<div className="flex max-w-6xl flex-col justify-between gap-2 py-4">
+					<p className="text-center font-light text-muted-foreground text-sm">
+						&copy; {new Date().getFullYear()} The Coast LLC, All rights reserved
+					</p>
+				</div>
+			</div>
+		</footer>
+	);
 }
+
+const company = [
+	{
+		title: "About",
+		href: "/#about",
+	},
+	{
+		title: "Services",
+		href: "/services",
+	},
+	{
+		title: "Work",
+		href: "/work",
+	},
+	{
+		title: "Pricing",
+		href: "/pricing",
+	},
+	{
+		title: "Vision",
+		href: "/vision",
+	},
+];
+
+const resources = [
+	{
+		title: "Blog",
+		href: "/blog",
+	},
+	{
+		title: "Portfolio",
+		href: "/portfolio",
+	},
+	{
+		title: "FAQ",
+		href: "/#faq",
+	},
+	{
+		title: "Contact",
+		href: "/#contact",
+	},
+	{
+		title: "Get Started",
+		href: "/get-started",
+	},
+];
+
+const socialLinks = [
+	{
+		icon: <FaFacebookF />,
+		link: "https://www.facebook.com/coastglobal",
+	},
+	{
+		icon: <FaInstagram />,
+		link: "https://www.instagram.com/coastglobal",
+	},
+	{
+		icon: <FaLinkedinIn />,
+		link: "https://www.linkedin.com/company/thecoastcompanylimited/",
+	},
+	{
+		icon: <FaXTwitter />,
+		link: "https://x.com/TCoast13363",
+	},
+	{
+		icon: <FaPinterestP />,
+		link: "https://pin.it/nW5MRvKEz",
+	},
+];

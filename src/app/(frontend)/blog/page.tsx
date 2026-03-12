@@ -3,9 +3,8 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import Link from 'next/link'
 import { Clock, ArrowRight } from 'lucide-react'
-import Header from '@/components/Header'
-import Footer from '@/components/footer'
 import BlogSearchClient from './BlogSearchClient'
+import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -77,11 +76,9 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
   const totalPages = Math.ceil(totalDocs / POSTS_PER_PAGE)
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-
-      <section className="pt-32 pb-16 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto">
+    <BlueprintLayout>
+      <section className="pt-32 pb-16 px-4">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
           <h1 className="text-heading text-4xl md:text-6xl text-foreground mb-4">The Journal</h1>
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10">
             Insights on brand design, visual identity, and creative strategy.
@@ -90,13 +87,19 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
           <Suspense>
             <BlogSearchClient categories={categories} currentSearch={search} currentCategory={category} />
           </Suspense>
+        </div>
+      </section>
 
+      <SectionBoundary />
+
+      <section className="pb-16 px-4">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
           {posts.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-muted-foreground text-lg">No articles found.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
               {posts.map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
                   <article className="rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
@@ -173,8 +176,6 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
           )}
         </div>
       </section>
-
-      <Footer />
-    </main>
+    </BlueprintLayout>
   )
 }

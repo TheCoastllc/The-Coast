@@ -28,8 +28,8 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section className="py-32 bg-black border-t border-white/5" id="faq">
-      <div className="container mx-auto px-6">
+    <section className="py-32 bg-black" id="faq">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="mb-20">
           <motion.div
             initial={{ opacity: 0 }}

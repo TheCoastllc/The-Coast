@@ -7,18 +7,23 @@ import TextReveal from '@/components/TextReveal'
 function CountUp({ target, suffix, duration = 2 }: { target: number; suffix: string; duration?: number }) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true })
+  const inView = useInView(ref)
 
   useEffect(() => {
-    if (!inView) return
+    if (!inView) {
+      setCount(0)
+      return
+    }
     const start = performance.now()
+    let raf: number
     const step = (now: number) => {
       const progress = Math.min((now - start) / (duration * 1000), 1)
       const eased = 1 - Math.pow(1 - progress, 3)
       setCount(Math.round(eased * target))
-      if (progress < 1) requestAnimationFrame(step)
+      if (progress < 1) raf = requestAnimationFrame(step)
     }
-    requestAnimationFrame(step)
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
   }, [inView, target, duration])
 
   return <span ref={ref}>{count}{suffix}</span>
@@ -31,8 +36,8 @@ function parseStat(value: string): { target: number; suffix: string } {
 
 export default function About() {
   return (
-    <section className="py-32 md:py-48 bg-black border-t border-white/5" id="about">
-      <div className="container mx-auto px-6">
+    <section className="py-32 md:py-48 bg-black" id="about">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="mb-20">
           <motion.div
             initial={{ opacity: 0 }}
@@ -53,7 +58,7 @@ export default function About() {
           </TextReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 border-t border-white/10 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
           {[
             { label: 'Projects Delivered', value: '50+' },
             { label: 'Brands Built', value: '30+' },

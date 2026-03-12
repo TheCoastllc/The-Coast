@@ -35,6 +35,7 @@ function conicGradient(angle: number, r: number, g: number, b: number): string {
 interface ShineButtonProps {
   children?: ReactNode
   size?: 'sm' | 'md'
+  full?: boolean
   onClick?: () => void
   href?: string
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
@@ -44,6 +45,7 @@ interface ShineButtonProps {
 export function ShineButton({
   children = 'Get Started Now',
   size = 'md',
+  full = false,
   onClick,
   href,
   type,
@@ -86,11 +88,12 @@ export function ShineButton({
 
   const wrapperStyle: React.CSSProperties = {
     position: 'relative',
-    display: 'inline-block',
+    display: full ? 'block' : 'inline-block',
     borderRadius: s.wrapperRadius,
     padding: '1px',
     margin: '2px',
     background: conicGradient(angle, r, g, b),
+    ...(full && { width: '100%' }),
   }
 
   const innerStyle: React.CSSProperties = {
@@ -111,11 +114,12 @@ export function ShineButton({
     transition: 'all 0.15s ease',
     textTransform: 'uppercase' as const,
     textDecoration: 'none',
+    ...(full && { width: '100%', textAlign: 'center' as const }),
   }
 
   const content = (
     <div
-      style={{ display: 'inline-block', borderRadius: s.outerRadius }}
+      style={{ display: full ? 'block' : 'inline-block', borderRadius: s.outerRadius, ...(full && { width: '100%' }) }}
       className={className}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

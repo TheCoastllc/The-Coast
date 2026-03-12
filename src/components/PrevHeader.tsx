@@ -14,7 +14,7 @@ const navItems = [
   { label: 'Contact', href: '#contact', title: 'Get in Touch with The Coast' },
 ]
 
-export default function Header() {
+export default function PrevHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const { scrollYProgress } = useScroll()

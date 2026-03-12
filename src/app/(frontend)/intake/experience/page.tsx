@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
-import Header from '@/components/Header'
-import Footer from '@/components/footer'
 
 const EVENT_TYPES = [
   'Corporate Event', 'Product Launch', 'Concert / Show', 'Wedding',
@@ -87,7 +85,6 @@ export default function ExperienceIntakePage() {
   if (submitted) {
     return (
       <main className="min-h-screen bg-background">
-        <Header />
         <div className="flex flex-col items-center justify-center min-h-[80vh] px-6 text-center">
           <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
             <Sparkles className="w-10 h-10 text-primary" />
@@ -103,7 +100,6 @@ export default function ExperienceIntakePage() {
             Back to Home <ArrowRight className="w-4 h-4" />
           </button>
         </div>
-        <Footer />
       </main>
     )
   }
@@ -112,7 +108,6 @@ export default function ExperienceIntakePage() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header />
       <section className="pt-32 pb-20 px-6 md:px-12">
         <div className="max-w-2xl mx-auto">
           <div className="mb-8">
@@ -267,7 +262,6 @@ export default function ExperienceIntakePage() {
           </div>
         </div>
       </section>
-      <Footer />
     </main>
   )
 }

@@ -9,8 +9,8 @@ const clients = [
 
 export default function Clients() {
   return (
-    <section className="py-32 bg-black border-t border-white/5 overflow-hidden">
-      <div className="container mx-auto px-6 mb-16">
+    <section className="py-32 bg-black overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 mb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ export default function Clients() {
         </TextReveal>
       </div>
 
-      <div className="relative flex overflow-x-hidden">
+      <div className="relative flex overflow-x-hidden max-w-6xl mx-auto px-6">
         <motion.div
           className="flex whitespace-nowrap"
           animate={{ x: ["0%", "-50%"] }}

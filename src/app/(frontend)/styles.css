@@ -93,7 +93,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-display: var(--font-syncopate);
+  --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-inter, "Inter"), system-ui, sans-serif;
 
   @keyframes accordion-down {
@@ -254,6 +254,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
     @apply font-sans;
     background: #000000;
     cursor: none;
@@ -299,7 +300,7 @@
 /* ─── Typography Utilities ─── */
 @layer utilities {
   .text-display {
-    font-family: var(--font-syncopate, 'Syncopate'), sans-serif;
+    font-family: var(--font-space-grotesk), sans-serif;
     font-weight: 700;
     letter-spacing: -0.04em;
     line-height: 0.85;
@@ -307,7 +308,7 @@
   }
 
   .text-heading {
-    font-family: var(--font-syncopate, 'Syncopate'), sans-serif;
+    font-family: var(--font-space-grotesk), sans-serif;
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1;
@@ -315,7 +316,7 @@
   }
 
   .font-display {
-    font-family: var(--font-syncopate, 'Syncopate'), sans-serif;
+    font-family: var(--font-space-grotesk), sans-serif;
   }
 
   .text-body {

@@ -21,6 +21,7 @@ export default function Preloader() {
     const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = ''
+        window.dispatchEvent(new Event('preloader-done'))
         setDone(true)
       },
     })

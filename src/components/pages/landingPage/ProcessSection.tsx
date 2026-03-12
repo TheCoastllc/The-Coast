@@ -37,8 +37,8 @@ export default function ProcessSection() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
   return (
-    <section className="py-32 bg-black border-t border-white/5" ref={containerRef}>
-      <div className="container mx-auto px-6">
+    <section className="py-32 bg-black" ref={containerRef}>
+      <div className="max-w-6xl mx-auto px-6">
         <div className="mb-24">
           <motion.div
             initial={{ opacity: 0 }}

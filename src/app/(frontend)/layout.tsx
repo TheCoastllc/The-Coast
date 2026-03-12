@@ -1,16 +1,25 @@
 import React from 'react'
 import './styles.css'
-import { Syncopate, Inter } from 'next/font/google'
+import { Syncopate, Inter, Space_Grotesk } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
 import CustomCursor from '@/components/CustomCursor'
 import SmoothScrolling from '@/components/SmoothScrolling'
 import Noise from '@/components/Noise'
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
 
 const syncopate = Syncopate({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-syncopate',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-space-grotesk',
   display: 'swap',
 })
 
@@ -30,14 +39,16 @@ export const metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${syncopate.className} ${inter.variable}`}>
+    <html lang="en" className={`dark ${spaceGrotesk.className} ${inter.variable}`}>
       <body suppressHydrationWarning>
         <Preloader />
         <CustomCursor />
         <Noise />
         <QueryProvider>
           <SmoothScrolling>
+            <Header />
             {children}
+            <Footer />
           </SmoothScrolling>
         </QueryProvider>
       </body>
