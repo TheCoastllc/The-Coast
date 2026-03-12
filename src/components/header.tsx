@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShineButton } from "./ui/ShineButton";
 import { DecorIcon } from "@/components/ui/decor-icon";
+import { usePathname } from "next/navigation";
 
 export const navLinks = [
 	{
@@ -34,6 +35,7 @@ export const navLinks = [
 
 export function Header() {
 	const scrolled = useScroll(10);
+	const pathname = usePathname()
 
 	return (
 		<header
@@ -54,7 +56,7 @@ export function Header() {
 				)}
 			>
 				<Link
-					href="/"
+					href={pathname === '/' ? '#' : '/'}
 					title="The Coast - Home"
 					className="flex items-center rounded-md p-2 hover:bg-muted dark:hover:bg-muted/50 hover-target"
 				>
