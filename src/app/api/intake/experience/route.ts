@@ -39,7 +39,10 @@ export async function POST(request: Request) {
       <p><strong>Location:</strong> ${body.eventLocation || 'Not specified'}</p>`,
     )
   } catch (err) {
-    console.error('Failed to send experience intake notification:', err)
+    return Response.json(
+      { error: 'Failed to send experience intake notification' + err },
+      { status: 500 },
+    )
   }
 
   return Response.json(doc)

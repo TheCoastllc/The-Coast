@@ -99,7 +99,6 @@ export function useClientAuth() {
       await authClient.signOut()
       router.push('/portal/login')
     } catch (err) {
-      console.error('Sign out error:', err)
       router.push('/portal/login')
     }
   }

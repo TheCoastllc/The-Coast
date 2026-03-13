@@ -79,8 +79,7 @@ export default function SubmitRequestPage() {
       toast.success('Request submitted successfully!')
       router.push('/portal')
     } catch (err) {
-      console.error(err)
-      toast.error('Failed to submit request. Please try again.')
+      toast.error('Failed to submit request. Please try again.' + err)
     } finally {
       setIsSubmitting(false)
     }
@@ -109,8 +108,8 @@ export default function SubmitRequestPage() {
             <div className={cn(
               'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors',
               s < step ? 'bg-primary text-primary-foreground' :
-              s === step ? 'bg-primary/20 text-primary border border-primary/50' :
-              'bg-muted text-muted-foreground'
+                s === step ? 'bg-primary/20 text-primary border border-primary/50' :
+                  'bg-muted text-muted-foreground'
             )}>
               {s < step ? <Check className="h-4 w-4" /> : s}
             </div>

@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       <p><strong>Timeline:</strong> ${body.timeline || 'Not specified'}</p>`,
     )
   } catch (err) {
-    console.error('Failed to send intake notification:', err)
+    return Response.json({ error: 'Failed to send intake notification' + err }, { status: 500 })
   }
 
   return Response.json(doc)

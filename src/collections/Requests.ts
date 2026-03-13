@@ -22,7 +22,10 @@ export const Requests: CollectionConfig = {
               <p><strong>Description:</strong> ${doc.description}</p>`,
             )
           } catch (err) {
-            console.error('Failed to send request notification:', err)
+            return Response.json(
+              { error: 'Failed to send request notification' + err },
+              { status: 500 },
+            )
           }
         }
       },

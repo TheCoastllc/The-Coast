@@ -21,7 +21,10 @@ export const ProjectFiles: CollectionConfig = {
               <p><strong>Feedback:</strong> ${doc.clientFeedback || 'None'}</p>`,
             )
           } catch (err) {
-            console.error('Failed to send file notification:', err)
+            return Response.json(
+              { error: 'Failed to send file notification' + err },
+              { status: 500 },
+            )
           }
         }
       },

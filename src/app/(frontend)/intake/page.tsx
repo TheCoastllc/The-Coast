@@ -80,8 +80,7 @@ export default function IntakePage() {
       localStorage.removeItem('inquiry_prefill')
       setSubmitted(true)
     } catch (err) {
-      console.error(err)
-      toast.error('Something went wrong. Please try again.')
+      toast.error('Something went wrong. Please try again.' + err)
     } finally { setIsSubmitting(false) }
   }
 

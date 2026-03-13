@@ -76,7 +76,6 @@ export default function ExperienceIntakePage() {
       if (!res.ok) throw new Error('Submission failed')
       setSubmitted(true)
     } catch (err) {
-      console.error(err)
       toast.error('Something went wrong. Please try again.')
     } finally {
       setIsSubmitting(false)
