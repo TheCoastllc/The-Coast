@@ -40,9 +40,9 @@ export function Header() {
 	return (
 		<header
 			className={cn(
-				"sticky top-0 z-500000 w-full border-transparent border-b md:border md:transition-all md:ease-out",
+				"sticky top-0 z-500000 mx-auto w-full border-transparent border-b md:border md:transition-all md:ease-out",
 				{
-					"border-border bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/50 md:top-2":
+					"border-border max-w-3xl bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/50 md:top-2":
 						scrolled,
 				}
 			)}
@@ -91,7 +91,7 @@ export function Header() {
 								priority
 							/>
 						</Link>
-						<div className="hidden items-center gap-2 md:flex">
+						<div className="hidden items-center gap-2 md:flex mr-2">
 							<div>
 								{navLinks.map((link) => (
 									<Button key={link.label} size="sm" variant="ghost" render={<Link href={link.href} />} nativeButton={false}>{link.label}</Button>
