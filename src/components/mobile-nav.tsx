@@ -1,53 +1,142 @@
-import { cn } from "@/lib/utils";
-import React from "react";
-import { Portal, PortalBackdrop } from "@/components/ui/portal";
-import { Button } from "@/components/ui/button";
+"use client";
+
+import React, { useCallback, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { navLinks } from "@/components/header";
-import { XIcon, MenuIcon } from "lucide-react";
-import { ShineButton } from "./ui/ShineButton";
+import { XIcon, MenuIcon, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function MobileNav() {
 	const [open, setOpen] = React.useState(false);
+	const pathname = usePathname();
+
+	const close = useCallback(() => setOpen(false), []);
+
+	// Close on route change
+	useEffect(() => {
+		close();
+	}, [pathname, close]);
+
+	// Lock body scroll when open
+	useEffect(() => {
+		if (open) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [open]);
 
 	return (
 		<div className="md:hidden">
-			<Button
+			<button
 				aria-controls="mobile-menu"
 				aria-expanded={open}
 				aria-label="Toggle menu"
-				className="md:hidden"
 				onClick={() => setOpen(!open)}
-				size="icon"
-				variant="outline"
+				className="relative mr-2 z-50 flex items-center justify-center size-10 rounded-md border border-border text-foreground hover:bg-muted/50 transition-colors"
 			>
-				{open ? (
-					<XIcon className="size-4.5" />
-				) : (
-					<MenuIcon className="size-4.5" />
-				)}
-			</Button>
-			{open && (
-				<Portal className="top-14" id="mobile-menu">
-					<PortalBackdrop />
-					<div
-						className={cn(
-							"data-[slot=open]:zoom-in-97 ease-out data-[slot=open]:animate-in",
-							"size-full p-4"
-						)}
-						data-slot={open ? "open" : "closed"}
+				<AnimatePresence mode="wait" initial={false}>
+					{open ? (
+						<motion.span
+							key="close"
+							initial={{ rotate: -90, opacity: 0 }}
+							animate={{ rotate: 0, opacity: 1 }}
+							exit={{ rotate: 90, opacity: 0 }}
+							transition={{ duration: 0.15 }}
+						>
+							<XIcon className="size-4.5" />
+						</motion.span>
+					) : (
+						<motion.span
+							key="menu"
+							initial={{ rotate: 90, opacity: 0 }}
+							animate={{ rotate: 0, opacity: 1 }}
+							exit={{ rotate: -90, opacity: 0 }}
+							transition={{ duration: 0.15 }}
+						>
+							<MenuIcon className="size-4.5" />
+						</motion.span>
+					)}
+				</AnimatePresence>
+			</button>
+
+			<AnimatePresence>
+				{open && (
+					<motion.div
+						id="mobile-menu"
+						className="fixed inset-0 z-40 flex flex-col bg-background"
+						initial={{ clipPath: "circle(0% at calc(100% - 2.5rem) 1.75rem)" }}
+						animate={{ clipPath: "circle(150% at calc(100% - 2.5rem) 1.75rem)" }}
+						exit={{ clipPath: "circle(0% at calc(100% - 2.5rem) 1.75rem)" }}
+						transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
 					>
-						<div className="grid gap-y-2">
-							{navLinks.map((link) => (
-								<Button className="justify-start" key={link.label} variant="ghost" render={<Link href={link.href} />} nativeButton={false}>{link.label}</Button>
-							))}
+						{/* Content area */}
+						<div className="flex flex-col justify-between h-full pt-24 pb-12 px-8">
+							{/* Nav links */}
+							<nav className="flex flex-col gap-1">
+								{navLinks.map((link, index) => (
+									<motion.div
+										key={link.label}
+										initial={{ opacity: 0, x: -20 }}
+										animate={{ opacity: 1, x: 0 }}
+										exit={{ opacity: 0, x: -20 }}
+										transition={{
+											duration: 0.3,
+											delay: open ? 0.15 + index * 0.06 : (navLinks.length - index) * 0.03,
+											ease: "easeOut",
+										}}
+									>
+										<Link
+											href={link.href}
+											onClick={close}
+											className="group flex items-center justify-between py-4 border-b border-border/50 text-foreground hover:text-primary transition-colors duration-200"
+										>
+											<div className="flex items-center gap-4">
+												<span className="text-mono text-muted-foreground/40 text-xs tabular-nums">
+													{String(index + 1).padStart(2, "0")}
+												</span>
+												<span className="text-heading text-2xl">
+													{link.label}
+												</span>
+											</div>
+											<ArrowRight className="size-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" />
+										</Link>
+									</motion.div>
+								))}
+							</nav>
+
+							{/* Bottom CTA */}
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: 20 }}
+								transition={{
+									duration: 0.3,
+									delay: 0.15 + navLinks.length * 0.06 + 0.05,
+									ease: "easeOut",
+								}}
+								className="flex flex-col gap-4"
+							>
+								<Link
+									href="/get-started"
+									onClick={close}
+									className="flex items-center justify-center gap-2 w-full py-4 bg-primary text-primary-foreground text-mono text-sm rounded-full hover:bg-primary/90 transition-colors"
+								>
+									Start a Project
+									<ArrowRight className="size-4" />
+								</Link>
+								<p className="text-center text-muted-foreground/40 text-xs">
+									© {new Date().getFullYear()} The Coast
+								</p>
+							</motion.div>
 						</div>
-						<div className="mt-12 flex flex-col gap-2">
-							<ShineButton size="sm">Get Started</ShineButton>
-						</div>
-					</div>
-				</Portal>
-			)}
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 }

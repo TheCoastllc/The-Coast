@@ -93,6 +93,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
+  --animate-grid: grid 15s linear infinite;
   --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-inter, "Inter"), system-ui, sans-serif;
 
@@ -192,6 +193,8 @@
     }
   }
 
+
+
   @keyframes gold-pulse {
 
     0%,
@@ -255,6 +258,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
+    overflow-x: hidden;
     @apply font-sans;
     background: #000000;
     cursor: none;
@@ -294,6 +298,16 @@
   textarea,
   select {
     cursor: none;
+  }
+}
+
+@keyframes grid {
+  0% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }
 

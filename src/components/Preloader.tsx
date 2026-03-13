@@ -21,6 +21,7 @@ export default function Preloader() {
     const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = ''
+          ; (window as any).__PRELOADER_DONE__ = true
         window.dispatchEvent(new Event('preloader-done'))
         setDone(true)
       },
@@ -81,7 +82,7 @@ export default function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-9999 flex items-center justify-center"
+      className="fixed inset-0 z-9999999999 flex items-center justify-center"
       style={{ backgroundColor: '#fafafa' }}
     >
       {/* Dark overlay that expands from dot */}

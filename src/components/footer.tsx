@@ -97,7 +97,7 @@ export function Footer() {
 const company = [
 	{
 		title: "About",
-		href: "/#about",
+		href: "/about",
 	},
 	{
 		title: "Services",

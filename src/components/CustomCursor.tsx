@@ -6,6 +6,8 @@ import { gsap } from 'gsap'
 export default function CustomCursor() {
   const outerRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
+  const dotRef = useRef<HTMLDivElement>(null)
+  const plusRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
   const posRef = useRef({ x: 0, y: 0 })
   const visibleRef = useRef(false)
@@ -16,8 +18,10 @@ export default function CustomCursor() {
 
     const outer = outerRef.current
     const inner = innerRef.current
+    const dot = dotRef.current
+    const plus = plusRef.current
     const text = textRef.current
-    if (!outer || !inner || !text) return
+    if (!outer || !inner || !dot || !plus || !text) return
 
     const handleMouseMove = (e: MouseEvent) => {
       posRef.current = { x: e.clientX, y: e.clientY }
@@ -55,6 +59,7 @@ export default function CustomCursor() {
     // Hover detection for interactive elements
     const handleElementEnter = (e: Event) => {
       const target = e.target as HTMLElement
+      const link = target.closest('a')
       const cursorType = target.closest('[data-cursor]')?.getAttribute('data-cursor')
 
       if (cursorType === 'view') {
@@ -63,10 +68,14 @@ export default function CustomCursor() {
         text.textContent = 'View'
       } else if (cursorType === 'text') {
         gsap.to(outer, { width: 4, height: 32, borderRadius: '2px', duration: 0.3 })
-        gsap.to(inner, { scale: 0, duration: 0.2 })
+        gsap.to(dot, { scale: 0, duration: 0.2 })
+      } else if (link) {
+        gsap.to(outer, { scale: 1.5, duration: 0.3, ease: 'power2.out' })
+        gsap.to(dot, { opacity: 0, scale: 0, duration: 0.2 })
+        gsap.to(plus, { opacity: 1, scale: 1, duration: 0.2 })
       } else {
         gsap.to(outer, { scale: 1.5, duration: 0.3, ease: 'power2.out' })
-        gsap.to(inner, { scale: 0.5, duration: 0.3, ease: 'power2.out' })
+        gsap.to(dot, { scale: 0.5, duration: 0.3, ease: 'power2.out' })
       }
     }
 
@@ -79,7 +88,8 @@ export default function CustomCursor() {
         duration: 0.3,
         ease: 'power2.out',
       })
-      gsap.to(inner, { scale: 1, duration: 0.3, ease: 'power2.out' })
+      gsap.to(dot, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' })
+      gsap.to(plus, { opacity: 0, scale: 0, duration: 0.2 })
       gsap.to(text, { opacity: 0, duration: 0.2 })
     }
 
@@ -120,7 +130,7 @@ export default function CustomCursor() {
       {/* Outer ring */}
       <div
         ref={outerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9998] hidden md:flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-[9999999999] hidden md:flex items-center justify-center"
         style={{
           width: 40,
           height: 40,
@@ -138,19 +148,42 @@ export default function CustomCursor() {
         />
       </div>
 
-      {/* Inner dot */}
+      {/* Inner dot & Plus container */}
       <div
         ref={innerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9998] hidden md:block"
+        className="fixed top-0 left-0 pointer-events-none z-[9999999999] hidden md:flex items-center justify-center"
         style={{
           width: 8,
           height: 8,
-          borderRadius: '50%',
-          backgroundColor: '#C9A24B',
           transform: 'translate(-50%, -50%)',
           opacity: 0,
         }}
-      />
+      >
+        <div
+          ref={dotRef}
+          className="w-full h-full rounded-full"
+          style={{ backgroundColor: '#C9A24B' }}
+        />
+        <div
+          ref={plusRef}
+          className="absolute inset-0 flex items-center justify-center opacity-0 scale-0"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 2.5V9.5M2.5 6H9.5"
+              stroke="#C9A24B"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
+      </div>
     </>
   )
 }

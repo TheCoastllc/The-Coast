@@ -2,45 +2,79 @@
 
 import dynamic from "next/dynamic";
 import { motion, type Transition } from "motion/react";
-import { useState, type ReactNode, createContext, useContext, useEffect, memo } from "react";
-import type { FaultyTerminalProps } from "./FaultyTerminal";
+import { useState, type ReactNode, createContext, useContext, useEffect } from "react";
 
 // ─── Heavy WebGL/canvas components — loaded on demand, no SSR output ───
 
-const FaultyTerminal = dynamic(() => import("./FaultyTerminal"), {
-    ssr: false,
-});
 const FuzzyText = dynamic(() => import("./FuzzyText"), { ssr: false });
 
 // ─── Constants & Performance Hoisting ───
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-const PRELOADER_DELAY = 2.5;
-const STAGGER = 0.15;
+const STAGGER = 0.12;
 
-// Persists across client-side navigations, resets on full page reload
-let hasLoadedOnce = false;
+// Global flag to track if we've already done the intro animation in this session.
+// This persists across SPA navigations.
+let hasDoneIntro = false;
 
-// ─── Context for Hydration Parity ───
+// ─── Context for Syncing with Preloader ───
 
-const HeroUIContext = createContext<{ isFirstLoad: boolean }>({ isFirstLoad: true });
+const HeroUIContext = createContext<{
+    isFirstLoad: boolean;
+    isPreloaderActive: boolean;
+}>({ isFirstLoad: true, isPreloaderActive: true });
 
 export function HeroUIProvider({ children }: { children: ReactNode }) {
     const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        // On the client, after mount, determine if this is a "first load"
-        // or if the user navigated here internally.
-        if (hasLoadedOnce) {
+        // 1. Navigation Back: Visible immediately
+        if (hasDoneIntro) {
             setIsFirstLoad(false);
-        } else {
-            hasLoadedOnce = true;
-            // Stay true for the first ever load to show animations
+            setIsReady(true);
+            return;
         }
+
+        // Helper to trigger the reveal after the 2.5s "after-preloader" delay
+        const triggerReveal = () => {
+            setTimeout(() => {
+                setIsReady(true);
+                hasDoneIntro = true;
+            }, 50);
+        };
+
+        // 2. Already Done (e.g. mounting late)
+        if (typeof window !== "undefined" && (window as any).__PRELOADER_DONE__) {
+            triggerReveal();
+            return;
+        }
+
+        // 3. Wait for Event
+        const handlePreloaderDone = () => {
+            triggerReveal();
+        };
+
+        window.addEventListener("preloader-done", handlePreloaderDone);
+
+        // 4. Safety Timeout: Force content to show if preloader hangs
+        // Total wait: ~1.5s for preloader + 2.5s delay = 4s
+        const safetyTimeout = setTimeout(() => {
+            if (!hasDoneIntro) {
+                console.log("Hero animations: Safety timeout triggered.");
+                setIsReady(true);
+                hasDoneIntro = true;
+            }
+        }, 4500);
+
+        return () => {
+            window.removeEventListener("preloader-done", handlePreloaderDone);
+            clearTimeout(safetyTimeout);
+        };
     }, []);
 
     return (
-        <HeroUIContext.Provider value={{ isFirstLoad }}>
+        <HeroUIContext.Provider value={{ isFirstLoad, isPreloaderActive: !isReady }}>
             {children}
         </HeroUIContext.Provider>
     );
@@ -50,64 +84,96 @@ function useHeroUI() {
     return useContext(HeroUIContext);
 }
 
-function getDelay(isFirstLoad: boolean, step: number) {
-    return isFirstLoad ? PRELOADER_DELAY + STAGGER * step : 0;
-}
-
 /* ─── Badge (slide-in from left) ─── */
 
-export const HeroAnimatedBadge = memo(function HeroAnimatedBadge({
+const badgeVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (step: number) => ({
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.8,
+            delay: STAGGER * step,
+            ease: EASE as unknown as Transition["ease"],
+        },
+    }),
+};
+
+export function HeroAnimatedBadge({
     children,
     step = 0,
 }: {
     children: ReactNode;
     step?: number;
 }) {
-    const { isFirstLoad } = useHeroUI();
+    const { isFirstLoad, isPreloaderActive } = useHeroUI();
     return (
         <motion.a
             href="#link"
-            initial={isFirstLoad ? { opacity: 0, x: -20 } : false}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: getDelay(isFirstLoad, step) }}
+            variants={badgeVariants}
+            custom={step}
+            initial={isFirstLoad ? "hidden" : "visible"}
+            animate={!isPreloaderActive ? "visible" : "hidden"}
             className="group mx-auto flex w-fit items-center gap-3 rounded-sm border bg-card p-1 shadow transition-all"
         >
             {children}
         </motion.a>
     );
-});
+}
 
 /* ─── Word reveal (y: 100% → 0) ─── */
 
-export const HeroAnimatedWord = memo(function HeroAnimatedWord({
+const wordVariants = {
+    hidden: { y: "100%" },
+    visible: (step: number) => ({
+        y: 0,
+        transition: {
+            duration: 1.2,
+            delay: STAGGER * step,
+            ease: EASE as unknown as Transition["ease"],
+        },
+    }),
+};
+
+export function HeroAnimatedWord({
     children,
     step = 0,
 }: {
     children: ReactNode;
     step?: number;
 }) {
-    const { isFirstLoad } = useHeroUI();
+    const { isFirstLoad, isPreloaderActive } = useHeroUI();
     return (
         <span className="block overflow-hidden">
             <motion.span
-                initial={isFirstLoad ? { y: "100%" } : false}
-                animate={{ y: 0 }}
-                transition={{
-                    duration: 1.2,
-                    delay: getDelay(isFirstLoad, step),
-                    ease: EASE as unknown as Transition["ease"],
-                }}
+                variants={wordVariants}
+                custom={step}
+                initial={isFirstLoad ? "hidden" : "visible"}
+                animate={!isPreloaderActive ? "visible" : "hidden"}
                 className="block origin-bottom-left"
             >
                 {children}
             </motion.span>
         </span>
     );
-});
+}
 
 /* ─── Fade-up (for subtitle and CTAs) ─── */
 
-export const HeroAnimatedFadeUp = memo(function HeroAnimatedFadeUp({
+const fadeUpVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (step: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 1,
+            delay: STAGGER * step,
+            ease: EASE as unknown as Transition["ease"],
+        },
+    }),
+};
+
+export function HeroAnimatedFadeUp({
     children,
     step = 0,
     className = "",
@@ -118,50 +184,55 @@ export const HeroAnimatedFadeUp = memo(function HeroAnimatedFadeUp({
     className?: string;
     as?: "div" | "p";
 }) {
-    const { isFirstLoad } = useHeroUI();
+    const { isFirstLoad, isPreloaderActive } = useHeroUI();
     const Component = as === "p" ? motion.p : motion.div;
     return (
         <Component
-            initial={isFirstLoad ? { opacity: 0, y: 20 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: getDelay(isFirstLoad, step) }}
+            variants={fadeUpVariants}
+            custom={step}
+            initial={isFirstLoad ? "hidden" : "visible"}
+            animate={!isPreloaderActive ? "visible" : "hidden"}
             className={className}
         >
             {children}
         </Component>
     );
-});
+}
 
 /* ─── Video section wrapper (fade-up with ease) ─── */
 
-export const HeroAnimatedVideo = memo(function HeroAnimatedVideo({
+const videoVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (step: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 1.2,
+            delay: STAGGER * step,
+            ease: EASE as unknown as Transition["ease"],
+        },
+    }),
+};
+
+export function HeroAnimatedVideo({
     children,
     step = 0,
 }: {
     children: ReactNode;
     step?: number;
 }) {
-    const { isFirstLoad } = useHeroUI();
+    const { isFirstLoad, isPreloaderActive } = useHeroUI();
     return (
         <motion.div
-            initial={isFirstLoad ? { opacity: 0, y: 30 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-                duration: 1.2,
-                delay: getDelay(isFirstLoad, step),
-                ease: EASE as unknown as Transition["ease"],
-            }}
+            variants={videoVariants}
+            custom={step}
+            initial={isFirstLoad ? "hidden" : "visible"}
+            animate={!isPreloaderActive ? "visible" : "hidden"}
             className="relative"
         >
             {children}
         </motion.div>
     );
-});
-
-/* ─── FaultyTerminal passthrough (dynamically imported, ssr: false) ─── */
-
-export function HeroFaultyTerminal(props: FaultyTerminalProps) {
-    return <FaultyTerminal {...props} />;
 }
 
 /* ─── FuzzyText word (dynamically imported, ssr: false) ─── */

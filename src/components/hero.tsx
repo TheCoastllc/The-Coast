@@ -9,36 +9,17 @@ import {
 	HeroAnimatedWord,
 	HeroAnimatedFadeUp,
 	HeroAnimatedVideo,
-	HeroFaultyTerminal,
 	HeroFuzzyWord,
 	HeroUIProvider,
 } from "./hero-animations";
+import { RetroGrid } from "./RetroGrid";
 
 export function HeroSection() {
 	return (
 		<HeroUIProvider>
 			<section>
 				<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-20 ">
-					<HeroFaultyTerminal
-						scale={1.5}
-						gridMul={[2, 1]}
-						digitSize={1.2}
-						timeScale={0.5}
-						pause={false}
-						scanlineIntensity={0.5}
-						glitchAmount={1}
-						flickerAmount={1}
-						noiseAmp={1}
-						chromaticAberration={0}
-						dither={0}
-						curvature={0.1}
-						tint="#e09410"
-						mouseReact
-						mouseStrength={0.5}
-						pageLoadAnimation
-						brightness={0.6}
-					/>
-
+					<RetroGrid />
 					{/* Decorative Background Elements */}
 					<div aria-hidden="true" className="absolute inset-0 -z-1 size-full overflow-hidden">
 						<div className={cn(
@@ -100,7 +81,6 @@ export function HeroSection() {
 						</HeroAnimatedFadeUp>
 					</div>
 				</div>
-
 				{/* Video Section */}
 				<HeroAnimatedVideo step={6}>
 					<DecorIcon className="size-4" position="top-left" />
