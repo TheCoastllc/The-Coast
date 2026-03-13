@@ -5,8 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft, Clock } from 'lucide-react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { Metadata } from 'next'
-import Header from '@/components/Header'
-import Footer from '@/components/footer'
+import { BlueprintLayout } from '@/components/blueprint-layout'
 
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -70,11 +69,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   if (!post) notFound()
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-
-      <article className="pt-28 pb-20 px-6 md:px-12">
-        <div className="max-w-3xl mx-auto">
+    <BlueprintLayout>
+      <article className="pt-28 pb-20 px-4">
+        <div className="max-w-3xl mx-auto px-2 sm:px-4 md:px-8">
           {/* Back */}
           <Link
             href="/blog"
@@ -148,8 +145,6 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           )}
         </div>
       </article>
-
-      <Footer />
-    </main>
+    </BlueprintLayout>
   )
 }

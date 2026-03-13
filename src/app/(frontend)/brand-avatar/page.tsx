@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, Check, Sparkles } from 'lucide-react'
-import Header from '@/components/Header'
-import Footer from '@/components/footer'
+import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 
 const sections = [
   { id: 'head', label: 'Logo Design', description: 'Your visual identity — the face of your brand', price: 250, emoji: '🎨' },
@@ -41,9 +40,7 @@ export default function BrandAvatarPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-
+    <BlueprintLayout>
       <section className="pt-32 pb-20 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -59,7 +56,9 @@ export default function BrandAvatarPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
+          <SectionBoundary />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12 mt-12">
             {sections.map((section, index) => {
               const isSelected = selected.has(section.id)
               return (
@@ -143,8 +142,6 @@ export default function BrandAvatarPage() {
           )}
         </div>
       </section>
-
-      <Footer />
-    </main>
+    </BlueprintLayout>
   )
 }

@@ -3,8 +3,8 @@
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import Header from '@/components/Header'
-import Footer from '@/components/footer'
+import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
+import TextReveal from '@/components/TextReveal'
 
 const designServices = [
   { number: '01', title: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds' },
@@ -24,19 +24,17 @@ export default function ServicesPage() {
   const router = useRouter()
 
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-
+    <BlueprintLayout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative" style={{ backgroundColor: '#050505' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <span className="text-mono text-muted-foreground/50 block mb-3 md:mb-4">Services</span>
-            <h1 className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">What We Create</h1>
+            <TextReveal as="h1" className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">What We Create</TextReveal>
             <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
               From identity design to complete brand transformations—everything you need to stand out.
             </p>
@@ -44,9 +42,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <SectionBoundary />
+
       {/* Services List */}
-      <section className="py-20 md:py-32 relative" style={{ backgroundColor: '#050505' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+      <section className="py-20 md:py-32">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
           <div className="border-t border-border">
             {designServices.map((service, index) => (
               <motion.div
@@ -79,14 +79,21 @@ export default function ServicesPage() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* CTA Section */}
+      <SectionBoundary />
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
+          {/* CTA Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mt-16 md:mt-24 text-center"
+            className="text-center"
           >
             <p className="text-body text-muted-foreground text-lg mb-6">
               Want ongoing support? Check out our monthly retainer packages.
@@ -110,8 +117,6 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
-
-      <Footer />
-    </main>
+    </BlueprintLayout>
   )
 }

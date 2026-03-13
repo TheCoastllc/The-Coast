@@ -1,7 +1,11 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import Link from 'next/link'
-import { ArrowRight, Clock } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { DecorIcon } from '@/components/ui/decor-icon'
+import { FullWidthDivider } from '@/components/ui/full-width-divider'
+import TextReveal from '@/components/TextReveal'
 
 type Post = {
   id: string | number
@@ -30,7 +34,6 @@ async function getPosts(): Promise<Post[]> {
     })
     return docs as unknown as Post[]
   } catch {
-    // DB may need migration — run: npm run payload migrate
     return []
   }
 }
@@ -41,75 +44,71 @@ export default async function BlogPreview() {
   if (posts.length === 0) return null
 
   return (
-    <section className="py-20 md:py-32 relative border-t border-border">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-4">
-          <div>
-            <span className="text-mono text-accent-cycle mb-3 block">From The Journal</span>
-            <h2 className="text-heading text-3xl md:text-5xl lg:text-6xl text-foreground">
-              Latest Insights
-            </h2>
+    <section className="py-32 bg-black px-4" id="insights">
+      <div className="max-w-6xl mx-auto px-2 sm:px-4">
+        <div className="mb-20">
+          <div className="flex items-center gap-4 mb-8">
+            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">08</span>
+            <div className="w-12 h-px bg-white/20" />
+            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Insights</span>
           </div>
-          <Link
-            href="/blog"
-            className="group inline-flex items-center gap-2 text-mono text-muted-foreground hover:text-primary transition-colors"
+          <TextReveal
+            className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
+            highlight={["Thinking"]}
           >
-            View all articles
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+            Latest Thinking
+          </TextReveal>
         </div>
 
-        {/* Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {posts.map((post) => (
-            <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
-              <article className="rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
-                {(post.coverImage?.cloudinary?.secure_url || post.coverImage?.url) && (
-                  <div className="aspect-16/10 overflow-hidden">
-                    <img
-                      src={post.coverImage.cloudinary?.secure_url ?? post.coverImage.url ?? undefined}
-                      alt={post.coverImage.alt ?? post.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
+        {/* LogosSection-style bordered grid */}
+        <div className="relative">
+          <DecorIcon className="size-4" position="top-left" />
+          <DecorIcon className="size-4" position="top-right" />
+          <DecorIcon className="size-4" position="bottom-left" />
+          <DecorIcon className="size-4" position="bottom-right" />
+
+          <FullWidthDivider className="-top-px" />
+          <div className="grid grid-cols-1 md:grid-cols-3 border">
+            {posts.map((post, index) => (
+              <Link
+                href={`/blog/${post.slug}`}
+                key={post.id}
+                className={cn(
+                  "group relative flex flex-col justify-between p-8 md:p-10 aspect-square bg-background transition-colors duration-500 hover-target",
+                  index < posts.length - 1 && "border-b md:border-b-0",
+                  index < 2 && "md:border-r",
+                  index === 1 && "bg-secondary dark:bg-secondary/30",
                 )}
-                <div className="p-5">
-                  <div className="flex items-center gap-3 mb-3">
-                    {post.category && (
-                      <span className="text-mono text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full capitalize">
-                        {post.category}
-                      </span>
-                    )}
-                    {post.readingTime && (
-                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <Clock className="h-3 w-3" />
-                        {post.readingTime} min
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-heading text-lg text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-3">
-                    {post.title}
-                  </h3>
-                  {post.excerpt && (
-                    <p className="text-body text-muted-foreground text-sm line-clamp-2 mb-3">
-                      {post.excerpt}
-                    </p>
-                  )}
-                  {post.publishedAt && (
-                    <span className="text-xs text-muted-foreground">
-                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+              >
+                <div className="flex justify-between items-start">
+                  <span className="text-muted-foreground/60 font-mono text-xs uppercase tracking-widest">
+                    {post.publishedAt
+                      ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
                         year: 'numeric',
-                      })}
-                    </span>
+                      })
+                      : ''}
+                  </span>
+                  {post.category && (
+                    <span className="text-primary text-xs uppercase tracking-[0.2em]">{post.category}</span>
                   )}
                 </div>
-              </article>
-            </Link>
-          ))}
+
+                <div>
+                  <h3 className="text-2xl font-display uppercase tracking-tighter group-hover:text-primary transition-colors duration-500 mb-6">
+                    {post.title}
+                  </h3>
+                  <div className="flex justify-end">
+                    <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-500">
+                      <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <FullWidthDivider className="-bottom-px" />
         </div>
       </div>
     </section>

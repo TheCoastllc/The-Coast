@@ -1,5 +1,4 @@
-import Header from '@/components/Header'
-import Footer from '@/components/footer'
+import { BlueprintLayout } from '@/components/blueprint-layout'
 
 export const metadata = {
   title: 'Portfolio | Client Showcase | The Coast',
@@ -8,10 +7,9 @@ export const metadata = {
 
 export default function PortfolioPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
+    <BlueprintLayout>
       <div className="pt-32 pb-20 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <span className="text-mono text-muted-foreground/50 block mb-3">Clients</span>
           <h1 className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">Client Showcase</h1>
           <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl mb-16">
@@ -22,7 +20,6 @@ export default function PortfolioPage() {
           </div>
         </div>
       </div>
-      <Footer />
-    </main>
+    </BlueprintLayout>
   )
 }

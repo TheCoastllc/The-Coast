@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
-import Header from '@/components/Header'
-import Footer from '@/components/footer'
 
 export const metadata = {
   title: 'Subscription Confirmed | The Coast',
@@ -11,7 +9,6 @@ export const metadata = {
 export default function SubscriptionSuccessPage() {
   return (
     <main className="min-h-screen bg-background">
-      <Header />
       <div className="flex items-center justify-center min-h-[80vh] p-4">
         <div className="text-center max-w-lg">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-6">
@@ -38,7 +35,6 @@ export default function SubscriptionSuccessPage() {
           </div>
         </div>
       </div>
-      <Footer />
     </main>
   )
 }
