@@ -4,7 +4,6 @@ import { Syncopate, Inter, Space_Grotesk } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
 import CustomCursor from '@/components/CustomCursor'
-import SmoothScrolling from '@/components/SmoothScrolling'
 import Noise from '@/components/Noise'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
@@ -45,11 +44,11 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <CustomCursor />
         <Noise />
         <QueryProvider>
-          <SmoothScrolling>
-            <Header />
-            {children}
-            <Footer />
-          </SmoothScrolling>
+          {/* <SmoothScrolling> */}
+          <Header />
+          {children}
+          <Footer />
+          {/* </SmoothScrolling> */}
         </QueryProvider>
       </body>
     </html>
