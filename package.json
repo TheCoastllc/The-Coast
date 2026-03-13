@@ -25,7 +25,7 @@
     "@payloadcms/email-resend": "3.78.0",
     "@payloadcms/next": "3.78.0",
     "@payloadcms/plugin-cloud-storage": "3.78.0",
-    "@payloadcms/richtext-lexical": "^3.79.0",
+    "@payloadcms/richtext-lexical": "3.78.0",
     "@payloadcms/ui": "3.78.0",
     "@studio-freight/react-lenis": "^0.0.47",
     "@tailwindcss/postcss": "^4.2.1",
