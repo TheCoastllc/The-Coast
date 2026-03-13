@@ -61,7 +61,6 @@ export function HeroUIProvider({ children }: { children: ReactNode }) {
         // Total wait: ~1.5s for preloader + 2.5s delay = 4s
         const safetyTimeout = setTimeout(() => {
             if (!hasDoneIntro) {
-                console.log("Hero animations: Safety timeout triggered.");
                 setIsReady(true);
                 hasDoneIntro = true;
             }
