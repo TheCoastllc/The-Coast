@@ -46,7 +46,7 @@ export default function About() {
             className="flex items-center gap-4 mb-8"
           >
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">02</span>
-            <div className="w-12 h-[1px] bg-white/20" />
+            <div className="w-12 h-px bg-white/20" />
             <span className="text-white/40 text-xs tracking-[0.3em] uppercase">About Us</span>
           </motion.div>
           <TextReveal

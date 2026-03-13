@@ -23,7 +23,7 @@ export function LiveIndicator() {
         >
             {/* Pulsing Dot */}
             <div className="relative flex items-center justify-center">
-                <div className="h-1.5 w-1.5 rounded-full bg-[#76f042] flex-shrink-0" />
+                <div className="h-1.5 w-1.5 rounded-full bg-[#76f042] shrink-0" />
                 <motion.div
                     className="absolute h-1.5 w-1.5 rounded-full bg-[#76f042]"
                     animate={{
