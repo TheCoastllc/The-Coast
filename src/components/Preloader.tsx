@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+import Image from 'next/image'
 
 export default function Preloader() {
   const [done, setDone] = useState(false)
@@ -97,10 +98,12 @@ export default function Preloader() {
 
       {/* Logo + dot container */}
       <div className="relative z-10 flex items-end gap-1">
-        <img
+        <Image
           ref={logoRef}
           src="/preloaderlogo.svg"
           alt=""
+          width={70}
+          height={70}
           className="h-16 md:h-20 w-auto"
           style={{ opacity: 0 }}
         />

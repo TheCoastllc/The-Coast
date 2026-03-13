@@ -40,9 +40,9 @@ export function Header() {
 	return (
 		<header
 			className={cn(
-				"sticky top-0 z-500000 mx-auto w-full border-transparent border-b md:border md:transition-all md:ease-out",
+				"fixed inset-x-0 top-0 z-50 mx-auto w-full border-transparent border-b md:border md:transition-all md:ease-out",
 				{
-					"border-border max-w-3xl bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/50 md:top-2":
+					"border-border max-w-3xl md:top-2":
 						scrolled,
 				}
 			)}
