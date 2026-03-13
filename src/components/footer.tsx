@@ -45,7 +45,7 @@ export function Footer() {
 						</p>
 						<div className="flex gap-2">
 							{socialLinks.map((item, index) => (
-								<Button key={`social-${item.link}-${index}`} size="icon-sm" variant="outline" render={<a href={item.link} target="_blank" />} nativeButton={false}>{item.icon}</Button>
+								<Button key={`social-${item.link}-${index}`} size="icon-sm" variant="outline" render={<a href={item.link} target="_blank" />} nativeButton={false} aria-label={item.name}>{item.icon}</Button>
 							))}
 						</div>
 					</div>
@@ -142,22 +142,27 @@ const resources = [
 
 const socialLinks = [
 	{
+		name: "Facebook",
 		icon: <FaFacebookF />,
 		link: "https://www.facebook.com/coastglobal",
 	},
 	{
+		name: "Instagram",
 		icon: <FaInstagram />,
 		link: "https://www.instagram.com/coastglobal",
 	},
 	{
+		name: "LinkedIn",
 		icon: <FaLinkedinIn />,
 		link: "https://www.linkedin.com/company/thecoastcompanylimited/",
 	},
 	{
+		name: "X (formerly Twitter)",
 		icon: <FaXTwitter />,
 		link: "https://x.com/TCoast13363",
 	},
 	{
+		name: "Pinterest",
 		icon: <FaPinterestP />,
 		link: "https://pin.it/nW5MRvKEz",
 	},

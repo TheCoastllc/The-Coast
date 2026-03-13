@@ -73,10 +73,8 @@ export default function PrevHeader() {
                 {item.label}
               </Link>
             ))}
-            <ShineButton size='sm'>
-              <Link href="/get-started" className=" font-mono ">
-                Start Project
-              </Link>
+            <ShineButton size='sm' href="/get-started" className="font-mono">
+              Start Project
             </ShineButton>
           </div>
 

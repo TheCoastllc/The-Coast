@@ -10,7 +10,7 @@ export default function AboutPage() {
     return (
         <BlueprintLayout>
             {/* Hero Section */}
-            <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+            <section className="pt-32 px-4 pb-16 md:pt-40 md:pb-24">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -31,7 +31,7 @@ export default function AboutPage() {
             <SectionBoundary />
 
             {/* About The Coast */}
-            <section className="py-20 md:py-32">
+            <section className="py-20 px-4 md:py-32">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -73,7 +73,7 @@ export default function AboutPage() {
             <SectionBoundary />
 
             {/* Who We Are */}
-            <section className="py-20 md:py-32">
+            <section className="py-20 md:py-32 px-4">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -103,7 +103,7 @@ export default function AboutPage() {
             <SectionBoundary />
 
             {/* What We Do */}
-            <section className="py-20 md:py-32">
+            <section className="py-20 md:py-32 px-4">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -156,7 +156,7 @@ export default function AboutPage() {
             <SectionBoundary />
 
             {/* Mission & Vision */}
-            <section className="py-20 md:py-32">
+            <section className="py-20 md:py-32 px-4">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -185,7 +185,7 @@ export default function AboutPage() {
             <SectionBoundary />
 
             {/* Closing */}
-            <section className="py-16 md:py-24">
+            <section className="py-16 md:py-24 px-4">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}

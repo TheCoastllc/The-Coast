@@ -47,7 +47,7 @@ export default function About() {
           >
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">02</span>
             <div className="w-12 h-px bg-white/20" />
-            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">About Us</span>
+            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">About Us</span>
           </motion.div>
           <TextReveal
             className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-display uppercase tracking-tighter max-w-4xl leading-none"
@@ -77,7 +77,7 @@ export default function About() {
                 <span className="text-primary text-5xl md:text-6xl font-display tracking-tighter">
                   <CountUp target={target} suffix={suffix} duration={2} />
                 </span>
-                <span className="text-white/40 text-xs uppercase tracking-[0.2em] font-mono">{stat.label}</span>
+                <span className="text-muted-foreground text-xs uppercase tracking-[0.2em] font-mono">{stat.label}</span>
               </motion.div>
             )
           })}

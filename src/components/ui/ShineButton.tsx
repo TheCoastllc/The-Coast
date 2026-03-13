@@ -11,7 +11,7 @@ interface SizeConfig {
 }
 
 const sizeConfig: Record<string, SizeConfig> = {
-  sm: { padding: '8px 20px', fontSize: '12px', borderRadius: '7px', wrapperRadius: '8px', outerRadius: '10px' },
+  sm: { padding: '10px 24px', fontSize: '12px', borderRadius: '7px', wrapperRadius: '8px', outerRadius: '10px' },
   md: { padding: '14px 36px', fontSize: '16px', borderRadius: '9px', wrapperRadius: '10px', outerRadius: '12px' },
 }
 

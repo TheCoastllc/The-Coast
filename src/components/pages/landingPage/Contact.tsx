@@ -18,7 +18,7 @@ export default function Contact() {
           >
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">09</span>
             <div className="w-12 h-px bg-white/20" />
-            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Contact</span>
+            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Contact</span>
           </motion.div>
           <TextReveal
             className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
@@ -58,15 +58,15 @@ export default function Contact() {
             onSubmit={(e) => e.preventDefault()}
           >
             <div className="flex flex-col gap-2">
-              <label className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Name</label>
+              <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-mono">Name</label>
               <input type="text" className="bg-transparent border-b border-white/10 pb-4 text-white focus:outline-none focus:border-primary transition-colors rounded-none" placeholder="John Doe" />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Email</label>
+              <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-mono">Email</label>
               <input type="email" className="bg-transparent border-b border-white/10 pb-4 text-white focus:outline-none focus:border-primary transition-colors rounded-none" placeholder="john@example.com" />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Message</label>
+              <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-mono">Message</label>
               <textarea className="bg-transparent border-b border-white/10 pb-4 text-white focus:outline-none focus:border-primary transition-colors resize-none h-24 rounded-none" placeholder="Tell us about your project..."></textarea>
             </div>
             <ShineButton full size='md' type="submit">

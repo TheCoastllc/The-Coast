@@ -39,7 +39,7 @@ export default function FAQ() {
           >
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">07</span>
             <div className="w-12 h-px bg-white/20" />
-            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Questions</span>
+            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Questions</span>
           </motion.div>
           <TextReveal
             className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
@@ -68,7 +68,7 @@ export default function FAQ() {
                   <h3 className={`text-xl md:text-3xl font-display uppercase tracking-tight transition-colors duration-500 ${isOpen ? 'text-primary' : 'text-white/80 group-hover:text-white'}`}>
                     {faq.question}
                   </h3>
-                  <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-500 ${isOpen ? 'bg-primary border-primary text-black' : 'border-white/10 text-white/40 group-hover:border-white/40 group-hover:text-white'}`}>
+                  <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-500 ${isOpen ? 'bg-primary border-primary text-black' : 'border-white/10 text-muted-foreground group-hover:border-white/40 group-hover:text-white'}`}>
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>

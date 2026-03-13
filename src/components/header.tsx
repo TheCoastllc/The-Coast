@@ -97,10 +97,8 @@ export function Header() {
 									<Button key={link.label} size="sm" variant="ghost" render={<Link href={link.href} />} nativeButton={false}>{link.label}</Button>
 								))}
 							</div>
-							<ShineButton size='sm'>
-								<Link href="/get-started" className=" font-mono ">
-									Start Project
-								</Link>
+							<ShineButton size='sm' href="/get-started" className="font-mono">
+								Start Project
 							</ShineButton>
 						</div>
 						<MobileNav />

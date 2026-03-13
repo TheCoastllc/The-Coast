@@ -9,8 +9,8 @@ export const metadata = {
 export default function WorkPage() {
   return (
     <BlueprintLayout>
-      <div className="pt-32 pb-20 px-4">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
+      <div className="pt-32 pb-20 px-6">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 md:px-12">
           <span className="text-mono text-muted-foreground/50 block mb-3">Portfolio</span>
           <TextReveal as="h1" className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">Our Work</TextReveal>
           <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl mb-16">

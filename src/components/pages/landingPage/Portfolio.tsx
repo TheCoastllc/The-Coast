@@ -69,7 +69,7 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
                 <span className="text-primary text-xs tracking-[0.2em] uppercase font-mono">
                   0{index + 1}
                 </span>
-                <span className="text-white/40 text-xs tracking-[0.2em] uppercase">
+                <span className="text-muted-foreground text-xs tracking-[0.2em] uppercase">
                   {project.category}
                 </span>
               </div>
@@ -80,7 +80,7 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
 
               <div className="flex flex-wrap gap-2">
                 {project.tags.map(tag => (
-                  <span key={tag} className="px-3 py-1 border border-white/10 text-white/40 text-[10px] uppercase tracking-widest rounded-full">
+                  <span key={tag} className="px-3 py-1 border border-white/10 text-white/60 text-[10px] uppercase tracking-widest rounded-full">
                     {tag}
                   </span>
                 ))}
@@ -117,7 +117,7 @@ export default function Portfolio() {
             <div className="flex items-center gap-4 mb-8">
               <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">05</span>
               <div className="w-12 h-px bg-white/20" />
-              <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Portfolio</span>
+              <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Portfolio</span>
             </div>
             <TextReveal
               className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter mb-6"

@@ -27,7 +27,7 @@ export default function ServicesPage() {
     <BlueprintLayout>
       {/* Hero Section */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="max-w-6xl mx-auto px-6 sm:px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,7 +46,7 @@ export default function ServicesPage() {
 
       {/* Services List */}
       <section className="py-20 md:py-32">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="max-w-6xl mx-auto px-6 sm:px-6 md:px-12">
           <div className="border-t border-border">
             {designServices.map((service, index) => (
               <motion.div
@@ -86,7 +86,7 @@ export default function ServicesPage() {
 
       {/* CTA Section */}
       <section className="py-16 md:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="max-w-6xl mx-auto px-6 sm:px-6 md:px-12">
           {/* CTA Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}

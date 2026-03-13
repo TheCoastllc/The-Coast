@@ -50,7 +50,7 @@ export default async function BlogPreview() {
           <div className="flex items-center gap-4 mb-8">
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">08</span>
             <div className="w-12 h-px bg-white/20" />
-            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Insights</span>
+            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Insights</span>
           </div>
           <TextReveal
             className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"

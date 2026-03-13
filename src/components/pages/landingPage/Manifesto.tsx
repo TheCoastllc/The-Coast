@@ -17,7 +17,7 @@ export default function Manifesto() {
           >
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">01</span>
             <div className="w-12 h-[1px] bg-white/20" />
-            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Manifesto</span>
+            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Manifesto</span>
           </motion.div>
 
           <TextReveal

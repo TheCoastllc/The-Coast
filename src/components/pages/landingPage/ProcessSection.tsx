@@ -48,7 +48,7 @@ export default function ProcessSection() {
           >
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">04</span>
             <div className="w-12 h-px bg-white/20" />
-            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">Methodology</span>
+            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Methodology</span>
           </motion.div>
           <TextReveal
             className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
@@ -102,7 +102,7 @@ export default function ProcessSection() {
                       <h3 className="text-2xl font-display uppercase tracking-tight mb-4 text-white/80 group-hover:text-white transition-colors duration-500">
                         {step.title}
                       </h3>
-                      <p className="text-white/40 text-sm font-light leading-relaxed group-hover:text-white/60 transition-colors duration-500">
+                      <p className="text-white/60 text-sm font-light leading-relaxed group-hover:text-white/80 transition-colors duration-500">
                         {step.desc}
                       </p>
                     </div>

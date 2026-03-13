@@ -128,7 +128,7 @@ export default function Services() {
               03
             </span>
             <div className="w-12 h-px bg-white/20" />
-            <span className="text-white/40 text-xs tracking-[0.3em] uppercase">
+            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">
               Capabilities
             </span>
           </motion.div>
