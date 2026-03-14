@@ -41,15 +41,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" className={`dark ${spaceGrotesk.className} ${inter.variable}`}>
       <body suppressHydrationWarning>
         <Preloader />
-        <CustomCursor />
         <Noise />
         <QueryProvider>
-          {/* <SmoothScrolling> */}
           <Header />
           {children}
           <Footer />
-          {/* </SmoothScrolling> */}
         </QueryProvider>
+        <CustomCursor />
       </body>
     </html>
   )

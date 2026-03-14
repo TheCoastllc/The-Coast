@@ -1,8 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
-@custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
 /* ─── Dark-First Theme ─── */
@@ -36,7 +32,7 @@
   --input: oklch(1 0 0 / 10%);
   --ring: oklch(0.72 0.12 75);
 
-  --radius: 0.625rem;
+  --radius: 0.5rem;
 
   --gold: 42 60% 54%;
   --gold-dark: 42 55% 40%;
@@ -105,7 +101,16 @@
     to {
       height: var(--radix-accordion-content-height)
     }
+
+    from {
+      height: 0
+    }
+
+    to {
+      height: var(--radix-accordion-content-height)
+    }
   }
+
 
   @keyframes accordion-up {
     from {
@@ -115,7 +120,16 @@
     to {
       height: 0
     }
+
+    from {
+      height: var(--radix-accordion-content-height)
+    }
+
+    to {
+      height: 0
+    }
   }
+
 
   @keyframes fade-up {
     0% {
@@ -127,7 +141,18 @@
       opacity: 1;
       transform: translateY(0)
     }
+
+    0% {
+      opacity: 0;
+      transform: translateY(40px)
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0)
+    }
   }
+
 
   @keyframes fade-in {
     0% {
@@ -137,7 +162,16 @@
     100% {
       opacity: 1
     }
+
+    0% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 1
+    }
   }
+
 
   @keyframes scale-in {
     0% {
@@ -149,9 +183,30 @@
       opacity: 1;
       transform: scale(1)
     }
+
+    0% {
+      opacity: 0;
+      transform: scale(0.95)
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1)
+    }
   }
 
+
   @keyframes slide-left {
+    0% {
+      transform: translateX(100px);
+      opacity: 0
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1
+    }
+
     0% {
       transform: translateX(100px);
       opacity: 0
@@ -240,11 +295,11 @@
 /* ─── Base Layer ─── */
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
 
   body {
-    @apply antialiased bg-background overflow-x-hidden text-foreground;
+    @apply antialiased bg-background text-foreground;
     font-family: var(--font-inter, 'Inter'), system-ui, sans-serif;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -444,6 +499,7 @@
   100% {
     background-position: 0% 50%;
   }
+
 
   50% {
     background-position: 100% 50%;

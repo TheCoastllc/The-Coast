@@ -38,7 +38,7 @@ export default function Contact() {
             <p className="text-white/50 font-light leading-relaxed mb-12 max-w-md">
               Ready to build your empire? Whether you&apos;re opening your first coffee shop, launching a startup, or ready to rebrand and level up — we&apos;re here to make your brand unforgettable.
             </p>
-            <a href="mailto:hello@coastglobal.org" className="text-2xl md:text-3xl font-display uppercase tracking-tighter hover:text-primary transition-colors duration-300 flex items-center gap-4 group w-fit">
+            <a href="mailto:hello@coastglobal.org" className="text-xl md:text-3xl font-display uppercase tracking-tighter hover:text-primary transition-colors duration-300 flex items-center gap-4 group w-fit">
               hello@coastglobal.org
               <ArrowUpRight className="w-8 h-8 group-hover:rotate-45 transition-transform duration-300 text-primary" />
             </a>

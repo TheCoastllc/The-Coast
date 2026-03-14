@@ -30,7 +30,7 @@ export default function Clients() {
         </TextReveal>
       </div>
 
-      <div className="relative flex overflow-x-hidden max-w-6xl mx-auto px-6">
+      <div className="relative flex overflow-hidden max-w-6xl mx-auto px-6">
         <motion.div
           className="flex whitespace-nowrap"
           animate={{ x: ["0%", "-50%"] }}

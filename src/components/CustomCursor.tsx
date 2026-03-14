@@ -130,7 +130,7 @@ export default function CustomCursor() {
       {/* Outer ring */}
       <div
         ref={outerRef}
-        className="fixed top-0 left-0 pointer-events-none z-9999999999 hidden md:flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-9999 hidden md:flex items-center justify-center"
         style={{
           width: 40,
           height: 40,
@@ -151,7 +151,7 @@ export default function CustomCursor() {
       {/* Inner dot & Plus container */}
       <div
         ref={innerRef}
-        className="fixed top-0 left-0 pointer-events-none z-9999999999 hidden md:flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-9999 hidden md:flex items-center justify-center"
         style={{
           width: 8,
           height: 8,

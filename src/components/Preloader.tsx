@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import Image from 'next/image'
@@ -7,17 +6,29 @@ import Image from 'next/image'
 export default function Preloader() {
   const [done, setDone] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
-  const logoRef = useRef<HTMLImageElement>(null)
-  const dotRef = useRef<HTMLDivElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
+  const logoRef = useRef<HTMLDivElement>(null)
+  const counterRef = useRef<HTMLDivElement>(null)
+  const lineRef = useRef<HTMLDivElement>(null)
+  const topPanelRef = useRef<HTMLDivElement>(null)
+  const bottomPanelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!containerRef.current || !logoRef.current || !dotRef.current || !overlayRef.current) return
+    if (
+      !containerRef.current ||
+      !logoRef.current ||
+      !counterRef.current ||
+      !lineRef.current ||
+      !topPanelRef.current ||
+      !bottomPanelRef.current
+    ) return
 
     document.body.style.overflow = 'hidden'
 
-    const dot = dotRef.current
-    const overlay = overlayRef.current
+    const line = lineRef.current
+    const counter = counterRef.current
+    const topPanel = topPanelRef.current
+    const bottomPanel = bottomPanelRef.current
+    const counterObj = { value: 0 }
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -28,49 +39,63 @@ export default function Preloader() {
       },
     })
 
-    // 1. Logo fades + scales in
+    // 1. Logo fades in
     tl.fromTo(
       logoRef.current,
-      { scale: 0.7, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.8, ease: 'power3.out' }
+      { y: 10, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }
     )
 
-    // 2. Fullstop dot rolls in from right
+    // 2. Line grows from center outward + counter fades in
     tl.fromTo(
-      dot,
-      { x: 80, opacity: 0, rotation: 0 },
-      { x: 0, opacity: 1, rotation: 360, duration: 0.6, ease: 'power2.out' },
-      '-=0.2'
+      line,
+      { scaleX: 0 },
+      { scaleX: 1, duration: 0.55, ease: 'power3.out', transformOrigin: 'center center' },
+      '-=0.1'
     )
+    tl.to(counter, { opacity: 1, duration: 0.3, ease: 'power2.out' }, '<')
 
-    // 3. Brief hold
-    tl.to({}, { duration: 0.3 })
+    // 3. Counter ticks 0 → 100
+    tl.to(counterObj, {
+      value: 100,
+      duration: 1.2,
+      ease: 'power1.inOut',
+      onUpdate: () => {
+        counter.textContent = `${Math.round(counterObj.value)}`
+      },
+    }, '-=0.1')
 
-    // 4. Calculate dot center position and expand clip-path from it
-    tl.add(() => {
-      const dotRect = dot.getBoundingClientRect()
-      const dotCenterX = dotRect.left + dotRect.width / 2
-      const dotCenterY = dotRect.top + dotRect.height / 2
-      const vw = window.innerWidth
-      const vh = window.innerHeight
-      const xPercent = (dotCenterX / vw) * 100
-      const yPercent = (dotCenterY / vh) * 100
+    // 4. Hold at 100
+    tl.to({}, { duration: 0.25 })
 
-      overlay.style.clipPath = `circle(0% at ${xPercent}% ${yPercent}%)`
-
-      gsap.to(overlay, {
-        clipPath: `circle(150% at ${xPercent}% ${yPercent}%)`,
-        duration: 0.8,
-        ease: 'power3.inOut',
-      })
+    // 5. Logo + counter fade out
+    tl.to([logoRef.current, counter], {
+      opacity: 0,
+      duration: 0.25,
+      ease: 'power2.in',
     })
 
-    // 5. Slide the white container up (after clip-path finishes)
-    tl.to(containerRef.current, {
-      yPercent: -100,
-      duration: 0.6,
+    // 6. Line (which is the bottom edge of the top panel) stretches to full viewport width
+    tl.to(line, {
+      width: '100vw',
+      duration: 0.55,
       ease: 'power3.inOut',
-    }, '+=0.8')
+    }, '-=0.05')
+
+    // 7. Brief hold — full-width line sits as the seam
+    tl.to({}, { duration: 0.15 })
+
+    // 8. The two panels split apart — the line goes with the top panel, it IS the seam
+    tl.to(topPanel, {
+      yPercent: -100,
+      duration: 0.75,
+      ease: 'power3.inOut',
+    })
+    tl.to(bottomPanel, {
+      yPercent: 100,
+      duration: 0.75,
+      ease: 'power3.inOut',
+    }, '<')
 
     return () => {
       tl.kill()
@@ -83,36 +108,59 @@ export default function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-9999999999 flex items-center justify-center"
-      style={{ backgroundColor: '#fafafa' }}
+      className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden"
     >
-      {/* Dark overlay that expands from dot */}
+      {/* TOP panel — covers top half, the line lives at its bottom edge */}
       <div
-        ref={overlayRef}
-        className="absolute inset-0"
-        style={{
-          backgroundColor: '#0a0a0a',
-          clipPath: 'circle(0% at 50% 50%)',
-        }}
-      />
+        ref={topPanelRef}
+        className="absolute top-0 left-0 w-full flex flex-col items-center justify-end"
+        style={{ height: '50%', backgroundColor: '#fafafa' }}
+      >
+        {/* Logo + counter sit inside the top panel, above the seam */}
+        <div className="flex flex-col items-center gap-2 pb-0">
+          <div ref={logoRef} style={{ opacity: 0 }}>
+            <Image
+              src="/preloaderlogo.svg"
+              alt=""
+              width={70}
+              height={70}
+              className="h-16 md:h-20 w-auto"
+            />
+          </div>
+          <div
+            ref={counterRef}
+            style={{
+              fontFamily: 'monospace',
+              fontSize: '0.65rem',
+              letterSpacing: '0.18em',
+              color: '#000000',
+              opacity: 0,
+            }}
+          >
+            0
+          </div>
+        </div>
 
-      {/* Logo + dot container */}
-      <div className="relative z-10 flex items-end gap-1">
-        <Image
-          ref={logoRef}
-          src="/preloaderlogo.svg"
-          alt=""
-          width={70}
-          height={70}
-          className="h-16 md:h-20 w-auto"
-          style={{ opacity: 0 }}
-        />
+        {/* THE LINE — the seam/bottom edge of the top panel */}
         <div
-          ref={dotRef}
-          className="w-3 h-3 md:w-4 md:h-4 rounded-sm mb-1"
-          style={{ backgroundColor: '#000000', opacity: 0 }}
+          ref={lineRef}
+          style={{
+            width: '70px',
+            height: '2px',
+            backgroundColor: '#000000',
+            transform: 'scaleX(0)',
+            transformOrigin: 'center center',
+            flexShrink: 0,
+          }}
         />
       </div>
+
+      {/* BOTTOM panel — covers bottom half */}
+      <div
+        ref={bottomPanelRef}
+        className="absolute bottom-0 left-0 w-full"
+        style={{ height: '50%', backgroundColor: '#fafafa' }}
+      />
     </div>
   )
 }
