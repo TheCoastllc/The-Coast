@@ -1,14 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion, type Transition } from "motion/react";
 import { useState, type ReactNode, createContext, useContext, useEffect } from "react";
-
-// ─── Heavy WebGL/canvas components — loaded on demand, no SSR output ───
-
-const FuzzyText = dynamic(() => import("./FuzzyText"), { ssr: false });
-
-// ─── Constants & Performance Hoisting ───
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const STAGGER = 0.12;
@@ -231,36 +224,5 @@ export function HeroAnimatedVideo({
         >
             {children}
         </motion.div>
-    );
-}
-
-/* ─── FuzzyText word (dynamically imported, ssr: false) ─── */
-
-export function HeroFuzzyWord({
-    children,
-    fontSize,
-    fontWeight,
-    color,
-    baseIntensity = 0.2,
-    hoverIntensity = 0.5,
-}: {
-    children: string;
-    fontSize?: string;
-    fontWeight?: number;
-    color?: string;
-    baseIntensity?: number;
-    hoverIntensity?: number;
-}) {
-    return (
-        <FuzzyText
-            baseIntensity={baseIntensity}
-            hoverIntensity={hoverIntensity}
-            enableHover
-            fontSize={fontSize}
-            fontWeight={fontWeight}
-            color={color}
-        >
-            {children}
-        </FuzzyText>
     );
 }
