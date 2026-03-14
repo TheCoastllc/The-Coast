@@ -48,17 +48,7 @@ export function HeroSection() {
 
 							<HeroAnimatedWord step={1}>Design</HeroAnimatedWord>
 							<HeroAnimatedWord step={2}>The</HeroAnimatedWord>
-							<HeroAnimatedWord step={3}>
-								<HeroFuzzyWord
-									baseIntensity={0.2}
-									hoverIntensity={0.5}
-									fontSize="clamp(3rem, 8vw, 7rem)"
-									fontWeight={700}
-									color="#c9a24b"
-								>
-									FUTURE.
-								</HeroFuzzyWord>
-							</HeroAnimatedWord>
+							<HeroAnimatedWord step={3}>FUTURE.</HeroAnimatedWord>
 						</h1>
 
 						{/* Subtitle */}
