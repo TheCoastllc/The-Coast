@@ -40,7 +40,7 @@ export function Header() {
 	return (
 		<header
 			className={cn(
-				"fixed inset-x-0 top-0 z-50 mx-auto w-full border-transparent border-b md:border md:transition-all md:ease-out",
+				"fixed left-0 top-0 z-50 mx-auto w-full border-transparent border-b md:border md:transition-all md:ease-out",
 				{
 					"border-border max-w-3xl md:bg-background/95 md:backdrop-blur-sm md:supports-backdrop-filter:bg-background/50 md:top-2":
 						scrolled,

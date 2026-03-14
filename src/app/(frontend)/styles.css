@@ -244,7 +244,7 @@
   }
 
   body {
-    @apply antialiased bg-background text-foreground;
+    @apply antialiased bg-background overflow-x-hidden text-foreground;
     font-family: var(--font-inter, 'Inter'), system-ui, sans-serif;
     scrollbar-width: none;
     -ms-overflow-style: none;

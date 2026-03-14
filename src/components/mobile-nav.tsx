@@ -62,13 +62,13 @@ export function MobileNav() {
 	}, [open]);
 
 	return (
-		<div className="md:hidden">
+		<div className="md:hidden mr-2">
 			<button
 				aria-controls="mobile-menu"
 				aria-expanded={open}
 				aria-label="Toggle menu"
 				onClick={() => setOpen(!open)}
-				className="relative mr-2 z-50 flex items-center justify-center size-10 rounded-md border border-border text-foreground hover:bg-muted/50 transition-colors"
+				className="relative z-50 flex items-center justify-center size-10 rounded-md border border-border text-foreground hover:bg-muted/50 transition-colors"
 			>
 				<AnimatePresence mode="wait" initial={false}>
 					{open ? (
