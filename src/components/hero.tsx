@@ -9,7 +9,6 @@ import {
 	HeroAnimatedWord,
 	HeroAnimatedFadeUp,
 	HeroAnimatedVideo,
-	HeroFuzzyWord,
 	HeroUIProvider,
 } from "./hero-animations";
 import { RetroGrid } from "./RetroGrid";
