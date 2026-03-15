@@ -36,6 +36,7 @@ function conicGradient(angle: number, r: number, g: number, b: number): string {
 interface ShineButtonProps {
   children?: ReactNode
   size?: 'sm' | 'md'
+  variant?: 'default' | 'ghost'
   full?: boolean
   onClick?: () => void
   href?: string
@@ -46,6 +47,7 @@ interface ShineButtonProps {
 export function ShineButton({
   children = 'Get Started Now',
   size = 'md',
+  variant = 'default',
   full = false,
   onClick,
   href,
@@ -91,9 +93,10 @@ export function ShineButton({
     position: 'relative',
     display: full ? 'block' : 'inline-block',
     borderRadius: s.wrapperRadius,
-    padding: '1px',
-    margin: '2px',
-    background: conicGradient(angle, r, g, b),
+    padding: variant === 'ghost' ? '0' : '1px',
+    margin: variant === 'ghost' ? '3px' : '2px',
+    background: variant === 'ghost' ? 'none' : conicGradient(angle, r, g, b),
+    border: variant === 'ghost' ? '1px solid rgba(255,255,255,0.15)' : 'none',
     ...(full && { width: '100%' }),
   }
 
@@ -105,8 +108,8 @@ export function ShineButton({
     fontSize: s.fontSize,
     fontFamily: "var(--font-space, 'Space Grotesk'), system-ui, sans-serif",
     fontWeight: 500,
-    color: '#ffffff',
-    background: 'radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%)',
+    color: variant === 'ghost' ? 'rgba(255,255,255,0.7)' : '#ffffff',
+    background: variant === 'ghost' ? 'transparent' : 'radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%)',
     border: 'none',
     borderRadius: s.borderRadius,
     cursor: 'none',

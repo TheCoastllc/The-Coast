@@ -5,7 +5,7 @@ import { motion, useInView } from 'motion/react'
 import TextReveal from '@/components/TextReveal'
 
 function CountUp({ target, suffix, duration = 2 }: { target: number; suffix: string; duration?: number }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(target)
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref)
 
