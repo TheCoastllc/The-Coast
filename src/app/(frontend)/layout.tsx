@@ -54,6 +54,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
     <html lang="en" className={`dark ${coast.variable} ${inter.variable} ${anton.variable} ${spaceGrotesk.variable} ${syncopate.variable}`}>
+      <head>
+        <meta name="google-site-verification" content="Ys1u-yhF9J4iqt83Yyt475eed4mAOEEJw0cF68iWWkA" />
+      </head>
       <body suppressHydrationWarning>
         <Preloader />
         <Noise />
