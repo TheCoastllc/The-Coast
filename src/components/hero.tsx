@@ -44,10 +44,9 @@ export function HeroSection() {
 						{/* Headline - Giant Typography Style */}
 						<h1 className=" flex flex-col hero-header tracking-tighter leading-none font-bold">
 							<HeroAnimatedWord step={1}>THE</HeroAnimatedWord>
-							<HeroAnimatedWord step={2} className="md:flex md:gap-2">
-								<HeroAnimatedWord step={3} className="flex-1 text-base font-normal mt-8 hidden lg:inline-block  font-sans tracking-normal">
-									Strategic brand design for entrepreneurs, artists, and growing businesses.
-									We turn visions into empires, helping brands scale faster.
+							<HeroAnimatedWord step={2} className="md:flex md:items-center md:gap-2">
+								<HeroAnimatedWord step={3} className="flex-1 text-base text-muted-foreground font-normal hidden lg:inline-block  font-sans tracking-normal">
+									Strategic brand design for entrepreneurs, artists, and growing businesses. <span className="text-white">We turn visions into empires.</span>
 									<HeroAnimatedFadeUp
 										step={5}
 										className="flex w-fit items-center justify-center gap-3 pt-2"
@@ -60,9 +59,8 @@ export function HeroSection() {
 							</HeroAnimatedWord>
 						</h1>
 
-						<HeroAnimatedWord step={3} className="text-base font-normal leading-none lg:hidden max-w-lg font-sans tracking-normal">
-							Strategic brand design for entrepreneurs, artists, and growing businesses.
-							We turn visions into empires, helping brands scale faster.
+						<HeroAnimatedWord step={3} className="text-base text-muted-foreground font-normal leading-none lg:hidden max-w-lg font-sans tracking-normal">
+							Strategic brand design for entrepreneurs, artists, and growing businesses. <span className="text-white">We turn visions into empires.</span>
 							<HeroAnimatedFadeUp
 								step={5}
 								className="flex w-fit items-center justify-center gap-3 pt-2"
