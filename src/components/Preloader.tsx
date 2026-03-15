@@ -3,11 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import Image from 'next/image'
 
+const TEXT = 'Design the Future'
+
 export default function Preloader() {
   const [done, setDone] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<HTMLDivElement>(null)
-  const counterRef = useRef<HTMLDivElement>(null)
+  const lettersRef = useRef<(HTMLSpanElement | null)[]>([])
   const lineRef = useRef<HTMLDivElement>(null)
   const topPanelRef = useRef<HTMLDivElement>(null)
   const bottomPanelRef = useRef<HTMLDivElement>(null)
@@ -16,7 +18,6 @@ export default function Preloader() {
     if (
       !containerRef.current ||
       !logoRef.current ||
-      !counterRef.current ||
       !lineRef.current ||
       !topPanelRef.current ||
       !bottomPanelRef.current
@@ -25,10 +26,12 @@ export default function Preloader() {
     document.body.style.overflow = 'hidden'
 
     const line = lineRef.current
-    const counter = counterRef.current
     const topPanel = topPanelRef.current
     const bottomPanel = bottomPanelRef.current
-    const counterObj = { value: 0 }
+    const letters = lettersRef.current.filter(Boolean) as HTMLSpanElement[]
+
+    // Shuffle for random scatter order
+    const shuffled = [...letters].sort(() => Math.random() - 0.5)
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -39,63 +42,63 @@ export default function Preloader() {
       },
     })
 
-    // 1. Logo fades in
+    // 1. Logo fades + slides in
     tl.fromTo(
       logoRef.current,
       { y: 10, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }
     )
 
-    // 2. Line grows from center outward + counter fades in
+    // 2. Letters scatter in randomly
+    tl.fromTo(
+      shuffled,
+      {
+        opacity: 0,
+        y: () => gsap.utils.random(-18, 18),
+        x: () => gsap.utils.random(-8, 8),
+      },
+      {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        duration: 0.5,
+        ease: 'power3.out',
+        stagger: { each: 0.045, from: 'random' },
+      },
+      '-=0.1'
+    )
+
+    // 3. Line appears as underline beneath the text
     tl.fromTo(
       line,
       { scaleX: 0 },
       { scaleX: 1, duration: 0.55, ease: 'power3.out', transformOrigin: 'center center' },
-      '-=0.1'
+      '-=0.05'
     )
-    tl.to(counter, { opacity: 1, duration: 0.3, ease: 'power2.out' }, '<')
 
-    // 3. Counter ticks 0 → 100
-    tl.to(counterObj, {
-      value: 100,
-      duration: 1.2,
-      ease: 'power1.inOut',
-      onUpdate: () => {
-        counter.textContent = `${Math.round(counterObj.value)}`
-      },
-    }, '-=0.1')
+    // 4. Hold — everything reads for a moment
+    tl.to({}, { duration: 0.6 })
 
-    // 4. Hold at 100
-    tl.to({}, { duration: 0.25 })
-
-    // 5. Logo + counter fade out
-    tl.to([logoRef.current, counter], {
+    // 5. Logo + letters fade out
+    tl.to([logoRef.current, ...letters], {
       opacity: 0,
       duration: 0.25,
       ease: 'power2.in',
     })
 
-    // 6. Line (which is the bottom edge of the top panel) stretches to full viewport width
+    // 6. Line stretches to full viewport width
     tl.to(line, {
       width: '100vw',
       duration: 0.55,
       ease: 'power3.inOut',
     }, '-=0.05')
 
-    // 7. Brief hold — full-width line sits as the seam
+    // 7. Brief hold — line sits as the seam
     tl.to({}, { duration: 0.15 })
 
-    // 8. The two panels split apart — the line goes with the top panel, it IS the seam
-    tl.to(topPanel, {
-      yPercent: -100,
-      duration: 0.75,
-      ease: 'power3.inOut',
-    })
-    tl.to(bottomPanel, {
-      yPercent: 100,
-      duration: 0.75,
-      ease: 'power3.inOut',
-    }, '<')
+    // 8. Panels split — line travels with top panel as the seam
+    tl.to(topPanel, { yPercent: -100, duration: 0.75, ease: 'power3.inOut' })
+    tl.to(bottomPanel, { yPercent: 100, duration: 0.75, ease: 'power3.inOut' }, '<')
 
     return () => {
       tl.kill()
@@ -110,14 +113,14 @@ export default function Preloader() {
       ref={containerRef}
       className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden"
     >
-      {/* TOP panel — covers top half, the line lives at its bottom edge */}
+      {/* TOP panel — line is pinned to its bottom edge */}
       <div
         ref={topPanelRef}
         className="absolute top-0 left-0 w-full flex flex-col items-center justify-end"
-        style={{ height: '50%', backgroundColor: '#fafafa' }}
+        style={{ height: '51%', backgroundColor: '#fafafa' }}
       >
-        {/* Logo + counter sit inside the top panel, above the seam */}
-        <div className="flex flex-col items-center gap-2 pb-0">
+        <div className="flex flex-col items-center gap-1 pb-0">
+          {/* Logo */}
           <div ref={logoRef} style={{ opacity: 0 }}>
             <Image
               src="/preloaderlogo.svg"
@@ -127,35 +130,43 @@ export default function Preloader() {
               className="h-16 md:h-20 w-auto"
             />
           </div>
+
+          {/* Text */}
           <div
-            ref={counterRef}
-            style={{
-              fontFamily: 'monospace',
-              fontSize: '0.65rem',
-              letterSpacing: '0.18em',
-              color: '#000000',
-              opacity: 0,
-            }}
+            className="flex items-center font-sans tracking-widest uppercase text-xs"
+            style={{ color: '#000000', gap: '0.04em' }}
+            aria-label={TEXT}
           >
-            0
+            {TEXT.split('').map((char, i) => (
+              <span
+                key={i}
+                ref={el => { lettersRef.current[i] = el }}
+                style={{ opacity: 0, display: 'inline-block', whiteSpace: 'pre', position: 'relative', zIndex: 1000 }}
+              >
+                {char}
+              </span>
+            ))}
           </div>
         </div>
 
-        {/* THE LINE — the seam/bottom edge of the top panel */}
+        {/* THE LINE — underline that becomes the seam */}
         <div
           ref={lineRef}
           style={{
-            width: '70px',
+            width: '160px',
             height: '2px',
+            position: 'relative',
+            zIndex: 1000,
             backgroundColor: '#000000',
             transform: 'scaleX(0)',
             transformOrigin: 'center center',
             flexShrink: 0,
+            marginTop: '6px',
           }}
         />
       </div>
 
-      {/* BOTTOM panel — covers bottom half */}
+      {/* BOTTOM panel */}
       <div
         ref={bottomPanelRef}
         className="absolute bottom-0 left-0 w-full"

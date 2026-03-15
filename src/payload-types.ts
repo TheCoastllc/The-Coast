@@ -78,6 +78,7 @@ export interface Config {
     'intake-submissions': IntakeSubmission;
     'event-intake-submissions': EventIntakeSubmission;
     'google-reviews': GoogleReview;
+    'contact-submissions': ContactSubmission;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -96,6 +97,7 @@ export interface Config {
     'intake-submissions': IntakeSubmissionsSelect<false> | IntakeSubmissionsSelect<true>;
     'event-intake-submissions': EventIntakeSubmissionsSelect<false> | EventIntakeSubmissionsSelect<true>;
     'google-reviews': GoogleReviewsSelect<false> | GoogleReviewsSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -480,6 +482,18 @@ export interface GoogleReview {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: number;
+  name: string;
+  email: string;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -545,6 +559,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'google-reviews';
         value: number | GoogleReview;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: number | ContactSubmission;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -800,6 +818,17 @@ export interface GoogleReviewsSelect<T extends boolean = true> {
   text?: T;
   rating?: T;
   displayOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  message?: T;
   updatedAt?: T;
   createdAt?: T;
 }

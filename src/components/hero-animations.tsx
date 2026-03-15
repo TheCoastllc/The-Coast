@@ -1,7 +1,9 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { motion, type Transition } from "motion/react";
 import { useState, type ReactNode, createContext, useContext, useEffect } from "react";
+import Link from "next/link";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const STAGGER = 0.12;
@@ -34,7 +36,7 @@ export function HeroUIProvider({ children }: { children: ReactNode }) {
             setTimeout(() => {
                 setIsReady(true);
                 hasDoneIntro = true;
-            }, 50);
+            }, 100);
         };
 
         // 2. Already Done (e.g. mounting late)
@@ -100,16 +102,19 @@ export function HeroAnimatedBadge({
 }) {
     const { isFirstLoad, isPreloaderActive } = useHeroUI();
     return (
-        <motion.a
-            href="#link"
+        <motion.div
             variants={badgeVariants}
             custom={step}
             initial={isFirstLoad ? "hidden" : "visible"}
             animate={!isPreloaderActive ? "visible" : "hidden"}
-            className="group mx-auto flex w-fit items-center gap-3 rounded-sm border bg-card p-1 shadow transition-all"
         >
-            {children}
-        </motion.a>
+            <Link href="/services"
+                className="group flex w-fit items-center gap-3 rounded-sm border bg-card p-1 shadow transition-all"
+
+            >
+                {children}
+            </Link>
+        </motion.div>
     );
 }
 
@@ -130,9 +135,11 @@ const wordVariants = {
 export function HeroAnimatedWord({
     children,
     step = 0,
+    className = "",
 }: {
     children: ReactNode;
     step?: number;
+    className?: string;
 }) {
     const { isFirstLoad, isPreloaderActive } = useHeroUI();
     return (
@@ -142,7 +149,7 @@ export function HeroAnimatedWord({
                 custom={step}
                 initial={isFirstLoad ? "hidden" : "visible"}
                 animate={!isPreloaderActive ? "visible" : "hidden"}
-                className="block origin-bottom-left"
+                className={cn("block origin-bottom-left", className)}
             >
                 {children}
             </motion.span>

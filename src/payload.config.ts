@@ -16,6 +16,7 @@ import { Requests } from './collections/Requests'
 import { IntakeSubmissions } from './collections/IntakeSubmissions'
 import { EventIntakeSubmissions } from './collections/EventIntakeSubmissions'
 import { GoogleReviews } from './collections/GoogleReviews'
+import { ContactSubmissions } from './collections/ContactSubmissions'
 
 import { resendAdapter } from '@payloadcms/email-resend'
 import { cloudinaryStorage } from 'payload-cloudinary'
@@ -57,6 +58,7 @@ export default buildConfig({
     IntakeSubmissions,
     EventIntakeSubmissions,
     GoogleReviews,
+    ContactSubmissions,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

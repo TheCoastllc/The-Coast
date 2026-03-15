@@ -17,7 +17,7 @@ export function HeroSection() {
 	return (
 		<HeroUIProvider>
 			<section>
-				<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-20 ">
+				<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-22 ">
 					<RetroGrid />
 					{/* Decorative Background Elements */}
 					<div aria-hidden="true" className="absolute inset-0 -z-1 size-full overflow-hidden">
@@ -30,11 +30,11 @@ export function HeroSection() {
 						<div className="absolute inset-y-0 right-4 w-px bg-linear-to-b from-transparent via-border to-border md:right-8" />
 					</div>
 
-					<div className="relative z-10 flex flex-col items-center justify-center min-h-[90dvh] md:min-h-[75dvh] gap-5 w-full">
+					<div className="relative z-10 flex flex-col justify-center md:justify-start max-sm:min-h-[90dvh] md:h-fit xl:min-h-[75dvh] gap-3 w-full">
 						{/* Badge */}
 						<HeroAnimatedBadge step={0}>
 							<LiveIndicator />
-							<span className="text-xs pl-1">Brand Builders</span>
+							<span className="text-xs pl-1">Design The Future</span>
 							<span className="block h-5 border-l" />
 							<div className="pr-1">
 								<ArrowRightIcon className="size-3 -translate-x-0.5 duration-150 ease-out group-hover:translate-x-0.5" />
@@ -42,32 +42,35 @@ export function HeroSection() {
 						</HeroAnimatedBadge>
 
 						{/* Headline - Giant Typography Style */}
-						<h1 className="relative z-10 text-center font-bold leading-[0.85] tracking-tighter uppercase 
-    text-5xl sm:text-7xl md:text-8xl lg:text-[7rem]">
-
-							<HeroAnimatedWord step={1}>Design</HeroAnimatedWord>
-							<HeroAnimatedWord step={2}>The</HeroAnimatedWord>
-							<HeroAnimatedWord step={3}>FUTURE.</HeroAnimatedWord>
+						<h1 className=" flex flex-col hero-header tracking-tighter leading-none font-bold">
+							<HeroAnimatedWord step={1}>THE</HeroAnimatedWord>
+							<HeroAnimatedWord step={2} className="md:flex md:gap-2">
+								<HeroAnimatedWord step={3} className="flex-1 text-base font-normal mt-8 hidden lg:inline-block  font-sans tracking-normal">
+									Strategic brand design for entrepreneurs, artists, and growing businesses.
+									We turn visions into empires, helping brands scale faster.
+									<HeroAnimatedFadeUp
+										step={5}
+										className="flex w-fit items-center justify-center gap-3 pt-2"
+									>
+										<ShineButton size="sm" href="#contact">Book a Call</ShineButton>
+										<ShineButton size="sm" href="/get-started">Get started</ShineButton>
+									</HeroAnimatedFadeUp>
+								</HeroAnimatedWord>
+								<span className="text-muted-foreground">COAST® </span>
+							</HeroAnimatedWord>
 						</h1>
 
-						{/* Subtitle */}
-						<HeroAnimatedFadeUp
-							step={4}
-							as="p"
-							className="text-center text-muted-foreground text-sm tracking-wider sm:text-lg"
-						>
-							Strategic brand design for entrepreneurs, artists, and growing businesses. <br />
+						<HeroAnimatedWord step={3} className="text-base font-normal leading-none lg:hidden max-w-lg font-sans tracking-normal">
+							Strategic brand design for entrepreneurs, artists, and growing businesses.
 							We turn visions into empires, helping brands scale faster.
-						</HeroAnimatedFadeUp>
-
-						{/* CTA Buttons */}
-						<HeroAnimatedFadeUp
-							step={5}
-							className="flex w-fit items-center justify-center gap-3 pt-2"
-						>
-							<ShineButton size="sm">Book a Call</ShineButton>
-							<ShineButton size="sm">Get started</ShineButton>
-						</HeroAnimatedFadeUp>
+							<HeroAnimatedFadeUp
+								step={5}
+								className="flex w-fit items-center justify-center gap-3 pt-2"
+							>
+								<ShineButton size="sm" href="#contact">Book a Call</ShineButton>
+								<ShineButton size="sm" href="/get-started">Get started</ShineButton>
+							</HeroAnimatedFadeUp>
+						</HeroAnimatedWord>
 					</div>
 				</div>
 				{/* Video Section */}

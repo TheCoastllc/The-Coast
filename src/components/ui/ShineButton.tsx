@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { ButtonHTMLAttributes, useEffect, useRef, useState, type ReactNode } from 'react'
 
 interface SizeConfig {
@@ -126,7 +127,7 @@ export function ShineButton({
     >
       <div style={wrapperStyle}>
         {href ? (
-          <a
+          <Link
             href={href}
             style={innerStyle}
             onMouseDown={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(0.96)' }}
@@ -134,7 +135,7 @@ export function ShineButton({
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}
           >
             {children}
-          </a>
+          </Link>
         ) : (
           <button
             type={type}
