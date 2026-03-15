@@ -10,9 +10,15 @@ import TextReveal from '@/components/TextReveal'
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
-export const metadata = {
-  title: 'Blog | The Coast',
-  description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses.',
+export const metadata: import('next').Metadata = {
+  title: 'Journal',
+  description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Journal.',
+  alternates: { canonical: 'https://coastglobal.org/blog' },
+  openGraph: {
+    title: 'The Coast Journal — Brand Design Insights',
+    description: 'Insights on brand design, visual identity, and creative strategy.',
+    url: 'https://coastglobal.org/blog',
+  },
 }
 
 const POSTS_PER_PAGE = 9

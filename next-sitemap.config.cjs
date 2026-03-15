@@ -2,30 +2,61 @@
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://coastglobal.org',
   generateRobotsTxt: true,
-  exclude: ['/admin/*', '/api/*', '/payment-success', '/subscription-success'],
+  exclude: [
+    '/admin',
+    '/admin/*',
+    '/api/*',
+    '/portal',
+    '/portal/*',
+    '/payment-success',
+    '/subscription-success',
+    '/intake',
+    '/intake/*',
+    '/brand-builder',
+    // Next.js auto-generated icon/manifest routes
+    '/apple-icon.png',
+    '/icon0.svg',
+    '/icon1.png',
+    '/manifest.json',
+  ],
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin', '/api', '/payment-success', '/subscription-success'],
+        disallow: ['/admin', '/api', '/portal', '/payment-success', '/subscription-success', '/intake'],
       },
-      {
-        userAgent: 'GPTBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'ClaudeBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'PerplexityBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'Google-Extended',
-        allow: '/',
-      },
+      { userAgent: 'GPTBot', allow: '/' },
+      { userAgent: 'ClaudeBot', allow: '/' },
+      { userAgent: 'PerplexityBot', allow: '/' },
+      { userAgent: 'Google-Extended', allow: '/' },
     ],
+  },
+  transform: async (config, path) => {
+    const priorities = {
+      '/': 1.0,
+      '/services': 0.9,
+      '/pricing': 0.9,
+      '/get-started': 0.9,
+      '/about': 0.8,
+      '/work': 0.8,
+      '/portfolio': 0.8,
+      '/blog': 0.8,
+      '/brand-avatar': 0.7,
+      '/vision': 0.6,
+    }
+    const changefreqs = {
+      '/': 'weekly',
+      '/blog': 'daily',
+      '/pricing': 'weekly',
+      '/services': 'monthly',
+    }
+
+    return {
+      loc: path,
+      changefreq: changefreqs[path] ?? 'monthly',
+      priority: priorities[path] ?? 0.6,
+      lastmod: new Date().toISOString(),
+    }
   },
 }

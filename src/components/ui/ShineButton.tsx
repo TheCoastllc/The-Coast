@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ButtonHTMLAttributes, useEffect, useRef, useState, type ReactNode } from 'react'
+import { usePageTransition } from '@/components/PageTransition'
 
 interface SizeConfig {
   padding: string
@@ -59,6 +60,7 @@ export function ShineButton({
   const targetAngle = useRef(225)
   const [angle, setAngle] = useState(225)
 
+  const { navigateTo } = usePageTransition()
   const s = sizeConfig[size] || sizeConfig.md
   const r = 201, g = 162, b = 75
 
@@ -133,6 +135,12 @@ export function ShineButton({
           <Link
             href={href}
             style={innerStyle}
+            onClick={(e) => {
+              if (!href.startsWith('http') && !href.startsWith('#')) {
+                e.preventDefault()
+                navigateTo(href)
+              }
+            }}
             onMouseDown={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(0.96)' }}
             onMouseUp={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}

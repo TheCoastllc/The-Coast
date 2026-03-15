@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
 
-export const metadata = {
-  title: 'Payment Successful | The Coast',
+export const metadata: import('next').Metadata = {
+  title: 'Payment Successful',
   description: 'Your order has been received. We will be in touch within 24 hours.',
+  robots: { index: false, follow: false },
 }
 
 export default function PaymentSuccessPage() {

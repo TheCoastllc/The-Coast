@@ -9,6 +9,7 @@ import Link from "next/link";
 import { ShineButton } from "./ui/ShineButton";
 import { DecorIcon } from "@/components/ui/decor-icon";
 import { usePathname } from "next/navigation";
+import { TransitionLink } from "@/components/PageTransition";
 
 export const navLinks = [
 	{
@@ -66,7 +67,7 @@ export function Header() {
 							}
 						)}
 					>
-						<Link
+						<TransitionLink
 							href={pathname === '/' ? '#' : '/'}
 							title="The Coast - Home"
 							className="flex items-center rounded-md p-2 hover:bg-muted dark:hover:bg-muted/50 hover-target"
@@ -90,11 +91,14 @@ export function Header() {
 								className="hidden md:block object-contain"
 								priority
 							/>
-						</Link>
+						</TransitionLink>
 						<div className="hidden items-center gap-2 md:flex mr-2">
 							<div>
 								{navLinks.map((link) => (
-									<Button key={link.label} size="sm" variant="ghost" render={<Link href={link.href} />} nativeButton={false}>{link.label}</Button>
+									<TransitionLink key={link.label} href={link.href} className={cn(
+										"inline-flex shrink-0 items-center justify-center rounded-[min(var(--radius-md),12px)] h-7 gap-1 px-2.5 text-[0.8rem] font-medium whitespace-nowrap transition-all outline-none select-none",
+										"hover:bg-muted hover:text-foreground dark:hover:bg-muted/50"
+									)}>{link.label}</TransitionLink>
 								))}
 							</div>
 							<ShineButton size='sm' href="/get-started" className="font-mono">

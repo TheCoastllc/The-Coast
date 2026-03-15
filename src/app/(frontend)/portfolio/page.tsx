@@ -1,8 +1,15 @@
 import { BlueprintLayout } from '@/components/blueprint-layout'
 
-export const metadata = {
-  title: 'Portfolio | Client Showcase | The Coast',
-  description: 'See how The Coast transforms brands and helps businesses grow.',
+export const metadata: import('next').Metadata = {
+  title: 'Client Portfolio',
+  description:
+    'The brands The Coast has helped build, grow, and transform. Logo design, visual identity, and brand strategy results.',
+  alternates: { canonical: 'https://coastglobal.org/portfolio' },
+  openGraph: {
+    title: 'Client Portfolio | The Coast',
+    description: 'The brands we have helped build, grow, and transform.',
+    url: 'https://coastglobal.org/portfolio',
+  },
 }
 
 export default function PortfolioPage() {

@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
 
-export const metadata = {
-  title: 'Subscription Confirmed | The Coast',
+export const metadata: import('next').Metadata = {
+  title: 'Subscription Confirmed',
   description: 'Your subscription is confirmed. Welcome aboard!',
+  robots: { index: false, follow: false },
 }
 
 export default function SubscriptionSuccessPage() {

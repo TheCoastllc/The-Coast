@@ -24,23 +24,42 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       limit: 1,
     })
     const post = docs[0] as any
-    if (!post) return { title: 'Not Found' }
+    if (!post) return { title: 'Not Found', robots: { index: false } }
+
+    const coverImageUrl: string | null =
+      post.coverImage?.cloudinary?.secure_url ??
+      post.coverImage?.url ??
+      null
+
+    const ogImages = coverImageUrl
+      ? [{ url: coverImageUrl, alt: post.title }]
+      : [{ url: '/preview.jpg', width: 1600, height: 900, alt: 'The Coast — Brand Design Studio' }]
+
+    const canonicalUrl = `https://coastglobal.org/blog/${slug}`
 
     return {
-      title: `${post.title} | The Coast`,
-      description: post.excerpt || 'Read on The Coast Journal',
+      title: post.title,
+      description: post.excerpt || 'Read on The Coast Journal.',
+      alternates: { canonical: canonicalUrl },
       openGraph: {
         title: post.title,
-        description: post.excerpt || '',
-        images: post.coverImage?.cloudinary?.secure_url
-          ? [post.coverImage.cloudinary.secure_url]
-          : post.coverImage?.url ? [post.coverImage.url] : [],
+        description: post.excerpt || 'Read on The Coast Journal.',
+        url: canonicalUrl,
         type: 'article',
         publishedTime: post.publishedAt,
+        modifiedTime: post.updatedAt,
+        authors: ['The Coast'],
+        images: ogImages,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: post.title,
+        description: post.excerpt || 'Read on The Coast Journal.',
+        images: coverImageUrl ? [coverImageUrl] : ['/preview.jpg'],
       },
     }
   } catch {
-    return { title: 'Blog | The Coast' }
+    return { title: 'The Coast Journal' }
   }
 }
 

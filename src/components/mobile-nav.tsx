@@ -7,12 +7,14 @@ import { navLinks } from "@/components/header";
 import { XIcon, MenuIcon, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { usePageTransition } from "@/components/PageTransition";
 
 export function MobileNav() {
 	const [open, setOpen] = useState(false);
 	const [mounted, setMounted] = useState(false);
 	const pathname = usePathname();
 
+	const { navigateTo } = usePageTransition();
 	const close = useCallback(() => setOpen(false), []);
 
 	useEffect(() => {
@@ -126,7 +128,16 @@ export function MobileNav() {
 										>
 											<Link
 												href={link.href}
-												onClick={close}
+												onClick={(e) => {
+													const href = link.href;
+													if (!href.startsWith('http') && !href.startsWith('#') && !href.startsWith('/#')) {
+														e.preventDefault();
+														close();
+														setTimeout(() => navigateTo(href), 100);
+													} else {
+														close();
+													}
+												}}
 												className="group flex items-center justify-between py-4 border-b border-border/50 text-foreground hover:text-primary transition-colors duration-200"
 											>
 												<div className="flex items-center gap-4">
@@ -157,7 +168,11 @@ export function MobileNav() {
 								>
 									<Link
 										href="/get-started"
-										onClick={close}
+										onClick={(e) => {
+											e.preventDefault();
+											close();
+											setTimeout(() => navigateTo('/get-started'), 100);
+										}}
 										className="flex items-center justify-center gap-2 w-full py-4 bg-primary text-primary-foreground text-mono text-sm rounded-full hover:bg-primary/90 transition-colors"
 									>
 										Start a Project

@@ -1,9 +1,16 @@
 import { BlueprintLayout } from '@/components/blueprint-layout'
 import TextReveal from '@/components/TextReveal'
 
-export const metadata = {
-  title: 'Our Work | Client Case Studies & Creative Projects | The Coast',
-  description: 'Explore The Coast\'s portfolio of brand transformations, web designs, and creative projects.',
+export const metadata: import('next').Metadata = {
+  title: 'Our Work',
+  description:
+    'Explore brand transformations, logo design projects, and creative work from The Coast. Real results for real businesses.',
+  alternates: { canonical: 'https://coastglobal.org/work' },
+  openGraph: {
+    title: 'Our Work | Brand Transformations | The Coast',
+    description: 'Brand transformations, creative projects, and the stories behind them.',
+    url: 'https://coastglobal.org/work',
+  },
 }
 
 export default function WorkPage() {
