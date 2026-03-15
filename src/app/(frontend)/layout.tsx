@@ -7,14 +7,7 @@ import CustomCursor from '@/components/CustomCursor'
 import Noise from '@/components/Noise'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
-import localFont from 'next/font/local'
 
-
-const coast = localFont({
-  src: '../../../public/fonts/Dirtyline36Daysoftype2022-Reg.ttf',
-  variable: '--font-coast',
-  display: 'swap',
-})
 
 const syncopate = Syncopate({
   subsets: ['latin'],
@@ -53,7 +46,7 @@ export const metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${coast.variable} ${inter.variable} ${anton.variable} ${spaceGrotesk.variable} ${syncopate.variable}`}>
+    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${spaceGrotesk.variable} ${syncopate.variable}`}>
       <head>
         <meta name="google-site-verification" content="Ys1u-yhF9J4iqt83Yyt475eed4mAOEEJw0cF68iWWkA" />
       </head>

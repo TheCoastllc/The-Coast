@@ -159,7 +159,7 @@ const socialLinks = [
 	{
 		name: "X (formerly Twitter)",
 		icon: <FaXTwitter />,
-		link: "https://x.com/TCoast13363",
+		link: "https://x.com/TheCoastHQ",
 	},
 	{
 		name: "Pinterest",

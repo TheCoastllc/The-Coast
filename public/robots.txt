@@ -1,0 +1,29 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /payment-success
+Disallow: /subscription-success
+
+# GPTBot
+User-agent: GPTBot
+Allow: /
+
+# ClaudeBot
+User-agent: ClaudeBot
+Allow: /
+
+# PerplexityBot
+User-agent: PerplexityBot
+Allow: /
+
+# Google-Extended
+User-agent: Google-Extended
+Allow: /
+
+# Host
+Host: https://coastglobal.org
+
+# Sitemaps
+Sitemap: https://coastglobal.org/sitemap.xml
