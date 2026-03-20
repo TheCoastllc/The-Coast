@@ -85,6 +85,7 @@ export function HeroSection() {
 							muted
 							loop
 							playsInline
+							poster="/preview.jpg"
 							className="pointer-events-none aspect-video w-full select-none object-cover"
 						>
 							<source src="/coastVid.mp4" type="video/mp4" />
