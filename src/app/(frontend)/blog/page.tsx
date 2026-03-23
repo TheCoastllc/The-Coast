@@ -2,12 +2,11 @@ import { Suspense } from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import Link from 'next/link'
-import { Clock, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import BlogSearchClient from './BlogSearchClient'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import TextReveal from '@/components/TextReveal'
 import Image from 'next/image'
-
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -31,30 +30,27 @@ type SearchParams = Promise<{ search?: string; category?: string; page?: string 
 function PostGridSkeleton() {
   return (
     <>
-      {/* Search filter pill skeletons */}
-      <div className="flex gap-2 flex-wrap mb-6">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-8 w-24 rounded-full bg-muted animate-pulse" />
+      {/* Filter skeleton */}
+      <div className="flex gap-3 flex-wrap">
+        <div className="h-9 w-48 bg-muted animate-pulse" />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="h-9 w-20 bg-muted animate-pulse" />
         ))}
       </div>
 
       {/* Card grid skeletons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px mt-10 border border-border">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="rounded-xl border border-border bg-card overflow-hidden animate-pulse">
+          <div key={i} className="bg-card p-0 overflow-hidden animate-pulse">
             <div className="aspect-[16/10] bg-muted" />
             <div className="p-5 space-y-3">
-              <div className="flex gap-2">
-                <div className="h-5 w-20 rounded-full bg-muted" />
-                <div className="h-5 w-16 rounded-full bg-muted" />
-              </div>
-              <div className="h-5 w-full rounded bg-muted" />
-              <div className="h-5 w-3/4 rounded bg-muted" />
-              <div className="h-4 w-full rounded bg-muted" />
-              <div className="h-4 w-2/3 rounded bg-muted" />
-              <div className="flex justify-between pt-1">
-                <div className="h-3 w-24 rounded bg-muted" />
-                <div className="h-3 w-12 rounded bg-muted" />
+              <div className="h-3 w-20 bg-muted" />
+              <div className="h-5 w-full bg-muted" />
+              <div className="h-5 w-3/4 bg-muted" />
+              <div className="h-3 w-full bg-muted" />
+              <div className="flex justify-between pt-2">
+                <div className="h-2.5 w-24 bg-muted" />
+                <div className="w-8 h-8 bg-muted" />
               </div>
             </div>
           </div>
@@ -123,8 +119,9 @@ async function PostsGrid({
 
   return (
     <>
-      <div className="px-4 pb-16">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
+      {/* Filter/search bar */}
+      <div className="py-8 md:py-10">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
           <Suspense>
             <BlogSearchClient
               categories={categories}
@@ -137,73 +134,89 @@ async function PostsGrid({
 
       <SectionBoundary />
 
-      <section className="pb-16 px-4">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
+      {/* Post grid */}
+      <section className="pb-16">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
           {posts.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-muted-foreground text-lg">No articles found.</p>
+            <div className="py-24 flex flex-col items-center gap-3">
+              <span className="text-mono text-xs uppercase tracking-widest text-muted-foreground/40">No results</span>
+              <p className="text-heading text-2xl text-foreground">No articles found.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-              {posts.map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
-                  <article className="rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                    {(post.coverImage?.cloudinary?.secure_url || post.coverImage?.url) && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-border mt-10 gap-2">
+              {posts.map((post) => {
+                const coverUrl = post.coverImage?.cloudinary?.secure_url ?? post.coverImage?.url ?? null
+                const date = post.publishedAt
+                  ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                  : null
+
+                return (
+                  <Link
+                    key={post.id}
+                    href={`/blog/${post.slug}`}
+                    className="group relative block bg-card overflow-hidden"
+                  >
+                    {/* Top primary bar */}
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+
+                    {/* Cover image */}
+                    {coverUrl && (
                       <div className="aspect-[16/10] relative overflow-hidden">
                         <Image
-                          src={post.coverImage.cloudinary?.secure_url || post.coverImage.url}
-                          alt={post.coverImage.alt ?? post.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          loading="lazy"
+                          src={coverUrl}
+                          alt={post.coverImage?.alt ?? post.title}
                           fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
                         />
                       </div>
                     )}
-                    <div className="p-5">
-                      <div className="flex items-center gap-3 mb-3">
-                        {post.category && (
-                          <span className="text-mono text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">
-                            {formatCategory(post.category)}
-                          </span>
-                        )}
-                        {post.readingTime && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Clock className="h-3 w-3" />
-                            {post.readingTime} min
-                          </span>
-                        )}
-                      </div>
-                      <h2 className="text-heading text-lg text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+
+                    <div className="p-5 flex flex-col gap-3">
+                      {/* Category */}
+                      {post.category && (
+                        <span className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary">
+                          {formatCategory(post.category)}
+                        </span>
+                      )}
+
+                      {/* Title */}
+                      <h2 className="text-heading text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors leading-snug line-clamp-2">
                         {post.title}
                       </h2>
+
+                      {/* Excerpt */}
                       {post.excerpt && (
-                        <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
+                        <p className="text-body text-muted-foreground text-sm line-clamp-2 leading-relaxed">
                           {post.excerpt}
                         </p>
                       )}
-                      <div className="flex items-center justify-between">
-                        {post.publishedAt && (
-                          <span className="text-xs text-muted-foreground">
-                            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                              month: 'short',
-                              day: 'numeric',
-                              year: 'numeric',
-                            })}
-                          </span>
-                        )}
-                        <span className="text-xs font-medium text-foreground flex items-center gap-1 group-hover:gap-2 transition-all">
-                          Read <ArrowRight className="h-3 w-3" />
-                        </span>
+
+                      {/* Footer */}
+                      <div className="flex items-center justify-between mt-auto pt-3 border-t border-border">
+                        <div className="flex items-center gap-3">
+                          {date && (
+                            <span className="text-mono text-[10px] text-muted-foreground/50">{date}</span>
+                          )}
+                          {post.readingTime && (
+                            <span className="text-mono text-[10px] text-muted-foreground/30">{post.readingTime} min</span>
+                          )}
+                        </div>
+                        <div className="w-8 h-8 border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+                          <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-300" />
+                        </div>
                       </div>
                     </div>
-                  </article>
-                </Link>
-              ))}
+                  </Link>
+                )
+              })}
             </div>
           )}
 
+          {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center gap-2 mt-12">
+            <div className="flex items-center gap-2 mt-12 pt-8 border-t border-border">
+              <span className="text-mono text-xs text-muted-foreground/40 uppercase tracking-widest mr-4">Page</span>
               {Array.from({ length: totalPages }, (_, i) => {
                 const params = new URLSearchParams()
                 if (search) params.set('search', search)
@@ -213,9 +226,9 @@ async function PostsGrid({
                   <Link
                     key={i}
                     href={`/blog?${params.toString()}`}
-                    className={`w-10 h-10 rounded-full text-sm font-medium transition-colors flex items-center justify-center ${currentPage === i + 1
-                        ? 'bg-foreground text-background'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                    className={`w-10 h-10 text-mono text-sm transition-colors flex items-center justify-center border ${currentPage === i + 1
+                      ? 'border-primary bg-primary text-black'
+                      : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
                       }`}
                   >
                     {i + 1}
@@ -238,22 +251,28 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
 
   return (
     <BlueprintLayout>
-      {/* Header — renders immediately, no DB calls */}
-      <section className="pt-32 px-4">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
-          <TextReveal as="h1" className="text-heading text-4xl md:text-6xl text-foreground mb-4">
+      {/* Hero — renders immediately, no DB calls */}
+      <section className="pt-32 pb-12 md:pt-40 md:pb-16">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <span className="text-mono text-muted-foreground/40 text-xs uppercase tracking-widest block mb-4">
+            What We Write
+          </span>
+          <TextReveal as="h1" className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">
             The Journal
           </TextReveal>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-10">
-            Insights on brand design, visual identity, and creative strategy.
+          <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
+            Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses.
           </p>
+
         </div>
       </section>
 
+      <SectionBoundary />
+
       {/* Posts + search — streams in with skeleton fallback */}
       <Suspense fallback={
-        <div className="px-4 pb-16">
-          <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
+        <div className="py-8 md:py-10">
+          <div className="max-w-6xl mx-auto px-6 md:px-12">
             <PostGridSkeleton />
           </div>
         </div>

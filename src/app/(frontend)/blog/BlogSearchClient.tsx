@@ -28,22 +28,28 @@ export default function BlogSearchClient({ categories, currentSearch, currentCat
   }, [router, searchParams])
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 mb-10">
-      <div className="relative flex-1 max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/50" />
         <input
           type="text"
           placeholder="Search articles..."
           defaultValue={currentSearch}
           onChange={(e) => updateParams({ search: e.target.value || undefined })}
-          className="w-full pl-10 pr-4 py-2.5 bg-muted/30 border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="pl-9 pr-4 py-2 bg-transparent border border-border text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary/60 transition-colors w-56"
+          style={{ borderRadius: 0 }}
         />
       </div>
+
+      {/* Category filters — sharp square pills */}
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => updateParams({ category: undefined })}
-          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-            !currentCategory ? 'bg-foreground text-background' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+          className={`px-3 py-1.5 text-mono text-[10px] uppercase tracking-widest border transition-colors ${
+            !currentCategory
+              ? 'border-primary bg-primary text-black'
+              : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
           }`}
         >
           All
@@ -52,8 +58,10 @@ export default function BlogSearchClient({ categories, currentSearch, currentCat
           <button
             key={cat}
             onClick={() => updateParams({ category: cat })}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-              currentCategory === cat ? 'bg-foreground text-background' : 'bg-muted text-muted-foreground hover:bg-muted/80'
+            className={`px-3 py-1.5 text-mono text-[10px] uppercase tracking-widest border transition-colors ${
+              currentCategory === cat
+                ? 'border-primary bg-primary text-black'
+                : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
             }`}
           >
             {formatCategory(cat)}

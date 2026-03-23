@@ -1,31 +1,32 @@
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 
-function SkeletonPill({ className = '' }: { className?: string }) {
-  return <div className={`rounded-full bg-muted animate-pulse ${className}`} />
+function SkeletonBlock({ className = '' }: { className?: string }) {
+  return <div className={`bg-muted animate-pulse ${className}`} />
 }
 
-function SkeletonBlock({ className = '' }: { className?: string }) {
-  return <div className={`rounded bg-muted animate-pulse ${className}`} />
-}
 
 export default function BlogLoading() {
   return (
     <BlueprintLayout>
-      {/* Header skeleton */}
-      <section className="pt-32 px-4">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
-          <SkeletonBlock className="h-14 md:h-20 w-64 md:w-96 mb-4" />
+      {/* Hero skeleton */}
+      <section className="pt-32 pb-12 md:pt-40 md:pb-16">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <SkeletonBlock className="h-3 w-28 mb-4" />
+          <SkeletonBlock className="h-14 md:h-20 w-64 md:w-80 mb-6" />
           <SkeletonBlock className="h-5 w-full max-w-lg mb-2" />
-          <SkeletonBlock className="h-5 w-2/3 max-w-sm mb-10" />
+          <SkeletonBlock className="h-5 w-2/3 max-w-sm" />
         </div>
       </section>
 
-      {/* Filter pill skeletons — matches PostsGrid container */}
-      <div className="px-4 pb-16">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
-          <div className="flex gap-2 flex-wrap">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <SkeletonPill key={i} className="h-8 w-24" />
+      <SectionBoundary />
+
+      {/* Filter skeleton */}
+      <div className="py-8 md:py-10">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <div className="flex gap-3 flex-wrap">
+            <SkeletonBlock className="h-9 w-48" />
+            {Array.from({ length: 3 }).map((_, i) => (
+              <SkeletonBlock key={i} className="h-9 w-20" />
             ))}
           </div>
         </div>
@@ -34,27 +35,20 @@ export default function BlogLoading() {
       <SectionBoundary />
 
       {/* Card grid skeleton */}
-      <section className="pb-16 px-4">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      <section className="pb-16">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px border border-border mt-10">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-border bg-card overflow-hidden"
-              >
+              <div key={i} className="bg-card overflow-hidden">
                 <div className="aspect-[16/10] bg-muted animate-pulse" />
                 <div className="p-5 space-y-3">
-                  <div className="flex gap-2">
-                    <SkeletonPill className="h-5 w-20" />
-                    <SkeletonPill className="h-5 w-16" />
-                  </div>
-                  <SkeletonBlock className="h-5 w-full" />
-                  <SkeletonBlock className="h-5 w-3/4" />
+                  <SkeletonBlock className="h-2.5 w-20" />
+                  <SkeletonBlock className="h-6 w-full" />
+                  <SkeletonBlock className="h-6 w-4/5" />
                   <SkeletonBlock className="h-4 w-full" />
-                  <SkeletonBlock className="h-4 w-2/3" />
-                  <div className="flex justify-between pt-1">
-                    <SkeletonBlock className="h-3 w-24" />
-                    <SkeletonBlock className="h-3 w-12" />
+                  <div className="flex justify-between pt-3 border-t border-border">
+                    <SkeletonBlock className="h-2.5 w-24" />
+                    <div className="w-8 h-8 border border-border" />
                   </div>
                 </div>
               </div>
