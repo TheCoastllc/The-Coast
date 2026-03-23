@@ -3,16 +3,13 @@
 import { useRef, useEffect } from 'react'
 
 /**
- * LazyHeroVideo — performance-critical video loader for the homepage hero.
+ * LazyHeroVideo — lazy video loader for the homepage hero.
  *
  * Strategy:
  * - `preload="none"`: prevents browser from fetching the video on mount.
  * - `data-src`: the real video URL. No src = no network request on initial render.
- * - Mobile: useEffect returns early — poster image is shown, no video loads.
- * - Desktop: IntersectionObserver swaps data-src → src when section enters viewport,
+ * - IntersectionObserver swaps data-src → src when section enters viewport,
  *   then calls video.load() + video.play() to begin playback.
- *
- * This drops mobile page weight from ~11.8 MB to ~150 KB and fixes the 21.5s LCP.
  */
 export function LazyHeroVideo({ className }: { className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -20,9 +17,6 @@ export function LazyHeroVideo({ className }: { className?: string }) {
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
-
-    // Suppress video entirely on mobile viewports — poster image shows as fallback
-    if (window.matchMedia('(max-width: 768px)').matches) return
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -55,7 +49,6 @@ export function LazyHeroVideo({ className }: { className?: string }) {
       poster="/preview.jpg"
       className={className}
     >
-      {/* data-src instead of src prevents any network request until intersection fires */}
       <source data-src="/coastVid.mp4" type="video/mp4" />
     </video>
   )

@@ -35,7 +35,7 @@ export function HeroSection() {
 						{/* Badge */}
 						<HeroAnimatedBadge step={0}>
 							<LiveIndicator />
-							<span className="text-xs pl-1">Design The Future</span>
+							<span className="text-xs pl-1">End-to-End Brand Architects</span>
 							<span className="block h-5 border-l" />
 							<div className="pr-1">
 								<ArrowRightIcon className="size-3 -translate-x-0.5 duration-150 ease-out group-hover:translate-x-0.5" />
@@ -47,7 +47,7 @@ export function HeroSection() {
 							<HeroAnimatedWord step={1}>DESIGN THE</HeroAnimatedWord>
 							<HeroAnimatedWord step={2} className="md:flex md:gap-2">
 								<HeroAnimatedWord step={3} className="flex-1 text-base text-muted-foreground font-normal hidden lg:inline-block  font-sans tracking-normal">
-									<span className="mt-4 inline-block">The Coast® provides a strategic ecosystem for the entrepreneurs, artists, and scaling ventures ready to lead. From foundational brand identity and custom web design to cinematic digital experiences, we build the tools you need to grow. <br /><span className="text-white">We turn visions into empires.</span></span>
+									<span className="mt-4 inline-block">At The Coast®, we’ve built an end-to-end ecosystem for the visionaries behind the brands. Whether we’re crafting your brand guidelines, managing your digital marketing, or producing cinematic digital experiences, we’re here to help you scale. <span className="text-white">We turn visions into empires.</span></span>
 									<HeroAnimatedFadeUp
 										step={5}
 										className="flex w-fit items-center justify-center gap-3 pt-2"
@@ -61,7 +61,7 @@ export function HeroSection() {
 						</h1>
 
 						<HeroAnimatedWord step={3} className="text-base text-muted-foreground font-normal leading-none lg:hidden max-w-lg font-sans tracking-normal">
-							The Coast® provides a strategic ecosystem for the entrepreneurs, artists, and scaling ventures ready to lead. From foundational brand identity and custom web design to cinematic digital experiences, we build the tools you need to grow. <span className="text-white">We turn visions into empires.</span>
+							At The Coast®, we’ve built an end-to-end ecosystem for the visionaries behind the brands. Whether we’re crafting your brand guidelines, managing your digital marketing, or producing cinematic digital experiences, we’re here to help you scale. <span className="text-white">We turn visions into empires.</span>
 							<HeroAnimatedFadeUp
 								step={5}
 								className="flex w-fit items-center justify-center gap-3 pt-2"
