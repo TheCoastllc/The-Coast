@@ -356,7 +356,7 @@
 }
 
 .hero-header {
-  font-size: clamp(4rem, 1.4286rem + 12.8571vw, 13rem);
+  font-size: clamp(4rem, 1.4286rem + 12.8571vw, 12rem);
 }
 
 @keyframes grid {

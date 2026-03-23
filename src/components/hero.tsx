@@ -44,10 +44,10 @@ export function HeroSection() {
 
 						{/* Headline - Giant Typography Style */}
 						<h1 className=" flex flex-col hero-header tracking-tighter leading-none font-bold">
-							<HeroAnimatedWord step={1}>THE</HeroAnimatedWord>
-							<HeroAnimatedWord step={2} className="md:flex md:items-center md:gap-2">
+							<HeroAnimatedWord step={1}>DESIGN THE</HeroAnimatedWord>
+							<HeroAnimatedWord step={2} className="md:flex md:gap-2">
 								<HeroAnimatedWord step={3} className="flex-1 text-base text-muted-foreground font-normal hidden lg:inline-block  font-sans tracking-normal">
-									Strategic brand design for entrepreneurs, artists, and growing businesses. <span className="text-white">We turn visions into empires.</span>
+									<span className="mt-4 inline-block">The Coast® provides a strategic ecosystem for the entrepreneurs, artists, and scaling ventures ready to lead. From foundational brand identity and custom web design to cinematic digital experiences, we build the tools you need to grow. <br /><span className="text-white">We turn visions into empires.</span></span>
 									<HeroAnimatedFadeUp
 										step={5}
 										className="flex w-fit items-center justify-center gap-3 pt-2"
@@ -56,12 +56,12 @@ export function HeroSection() {
 										<ShineButton size="sm" variant="ghost" href="/get-started">Get started</ShineButton>
 									</HeroAnimatedFadeUp>
 								</HeroAnimatedWord>
-								<span className="text-muted-foreground">COAST® </span>
+								<span className="text-muted-foreground">FUTURE </span>
 							</HeroAnimatedWord>
 						</h1>
 
 						<HeroAnimatedWord step={3} className="text-base text-muted-foreground font-normal leading-none lg:hidden max-w-lg font-sans tracking-normal">
-							Strategic brand design for entrepreneurs, artists, and growing businesses. <span className="text-white">We turn visions into empires.</span>
+							The Coast® provides a strategic ecosystem for the entrepreneurs, artists, and scaling ventures ready to lead. From foundational brand identity and custom web design to cinematic digital experiences, we build the tools you need to grow. <span className="text-white">We turn visions into empires.</span>
 							<HeroAnimatedFadeUp
 								step={5}
 								className="flex w-fit items-center justify-center gap-3 pt-2"

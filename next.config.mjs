@@ -4,6 +4,16 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
   poweredByHeader: false,
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
+  },
+
   async redirects() {
     return [
       {
