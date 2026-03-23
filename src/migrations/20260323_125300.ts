@@ -1,32 +1,43 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-sqlite'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.run(sql`CREATE TABLE \`privacy_policy\` (
-  	\`id\` integer PRIMARY KEY NOT NULL,
-  	\`last_updated\` text,
-  	\`content\` text,
-  	\`updated_at\` text,
-  	\`created_at\` text
-  );
-  `)
-  await db.run(sql`CREATE TABLE \`terms_of_service\` (
-  	\`id\` integer PRIMARY KEY NOT NULL,
-  	\`last_updated\` text,
-  	\`content\` text,
-  	\`updated_at\` text,
-  	\`created_at\` text
-  );
-  `)
-  await db.run(sql`ALTER TABLE \`users\` ADD \`full_name\` text;`)
-  await db.run(sql`ALTER TABLE \`users\` ADD \`author_title\` text;`)
-  await db.run(sql`ALTER TABLE \`users\` ADD \`author_bio\` text;`)
-  await db.run(sql`ALTER TABLE \`posts\` ADD \`author_id\` integer REFERENCES users(id);`)
-  await db.run(sql`CREATE INDEX \`posts_author_idx\` ON \`posts\` (\`author_id\`);`)
+  // Dev mode may have already pushed these — each statement is safe to skip if it already exists
+  try {
+    await db.run(sql`CREATE TABLE \`privacy_policy\` (
+    	\`id\` integer PRIMARY KEY NOT NULL,
+    	\`last_updated\` text,
+    	\`content\` text,
+    	\`updated_at\` text,
+    	\`created_at\` text
+    );`)
+  } catch { /* already exists */ }
+
+  try {
+    await db.run(sql`CREATE TABLE \`terms_of_service\` (
+    	\`id\` integer PRIMARY KEY NOT NULL,
+    	\`last_updated\` text,
+    	\`content\` text,
+    	\`updated_at\` text,
+    	\`created_at\` text
+    );`)
+  } catch { /* already exists */ }
+
+  try {
+    await db.run(sql`ALTER TABLE \`users\` ADD \`full_name\` text;`)
+  } catch { /* already exists */ }
+
+  try {
+    await db.run(sql`ALTER TABLE \`posts\` ADD \`author_id\` integer REFERENCES users(id);`)
+  } catch { /* already exists */ }
+
+  try {
+    await db.run(sql`CREATE INDEX \`posts_author_idx\` ON \`posts\` (\`author_id\`);`)
+  } catch { /* already exists */ }
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
-  await db.run(sql`DROP TABLE \`privacy_policy\`;`)
-  await db.run(sql`DROP TABLE \`terms_of_service\`;`)
+  await db.run(sql`DROP TABLE IF EXISTS \`privacy_policy\`;`)
+  await db.run(sql`DROP TABLE IF EXISTS \`terms_of_service\`;`)
   await db.run(sql`PRAGMA foreign_keys=OFF;`)
   await db.run(sql`CREATE TABLE \`__new_posts\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
@@ -53,6 +64,4 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`CREATE INDEX \`posts_updated_at_idx\` ON \`posts\` (\`updated_at\`);`)
   await db.run(sql`CREATE INDEX \`posts_created_at_idx\` ON \`posts\` (\`created_at\`);`)
   await db.run(sql`ALTER TABLE \`users\` DROP COLUMN \`full_name\`;`)
-  await db.run(sql`ALTER TABLE \`users\` DROP COLUMN \`author_title\`;`)
-  await db.run(sql`ALTER TABLE \`users\` DROP COLUMN \`author_bio\`;`)
 }

@@ -153,14 +153,6 @@ export interface User {
    * Display name shown as blog post author byline.
    */
   fullName?: string | null;
-  /**
-   * e.g. "Lead Designer at The Coast"
-   */
-  authorTitle?: string | null;
-  /**
-   * Short bio shown below blog posts (max 300 characters).
-   */
-  authorBio?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -634,8 +626,6 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   fullName?: T;
-  authorTitle?: T;
-  authorBio?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

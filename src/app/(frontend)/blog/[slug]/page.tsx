@@ -91,8 +91,6 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   if (!post) notFound()
 
   const authorName: string = post.author?.fullName || 'The Coast'
-  const authorTitle: string | null = post.author?.authorTitle || null
-  const authorBio: string | null = post.author?.authorBio || null
 
   return (
     <BlueprintLayout>
@@ -136,12 +134,6 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           <div className="flex items-center gap-2 mb-8 text-sm text-muted-foreground">
             <span>By</span>
             <span className="text-foreground font-medium">{authorName}</span>
-            {authorTitle && (
-              <>
-                <span className="text-muted-foreground/40">·</span>
-                <span>{authorTitle}</span>
-              </>
-            )}
           </div>
 
           {/* Excerpt */}
@@ -182,17 +174,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             </div>
           )}
 
-          {/* Author bio box */}
-          {authorBio && (
-            <div className="mt-12 pt-8 border-t border-border">
-              <div className="flex flex-col gap-1">
-                <p className="text-xs text-muted-foreground/60 uppercase tracking-widest font-mono">About the author</p>
-                <p className="text-sm font-medium text-foreground">{authorName}</p>
-                {authorTitle && <p className="text-xs text-muted-foreground">{authorTitle}</p>}
-                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{authorBio}</p>
-              </div>
-            </div>
-          )}
+
         </div>
       </article>
     </BlueprintLayout>
