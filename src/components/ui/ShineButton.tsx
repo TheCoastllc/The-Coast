@@ -38,7 +38,6 @@ export function ShineButton({
     display: full ? 'flex' : 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'visible',
     padding: s.padding,
     fontSize: s.fontSize,
     fontFamily: "var(--font-space, 'Space Grotesk'), system-ui, sans-serif",
@@ -88,7 +87,7 @@ export function ShineButton({
   const shine = variant === 'default' ? (
     <span
       aria-hidden="true"
-      className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-[200%] transition-transform duration-[900ms] ease-in-out"
+      className="absolute inset-0 pointer-events-none -translate-x-full group-hover:translate-x-[200%] transition-transform duration-900 ease-in-out"
       style={{
         background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%)',
       }}

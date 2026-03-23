@@ -3,8 +3,10 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api
+Disallow: /portal
 Disallow: /payment-success
 Disallow: /subscription-success
+Disallow: /intake
 
 # GPTBot
 User-agent: GPTBot
@@ -23,7 +25,7 @@ User-agent: Google-Extended
 Allow: /
 
 # Host
-Host: https://coastglobal.org
+Host: https://www.coastglobal.org
 
 # Sitemaps
-Sitemap: https://coastglobal.org/sitemap.xml
+Sitemap: https://www.coastglobal.org/sitemap.xml

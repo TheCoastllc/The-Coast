@@ -35,7 +35,7 @@ export function HeroSection() {
 						{/* Badge */}
 						<HeroAnimatedBadge step={0}>
 							<LiveIndicator />
-							<span className="text-xs pl-1">End-to-End Brand Architects</span>
+							<span className="text-xs pl-1">Full-Stack Creative Ecosystem</span>
 							<span className="block h-5 border-l" />
 							<div className="pr-1">
 								<ArrowRightIcon className="size-3 -translate-x-0.5 duration-150 ease-out group-hover:translate-x-0.5" />

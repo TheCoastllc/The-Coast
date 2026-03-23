@@ -44,12 +44,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: 'The Coast | Brand Design Studio',
+    default: 'The Coast | Full-Stack Creative Ecosystem',
     template: '%s | The Coast',
   },
 
   description:
-    'Strategic brand design for entrepreneurs, artists, and growing businesses. Logo design, visual identity, brand strategy, and marketing assets.',
+    'At The Coast®, we’ve built an end-to-end ecosystem for the visionaries behind the brands. Whether we’re crafting your brand guidelines, managing your digital marketing, or producing cinematic digital experiences, we’re here to help you scale. We turn visions into empires.',
 
   keywords: [
     'brand design studio',
