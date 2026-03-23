@@ -141,6 +141,16 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'users',
+      required: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Select the author of this post. Leave blank to show "The Coast" as byline.',
+      },
+    },
+    {
       name: 'tags',
       type: 'array',
       admin: {

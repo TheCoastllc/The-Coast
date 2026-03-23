@@ -12,6 +12,7 @@ import {
 	HeroUIProvider,
 } from "./hero-animations";
 import { RetroGrid } from "./RetroGrid";
+import { LazyHeroVideo } from "./LazyHeroVideo";
 
 export function HeroSection() {
 	return (
@@ -80,16 +81,7 @@ export function HeroSection() {
 
 					<FullWidthDivider className="-top-px" />
 					<div className="overflow-hidden">
-						<video
-							autoPlay
-							muted
-							loop
-							playsInline
-							poster="/preview.jpg"
-							className="pointer-events-none aspect-video w-full select-none object-cover"
-						>
-							<source src="/coastVid.mp4" type="video/mp4" />
-						</video>
+						<LazyHeroVideo className="pointer-events-none aspect-video w-full select-none object-cover" />
 					</div>
 					<FullWidthDivider className="-bottom-px" />
 				</HeroAnimatedVideo>

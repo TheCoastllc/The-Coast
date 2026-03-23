@@ -107,8 +107,14 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'privacy-policy': PrivacyPolicy;
+    'terms-of-service': TermsOfService;
+  };
+  globalsSelect: {
+    'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
+    'terms-of-service': TermsOfServiceSelect<false> | TermsOfServiceSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -143,6 +149,18 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  /**
+   * Display name shown as blog post author byline.
+   */
+  fullName?: string | null;
+  /**
+   * e.g. "Lead Designer at The Coast"
+   */
+  authorTitle?: string | null;
+  /**
+   * Short bio shown below blog posts (max 300 characters).
+   */
+  authorBio?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -291,6 +309,10 @@ export interface Post {
     };
     [k: string]: unknown;
   };
+  /**
+   * Select the author of this post. Leave blank to show "The Coast" as byline.
+   */
+  author?: (number | null) | User;
   /**
    * Add relevant tags for filtering.
    */
@@ -611,6 +633,9 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  fullName?: T;
+  authorTitle?: T;
+  authorBio?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -678,6 +703,7 @@ export interface PostsSelect<T extends boolean = true> {
   excerpt?: T;
   coverImage?: T;
   content?: T;
+  author?: T;
   tags?:
     | T
     | {
@@ -871,6 +897,94 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Content for the /privacy page. Edit here to update the live Privacy Policy.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-policy".
+ */
+export interface PrivacyPolicy {
+  id: number;
+  /**
+   * Date displayed at the top of the Privacy Policy page.
+   */
+  lastUpdated?: string | null;
+  /**
+   * Full Privacy Policy text. Use headings, paragraphs, and lists.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Content for the /terms page. Edit here to update the live Terms of Service.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-of-service".
+ */
+export interface TermsOfService {
+  id: number;
+  /**
+   * Date displayed at the top of the Terms of Service page.
+   */
+  lastUpdated?: string | null;
+  /**
+   * Full Terms of Service text. Use headings, paragraphs, and lists.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-policy_select".
+ */
+export interface PrivacyPolicySelect<T extends boolean = true> {
+  lastUpdated?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-of-service_select".
+ */
+export interface TermsOfServiceSelect<T extends boolean = true> {
+  lastUpdated?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

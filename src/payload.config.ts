@@ -8,6 +8,8 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
+import { PrivacyPolicy } from './globals/PrivacyPolicy'
+import { TermsOfService } from './globals/TermsOfService'
 import { Clients } from './collections/Clients'
 import { Projects } from './collections/Projects'
 import { ProjectFiles } from './collections/ProjectFiles'
@@ -60,6 +62,7 @@ export default buildConfig({
     GoogleReviews,
     ContactSubmissions,
   ],
+  globals: [PrivacyPolicy, TermsOfService],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

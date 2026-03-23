@@ -26,6 +26,8 @@ const ROUTE_NAMES: Record<string, string> = {
   '/brand-builder': 'Brand Builder',
   '/brand-avatar': 'Brand Avatar',
   '/intake': 'Intake',
+  '/privacy': 'Privacy Policy',
+  '/terms': 'Terms of Service',
 }
 
 function getRouteName(path: string): string {
@@ -203,7 +205,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
       {/* Transition overlay */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-[9999] pointer-events-none flex"
+        className="fixed inset-0 z-9999 pointer-events-none flex"
         style={{ visibility: 'hidden' }}
         aria-hidden="true"
       >

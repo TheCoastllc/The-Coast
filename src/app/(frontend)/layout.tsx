@@ -10,7 +10,7 @@ import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { PageTransitionProvider } from '@/components/PageTransition'
 
-const SITE_URL = 'https://coastglobal.org'
+const SITE_URL = 'https://www.coastglobal.org'
 
 const syncopate = Syncopate({
   subsets: ['latin'],

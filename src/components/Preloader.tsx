@@ -111,13 +111,13 @@ export default function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden"
+      className="fixed inset-0 z-9999 pointer-events-none overflow-hidden"
     >
       {/* TOP panel — line is pinned to its bottom edge */}
       <div
         ref={topPanelRef}
         className="absolute top-0 left-0 w-full flex flex-col items-center justify-end"
-        style={{ height: '51%', backgroundColor: '#fafafa' }}
+        style={{ height: '51%', backgroundColor: '#E7E3D8' }}
       >
         <div className="flex flex-col items-center gap-1 pb-0">
           {/* Logo */}
@@ -170,7 +170,7 @@ export default function Preloader() {
       <div
         ref={bottomPanelRef}
         className="absolute bottom-0 left-0 w-full"
-        style={{ height: '50%', backgroundColor: '#fafafa' }}
+        style={{ height: '50%', backgroundColor: '#E7E3D8' }}
       />
     </div>
   )

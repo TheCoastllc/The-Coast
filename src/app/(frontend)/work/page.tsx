@@ -5,11 +5,12 @@ export const metadata: import('next').Metadata = {
   title: 'Our Work',
   description:
     'Explore brand transformations, logo design projects, and creative work from The Coast. Real results for real businesses.',
-  alternates: { canonical: 'https://coastglobal.org/work' },
+  robots: { index: false, follow: false },
+  alternates: { canonical: 'https://www.coastglobal.org/work' },
   openGraph: {
     title: 'Our Work | Brand Transformations | The Coast',
     description: 'Brand transformations, creative projects, and the stories behind them.',
-    url: 'https://coastglobal.org/work',
+    url: 'https://www.coastglobal.org/work',
   },
 }
 

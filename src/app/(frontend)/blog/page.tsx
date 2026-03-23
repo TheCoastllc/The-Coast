@@ -13,11 +13,11 @@ const formatCategory = (slug: string) =>
 export const metadata: import('next').Metadata = {
   title: 'Journal',
   description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Journal.',
-  alternates: { canonical: 'https://coastglobal.org/blog' },
+  alternates: { canonical: 'https://www.coastglobal.org/blog' },
   openGraph: {
     title: 'The Coast Journal — Brand Design Insights',
     description: 'Insights on brand design, visual identity, and creative strategy.',
-    url: 'https://coastglobal.org/blog',
+    url: 'https://www.coastglobal.org/blog',
   },
 }
 

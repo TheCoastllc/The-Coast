@@ -1,4 +1,10 @@
 import React from 'react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Coast Brand Index',
+  robots: { index: false, follow: false },
+}
 
 const CbiPage = () => {
     return (

@@ -2,15 +2,38 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Your Next.js config here
-  // webpack: (webpackConfig) => {
-  //   webpackConfig.resolve.extensionAlias = {
-  //     '.cjs': ['.cts', '.cjs'],
-  //     '.js': ['.ts', '.tsx', '.js', '.jsx'],
-  //     '.mjs': ['.mts', '.mjs'],
-  //   }
-  //   return webpackConfig
-  // },
+  poweredByHeader: false,
+
+  async redirects() {
+    return [
+      {
+        // 301 Permanent redirect: non-www → www (fixes 307 Temporary split equity issue)
+        // Note: Also update your Vercel Dashboard → Domains to set www as primary with 301.
+        source: '/:path*',
+        has: [{ type: 'host', value: 'coastglobal.org' }],
+        destination: 'https://www.coastglobal.org/:path*',
+        permanent: true,
+      },
+    ]
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

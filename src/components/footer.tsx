@@ -1,10 +1,9 @@
 import { cn } from "@/lib/utils";
-import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaXTwitter, FaPinterestP } from "react-icons/fa6";
-import Link from "next/link";
 import Image from "next/image";
 import { DecorIcon } from "@/components/ui/decor-icon";
+import { TransitionLink } from "@/components/PageTransition";
 
 export function Footer() {
 	return (
@@ -26,7 +25,7 @@ export function Footer() {
 
 				<div className="grid max-w-5xl grid-cols-6 gap-6 p-4">
 					<div className="col-span-6 flex flex-col gap-4 pt-5 md:col-span-4">
-						<Link
+						<TransitionLink
 							href="/"
 							title="The Coast - Home"
 							className="flex items-center rounded-md p-2 hover:bg-muted dark:hover:bg-muted/50 hover-target"
@@ -39,7 +38,7 @@ export function Footer() {
 								className="object-contain"
 								priority
 							/>
-						</Link>
+						</TransitionLink>
 						<p className="max-w-sm text-balance text-muted-foreground text-sm">
 							Strategic brand design for entrepreneurs, artists, and growing businesses.
 						</p>
@@ -53,13 +52,13 @@ export function Footer() {
 						<span className="text-muted-foreground text-xs">Resources</span>
 						<div className="mt-2 flex flex-col gap-2">
 							{resources.map(({ href, title }) => (
-								<Link
+								<TransitionLink
 									className="w-max text-sm hover:underline"
 									href={href}
 									key={title}
 								>
 									{title}
-								</Link>
+								</TransitionLink>
 							))}
 						</div>
 					</div>
@@ -67,13 +66,13 @@ export function Footer() {
 						<span className="text-muted-foreground text-xs">Company</span>
 						<div className="mt-2 flex flex-col gap-2">
 							{company.map(({ href, title }) => (
-								<Link
+								<TransitionLink
 									className="w-max text-sm hover:underline"
 									href={href}
 									key={title}
 								>
 									{title}
-								</Link>
+								</TransitionLink>
 							))}
 						</div>
 					</div>
@@ -84,10 +83,14 @@ export function Footer() {
 				<DecorIcon position="bottom-left" className="size-4" />
 				<DecorIcon position="bottom-right" className="size-4" />
 
-				<div className="flex max-w-6xl flex-col justify-between gap-2 py-4">
-					<p className="text-center font-light text-muted-foreground text-sm">
+				<div className="flex max-w-6xl px-4 flex-col items-center justify-between gap-2 py-4 sm:flex-row">
+					<p className="font-light text-muted-foreground text-sm">
 						&copy; {new Date().getFullYear()} The Coast LLC, All rights reserved
 					</p>
+					<div className="flex gap-4">
+						<TransitionLink href="/privacy" className="text-xs text-muted-foreground hover:underline">Privacy Policy</TransitionLink>
+						<TransitionLink href="/terms" className="text-xs text-muted-foreground hover:underline">Terms of Service</TransitionLink>
+					</div>
 				</div>
 			</div>
 		</footer>

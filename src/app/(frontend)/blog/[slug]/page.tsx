@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         and: [{ slug: { equals: slug } }, { status: { equals: 'published' } }],
       },
       limit: 1,
+      depth: 1,
     })
     const post = docs[0] as any
     if (!post) return { title: 'Not Found', robots: { index: false } }
@@ -35,7 +36,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       ? [{ url: coverImageUrl, alt: post.title }]
       : [{ url: '/preview.jpg', width: 1600, height: 900, alt: 'The Coast — Brand Design Studio' }]
 
-    const canonicalUrl = `https://coastglobal.org/blog/${slug}`
+    const canonicalUrl = `https://www.coastglobal.org/blog/${slug}`
+    const authorName = post.author?.fullName || 'The Coast'
 
     return {
       title: post.title,
@@ -48,7 +50,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         type: 'article',
         publishedTime: post.publishedAt,
         modifiedTime: post.updatedAt,
-        authors: ['The Coast'],
+        authors: [authorName],
         images: ogImages,
       },
       twitter: {
@@ -79,6 +81,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
         ],
       },
       limit: 1,
+      depth: 1,
     })
     post = docs[0] as any
   } catch {
@@ -86,6 +89,10 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   }
 
   if (!post) notFound()
+
+  const authorName: string = post.author?.fullName || 'The Coast'
+  const authorTitle: string | null = post.author?.authorTitle || null
+  const authorBio: string | null = post.author?.authorBio || null
 
   return (
     <BlueprintLayout>
@@ -125,6 +132,18 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             {post.title}
           </h1>
 
+          {/* Author byline */}
+          <div className="flex items-center gap-2 mb-8 text-sm text-muted-foreground">
+            <span>By</span>
+            <span className="text-foreground font-medium">{authorName}</span>
+            {authorTitle && (
+              <>
+                <span className="text-muted-foreground/40">·</span>
+                <span>{authorTitle}</span>
+              </>
+            )}
+          </div>
+
           {/* Excerpt */}
           {post.excerpt && (
             <p className="text-body text-muted-foreground text-xl mb-10 leading-relaxed border-l-2 border-primary/30 pl-4">
@@ -159,6 +178,18 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                     #{t.tag}
                   </span>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Author bio box */}
+          {authorBio && (
+            <div className="mt-12 pt-8 border-t border-border">
+              <div className="flex flex-col gap-1">
+                <p className="text-xs text-muted-foreground/60 uppercase tracking-widest font-mono">About the author</p>
+                <p className="text-sm font-medium text-foreground">{authorName}</p>
+                {authorTitle && <p className="text-xs text-muted-foreground">{authorTitle}</p>}
+                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{authorBio}</p>
               </div>
             </div>
           )}
