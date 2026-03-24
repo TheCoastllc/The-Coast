@@ -6,7 +6,11 @@
       "Bash(find /home/ikeji/Documents/WORK/COAST-LLC/thecoast/src/app/\\\\\\(frontend\\\\\\)/\\\\[...not-found\\\\]/ -type f)",
       "Bash(npx tsc --noEmit --project /home/ikeji/Documents/WORK/COAST-LLC/thecoast/tsconfig.json)",
       "Bash(cat \"/home/ikeji/Documents/WORK/COAST-LLC/thecoast/src/app/\\(frontend\\)/page.tsx\")",
-      "Bash(wc -l *.html)"
+      "Bash(wc -l *.html)",
+      "Bash(grep -oP '\\(?<=<h[1-6][^>]*>\\)[^<]+\\(?=</h[1-6]>\\)' *.html)",
+      "Bash(grep -oP '\\(?<=<div[^>]*class=\"\"stat-number\"\"[^>]*>\\)[^<]+' *.html)",
+      "Bash(grep -i 'tagline\\\\|tagline\\\\|electrify\\\\|escape' *.html)",
+      "Bash(ls -lh *.html)"
     ]
   }
 }

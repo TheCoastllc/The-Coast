@@ -90,10 +90,10 @@ function ProjectCell({
   return (
     <motion.div
       ref={cellRef}
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+      initial={{ opacity: 0, clipPath: 'inset(8% 8% 8% 8%)' }}
+      whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       onMouseMove={handleMouseMove}
       onClick={() => navigateTo(`/work/${project.projectId}`)}
       className={cn(
@@ -211,31 +211,30 @@ export default function WorkPageContent() {
 
             <FullWidthDivider className="-top-px" />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 border">
+            <div className="grid grid-cols-1 md:grid-cols-2 border">
               {projects.map((project, i) => (
                 <ProjectCell
                   key={project.projectId}
                   project={project}
                   index={i}
                   className={cn(
-                    // Row 1 (0-2): bottom border on all screens
-                    i < 3 && 'border-b',
-                    // Row 2 (3-4): bottom border mobile only
-                    i >= 3 && i < 5 && 'border-b md:border-b-0',
-                    // Right borders for non-last-in-row (desktop)
-                    i % 3 !== 2 && 'md:border-r',
+                    // Bottom border: rows 1-2 (cells 0-3) always, row 3 (cell 4) mobile only
+                    i < 4 && 'border-b',
+                    i === 4 && 'border-b md:border-b-0',
+                    // Right border: left column (even index) on desktop
+                    i % 2 === 0 && 'md:border-r',
                     // Alternate background on diagonal
-                    (i === 1 || i === 3) && 'bg-secondary dark:bg-secondary/30',
+                    (i === 1 || i === 2) && 'bg-secondary dark:bg-secondary/30',
                   )}
                 />
               ))}
 
               {/* CTA cell */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                initial={{ opacity: 0, clipPath: 'inset(8% 8% 8% 8%)' }}
+                whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0%)' }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col items-center justify-center p-8 md:p-10 aspect-square bg-background"
               >
                 <span className="text-muted-foreground/30 font-mono text-[10px] uppercase tracking-[0.2em] mb-4">
