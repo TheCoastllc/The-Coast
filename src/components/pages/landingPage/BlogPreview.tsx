@@ -1,11 +1,11 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { DecorIcon } from '@/components/ui/decor-icon'
 import { FullWidthDivider } from '@/components/ui/full-width-divider'
 import TextReveal from '@/components/TextReveal'
+import { TransitionLink } from '@/components/PageTransition'
 
 type Post = {
   id: string | number
@@ -69,44 +69,57 @@ export default async function BlogPreview() {
 
           <FullWidthDivider className="-top-px" />
           <div className="grid grid-cols-1 md:grid-cols-3 border">
-            {posts.map((post, index) => (
-              <Link
-                href={`/blog/${post.slug}`}
-                key={post.id}
-                className={cn(
-                  "group relative flex flex-col justify-between p-8 md:p-10 aspect-square bg-background transition-colors duration-500 hover-target",
-                  index < posts.length - 1 && "border-b md:border-b-0",
-                  index < 2 && "md:border-r",
-                  index === 1 && "bg-secondary dark:bg-secondary/30",
-                )}
-              >
-                <div className="flex justify-between items-start">
-                  <span className="text-muted-foreground/60 font-mono text-xs uppercase tracking-widest">
-                    {post.publishedAt
-                      ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })
-                      : ''}
-                  </span>
-                  {post.category && (
-                    <span className="text-primary text-xs uppercase tracking-[0.2em]">{post.category}</span>
-                  )}
-                </div>
+            {posts.map((post, index) => {
+              const imageUrl = post.coverImage?.cloudinary?.secure_url ?? post.coverImage?.url
 
-                <div>
-                  <h3 className="text-2xl font-display uppercase tracking-tighter group-hover:text-primary transition-colors duration-500 mb-6">
-                    {post.title}
-                  </h3>
-                  <div className="flex justify-end">
-                    <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-500">
-                      <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+              return (
+                <TransitionLink
+                  href={`/blog/${post.slug}`}
+                  key={post.id}
+                  className={cn(
+                    "group relative flex flex-col justify-between p-8 md:p-10 aspect-square bg-background transition-colors duration-500 hover-target overflow-hidden",
+                    index < posts.length - 1 && "border-b md:border-b-0",
+                    index < 2 && "md:border-r",
+                    index === 1 && "bg-secondary dark:bg-secondary/30",
+                  )}
+                >
+                  {/* Spotlight image reveal */}
+                  {imageUrl && (
+                    <div
+                      className="blog-spotlight"
+                      aria-hidden="true"
+                      style={{ backgroundImage: `url(${imageUrl})` }}
+                    />
+                  )}
+
+                  <div className="flex justify-between items-start">
+                    <span className="text-muted-foreground/60 font-mono text-xs uppercase tracking-widest">
+                      {post.publishedAt
+                        ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })
+                        : ''}
+                    </span>
+                    {post.category && (
+                      <span className="text-primary text-xs uppercase tracking-[0.2em]">{post.category}</span>
+                    )}
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-display uppercase tracking-tighter group-hover:text-primary transition-colors duration-500 mb-6">
+                      {post.title}
+                    </h3>
+                    <div className="flex justify-end">
+                      <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-500">
+                        <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </TransitionLink>
+              )
+            })}
           </div>
           <FullWidthDivider className="-bottom-px" />
         </div>

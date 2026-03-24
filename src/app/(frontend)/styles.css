@@ -579,6 +579,22 @@
   }
 }
 
+/* ─── Blog Spotlight ─── */
+.blog-spotlight {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  -webkit-mask-image: radial-gradient(circle 250px at 50% 50%, black 0%, transparent 100%);
+  mask-image: radial-gradient(circle 250px at 50% 50%, black 0%, transparent 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  pointer-events: none;
+}
+
 /* ─── Service Card Glow ─── */
 .service-card {
   --glow-x: 50%;

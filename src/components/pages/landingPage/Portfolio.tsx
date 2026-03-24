@@ -3,21 +3,22 @@
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
 import TextReveal from '@/components/TextReveal'
+import { usePageTransition } from '@/components/PageTransition'
 
 const projects = [
-  {
-    title: 'AMG Records',
-    category: 'Branding',
-    tags: ['Logo Design', 'Brand Identity', '2026'],
-    image: '/portfolio/amg-records/cover.jpg',
-    projectId: 'amg-records',
-  },
   {
     title: 'Zapped Co',
     category: 'Branding',
     tags: ['Visual Identity', 'Strategy', '2025'],
     image: '/portfolio/zappedco/cover.jpg',
     projectId: 'zappedco',
+  },
+  {
+    title: 'AMG Records',
+    category: 'Branding',
+    tags: ['Logo Design', 'Brand Identity', '2026'],
+    image: '/portfolio/amg-records/cover.jpg',
+    projectId: 'amg-records',
   },
   {
     title: 'OgaTicket',
@@ -30,6 +31,7 @@ const projects = [
 
 function StackCard({ project, index, total }: { project: typeof projects[0]; index: number; total: number }) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const { navigateTo } = usePageTransition()
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "start start"]
@@ -44,7 +46,8 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
       <motion.div
         ref={cardRef}
         style={{ scale }}
-        className="relative bg-black border border-white/10 p-4 md:p-8 mb-24 origin-top group hover-target shadow-2xl shadow-black"
+        className="relative bg-black border border-white/10 p-4 md:p-8 mb-24 origin-top group hover-target shadow-2xl shadow-black cursor-pointer"
+        onClick={() => navigateTo(`/work/${project.projectId}`)}
       >
         <motion.div
           style={{ opacity: overlayOpacity }}
@@ -88,12 +91,11 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
             </div>
 
             <div className="mt-12 md:mt-0">
-              <a
-                href={`/work?project=${project.projectId}`}
+              <span
                 className="text-xs uppercase tracking-[0.2em] border-b border-white/20 text-white/60 pb-1 group-hover:text-primary group-hover:border-primary transition-colors"
               >
                 View Case Study
-              </a>
+              </span>
             </div>
           </div>
         </div>
