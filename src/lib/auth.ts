@@ -1,9 +1,15 @@
 import { betterAuth } from 'better-auth'
+import { LibsqlDialect } from '@libsql/kysely-libsql'
+
+const dialect = new LibsqlDialect({
+  url: process.env.DATABASE_URL || '',
+  authToken: process.env.DATABASE_AUTH_TOKEN || '',
+})
 
 export const auth = betterAuth({
   database: {
+    dialect,
     type: 'sqlite',
-    url: process.env.DATABASE_URL || '',
   },
   emailAndPassword: {
     enabled: true,

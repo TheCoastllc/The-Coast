@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la '/home/ikeji/Documents/WORK/COAST-LLC/thecoast/src/app/\\(frontend\\)/work/')",
+      "Bash(npx tsc --noEmit --project tsconfig.json)",
+      "Bash(find /home/ikeji/Documents/WORK/COAST-LLC/thecoast/src/app/\\\\\\(frontend\\\\\\)/\\\\[...not-found\\\\]/ -type f)",
+      "Bash(npx tsc --noEmit --project /home/ikeji/Documents/WORK/COAST-LLC/thecoast/tsconfig.json)",
+      "Bash(cat \"/home/ikeji/Documents/WORK/COAST-LLC/thecoast/src/app/\\(frontend\\)/page.tsx\")",
+      "Bash(wc -l *.html)"
+    ]
+  }
+}
