@@ -53,7 +53,7 @@ export function HeroSection() {
 										className="flex w-fit items-center justify-center gap-3 pt-2"
 									>
 										<ShineButton size="sm" href="#contact">Book a Call</ShineButton>
-										<ShineButton size="sm" variant="ghost" href="/get-started">Get started</ShineButton>
+										<ShineButton size="sm" variant="ghost" href="/services">Explore Services</ShineButton>
 									</HeroAnimatedFadeUp>
 								</HeroAnimatedWord>
 								<span className="text-muted-foreground">FUTURE </span>
@@ -67,7 +67,7 @@ export function HeroSection() {
 								className="flex w-fit items-center justify-center gap-3 pt-2"
 							>
 								<ShineButton size="sm" variant="ghost" href="#contact">Book a Call</ShineButton>
-								<ShineButton size="sm" href="/get-started">Get started</ShineButton>
+								<ShineButton size="sm" href="/services">Explore Services</ShineButton>
 							</HeroAnimatedFadeUp>
 						</HeroAnimatedWord>
 					</div>
