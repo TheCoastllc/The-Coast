@@ -81,7 +81,7 @@ function useHeroUI() {
 /* ─── Badge (slide-in from left) ─── */
 
 const badgeVariants = {
-    hidden: { opacity: 0, x: -20 },
+    hidden: { opacity: 0, x: -20, transition: { duration: 0 } },
     visible: (step: number) => ({
         opacity: 1,
         x: 0,
@@ -100,12 +100,12 @@ export function HeroAnimatedBadge({
     children: ReactNode;
     step?: number;
 }) {
-    const { isFirstLoad, isPreloaderActive } = useHeroUI();
+    const { isPreloaderActive } = useHeroUI();
     return (
         <motion.div
             variants={badgeVariants}
             custom={step}
-            initial={isFirstLoad ? "hidden" : "visible"}
+            initial="visible"
             animate={!isPreloaderActive ? "visible" : "hidden"}
         >
             <Link href="/services"
@@ -121,7 +121,7 @@ export function HeroAnimatedBadge({
 /* ─── Word reveal (y: 100% → 0) ─── */
 
 const wordVariants = {
-    hidden: { y: "100%" },
+    hidden: { y: "100%", transition: { duration: 0 } },
     visible: (step: number) => ({
         y: 0,
         transition: {
@@ -141,13 +141,13 @@ export function HeroAnimatedWord({
     step?: number;
     className?: string;
 }) {
-    const { isFirstLoad, isPreloaderActive } = useHeroUI();
+    const { isPreloaderActive } = useHeroUI();
     return (
         <span className="block overflow-hidden">
             <motion.span
                 variants={wordVariants}
                 custom={step}
-                initial={isFirstLoad ? "hidden" : "visible"}
+                initial="visible"
                 animate={!isPreloaderActive ? "visible" : "hidden"}
                 className={cn("block origin-bottom-left", className)}
             >
@@ -160,7 +160,7 @@ export function HeroAnimatedWord({
 /* ─── Fade-up (for subtitle and CTAs) ─── */
 
 const fadeUpVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, transition: { duration: 0 } },
     visible: (step: number) => ({
         opacity: 1,
         y: 0,
@@ -183,13 +183,13 @@ export function HeroAnimatedFadeUp({
     className?: string;
     as?: "div" | "p";
 }) {
-    const { isFirstLoad, isPreloaderActive } = useHeroUI();
+    const { isPreloaderActive } = useHeroUI();
     const Component = as === "p" ? motion.p : motion.div;
     return (
         <Component
             variants={fadeUpVariants}
             custom={step}
-            initial={isFirstLoad ? "hidden" : "visible"}
+            initial="visible"
             animate={!isPreloaderActive ? "visible" : "hidden"}
             className={className}
         >
@@ -201,7 +201,7 @@ export function HeroAnimatedFadeUp({
 /* ─── Video section wrapper (fade-up with ease) ─── */
 
 const videoVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 30, transition: { duration: 0 } },
     visible: (step: number) => ({
         opacity: 1,
         y: 0,
@@ -220,12 +220,12 @@ export function HeroAnimatedVideo({
     children: ReactNode;
     step?: number;
 }) {
-    const { isFirstLoad, isPreloaderActive } = useHeroUI();
+    const { isPreloaderActive } = useHeroUI();
     return (
         <motion.div
             variants={videoVariants}
             custom={step}
-            initial={isFirstLoad ? "hidden" : "visible"}
+            initial="visible"
             animate={!isPreloaderActive ? "visible" : "hidden"}
             className="relative"
         >
