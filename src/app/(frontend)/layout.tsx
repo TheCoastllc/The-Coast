@@ -2,7 +2,7 @@ import React from 'react'
 import './styles.css'
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Syncopate, Inter, Space_Grotesk, Anton } from 'next/font/google'
+import { Inter, Anton } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
 import CustomCursor from '@/components/CustomCursor'
@@ -13,13 +13,6 @@ import { PageTransitionProvider } from '@/components/PageTransition'
 
 const SITE_URL = 'https://coastglobal.org'
 
-const syncopate = Syncopate({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-syncopate',
-  display: 'swap',
-})
-
 const anton = Anton({
   subsets: ['latin'],
   weight: ['400'],
@@ -27,16 +20,9 @@ const anton = Anton({
   display: 'swap',
 })
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-space-grotesk',
-  display: 'swap',
-})
-
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-inter',
   display: 'swap',
 })
@@ -121,7 +107,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${spaceGrotesk.variable} ${syncopate.variable}`}>
+    <html lang="en" className={`dark ${inter.variable} ${anton.variable}`}>
       <body suppressHydrationWarning>
         <Preloader />
         <Noise />

@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
+import Image from 'next/image'
 import TextReveal from '@/components/TextReveal'
 import { usePageTransition } from '@/components/PageTransition'
 
@@ -57,11 +58,12 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
         <div className="flex flex-col md:flex-row gap-8 relative z-10">
           {/* Image */}
           <div className="w-full md:w-2/3 relative overflow-hidden aspect-[16/9] bg-white/[0.02]">
-            <img
+            <Image
               src={project.image}
               alt={`${project.title} — ${project.category} project by The Coast`}
-              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-              loading="lazy"
+              fill
+              sizes="(max-width: 768px) 100vw, 66vw"
+              className="object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
             />
           </div>
 

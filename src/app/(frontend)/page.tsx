@@ -1,16 +1,18 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import About from '@/components/pages/landingPage/About'
-import Services from '@/components/pages/landingPage/Services'
-import ProcessSection from '@/components/pages/landingPage/ProcessSection'
-import Portfolio from '@/components/pages/landingPage/Portfolio'
-import Clients from '@/components/pages/landingPage/Clients'
-import FAQ from '@/components/pages/landingPage/FAQ'
-import BlogPreview from '@/components/pages/landingPage/BlogPreview'
-import Contact from '@/components/pages/landingPage/Contact'
+import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/hero'
 import { LogosSection } from '@/components/logos-section'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
+
+const About = dynamic(() => import('@/components/pages/landingPage/About'))
+const Services = dynamic(() => import('@/components/pages/landingPage/Services'))
+const ProcessSection = dynamic(() => import('@/components/pages/landingPage/ProcessSection'))
+const Portfolio = dynamic(() => import('@/components/pages/landingPage/Portfolio'))
+const Clients = dynamic(() => import('@/components/pages/landingPage/Clients'))
+const FAQ = dynamic(() => import('@/components/pages/landingPage/FAQ'))
+const BlogPreview = dynamic(() => import('@/components/pages/landingPage/BlogPreview'))
+const Contact = dynamic(() => import('@/components/pages/landingPage/Contact'))
 
 export const metadata: Metadata = {
   title: { absolute: 'The Coast | Brand Design Studio' },
