@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://www.coastglobal.org',
+  siteUrl: process.env.SITE_URL || 'https://coastglobal.org',
   generateRobotsTxt: true,
   exclude: [
     '/admin',
@@ -41,7 +41,7 @@ module.exports = {
     ],
     additionalSitemaps: [],
     // Note: next-sitemap appends "Host" and "Sitemap" from siteUrl automatically.
-    // The siteUrl above (www.coastglobal.org) will be used for both directives.
+    // The siteUrl above (coastglobal.org) will be used for both directives.
   },
   transform: async (config, path) => {
     const priorities = {

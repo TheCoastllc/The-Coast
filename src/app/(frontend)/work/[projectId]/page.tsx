@@ -44,11 +44,11 @@ export async function generateMetadata({ params }: { params: Promise<{ projectId
   return {
     title: meta.title,
     description: meta.description,
-    alternates: { canonical: `https://www.coastglobal.org/work/${projectId}` },
+    alternates: { canonical: `https://coastglobal.org/work/${projectId}` },
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: `https://www.coastglobal.org/work/${projectId}`,
+      url: `https://coastglobal.org/work/${projectId}`,
     },
   }
 }

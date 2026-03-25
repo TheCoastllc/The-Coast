@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       ? [{ url: coverImageUrl, alt: post.title }]
       : [{ url: '/preview.jpg', width: 1600, height: 900, alt: 'The Coast — Brand Design Studio' }]
 
-    const canonicalUrl = `https://www.coastglobal.org/blog/${slug}`
+    const canonicalUrl = `https://coastglobal.org/blog/${slug}`
     const authorName = post.author?.fullName || 'The Coast'
 
     return {
@@ -103,7 +103,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt || '',
-    image: coverUrl || 'https://www.coastglobal.org/preview.jpg',
+    image: coverUrl || 'https://coastglobal.org/preview.jpg',
     author: {
       '@type': 'Person',
       name: authorName,
@@ -113,14 +113,14 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       name: 'The Coast',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.coastglobal.org/full-logo.png',
+        url: 'https://coastglobal.org/full-logo.png',
       },
     },
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.coastglobal.org/blog/${slug}`,
+      '@id': `https://coastglobal.org/blog/${slug}`,
     },
   }
 

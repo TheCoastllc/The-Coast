@@ -45,7 +45,7 @@ User-agent: anthropic-ai
 Disallow: /
 
 # Host
-Host: https://www.coastglobal.org
+Host: https://coastglobal.org
 
 # Sitemaps
-Sitemap: https://www.coastglobal.org/sitemap.xml
+Sitemap: https://coastglobal.org/sitemap.xml

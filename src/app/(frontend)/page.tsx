@@ -16,10 +16,10 @@ export const metadata: Metadata = {
   title: { absolute: 'The Coast | Brand Design Studio' },
   description:
     'The Coast is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses. Logo design, brand strategy, and more.',
-  alternates: { canonical: 'https://www.coastglobal.org' },
+  alternates: { canonical: 'https://coastglobal.org' },
   openGraph: {
     type: 'website',
-    url: 'https://www.coastglobal.org',
+    url: 'https://coastglobal.org',
     title: 'The Coast | Brand Design Studio',
     description:
       'Building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
@@ -29,16 +29,16 @@ export const metadata: Metadata = {
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  '@id': 'https://www.coastglobal.org/#website',
-  url: 'https://www.coastglobal.org',
+  '@id': 'https://coastglobal.org/#website',
+  url: 'https://coastglobal.org',
   name: 'The Coast',
   description: 'Brand design studio building unforgettable visual identities.',
-  publisher: { '@id': 'https://www.coastglobal.org/#organization' },
+  publisher: { '@id': 'https://coastglobal.org/#organization' },
   potentialAction: {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://www.coastglobal.org/search?q={search_term_string}',
+      urlTemplate: 'https://coastglobal.org/search?q={search_term_string}',
     },
     'query-input': 'required name=search_term_string',
   },
@@ -47,13 +47,13 @@ const websiteSchema = {
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  '@id': 'https://www.coastglobal.org/#organization',
+  '@id': 'https://coastglobal.org/#organization',
   name: 'The Coast',
   alternateName: 'Coast Global',
-  url: 'https://www.coastglobal.org',
+  url: 'https://coastglobal.org',
   logo: {
     '@type': 'ImageObject',
-    url: 'https://www.coastglobal.org/full-logo.png',
+    url: 'https://coastglobal.org/full-logo.png',
     width: 200,
     height: 60,
   },
@@ -110,17 +110,17 @@ const faqSchema = {
 const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  '@id': 'https://www.coastglobal.org/#professional-service',
+  '@id': 'https://coastglobal.org/#professional-service',
   name: 'The Coast',
   alternateName: 'Coast Global',
-  url: 'https://www.coastglobal.org',
+  url: 'https://coastglobal.org',
   logo: {
     '@type': 'ImageObject',
-    url: 'https://www.coastglobal.org/full-logo.png',
+    url: 'https://coastglobal.org/full-logo.png',
     width: 200,
     height: 60,
   },
-  image: { '@type': 'ImageObject', url: 'https://www.coastglobal.org/preview.jpg' },
+  image: { '@type': 'ImageObject', url: 'https://coastglobal.org/preview.jpg' },
   description:
     'Strategic brand design for entrepreneurs, artists, and growing businesses. Logo design, visual identity, brand strategy, and marketing assets.',
   email: 'hello@coastglobal.org',

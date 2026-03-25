@@ -7,12 +7,12 @@ import { BlueprintLayout } from '@/components/blueprint-layout'
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description: 'Terms of Service for The Coast — our service agreement, revision policy, and client responsibilities.',
-  alternates: { canonical: 'https://www.coastglobal.org/terms' },
+  alternates: { canonical: 'https://coastglobal.org/terms' },
   robots: { index: true, follow: true },
   openGraph: {
     title: 'Terms of Service | The Coast',
     description: 'Service agreement, revision policy, and client responsibilities for The Coast.',
-    url: 'https://www.coastglobal.org/terms',
+    url: 'https://coastglobal.org/terms',
   },
 }
 

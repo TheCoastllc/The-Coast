@@ -2,7 +2,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { MetadataRoute } from 'next'
 
-const BASE_URL = 'https://www.coastglobal.org'
+const BASE_URL = 'https://coastglobal.org'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [

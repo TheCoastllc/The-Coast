@@ -7,12 +7,12 @@ import { BlueprintLayout } from '@/components/blueprint-layout'
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Privacy Policy for The Coast — how we collect, use, and protect your personal information.',
-  alternates: { canonical: 'https://www.coastglobal.org/privacy' },
+  alternates: { canonical: 'https://coastglobal.org/privacy' },
   robots: { index: true, follow: true },
   openGraph: {
     title: 'Privacy Policy | The Coast',
     description: 'How The Coast collects, uses, and protects your personal information.',
-    url: 'https://www.coastglobal.org/privacy',
+    url: 'https://coastglobal.org/privacy',
   },
 }
 

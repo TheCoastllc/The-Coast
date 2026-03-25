@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: 'Pricing & Packages',
   description:
     'Monthly retainer branding packages and à la carte design services. Transparent pricing for entrepreneurs and growing businesses.',
-  alternates: { canonical: 'https://www.coastglobal.org/pricing' },
+  alternates: { canonical: 'https://coastglobal.org/pricing' },
   openGraph: {
     title: 'Pricing & Packages | The Coast',
     description:
       'Monthly retainer packages and one-time design services. Invest in your brand.',
-    url: 'https://www.coastglobal.org/pricing',
+    url: 'https://coastglobal.org/pricing',
   },
 }
 
@@ -18,7 +18,7 @@ const pricingSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'The Coast — Brand Design Pricing Plans',
-  url: 'https://www.coastglobal.org/pricing',
+  url: 'https://coastglobal.org/pricing',
   itemListElement: [
     {
       '@type': 'ListItem',
@@ -35,7 +35,7 @@ const pricingSchema = {
           priceCurrency: 'USD',
           unitText: 'MONTH',
         },
-        offeredBy: { '@id': 'https://www.coastglobal.org/#organization' },
+        offeredBy: { '@id': 'https://coastglobal.org/#organization' },
       },
     },
     {
@@ -53,7 +53,7 @@ const pricingSchema = {
           priceCurrency: 'USD',
           unitText: 'MONTH',
         },
-        offeredBy: { '@id': 'https://www.coastglobal.org/#organization' },
+        offeredBy: { '@id': 'https://coastglobal.org/#organization' },
       },
     },
     {
@@ -71,7 +71,7 @@ const pricingSchema = {
           priceCurrency: 'USD',
           unitText: 'MONTH',
         },
-        offeredBy: { '@id': 'https://www.coastglobal.org/#organization' },
+        offeredBy: { '@id': 'https://coastglobal.org/#organization' },
       },
     },
   ],
@@ -81,8 +81,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.coastglobal.org' },
-    { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://www.coastglobal.org/pricing' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://coastglobal.org' },
+    { '@type': 'ListItem', position: 2, name: 'Pricing', item: 'https://coastglobal.org/pricing' },
   ],
 }
 
