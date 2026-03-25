@@ -10,7 +10,7 @@ const steps = [
   {
     num: '02',
     title: 'Design',
-    desc: 'From mood boards to final concepts — every color, typeface, and element chosen with purpose. Crafting your identity with precision.',
+    desc: 'From mood boards to final concepts - every color, typeface, and element chosen with purpose. Crafting your identity with precision.',
   },
   {
     num: '03',

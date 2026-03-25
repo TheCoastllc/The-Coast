@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Brand Design Services | The Coast',
     description:
-      'From logo design to full brand transformations — everything your business needs to stand out.',
+      'From logo design to full brand transformations - everything your business needs to stand out.',
     url: 'https://www.coastglobal.org/services',
   },
 }
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const servicesSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'The Coast — Brand Design Services',
+  name: 'The Coast - Brand Design Services',
   url: 'https://www.coastglobal.org/services',
   itemListElement: [
     { '@type': 'ListItem', position: 1, item: { '@type': 'Service', name: 'Logo Design', provider: { '@id': 'https://www.coastglobal.org/#organization' } } },
@@ -47,7 +47,7 @@ const breadcrumbSchema = {
 const serviceGroups = [
   {
     category: 'Brand Identity',
-    label: '01 — 03',
+    label: '01 - 03',
     services: [
       { number: '01', title: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds' },
       { number: '02', title: 'Full Rebrand', description: 'Complete brand transformation package' },
@@ -56,7 +56,7 @@ const serviceGroups = [
   },
   {
     category: 'Collateral',
-    label: '04 — 07',
+    label: '04 - 07',
     services: [
       { number: '04', title: 'Flyers', description: 'Print-ready promotional designs (digital + print)' },
       { number: '05', title: 'EPK / Press Kit', description: 'Professional media kit for press & partners' },
@@ -66,7 +66,7 @@ const serviceGroups = [
   },
   {
     category: 'Digital',
-    label: '08 — 11',
+    label: '08 - 11',
     services: [
       { number: '08', title: 'Website Design', description: 'Custom website design & development' },
       { number: '09', title: 'Video & Motion', description: 'Promotional videos & animations (per piece)' },
@@ -93,7 +93,7 @@ export default function ServicesPage() {
               Services
             </TextReveal>
             <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
-              From identity design to complete brand transformations — everything you need to stand out.
+              From identity design to complete brand transformations - everything you need to stand out.
             </p>
 
             {/* Stats strip */}
@@ -146,13 +146,13 @@ export default function ServicesPage() {
             <FadeOnScroll>
               <h2 className="text-heading text-2xl md:text-3xl text-foreground mb-4">Why Professional Logo Design Matters for Small Businesses</h2>
               <p className="text-body text-muted-foreground text-base leading-relaxed max-w-3xl">
-                A professional logo is the cornerstone of any brand identity — it is the single most-seen element of your business and often the first impression a potential customer receives. Research consistently shows that consumers form opinions about a brand within seconds of seeing its logo, and those impressions directly influence purchasing decisions. A professionally designed logo communicates credibility, establishes trust, and differentiates your business from competitors who rely on generic templates or clip art. At The Coast, our logo design process includes deep discovery into your business positioning, three distinct creative concepts, two rounds of revisions, and final delivery in every format you need — from web-optimized SVGs to print-ready vector files. The investment in professional logo design pays for itself by building the kind of brand recognition that turns casual browsers into loyal customers.
+                A professional logo is the cornerstone of any brand identity - it is the single most-seen element of your business and often the first impression a potential customer receives. Research consistently shows that consumers form opinions about a brand within seconds of seeing its logo, and those impressions directly influence purchasing decisions. A professionally designed logo communicates credibility, establishes trust, and differentiates your business from competitors who rely on generic templates or clip art. At The Coast, our logo design process includes deep discovery into your business positioning, three distinct creative concepts, two rounds of revisions, and final delivery in every format you need - from web-optimized SVGs to print-ready vector files. The investment in professional logo design pays for itself by building the kind of brand recognition that turns casual browsers into loyal customers.
               </p>
             </FadeOnScroll>
             <FadeOnScroll>
               <h2 className="text-heading text-2xl md:text-3xl text-foreground mb-4">The Value of a Complete Brand Identity System</h2>
               <p className="text-body text-muted-foreground text-base leading-relaxed max-w-3xl">
-                A complete brand identity system goes far beyond a logo — it encompasses your color palette, typography, photography style, iconography, voice and tone, and comprehensive usage guidelines that ensure consistency across every touchpoint. Businesses with consistent brand presentation across all platforms experience significantly higher revenue growth than those with inconsistent branding. The Coast delivers complete brand identity systems that include primary and secondary logo variations, a strategic color palette with hex, RGB, and CMYK values, typeface pairings for digital and print, brand pattern elements, social media templates, and a comprehensive brand guidelines document that empowers your entire team to maintain brand consistency without creative bottlenecks.
+                A complete brand identity system goes far beyond a logo - it encompasses your color palette, typography, photography style, iconography, voice and tone, and comprehensive usage guidelines that ensure consistency across every touchpoint. Businesses with consistent brand presentation across all platforms experience significantly higher revenue growth than those with inconsistent branding. The Coast delivers complete brand identity systems that include primary and secondary logo variations, a strategic color palette with hex, RGB, and CMYK values, typeface pairings for digital and print, brand pattern elements, social media templates, and a comprehensive brand guidelines document that empowers your entire team to maintain brand consistency without creative bottlenecks.
               </p>
             </FadeOnScroll>
           </div>

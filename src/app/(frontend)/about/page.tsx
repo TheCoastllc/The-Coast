@@ -8,7 +8,7 @@ import { FadeOnLoad, FadeOnScroll, SubtleLabel } from './AboutPageAnimations'
 export const metadata: Metadata = {
   title: 'About The Coast',
   description:
-    'The Coast was built to level the playing field — giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
+    'The Coast was built to level the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
   alternates: { canonical: 'https://www.coastglobal.org/about' },
   openGraph: {
     title: 'About The Coast | Brand Design Studio',
@@ -46,9 +46,9 @@ const personSchema = {
 }
 
 const disciplines = [
-  { number: '01', title: 'Brand Identity', description: 'Logo, colour, typography — the full visual system that makes you unmistakable.' },
+  { number: '01', title: 'Brand Identity', description: 'Logo, colour, typography - the full visual system that makes you unmistakable.' },
   { number: '02', title: 'Collateral & Print', description: 'Flyers, pitch decks, press kits, and social assets that extend your brand into every touchpoint.' },
-  { number: '03', title: 'Digital & Growth', description: 'Websites, video, SEO, and social management — presence that compounds over time.' },
+  { number: '03', title: 'Digital & Growth', description: 'Websites, video, SEO, and social management - presence that compounds over time.' },
 ]
 
 const values = [
@@ -76,7 +76,7 @@ export default function AboutPage() {
               We Turn Visions Into Empires
             </TextReveal>
             <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
-              A brand design studio built for the builders — entrepreneurs, founders, and creatives who refuse to be overlooked.
+              A brand design studio built for the builders - entrepreneurs, founders, and creatives who refuse to be overlooked.
             </p>
 
             {/* Stats strip */}
@@ -102,7 +102,7 @@ export default function AboutPage() {
           <div className="max-w-6xl mx-auto px-6 md:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
-              {/* Left — anchor */}
+              {/* Left - anchor */}
               <FadeOnScroll>
                 <span className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary block mb-6">The Story</span>
                 <p className="text-heading text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight">
@@ -115,7 +115,7 @@ export default function AboutPage() {
                 </div>
               </FadeOnScroll>
 
-              {/* Right — body */}
+              {/* Right - body */}
               <FadeOnScroll delay={0.1} className="space-y-5 text-body text-muted-foreground text-base md:text-lg leading-relaxed">
                 <p>Most small businesses don&apos;t fail because they lack talent or hustle.</p>
                 <p><strong className="text-foreground">They fail because they&apos;re invisible.</strong></p>
@@ -152,12 +152,12 @@ export default function AboutPage() {
               <FadeOnScroll delay={0.1} className="space-y-5 text-body text-muted-foreground text-base md:text-lg leading-relaxed">
                 <p>
                   Founded by <strong className="text-foreground">David Coast</strong>, we&apos;re named after the idea
-                  of smooth sailing — navigating the choppy waters of business with clarity, creativity, and confidence.
+                  of smooth sailing - navigating the choppy waters of business with clarity, creativity, and confidence.
                   We&apos;ve been in the trenches. We&apos;ve built from side hustles. We know what it&apos;s like to
                   compete against bigger players with deeper pockets.
                 </p>
                 <p>
-                  The Coast was built to level the playing field — to give small businesses, startups, and solo
+                  The Coast was built to level the playing field - to give small businesses, startups, and solo
                   entrepreneurs the branding power that makes people stop, look, and remember.
                 </p>
               </FadeOnScroll>
@@ -174,7 +174,7 @@ export default function AboutPage() {
             <FadeOnScroll>
               <h2 className="text-heading text-2xl md:text-3xl text-foreground mb-6">What Makes a Good Brand Identity?</h2>
               <p className="text-body text-muted-foreground text-base md:text-lg leading-relaxed max-w-3xl">
-                A good brand identity is more than a logo — it is a complete visual and verbal system that makes a business instantly recognizable and emotionally resonant. The strongest brand identities combine a distinctive logo mark, a carefully chosen color palette that evokes the right emotions, typography that reinforces personality, and consistent visual patterns across every customer touchpoint. Great brand identity also includes clear guidelines that ensure consistency whether the brand appears on a billboard, a business card, a social media post, or a product package. At The Coast, we believe the best brand identities are built on deep understanding of the target audience, competitive landscape, and business goals — not on trends that fade in six months. A well-executed brand identity builds trust, commands premium pricing, and creates the kind of recognition that turns first-time customers into lifelong advocates.
+                A good brand identity is more than a logo - it is a complete visual and verbal system that makes a business instantly recognizable and emotionally resonant. The strongest brand identities combine a distinctive logo mark, a carefully chosen color palette that evokes the right emotions, typography that reinforces personality, and consistent visual patterns across every customer touchpoint. Great brand identity also includes clear guidelines that ensure consistency whether the brand appears on a billboard, a business card, a social media post, or a product package. At The Coast, we believe the best brand identities are built on deep understanding of the target audience, competitive landscape, and business goals - not on trends that fade in six months. A well-executed brand identity builds trust, commands premium pricing, and creates the kind of recognition that turns first-time customers into lifelong advocates.
               </p>
             </FadeOnScroll>
           </div>
@@ -248,7 +248,7 @@ export default function AboutPage() {
           <div className="max-w-6xl mx-auto px-6 md:px-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
               {[
-                { label: 'Our Mission', body: 'To design the future — one brand at a time.' },
+                { label: 'Our Mission', body: 'To design the future - one brand at a time.' },
                 { label: 'Our Vision', body: 'A world where every ambitious builder has a brand that matches their vision.' },
               ].map((item, i) => (
                 <FadeOnScroll key={item.label} delay={i * 0.1}>
@@ -271,7 +271,7 @@ export default function AboutPage() {
                   Ready to level up?
                 </p>
                 <p className="text-heading text-2xl md:text-4xl text-foreground max-w-md">
-                  Whether you&apos;re launching or rebranding — we&apos;re ready.
+                  Whether you&apos;re launching or rebranding - we&apos;re ready.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 shrink-0">

@@ -22,13 +22,13 @@ export default function Services() {
         {/* SSR-visible service descriptions for AI crawlers */}
         <div className="sr-only">
           <h3>Brand Identity</h3>
-          <p>Custom branding and logo design — your visual identity, refined and unforgettable. From mood boards to comprehensive brand guidelines, we engineer identities that demand attention.</p>
+          <p>Custom branding and logo design - your visual identity, refined and unforgettable. From mood boards to comprehensive brand guidelines, we engineer identities that demand attention.</p>
           <h3>Digital Experience</h3>
           <p>Websites, apps, and digital products designed for impact, usability, and conversion. We blend cutting-edge technology with uncompromising aesthetics.</p>
           <h3>Creative Strategy</h3>
           <p>Data-driven insights combined with bold creativity to position your brand as a market leader.</p>
           <h3>Marketing Assets</h3>
-          <p>Flyers, social graphics, pitch decks, and digital assets that convert — campaigns that capture attention and drive measurable results.</p>
+          <p>Flyers, social graphics, pitch decks, and digital assets that convert - campaigns that capture attention and drive measurable results.</p>
         </div>
 
         {/* Animated Bento Grid (client component) */}

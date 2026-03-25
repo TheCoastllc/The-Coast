@@ -20,10 +20,10 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-16">
-          {/* Contact info — rendered server-side for AI crawlers */}
+          {/* Contact info - rendered server-side for AI crawlers */}
           <FadeIn direction="left">
             <p className="text-white/50 font-light leading-relaxed mb-12 max-w-md">
-              Ready to build your empire? Whether you&apos;re opening your first coffee shop, launching a startup, or ready to rebrand and level up — we&apos;re here to make your brand unforgettable.
+              Ready to build your empire? Whether you&apos;re opening your first coffee shop, launching a startup, or ready to rebrand and level up - we&apos;re here to make your brand unforgettable.
             </p>
             <a href="mailto:hello@coastglobal.org" className="text-xl md:text-3xl font-display uppercase tracking-tighter hover:text-primary transition-colors duration-300 flex items-center gap-4 group w-fit">
               hello@coastglobal.org
@@ -36,7 +36,7 @@ export default function Contact() {
             </div>
           </FadeIn>
 
-          {/* Form — client component for interactivity */}
+          {/* Form - client component for interactivity */}
           <ContactForm />
         </div>
       </div>
