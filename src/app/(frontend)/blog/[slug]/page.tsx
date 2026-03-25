@@ -98,8 +98,35 @@ export default async function BlogPostPage({ params }: { params: Params }) {
     ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     : null
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt || '',
+    image: coverUrl || 'https://www.coastglobal.org/preview.jpg',
+    author: {
+      '@type': 'Person',
+      name: authorName,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'The Coast',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.coastglobal.org/full-logo.png',
+      },
+    },
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt || post.publishedAt,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://www.coastglobal.org/blog/${slug}`,
+    },
+  }
+
   return (
     <BlueprintLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       {/* ─── Article Header ───────────────────────────────────────────────── */}
       <section className="pt-28 pb-10 md:pt-36 md:pb-14">
         <div className="max-w-6xl mx-auto px-6 md:px-12">

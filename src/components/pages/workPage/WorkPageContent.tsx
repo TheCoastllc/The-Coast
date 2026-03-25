@@ -181,6 +181,7 @@ export default function WorkPageContent() {
           </div>
 
           <TextReveal
+            as="h1"
             className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
             highlight={['Work']}
           >

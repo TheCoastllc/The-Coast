@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import PricingClient from './PricingClient'
 
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: 'Pricing & Packages',
   description:
     'Monthly retainer branding packages and à la carte design services. Transparent pricing for entrepreneurs and growing businesses.',
   alternates: { canonical: 'https://www.coastglobal.org/pricing' },

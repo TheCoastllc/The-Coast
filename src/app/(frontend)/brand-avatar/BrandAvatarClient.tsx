@@ -58,6 +58,7 @@ export default function BrandAvatarClient() {
 
           <SectionBoundary />
 
+          <h2 className="sr-only">Available Brand Services</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12 mt-12">
             {sections.map((section, index) => {
               const isSelected = selected.has(section.id)

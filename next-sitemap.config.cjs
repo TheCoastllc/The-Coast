@@ -14,7 +14,6 @@ module.exports = {
     '/intake/*',
     '/brand-builder',
     '/cbi',            // noindex placeholder
-    '/work',           // noindex placeholder
     '/sitemap.xml',    // sitemap file should not be a page URL entry
     '/sitemap-0.xml',
     // Next.js auto-generated icon/manifest routes
@@ -46,8 +45,8 @@ module.exports = {
       '/pricing': 0.9,
       '/get-started': 0.9,
       '/about': 0.8,
-      '/portfolio': 0.8,
       '/blog': 0.8,
+      '/work': 0.8,
       '/brand-avatar': 0.7,
       '/vision': 0.6,
     }

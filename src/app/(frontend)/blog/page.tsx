@@ -11,7 +11,7 @@ const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
 export const metadata: import('next').Metadata = {
-  title: 'Journal',
+  title: 'The Coast Journal — Brand Design Insights',
   description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Journal.',
   alternates: { canonical: 'https://www.coastglobal.org/blog' },
   openGraph: {

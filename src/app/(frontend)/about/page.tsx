@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import AboutClient from './AboutClient'
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'About The Coast',
   description:
     'The Coast was built to level the playing field — giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
   alternates: { canonical: 'https://www.coastglobal.org/about' },

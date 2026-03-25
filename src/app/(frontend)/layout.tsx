@@ -1,6 +1,7 @@
 import React from 'react'
 import './styles.css'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { Syncopate, Inter, Space_Grotesk, Anton } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
@@ -132,6 +133,18 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           </PageTransitionProvider>
         </QueryProvider>
         <CustomCursor />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZWSD7VN3DD"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZWSD7VN3DD');
+          `}
+        </Script>
       </body>
     </html>
   )

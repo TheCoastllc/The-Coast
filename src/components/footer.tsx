@@ -126,8 +126,8 @@ const resources = [
 		href: "/blog",
 	},
 	{
-		title: "Portfolio",
-		href: "/portfolio",
+		title: "Our Work",
+		href: "/work",
 	},
 	{
 		title: "FAQ",

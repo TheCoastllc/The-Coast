@@ -19,7 +19,6 @@ const ROUTE_NAMES: Record<string, string> = {
   '/work': 'Work',
   '/blog': 'Journal',
   '/about': 'About',
-  '/portfolio': 'Portfolio',
   '/pricing': 'Pricing',
   '/get-started': 'Get Started',
   '/vision': 'Vision',

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ServicesClient from './ServicesClient'
 
 export const metadata: Metadata = {
-  title: 'Services',
+  title: 'Brand Design Services',
   description:
     'Custom logo design, visual identity, brand guidelines, marketing collateral, social graphics, pitch decks, video, digital marketing, and social media management.',
   alternates: { canonical: 'https://www.coastglobal.org/services' },
