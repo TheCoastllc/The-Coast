@@ -1,53 +1,54 @@
 # The Coast
 
+> Last updated: 2026-03-25
+
 > The Coast is a brand design studio that makes professional branding affordable and accessible for small businesses, entrepreneurs, startups, and artists. Founded by David Coast, we turn visions into empires — crafting custom branding solutions that make small businesses look and feel like they belong in the big leagues.
 
 ## About
 
-- [About The Coast](https://coastglobal.org/about): Learn about our story, mission, and vision. Founded by David Coast, The Coast was built to level the playing field — giving small businesses, startups, and solo entrepreneurs the branding power that makes people stop, look, and remember.
-- [Vision 2026](https://coastglobal.org/vision): Conceptual architectural renderings of our future Coast HQ — embodying innovation, coastal serenity, and the bold pursuit of excellence.
+- [About The Coast](https://www.coastglobal.org/about): Learn about our story, mission, and vision. Founded by David Coast, The Coast was built to level the playing field — giving small businesses, startups, and solo entrepreneurs the branding power that makes people stop, look, and remember.
+- [Vision 2026](https://www.coastglobal.org/vision): Conceptual architectural renderings of our future Coast HQ — embodying innovation, coastal serenity, and the bold pursuit of excellence.
 
 ## Services
 
-- [Services](https://coastglobal.org/services): From identity design to complete brand transformations — everything you need to stand out. A la carte creative services for businesses of all sizes.
-  - [Logo Design](https://coastglobal.org/services): Custom logo with 3 concepts and 2 revision rounds.
-  - [Flyers](https://coastglobal.org/services): Print-ready promotional designs for digital and print.
-  - [EPK / Press Kit](https://coastglobal.org/services): Professional media kit for press and partners.
-  - [Social Graphics](https://coastglobal.org/services): 5–10 branded templates for social platforms.
-  - [Full Rebrand](https://coastglobal.org/services): Complete brand transformation package.
-  - [Brand Identity Guidelines](https://coastglobal.org/services): Logo, colors, typography, and comprehensive brand guidelines.
-  - [Website Design](https://coastglobal.org/services): Custom website design and development.
-  - [Pitch Deck / Investor Materials](https://coastglobal.org/services): Investor-ready presentation design.
-  - [Video & Motion](https://coastglobal.org/services): Promotional videos and animations.
-  - [Digital Marketing](https://coastglobal.org/services): SEO, ads setup, and email campaigns.
-  - [Social Media Management](https://coastglobal.org/services): Content creation, scheduling, and management.
+- [Services](https://www.coastglobal.org/services): From identity design to complete brand transformations — everything you need to stand out. A la carte creative services for businesses of all sizes.
+  - [Logo Design](https://www.coastglobal.org/services): Custom logo with 3 concepts and 2 revision rounds.
+  - [Flyers](https://www.coastglobal.org/services): Print-ready promotional designs for digital and print.
+  - [EPK / Press Kit](https://www.coastglobal.org/services): Professional media kit for press and partners.
+  - [Social Graphics](https://www.coastglobal.org/services): 5–10 branded templates for social platforms.
+  - [Full Rebrand](https://www.coastglobal.org/services): Complete brand transformation package.
+  - [Brand Identity Guidelines](https://www.coastglobal.org/services): Logo, colors, typography, and comprehensive brand guidelines.
+  - [Website Design](https://www.coastglobal.org/services): Custom website design and development.
+  - [Pitch Deck / Investor Materials](https://www.coastglobal.org/services): Investor-ready presentation design.
+  - [Video & Motion](https://www.coastglobal.org/services): Promotional videos and animations.
+  - [Digital Marketing](https://www.coastglobal.org/services): SEO, ads setup, and email campaigns.
+  - [Social Media Management](https://www.coastglobal.org/services): Content creation, scheduling, and management.
 
 ## Service Categories
 
-- [Brand Identity](https://coastglobal.org/services): Custom branding and logo design — your visual identity, refined and unforgettable. From mood boards to comprehensive brand guidelines, we engineer identities that demand attention.
-- [Digital Experience](https://coastglobal.org/services): Websites, apps, and digital products designed for impact, usability, and conversion. We blend cutting-edge technology with uncompromising aesthetics.
-- [Creative Strategy](https://coastglobal.org/services): Data-driven insights combined with bold creativity to position your brand as a market leader.
-- [Marketing Assets](https://coastglobal.org/services): Flyers, social graphics, pitch decks, and digital assets that convert — campaigns that capture attention and drive measurable results.
+- [Brand Identity](https://www.coastglobal.org/services): Custom branding and logo design — your visual identity, refined and unforgettable. From mood boards to comprehensive brand guidelines, we engineer identities that demand attention.
+- [Digital Experience](https://www.coastglobal.org/services): Websites, apps, and digital products designed for impact, usability, and conversion. We blend cutting-edge technology with uncompromising aesthetics.
+- [Creative Strategy](https://www.coastglobal.org/services): Data-driven insights combined with bold creativity to position your brand as a market leader.
+- [Marketing Assets](https://www.coastglobal.org/services): Flyers, social graphics, pitch decks, and digital assets that convert — campaigns that capture attention and drive measurable results.
 
 ## Pricing
 
-- [Pricing](https://coastglobal.org/pricing): Monthly retainer packages designed to keep your brand sharp, consistent, and always evolving.
-  - [Creator Plan](https://coastglobal.org/pricing): Free tier for freelance designers and creative beginners. Up to 5 design projects, basic brand kit tools, community feedback access, starter UI components.
-  - [Studio Plan](https://coastglobal.org/pricing): $50/month for agencies and growing creative teams. Unlimited design projects, complete brand management, advanced UI component library, Figma and Adobe integration, team collaboration workspace.
-  - [Agency Pro Plan](https://coastglobal.org/pricing): $500/month for large design teams. Everything in Studio plus dedicated creative strategist, white-label design system, custom component development, SSO and enterprise security, 24/7 premium support.
+- [Pricing](https://www.coastglobal.org/pricing): Monthly retainer packages designed to keep your brand sharp, consistent, and always evolving.
+  - [Starter Plan](https://www.coastglobal.org/pricing): Free tier for freelancers and creative beginners. Up to 5 design projects, basic brand kit tools, community feedback access, starter UI components.
+  - [Professional Plan](https://www.coastglobal.org/pricing): $25/month for agencies and growing creative teams. Unlimited design projects, complete brand management, advanced UI component library, Figma and Adobe integration, team collaboration workspace.
+  - [Enterprise Plan](https://www.coastglobal.org/pricing): $250/month for large design teams. Everything in Professional plus dedicated creative strategist, white-label design system, custom component development, SSO and enterprise security, 24/7 premium support.
 
 ## Process
 
-- [How We Build Empires](https://coastglobal.org/#process): Our four-step process for transforming your brand.
+- [How Does The Coast's Brand Design Process Work?](https://www.coastglobal.org/#process): Our four-step process for transforming your brand.
   - Discover: We dive deep into your brand's DNA — story, audience, competitors, and aspirations. Understanding your vision is where empires begin.
   - Design: From mood boards to final concepts — every color, typeface, and element chosen with purpose. Crafting your identity with precision.
   - Develop: Designs become real-world assets — websites, social templates, print materials. Pixel-perfect and built for impact.
   - Launch: Your brand goes live. Pixel-perfect, with guidelines for sustained growth. Your empire, released into the world.
 
-## Portfolio & Work
+## Work
 
-- [Our Work](https://coastglobal.org/work): Brand transformations, creative projects, and the stories behind them.
-- [Client Showcase](https://coastglobal.org/portfolio): The brands we've helped build, grow, and transform.
+- [Our Work](https://www.coastglobal.org/work): Brand transformations, creative projects, and the stories behind them.
 - Featured Projects:
   - AMG Records — Logo Design, Brand Identity (2026)
   - Zapped Co — Visual Identity, Strategy (2025)
@@ -55,20 +56,20 @@
 
 ## Blog
 
-- [The Journal](https://coastglobal.org/blog): Insights on brand design, visual identity, and creative strategy. Articles and thought leadership from The Coast team.
+- [The Journal](https://www.coastglobal.org/blog): Insights on brand design, visual identity, and creative strategy. Articles and thought leadership from The Coast team.
 
 ## Get Started
 
-- [Get Started](https://coastglobal.org/get-started): Begin your branding journey with a quick 3-step pre-intake form. Tell us about yourself, select the services you need, and share your budget range.
-- [Project Intake](https://coastglobal.org/intake): Detailed 5-step project intake form covering your business, services needed, brand vision (vibes, colors, inspiration), and practical details like budget and timeline.
+- [Get Started](https://www.coastglobal.org/get-started): Begin your branding journey with a quick 3-step pre-intake form. Tell us about yourself, select the services you need, and share your budget range.
+- [Project Intake](https://www.coastglobal.org/intake): Detailed 5-step project intake form covering your business, services needed, brand vision (vibes, colors, inspiration), and practical details like budget and timeline.
 
 ## Client Portal
 
-- [Client Portal](https://coastglobal.org/portal): Login-protected portal for existing clients to view projects, access files, submit requests, and read project updates.
+- [Client Portal](https://www.coastglobal.org/portal): Login-protected portal for existing clients to view projects, access files, submit requests, and read project updates.
 
 ## Contact
 
-- [Contact Us](https://coastglobal.org/#contact): Get in touch with The Coast.
+- [Contact Us](https://www.coastglobal.org/#contact): Get in touch with The Coast.
   - Email: hello@coastglobal.org
   - Phone: +1 (682) 702-0374
 
@@ -82,10 +83,10 @@
 
 ## FAQ
 
-- What is your typical project timeline? 2 to 6 weeks depending on scope. We believe in moving fast without compromising on quality.
-- Do you work with startups or established businesses? Both. We partner with entrepreneurs, solo founders, small businesses, and growing companies ready to level up their brand presence.
-- What is your pricing structure? We price based on value and scope, not hourly rates. Every project is unique, and we construct custom proposals after a discovery session. We also offer monthly retainer packages.
-- Do you offer ongoing support after launch? Yes. We view our client relationships as long-term partnerships. We offer retainer agreements for continuous design, development, and strategic support.
+- What is your typical project timeline? Our engagements typically range from 2 to 6 weeks depending on scope. A standalone logo design takes 2 to 3 weeks. A full brand identity system runs 4 to 6 weeks. Every project follows our four-step process: Discover, Design, Develop, and Launch.
+- Do you work with startups or established businesses? Both. We partner with solo founders, early-stage startups, small businesses, and growing companies. We have delivered projects across tech, healthcare, e-commerce, entertainment, food and beverage, and professional services.
+- What is your pricing structure? We offer project-based pricing determined by scope and value, plus three monthly retainer tiers: Starter (free), Professional ($25/month), and Enterprise ($250/month). Every project begins with a free discovery session.
+- Do you offer ongoing support after launch? Yes — we view client relationships as long-term partnerships. Our retainer packages provide continuous access to design, development, and strategic support with priority turnaround.
 
 ## Company Stats
 

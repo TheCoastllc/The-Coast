@@ -1,8 +1,5 @@
-'use client'
-
-import { motion, useScroll, useTransform } from 'motion/react'
-import { useRef } from 'react'
-import TextReveal from '@/components/TextReveal'
+import { AnimatedSectionLabel, AnimatedSectionHeading } from './AnimationWrappers'
+import { ProcessTimelineContainer, ProcessNode, ProcessCard } from './ProcessAnimations'
 
 const steps = [
   {
@@ -28,73 +25,31 @@ const steps = [
 ]
 
 export default function ProcessSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  })
-
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
-
   return (
-    <section className="py-32 bg-black" ref={containerRef}>
+    <section className="py-32 bg-black">
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-24">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-4 mb-8"
-          >
+          <AnimatedSectionLabel>
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">04</span>
             <div className="w-12 h-px bg-white/20" />
             <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Methodology</span>
-          </motion.div>
-          <TextReveal
+          </AnimatedSectionLabel>
+          <AnimatedSectionHeading
+            text="How Does The Coast's Brand Design Process Work?"
+            highlight={['Process', 'Work']}
             className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
-            highlight={["Empires"]}
-          >
-            How We Build Empires
-          </TextReveal>
+          />
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
-          {/* Vertical Line */}
-          <div className="absolute left-[23px] md:left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2">
-            <motion.div
-              style={{ height: lineHeight }}
-              className="w-full bg-primary origin-top"
-            />
-          </div>
-
+        <ProcessTimelineContainer>
           <div className="flex flex-col gap-24">
             {steps.map((step, index) => {
               const isEven = index % 2 === 0
               return (
                 <div key={index} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} gap-8 md:gap-16`}>
-
-                  {/* Timeline Node */}
-                  <div className="absolute left-[23px] md:left-1/2 top-0 -translate-x-1/2 w-3 h-3 bg-black border border-white/20 rounded-full z-10 flex items-center justify-center">
-                    <motion.div
-                      className="w-1.5 h-1.5 bg-primary rounded-full"
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true, margin: "-200px" }}
-                      transition={{ duration: 0.4, delay: 0.2 }}
-                    />
-                  </div>
-
-                  {/* Empty space for alternating layout on desktop */}
+                  <ProcessNode />
                   <div className="hidden md:block md:w-1/2" />
-
-                  {/* Content Card */}
-                  <motion.div
-                    initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="md:w-1/2 pl-16 md:pl-0 group hover-target"
-                  >
+                  <ProcessCard className="md:w-1/2 pl-16 md:pl-0 group hover-target" slideFrom={isEven ? 'right' : 'left'}>
                     <div className="p-8 bg-black border border-white/5 hover:border-white/20 transition-colors duration-500">
                       <div className="text-primary/50 font-mono text-sm mb-6 group-hover:text-primary transition-colors duration-500">
                         {step.num}
@@ -106,12 +61,12 @@ export default function ProcessSection() {
                         {step.desc}
                       </p>
                     </div>
-                  </motion.div>
+                  </ProcessCard>
                 </div>
               )
             })}
           </div>
-        </div>
+        </ProcessTimelineContainer>
       </div>
     </section>
   )

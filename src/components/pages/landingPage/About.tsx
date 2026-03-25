@@ -1,86 +1,35 @@
-'use client'
+import { AnimatedLabel, AnimatedHeading, AnimatedStat } from './AboutAnimations'
 
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'motion/react'
-import TextReveal from '@/components/TextReveal'
-
-function CountUp({ target, suffix, duration = 2 }: { target: number; suffix: string; duration?: number }) {
-  const [count, setCount] = useState(target)
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref)
-
-  useEffect(() => {
-    if (!inView) {
-      setCount(0)
-      return
-    }
-    const start = performance.now()
-    let raf: number
-    const step = (now: number) => {
-      const progress = Math.min((now - start) / (duration * 1000), 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.round(eased * target))
-      if (progress < 1) raf = requestAnimationFrame(step)
-    }
-    raf = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(raf)
-  }, [inView, target, duration])
-
-  return <span ref={ref}>{count}{suffix}</span>
-}
-
-function parseStat(value: string): { target: number; suffix: string } {
-  const match = value.match(/^(\d+)(.*)$/)
-  return match ? { target: parseInt(match[1]), suffix: match[2] } : { target: 0, suffix: value }
-}
+const stats = [
+  { label: 'Projects Delivered', value: '50+' },
+  { label: 'Brands Built', value: '30+' },
+  { label: 'Client Satisfaction', value: '98%' },
+]
 
 export default function About() {
   return (
     <section className="py-32 md:py-48 bg-black" id="about">
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-20">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-4 mb-8"
-          >
+          <AnimatedLabel>
             <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">02</span>
             <div className="w-12 h-px bg-white/20" />
             <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">About Us</span>
-          </motion.div>
-          <TextReveal
+          </AnimatedLabel>
+          <AnimatedHeading
+            text="What Is The Coast and Who Is It For?"
+            highlight={["Coast"]}
             className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-display uppercase tracking-tighter max-w-4xl leading-none"
-            highlight={["designers", "strategists", "creatives"]}
-            stagger={0.04}
-          >
-            We are a collective of designers, strategists, and creatives building unforgettable brands for entrepreneurs and growing businesses.
-          </TextReveal>
+          />
+          <p className="text-body text-muted-foreground/60 text-sm md:text-base leading-relaxed max-w-3xl mt-8">
+            The Coast is a brand design studio that makes professional branding affordable and accessible for small businesses, entrepreneurs, startups, and artists. Founded by David Coast, the studio was built on a simple observation: most small businesses fail not because they lack talent, but because they are invisible. Professional branding has traditionally been locked behind agency budgets that most entrepreneurs cannot touch — retainers starting at $10,000 per month with the largest firms. The Coast changed that equation by offering the same caliber of brand identity work — custom logo design, comprehensive brand guidelines, marketing collateral, and digital presence — at prices that make sense for growing businesses. With over 50 projects delivered across healthcare, e-commerce, tech, food and beverage, and entertainment, The Coast&apos;s four-step process (Discover, Design, Develop, Launch) typically delivers complete brand transformations in 2 to 6 weeks.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
-          {[
-            { label: 'Projects Delivered', value: '50+' },
-            { label: 'Brands Built', value: '30+' },
-            { label: 'Client Satisfaction', value: '98%' },
-          ].map((stat, i) => {
-            const { target, suffix } = parseStat(stat.value)
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="flex flex-col gap-4"
-              >
-                <span className="text-primary text-5xl md:text-6xl font-display tracking-tighter">
-                  <CountUp target={target} suffix={suffix} duration={2} />
-                </span>
-                <span className="text-muted-foreground text-xs uppercase tracking-[0.2em] font-mono">{stat.label}</span>
-              </motion.div>
-            )
-          })}
+          {stats.map((stat, i) => (
+            <AnimatedStat key={i} stat={stat} index={i} />
+          ))}
         </div>
       </div>
     </section>

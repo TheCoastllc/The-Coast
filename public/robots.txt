@@ -12,6 +12,14 @@ Disallow: /intake
 User-agent: GPTBot
 Allow: /
 
+# OAI-SearchBot
+User-agent: OAI-SearchBot
+Allow: /
+
+# ChatGPT-User
+User-agent: ChatGPT-User
+Allow: /
+
 # ClaudeBot
 User-agent: ClaudeBot
 Allow: /
@@ -23,6 +31,18 @@ Allow: /
 # Google-Extended
 User-agent: Google-Extended
 Allow: /
+
+# Bytespider
+User-agent: Bytespider
+Disallow: /
+
+# CCBot
+User-agent: CCBot
+Disallow: /
+
+# anthropic-ai
+User-agent: anthropic-ai
+Disallow: /
 
 # Host
 Host: https://www.coastglobal.org
