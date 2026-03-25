@@ -14,19 +14,6 @@ const nextConfig = {
     ],
   },
 
-  async redirects() {
-    return [
-      {
-        // 301 Permanent redirect: non-www → www (fixes 307 Temporary split equity issue)
-        // Note: Also update your Vercel Dashboard → Domains to set www as primary with 301.
-        source: '/:path*',
-        has: [{ type: 'host', value: 'coastglobal.org' }],
-        destination: 'https://www.coastglobal.org/:path*',
-        permanent: true,
-      },
-    ]
-  },
-
   async headers() {
     return [
       {
