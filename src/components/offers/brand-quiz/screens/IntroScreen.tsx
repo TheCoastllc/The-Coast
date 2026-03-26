@@ -1,13 +1,20 @@
 'use client'
 
 import { useQuiz } from '../QuizContext'
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 export function IntroScreen() {
   const { dispatch } = useQuiz()
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-5 bg-[#0D1117]">
+    <div className="min-h-screen flex flex-col items-center justify-center px-5 bg-[#0D1117] relative">
+      <a
+        href="/offers-tools"
+        className="absolute top-6 left-6 inline-flex items-center gap-1.5 text-white/30 hover:text-white/60 text-xs transition-colors"
+      >
+        <ArrowLeft className="w-3.5 h-3.5" />
+        Back to Offers
+      </a>
       <div className="max-w-lg text-center">
         <p className="text-[#C9A24B] text-xs tracking-[0.3em] uppercase mb-6">
           10 Questions &middot; 60 Seconds &middot; Free

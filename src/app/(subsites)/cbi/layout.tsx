@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Footer } from '@/components/footer'
 
 const SITE_URL = 'https://cbi.coastglobal.org'
 
@@ -76,5 +77,10 @@ export const metadata: Metadata = {
 }
 
 export default function CbiLayout({ children }: { children: React.ReactNode }) {
-    return <>{children}</>
+    return (
+        <>
+            {children}
+            <Footer variant="minimal" />
+        </>
+    )
 }

@@ -6,14 +6,22 @@ import { getBand, type Band } from './data/scoring'
 
 export type CheckValue = 'yes' | 'part' | 'no'
 
+type Screen = 'intro' | 'category' | 'email' | 'results'
+
 type ChecklistState = {
+  screen: Screen
+  currentCategory: number
   items: Record<string, CheckValue | null>
 }
 
 type ChecklistAction =
   | { type: 'SET'; itemId: string; value: CheckValue }
   | { type: 'CLEAR'; itemId: string }
-  | { type: 'RESET' }
+  | { type: 'START' }
+  | { type: 'NEXT_CATEGORY' }
+  | { type: 'PREV_CATEGORY' }
+  | { type: 'SHOW_RESULTS' }
+  | { type: 'RESTART' }
 
 function buildInitialItems(): Record<string, null> {
   const items: Record<string, null> = {}
@@ -25,15 +33,31 @@ function buildInitialItems(): Record<string, null> {
   return items
 }
 
-const initialState: ChecklistState = { items: buildInitialItems() }
+const initialState: ChecklistState = {
+  screen: 'intro',
+  currentCategory: 0,
+  items: buildInitialItems(),
+}
 
 function reducer(state: ChecklistState, action: ChecklistAction): ChecklistState {
   switch (action.type) {
     case 'SET':
-      return { items: { ...state.items, [action.itemId]: action.value } }
+      return { ...state, items: { ...state.items, [action.itemId]: action.value } }
     case 'CLEAR':
-      return { items: { ...state.items, [action.itemId]: null } }
-    case 'RESET':
+      return { ...state, items: { ...state.items, [action.itemId]: null } }
+    case 'START':
+      return { ...state, screen: 'category', currentCategory: 0 }
+    case 'NEXT_CATEGORY':
+      if (state.currentCategory >= categories.length - 1) {
+        return { ...state, screen: 'email' }
+      }
+      return { ...state, currentCategory: state.currentCategory + 1 }
+    case 'PREV_CATEGORY':
+      if (state.currentCategory <= 0) return state
+      return { ...state, currentCategory: state.currentCategory - 1 }
+    case 'SHOW_RESULTS':
+      return { ...state, screen: 'results' }
+    case 'RESTART':
       return initialState
     default:
       return state
@@ -56,13 +80,16 @@ type DerivedState = {
   noCount: number
   band: Band | null
   progress: number
+  categoryComplete: boolean
 }
 
 type ChecklistContextValue = {
+  screen: Screen
+  currentCategory: number
   items: Record<string, CheckValue | null>
   derived: DerivedState
+  dispatch: (action: ChecklistAction) => void
   toggle: (itemId: string, value: CheckValue) => void
-  reset: () => void
 }
 
 const ChecklistContext = createContext<ChecklistContextValue | null>(null)
@@ -75,6 +102,12 @@ export function ChecklistProvider({ children }: { children: ReactNode }) {
     const answered = values.filter((v) => v !== null)
     const totalScore = values.reduce((sum, v) => sum + scoreOf(v), 0)
 
+    // Check if all items in current category are answered
+    const cat = categories[state.currentCategory]
+    const categoryComplete = cat
+      ? cat.items.every((_, ii) => state.items[`${state.currentCategory}-${ii}`] !== null)
+      : false
+
     return {
       totalScore,
       maxScore: MAX_SCORE,
@@ -85,8 +118,9 @@ export function ChecklistProvider({ children }: { children: ReactNode }) {
       noCount: values.filter((v) => v === 'no').length,
       band: answered.length > 0 ? getBand(totalScore) : null,
       progress: (answered.length / TOTAL_ITEMS) * 100,
+      categoryComplete,
     }
-  }, [state.items])
+  }, [state.items, state.currentCategory])
 
   const toggle = useCallback((itemId: string, value: CheckValue) => {
     dispatch(
@@ -96,10 +130,15 @@ export function ChecklistProvider({ children }: { children: ReactNode }) {
     )
   }, [state.items])
 
-  const reset = useCallback(() => dispatch({ type: 'RESET' }), [])
-
   return (
-    <ChecklistContext.Provider value={{ items: state.items, derived, toggle, reset }}>
+    <ChecklistContext.Provider value={{
+      screen: state.screen,
+      currentCategory: state.currentCategory,
+      items: state.items,
+      derived,
+      dispatch,
+      toggle,
+    }}>
       {children}
     </ChecklistContext.Provider>
   )
