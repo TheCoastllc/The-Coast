@@ -18,7 +18,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 	const isMinimal = variant === "minimal"
 
 	return (
-		<footer className="relative w-full px-4">
+		<footer className={cn("relative w-full px-4", isMinimal && "bg-[#0D1117]")}>
 			<div
 				className={cn(
 					"relative mx-auto",

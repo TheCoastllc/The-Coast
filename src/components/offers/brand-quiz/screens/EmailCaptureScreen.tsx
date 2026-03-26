@@ -69,14 +69,6 @@ export function EmailCaptureScreen() {
           </button>
         </div>
         <p className="text-white/20 text-[11px] mb-6">No spam. No pressure. Unsubscribe anytime.</p>
-
-        <button
-          onClick={() => dispatch({ type: 'SHOW_RESULTS' })}
-          disabled={submitting}
-          className="text-white/30 hover:text-white/50 text-xs transition-colors underline underline-offset-4 disabled:opacity-50"
-        >
-          Skip for now
-        </button>
       </div>
     </div>
   )
