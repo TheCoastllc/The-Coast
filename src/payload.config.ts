@@ -19,7 +19,7 @@ import { IntakeSubmissions } from './collections/IntakeSubmissions'
 import { EventIntakeSubmissions } from './collections/EventIntakeSubmissions'
 import { GoogleReviews } from './collections/GoogleReviews'
 import { ContactSubmissions } from './collections/ContactSubmissions'
-import { QuizSubmissions } from './collections/QuizSubmissions'
+import { ToolSubmissions } from './collections/ToolSubmissions'
 
 import { resendAdapter } from '@payloadcms/email-resend'
 import { cloudinaryStorage } from 'payload-cloudinary'
@@ -62,7 +62,7 @@ export default buildConfig({
     EventIntakeSubmissions,
     GoogleReviews,
     ContactSubmissions,
-    QuizSubmissions,
+    ToolSubmissions,
   ],
   globals: [PrivacyPolicy, TermsOfService],
   editor: lexicalEditor(),

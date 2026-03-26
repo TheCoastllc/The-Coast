@@ -1,20 +1,23 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChecklistProvider, useChecklist } from './ChecklistContext'
 import { categories } from './data/categories'
 import { ScoreDock } from './components/ScoreDock'
 import { CategorySection } from './components/CategorySection'
 import { ScoringPanel } from './components/ScoringPanel'
 import { OffersCTA } from '@/components/offers/OffersCTA'
+import { EmailCapture } from '@/components/offers/EmailCapture'
 import { Toast } from '@/components/offers/Toast'
-import { useState } from 'react'
 import Image from 'next/image'
 
 function ChecklistInner() {
   const { derived } = useChecklist()
   const [toast, setToast] = useState<string | null>(null)
+  const [emailSubmitted, setEmailSubmitted] = useState(false)
   const prevCount = useRef(0)
+
+  const allDone = derived.answeredCount === derived.totalItems
 
   useEffect(() => {
     const count = derived.answeredCount
@@ -81,6 +84,25 @@ function ChecklistInner() {
       <div className="max-w-4xl mx-auto">
         <ScoringPanel />
       </div>
+
+      {/* Email capture — appears after all items answered */}
+      {allDone && !emailSubmitted && (
+        <div className="flex justify-center px-5 py-16 border-t border-white/[0.06]">
+          <EmailCapture
+            tool="brand-checklist"
+            heading="Get your detailed score breakdown"
+            description="Enter your email and we'll send you a full breakdown of your brand consistency score with recommendations."
+            answers={{
+              score: derived.totalScore,
+              band: derived.band,
+              yes: derived.yesCount,
+              part: derived.partCount,
+              no: derived.noCount,
+            }}
+            onComplete={() => setEmailSubmitted(true)}
+          />
+        </div>
+      )}
 
       <OffersCTA
         heading="Find out exactly what your score is costing you."

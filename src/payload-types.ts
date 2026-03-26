@@ -79,7 +79,7 @@ export interface Config {
     'event-intake-submissions': EventIntakeSubmission;
     'google-reviews': GoogleReview;
     'contact-submissions': ContactSubmission;
-    'quiz-submissions': QuizSubmission;
+    'tool-submissions': ToolSubmission;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -99,7 +99,7 @@ export interface Config {
     'event-intake-submissions': EventIntakeSubmissionsSelect<false> | EventIntakeSubmissionsSelect<true>;
     'google-reviews': GoogleReviewsSelect<false> | GoogleReviewsSelect<true>;
     'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
-    'quiz-submissions': QuizSubmissionsSelect<false> | QuizSubmissionsSelect<true>;
+    'tool-submissions': ToolSubmissionsSelect<false> | ToolSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -510,15 +510,19 @@ export interface ContactSubmission {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "quiz-submissions".
+ * via the `definition` "tool-submissions".
  */
-export interface QuizSubmission {
+export interface ToolSubmission {
   id: number;
   email: string;
-  score: number;
-  resultTier: 'invisible' | 'inconsistent' | 'established';
+  tool: 'brand-quiz' | 'brand-checklist' | '3-second-test';
+  score?: number | null;
   /**
-   * Array of selected answer indices (0-3) per question
+   * Quiz tier, checklist band, or test outcome
+   */
+  resultTier?: string | null;
+  /**
+   * Tool-specific response data
    */
   answers?:
     | {
@@ -605,8 +609,8 @@ export interface PayloadLockedDocument {
         value: number | ContactSubmission;
       } | null)
     | ({
-        relationTo: 'quiz-submissions';
-        value: number | QuizSubmission;
+        relationTo: 'tool-submissions';
+        value: number | ToolSubmission;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -880,10 +884,11 @@ export interface ContactSubmissionsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "quiz-submissions_select".
+ * via the `definition` "tool-submissions_select".
  */
-export interface QuizSubmissionsSelect<T extends boolean = true> {
+export interface ToolSubmissionsSelect<T extends boolean = true> {
   email?: T;
+  tool?: T;
   score?: T;
   resultTier?: T;
   answers?: T;
