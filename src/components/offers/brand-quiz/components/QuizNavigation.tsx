@@ -15,14 +15,14 @@ export function QuizNavigation({
   onNext: () => void
 }) {
   return (
-    <div className="flex items-center justify-between px-5 py-5 border-t border-[#0D1117]/[0.06]">
+    <div className="flex items-center justify-between px-5 py-5 border-t border-white/[0.06]">
       <button
         onClick={onBack}
         disabled={!canGoBack}
         className={cn(
           'inline-flex items-center gap-2 text-sm transition-colors',
           canGoBack
-            ? 'text-[#0D1117]/50 hover:text-[#0D1117]'
+            ? 'text-white/50 hover:text-white'
             : 'text-transparent cursor-default',
         )}
       >
@@ -37,7 +37,7 @@ export function QuizNavigation({
           'inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-sm transition-all',
           canGoForward
             ? 'bg-[#C9A24B] text-[#0D1117] hover:bg-[#C9A24B]/90'
-            : 'bg-[#0D1117]/[0.06] text-[#0D1117]/20 cursor-not-allowed',
+            : 'bg-white/[0.06] text-white/20 cursor-not-allowed',
         )}
       >
         Next

@@ -3,8 +3,8 @@ import type { CollectionConfig } from 'payload'
 export const ToolSubmissions: CollectionConfig = {
   slug: 'tool-submissions',
   admin: {
-    useAsTitle: 'email',
-    defaultColumns: ['email', 'tool', 'score', 'resultTier', 'createdAt'],
+    useAsTitle: 'name',
+    defaultColumns: ['name', 'email', 'company', 'tool', 'score', 'resultTier', 'createdAt'],
     group: 'Intake & Requests',
   },
   access: {
@@ -14,7 +14,10 @@ export const ToolSubmissions: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   fields: [
+    { name: 'name', type: 'text', required: true },
     { name: 'email', type: 'email', required: true },
+    { name: 'company', type: 'text' },
+    { name: 'role', type: 'text' },
     {
       name: 'tool',
       type: 'select',

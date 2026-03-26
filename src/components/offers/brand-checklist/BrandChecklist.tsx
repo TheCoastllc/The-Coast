@@ -9,13 +9,16 @@ import { ScoringPanel } from './components/ScoringPanel'
 import { OffersCTA } from '@/components/offers/OffersCTA'
 import { EmailCapture } from '@/components/offers/EmailCapture'
 import { Toast } from '@/components/offers/Toast'
+import { IntroScreen } from './IntroScreen'
 import Image from 'next/image'
 
 function ChecklistInner() {
   const { derived } = useChecklist()
+  const [started, setStarted] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
   const [emailSubmitted, setEmailSubmitted] = useState(false)
   const prevCount = useRef(0)
+  const clearToast = useCallback(() => setToast(null), [])
 
   const allDone = derived.answeredCount === derived.totalItems
 
@@ -30,6 +33,10 @@ function ChecklistInner() {
     }
     prevCount.current = count
   }, [derived.answeredCount])
+
+  if (!started) {
+    return <IntroScreen onStart={() => setStarted(true)} />
+  }
 
   let itemNumber = 0
 
@@ -113,7 +120,7 @@ function ChecklistInner() {
       <Toast
         message={toast ?? ''}
         show={toast !== null}
-        onDone={useCallback(() => setToast(null), [])}
+        onDone={clearToast}
       />
     </div>
   )

@@ -514,7 +514,10 @@ export interface ContactSubmission {
  */
 export interface ToolSubmission {
   id: number;
+  name: string;
   email: string;
+  company?: string | null;
+  role?: string | null;
   tool: 'brand-quiz' | 'brand-checklist' | '3-second-test';
   score?: number | null;
   /**
@@ -887,7 +890,10 @@ export interface ContactSubmissionsSelect<T extends boolean = true> {
  * via the `definition` "tool-submissions_select".
  */
 export interface ToolSubmissionsSelect<T extends boolean = true> {
+  name?: T;
   email?: T;
+  company?: T;
+  role?: T;
   tool?: T;
   score?: T;
   resultTier?: T;

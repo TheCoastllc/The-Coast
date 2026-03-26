@@ -1,6 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { ScrollProgressBar } from './components/ScrollProgressBar'
+import { IntroScreen } from './IntroScreen'
 import { CoverSection } from './sections/CoverSection'
 import { ScienceSection } from './sections/ScienceSection'
 import { ElementsSection } from './sections/ElementsSection'
@@ -10,6 +12,12 @@ import { EmailSection } from './sections/EmailSection'
 import { CTASection } from './sections/CTASection'
 
 export default function ThreeSecondTest() {
+  const [started, setStarted] = useState(false)
+
+  if (!started) {
+    return <IntroScreen onStart={() => setStarted(true)} />
+  }
+
   return (
     <main>
       <ScrollProgressBar />

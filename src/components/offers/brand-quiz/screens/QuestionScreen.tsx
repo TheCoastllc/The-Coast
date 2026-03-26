@@ -14,13 +14,13 @@ export function QuestionScreen() {
   const progress = ((currentQuestion + (selectedAnswer !== null ? 1 : 0)) / questions.length) * 100
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8f9fa]">
+    <div className="min-h-screen flex flex-col bg-[#0D1117]">
       {/* Progress */}
-      <ProgressBar progress={progress} className="fixed top-0 left-0 right-0 z-50 bg-[#e2e5e9]" />
+      <ProgressBar progress={progress} className="fixed top-0 left-0 right-0 z-50 bg-white/[0.06]" />
 
       {/* Question counter */}
       <div className="pt-10 px-5">
-        <p className="text-center text-[#0D1117]/30 text-xs tracking-[0.2em] uppercase font-medium">
+        <p className="text-center text-white/30 text-xs tracking-[0.2em] uppercase font-medium">
           Q{currentQuestion + 1} of {questions.length}
         </p>
       </div>
@@ -28,7 +28,7 @@ export function QuestionScreen() {
       {/* Question + Answers */}
       <div className="flex-1 flex items-center justify-center px-5 py-8">
         <div className="max-w-xl w-full">
-          <h2 className="text-lg md:text-xl font-medium text-[#0D1117] leading-relaxed mb-8 text-center">
+          <h2 className="text-lg md:text-xl font-medium text-white leading-relaxed mb-8 text-center">
             {q.text}
           </h2>
 

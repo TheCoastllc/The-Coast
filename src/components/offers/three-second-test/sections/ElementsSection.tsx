@@ -33,12 +33,12 @@ const elements = [
 
 export function ElementsSection() {
   return (
-    <section className="min-h-screen bg-white flex flex-col justify-center px-6 md:px-16 py-20">
+    <section className="min-h-screen bg-[#0D1117] flex flex-col justify-center px-6 md:px-16 py-20">
       <div className="max-w-[760px] mx-auto w-full">
         <span className="text-[#C9A24B] text-[11px] font-bold tracking-[0.2em] uppercase mb-6 block">
           What They&apos;re Reading
         </span>
-        <h2 className="text-2xl md:text-4xl font-bold text-[#0D2337] leading-tight tracking-tight mb-12">
+        <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight tracking-tight mb-12">
           Five things customers process
           <br />
           before conscious thought kicks in
@@ -48,13 +48,13 @@ export function ElementsSection() {
           {elements.map((el) => (
             <div
               key={el.number}
-              className="border border-[#DDE8EF] p-6 md:p-7 hover:border-[#C9A24B]/30 transition-colors"
+              className="border border-white/[0.08] p-6 md:p-7 hover:border-[#C9A24B]/30 transition-colors"
             >
               <span className="text-[#C9A24B]/50 text-xs font-mono block mb-3">{el.number}</span>
-              <h3 className="text-[#0D2337] text-lg font-semibold tracking-tight mb-3">
+              <h3 className="text-white text-lg font-semibold tracking-tight mb-3">
                 {el.title}
               </h3>
-              <p className="text-[#3A5268] text-sm leading-relaxed">{el.description}</p>
+              <p className="text-white/50 text-sm leading-relaxed">{el.description}</p>
             </div>
           ))}
         </div>

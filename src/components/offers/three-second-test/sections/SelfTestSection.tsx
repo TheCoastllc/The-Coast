@@ -21,12 +21,12 @@ const steps = [
 
 export function SelfTestSection() {
   return (
-    <section className="min-h-screen bg-[#f8fafb] flex flex-col justify-center px-6 md:px-16 py-20 relative overflow-hidden">
+    <section className="min-h-screen bg-[#0D1117] flex flex-col justify-center px-6 md:px-16 py-20 relative overflow-hidden">
       <div className="max-w-[760px] mx-auto w-full relative z-10">
         <span className="text-[#C9A24B] text-[11px] font-bold tracking-[0.2em] uppercase mb-6 block">
           Try It Now
         </span>
-        <h2 className="text-2xl md:text-4xl font-bold text-[#0D2337] leading-tight tracking-tight mb-12">
+        <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight tracking-tight mb-12">
           Run the 3-Second Test
           <br />
           on your own brand
@@ -36,13 +36,13 @@ export function SelfTestSection() {
           {steps.map((step) => (
             <div
               key={step.number}
-              className="flex items-start gap-5 bg-white border border-[#DDE8EF] p-5 md:p-6 rounded-sm"
+              className="flex items-start gap-5 bg-white/[0.03] border border-white/[0.08] p-5 md:p-6 rounded-sm"
             >
               <span className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-[#C9A24B]/10 text-[#C9A24B] text-sm font-bold">
                 {step.number}
               </span>
-              <p className="text-[#3A5268] text-sm leading-relaxed">
-                <strong className="text-[#0D2337]">{step.text}</strong>{' '}
+              <p className="text-white/50 text-sm leading-relaxed">
+                <strong className="text-white">{step.text}</strong>{' '}
                 {step.detail}
               </p>
             </div>

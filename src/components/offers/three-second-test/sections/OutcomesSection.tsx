@@ -24,12 +24,12 @@ const outcomes = [
 
 export function OutcomesSection() {
   return (
-    <section className="min-h-screen bg-white flex flex-col justify-center px-6 md:px-16 py-20">
+    <section className="min-h-screen bg-[#0D1117] flex flex-col justify-center px-6 md:px-16 py-20">
       <div className="max-w-[760px] mx-auto w-full">
         <span className="text-[#C9A24B] text-[11px] font-bold tracking-[0.2em] uppercase mb-6 block">
           What the Test Reveals
         </span>
-        <h2 className="text-2xl md:text-4xl font-bold text-[#0D2337] leading-tight tracking-tight mb-12">
+        <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight tracking-tight mb-12">
           Three brands emerge from
           <br />
           the 3-second test
@@ -39,7 +39,7 @@ export function OutcomesSection() {
           {outcomes.map((outcome) => (
             <div
               key={outcome.label}
-              className="border-l-[3px] bg-[#f8fafb] p-6 md:p-8"
+              className="border-l-[3px] bg-white/[0.03] p-6 md:p-8"
               style={{ borderColor: outcome.color }}
             >
               <span
@@ -48,10 +48,10 @@ export function OutcomesSection() {
               >
                 {outcome.label}
               </span>
-              <h3 className="text-[#0D2337] text-lg md:text-xl font-bold tracking-tight mb-3">
+              <h3 className="text-white text-lg md:text-xl font-bold tracking-tight mb-3">
                 {outcome.title}
               </h3>
-              <p className="text-[#3A5268] text-[15px] leading-[1.72]">
+              <p className="text-white/50 text-[15px] leading-[1.72]">
                 {outcome.description}
               </p>
             </div>
