@@ -82,7 +82,7 @@ export default function AboutPage() {
             {/* Stats strip */}
             <FadeOnLoad delay={0.3} className="flex items-center gap-8 mt-10 pt-8 border-t border-border">
               {[
-                { value: '2022', label: 'Founded' },
+                { value: 'Feb 2023', label: 'Founded' },
                 { value: '50+', label: 'Clients' },
                 { value: '3', label: 'Disciplines' },
               ].map(({ value, label }) => (

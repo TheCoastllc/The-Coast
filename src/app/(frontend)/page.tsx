@@ -61,7 +61,7 @@ const organizationSchema = {
   },
   email: 'hello@coastglobal.org',
   telephone: '+16827020374',
-  foundingDate: '2024',
+  foundingDate: '2023-02',
   sameAs: [
     'https://www.instagram.com/coastglobal',
     'https://www.facebook.com/coastglobal',

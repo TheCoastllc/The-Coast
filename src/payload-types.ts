@@ -79,6 +79,7 @@ export interface Config {
     'event-intake-submissions': EventIntakeSubmission;
     'google-reviews': GoogleReview;
     'contact-submissions': ContactSubmission;
+    'quiz-submissions': QuizSubmission;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -98,6 +99,7 @@ export interface Config {
     'event-intake-submissions': EventIntakeSubmissionsSelect<false> | EventIntakeSubmissionsSelect<true>;
     'google-reviews': GoogleReviewsSelect<false> | GoogleReviewsSelect<true>;
     'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
+    'quiz-submissions': QuizSubmissionsSelect<false> | QuizSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -508,6 +510,30 @@ export interface ContactSubmission {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quiz-submissions".
+ */
+export interface QuizSubmission {
+  id: number;
+  email: string;
+  score: number;
+  resultTier: 'invisible' | 'inconsistent' | 'established';
+  /**
+   * Array of selected answer indices (0-3) per question
+   */
+  answers?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -577,6 +603,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'contact-submissions';
         value: number | ContactSubmission;
+      } | null)
+    | ({
+        relationTo: 'quiz-submissions';
+        value: number | QuizSubmission;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -845,6 +875,18 @@ export interface ContactSubmissionsSelect<T extends boolean = true> {
   name?: T;
   email?: T;
   message?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quiz-submissions_select".
+ */
+export interface QuizSubmissionsSelect<T extends boolean = true> {
+  email?: T;
+  score?: T;
+  resultTier?: T;
+  answers?: T;
   updatedAt?: T;
   createdAt?: T;
 }

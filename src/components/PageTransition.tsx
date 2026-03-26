@@ -24,6 +24,7 @@ const ROUTE_NAMES: Record<string, string> = {
   '/vision': 'Vision',
   '/brand-builder': 'Brand Builder',
   '/brand-avatar': 'Brand Avatar',
+  '/offers': 'Offers',
   '/intake': 'Intake',
   '/privacy': 'Privacy Policy',
   '/terms': 'Terms of Service',

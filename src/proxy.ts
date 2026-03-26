@@ -1,32 +1,31 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+const SUBDOMAIN_MAP: Record<string, string> = {
+  cbi: '/cbi',
+  offers: '/offers-tools',
+}
+
 export function proxy(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
   const { pathname } = request.nextUrl
 
-  console.log('--- PROXY DEBUG ---')
-  console.log('Incoming Host:', hostname)
+  const subdomain = Object.keys(SUBDOMAIN_MAP).find(
+    (sub) =>
+      hostname.includes(`${sub}.coastglobal.org`) ||
+      hostname.startsWith(`${sub}.localhost`),
+  )
 
-  const isProductionSubdomain = hostname.includes('cbi.coastglobal.org')
-  const isLocalSubdomain = hostname.startsWith('cbi.localhost')
+  if (subdomain) {
+    const basePath = SUBDOMAIN_MAP[subdomain]
 
-  if (isProductionSubdomain || isLocalSubdomain) {
-    console.log(`MATCH: Detected ${isLocalSubdomain ? 'Local' : 'Production'} Subdomain`)
-
-    // Prevent loop
-    if (pathname.startsWith('/cbi')) {
-      console.log('SKIP: Already in /cbi path')
+    if (pathname.startsWith(basePath)) {
       return NextResponse.next()
     }
 
-    const rewriteUrl = new URL(`/cbi${pathname}`, request.url)
-    console.log('REWRITE:', rewriteUrl.pathname)
-
-    return NextResponse.rewrite(rewriteUrl)
+    return NextResponse.rewrite(new URL(`${basePath}${pathname}`, request.url))
   }
 
-  console.log('NO MATCH: Defaulting to main site.')
   return NextResponse.next()
 }
 

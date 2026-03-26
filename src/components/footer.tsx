@@ -5,29 +5,49 @@ import Image from "next/image";
 import { DecorIcon } from "@/components/ui/decor-icon";
 import { TransitionLink } from "@/components/PageTransition";
 
-export function Footer() {
+const MAIN_SITE = "https://coastglobal.org"
+
+function FooterLink({ href, className, children, isMinimal }: { href: string; className?: string; children: React.ReactNode; isMinimal?: boolean }) {
+	if (isMinimal) {
+		return <a href={`${MAIN_SITE}${href}`} className={className}>{children}</a>
+	}
+	return <TransitionLink href={href} className={className}>{children}</TransitionLink>
+}
+
+export function Footer({ variant = "default" }: { variant?: "default" | "minimal" }) {
+	const isMinimal = variant === "minimal"
+
 	return (
 		<footer className="relative w-full px-4">
 			<div
 				className={cn(
-					"relative mx-auto max-w-6xl",
-					"dark:bg-[radial-gradient(35%_80%_at_15%_0%,--theme(--color-foreground/.1),transparent)]"
+					"relative mx-auto",
+					!isMinimal && "max-w-6xl",
+					!isMinimal && "dark:bg-[radial-gradient(35%_80%_at_15%_0%,--theme(--color-foreground/.1),transparent)]"
 				)}
 			>
-				{/* Blueprint vertical lines */}
-				<div aria-hidden="true" className="absolute inset-y-0 -left-px w-px bg-border" />
-				<div aria-hidden="true" className="absolute inset-y-0 -right-px w-px bg-border" />
+				{!isMinimal && (
+					<>
+						{/* Blueprint vertical lines */}
+						<div aria-hidden="true" className="absolute inset-y-0 -left-px w-px bg-border" />
+						<div aria-hidden="true" className="absolute inset-y-0 -right-px w-px bg-border" />
 
-				{/* Top horizontal divider + DecorIcons */}
-				<div aria-hidden="true" className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
-				<DecorIcon position="top-left" className="size-4" />
-				<DecorIcon position="top-right" className="size-4" />
+						{/* Top horizontal divider + DecorIcons */}
+						<div aria-hidden="true" className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
+						<DecorIcon position="top-left" className="size-4" />
+						<DecorIcon position="top-right" className="size-4" />
+					</>
+				)}
 
-				<div className="grid max-w-5xl grid-cols-6 gap-6 p-4">
+				{isMinimal && (
+					<div aria-hidden="true" className="absolute top-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
+				)}
+
+				<div className={cn("grid grid-cols-6 gap-6 p-4", !isMinimal && "max-w-5xl")}>
 					<div className="col-span-6 flex flex-col gap-4 pt-5 md:col-span-4">
-						<TransitionLink
+						<FooterLink
 							href="/"
-							title="The Coast - Home"
+							isMinimal={isMinimal}
 							className="flex items-center rounded-md p-2 hover:bg-muted dark:hover:bg-muted/50 hover-target"
 						>
 							<Image
@@ -38,7 +58,7 @@ export function Footer() {
 								className="object-contain"
 								priority
 							/>
-						</TransitionLink>
+						</FooterLink>
 						<p className="max-w-sm text-balance text-muted-foreground text-sm">
 							Strategic brand design for entrepreneurs, artists, and growing businesses.
 						</p>
@@ -52,13 +72,14 @@ export function Footer() {
 						<span className="text-muted-foreground text-xs">Resources</span>
 						<div className="mt-2 flex flex-col gap-2">
 							{resources.map(({ href, title }) => (
-								<TransitionLink
+								<FooterLink
 									className="w-max text-sm hover:underline"
 									href={href}
+									isMinimal={isMinimal}
 									key={title}
 								>
 									{title}
-								</TransitionLink>
+								</FooterLink>
 							))}
 						</div>
 					</div>
@@ -66,30 +87,39 @@ export function Footer() {
 						<span className="text-muted-foreground text-xs">Company</span>
 						<div className="mt-2 flex flex-col gap-2">
 							{company.map(({ href, title }) => (
-								<TransitionLink
+								<FooterLink
 									className="w-max text-sm hover:underline"
 									href={href}
+									isMinimal={isMinimal}
 									key={title}
 								>
 									{title}
-								</TransitionLink>
+								</FooterLink>
 							))}
 						</div>
 					</div>
 				</div>
 
-				{/* Bottom horizontal divider + DecorIcons */}
-				<div aria-hidden="true" className="absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
-				<DecorIcon position="bottom-left" className="size-4" />
-				<DecorIcon position="bottom-right" className="size-4" />
+				{!isMinimal && (
+					<>
+						{/* Bottom horizontal divider + DecorIcons */}
+						<div aria-hidden="true" className="absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
+						<DecorIcon position="bottom-left" className="size-4" />
+						<DecorIcon position="bottom-right" className="size-4" />
+					</>
+				)}
 
-				<div className="flex max-w-6xl px-4 flex-col items-center justify-between gap-2 py-4 sm:flex-row">
+				{isMinimal && (
+					<div aria-hidden="true" className="absolute bottom-0 left-1/2 h-px w-screen -translate-x-1/2 bg-border" />
+				)}
+
+				<div className={cn("flex px-4 flex-col items-center justify-between gap-2 py-4 sm:flex-row", !isMinimal && "max-w-6xl")}>
 					<p className="font-light text-muted-foreground text-sm">
 						&copy; {new Date().getFullYear()} The Coast LLC, All rights reserved
 					</p>
 					<div className="flex gap-4">
-						<TransitionLink href="/privacy" className="text-xs text-muted-foreground hover:underline">Privacy Policy</TransitionLink>
-						<TransitionLink href="/terms" className="text-xs text-muted-foreground hover:underline">Terms of Service</TransitionLink>
+						<FooterLink href="/privacy" isMinimal={isMinimal} className="text-xs text-muted-foreground hover:underline">Privacy Policy</FooterLink>
+						<FooterLink href="/terms" isMinimal={isMinimal} className="text-xs text-muted-foreground hover:underline">Terms of Service</FooterLink>
 					</div>
 				</div>
 			</div>
@@ -128,6 +158,10 @@ const resources = [
 	{
 		title: "Our Work",
 		href: "/work",
+	},
+	{
+		title: "Free Brand Tools",
+		href: "/offers",
 	},
 	{
 		title: "FAQ",
