@@ -63,12 +63,6 @@ export function HeroBackgroundVideo() {
           autoPlay
           preload="auto"
           className="h-full object-cover"
-          style={{
-            // marginLeft: '200px',
-            transform: 'scale(1.2)',
-            transformOrigin: 'left center',
-            width: 'calc(100% - 200px)',
-          }}
         />
       </div>
 
