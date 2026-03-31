@@ -10,7 +10,15 @@
       "Bash(grep -oP '\\(?<=<h[1-6][^>]*>\\)[^<]+\\(?=</h[1-6]>\\)' *.html)",
       "Bash(grep -oP '\\(?<=<div[^>]*class=\"\"stat-number\"\"[^>]*>\\)[^<]+' *.html)",
       "Bash(grep -i 'tagline\\\\|tagline\\\\|electrify\\\\|escape' *.html)",
-      "Bash(ls -lh *.html)"
+      "Bash(ls -lh *.html)",
+      "Bash(ls /home/ikeji/Documents/WORK/COAST-LLC/thecoast/payload.config.*)",
+      "Bash(ls /home/ikeji/Documents/WORK/COAST-LLC/thecoast/src/payload.config.*)",
+      "Bash(bun -v)",
+      "Bash(grep -B 5 -A 15 \"CREATE TABLE.*tool\" /home/ikeji/Documents/WORK/COAST-LLC/thecoast/src/migrations/*.json)",
+      "Bash(python3:*)",
+      "Bash(bun run payload migrate:create)",
+      "Bash(bun run payload migrate)",
+      "Bash(turso db list)"
     ]
   }
 }

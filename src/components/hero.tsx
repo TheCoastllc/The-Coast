@@ -11,7 +11,7 @@ import {
 	HeroAnimatedVideo,
 	HeroUIProvider,
 } from "./hero-animations";
-import { RetroGrid } from "./RetroGrid";
+import { HeroBackgroundVideo } from "./HeroBackgroundVideo";
 import { LazyHeroVideo } from "./LazyHeroVideo";
 
 export function HeroSection() {
@@ -19,7 +19,7 @@ export function HeroSection() {
 		<HeroUIProvider>
 			<section>
 				<div className="relative flex flex-col items-center justify-center gap-5 px-4 py-12 md:px-4 md:py-22 ">
-					<RetroGrid />
+					<HeroBackgroundVideo />
 					{/* Decorative Background Elements */}
 					<div aria-hidden="true" className="absolute inset-0 -z-1 size-full overflow-hidden">
 						<div className={cn(

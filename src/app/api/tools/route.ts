@@ -218,11 +218,15 @@ export async function POST(request: Request) {
   }
 
   // Store in database
-  await payload.create({
-    collection: 'tool-submissions',
-    data: { name, email, company, role, tool, score, resultTier, answers: (answers ?? null) as Record<string, unknown> | null },
-    overrideAccess: true,
-  })
+  try {
+    await payload.create({
+      collection: 'tool-submissions',
+      data: { name, email, company, role, tool, score, resultTier, answers: (answers ?? null) as Record<string, unknown> | null },
+      overrideAccess: true,
+    })
+  } catch (err) {
+    console.error(`Failed to save ${tool} submission:`, err)
+  }
 
   // Send admin notification
   try {
