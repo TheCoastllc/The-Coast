@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from 'react'
 import Hls from 'hls.js'
+import Noise from './Noise'
 
 const HLS_SRC = 'https://stream.mux.com/9JXDljEVWYwWu01PUkAemafDugK89o01BR6zqJ3aS9u00A.m3u8'
 
@@ -50,6 +51,7 @@ export function HeroBackgroundVideo() {
 
   return (
     <>
+      <Noise />
       {/* Background video layer */}
       <div
         aria-hidden="true"
