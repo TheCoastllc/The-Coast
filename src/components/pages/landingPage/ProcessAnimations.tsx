@@ -12,7 +12,7 @@ export function ProcessTimeline({ children }: { children: React.ReactNode }) {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
   return (
-    <section className="py-32 bg-black" ref={containerRef}>
+    <section className="relative py-32 bg-black" ref={containerRef}>
       {children}
       {/* Vertical Line with scroll progress */}
       <div

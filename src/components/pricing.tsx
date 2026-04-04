@@ -211,7 +211,7 @@ export default function PricingSection() {
                     </div>
                   </div>
                   <ShineButton size="sm" full>
-                    Upgrade to Studio
+                    Go Agency Pro
                   </ShineButton>
                 </div>
 

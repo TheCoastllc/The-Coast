@@ -40,8 +40,10 @@ const aboutSchema = {
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': 'https://coastglobal.org/about#david-coast',
   name: 'David Coast',
   jobTitle: 'Founder & Creative Director',
+  url: 'https://coastglobal.org/about',
   worksFor: { '@id': 'https://coastglobal.org/#organization' },
 }
 

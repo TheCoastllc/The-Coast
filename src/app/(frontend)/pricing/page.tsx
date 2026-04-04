@@ -25,8 +25,8 @@ const pricingSchema = {
       position: 1,
       item: {
         '@type': 'Offer',
-        name: 'Starter',
-        description: 'Get started with essential brand design tools.',
+        name: 'Creator',
+        description: 'Ideal for freelance designers and creative beginners.',
         price: '0',
         priceCurrency: 'USD',
         priceSpecification: {
@@ -43,8 +43,8 @@ const pricingSchema = {
       position: 2,
       item: {
         '@type': 'Offer',
-        name: 'Professional',
-        description: 'Monthly retainer for growing businesses that need consistent brand support.',
+        name: 'Studio',
+        description: 'Advanced toolkit for agencies and growing creative teams.',
         price: '25',
         priceCurrency: 'USD',
         priceSpecification: {
@@ -61,8 +61,8 @@ const pricingSchema = {
       position: 3,
       item: {
         '@type': 'Offer',
-        name: 'Enterprise',
-        description: 'Full-scale brand design support for established businesses.',
+        name: 'Agency Pro',
+        description: 'Full-scale creative infrastructure for large design teams.',
         price: '250',
         priceCurrency: 'USD',
         priceSpecification: {

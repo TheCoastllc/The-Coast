@@ -55,8 +55,9 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 								alt="The Coast Logo"
 								width={40}
 								height={40}
+								style={{ height: 'auto' }}
 								className="object-contain"
-								priority
+								loading="lazy"
 							/>
 						</FooterLink>
 						<p className="max-w-sm text-balance text-muted-foreground text-sm">

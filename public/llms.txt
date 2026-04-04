@@ -34,9 +34,9 @@
 ## Pricing
 
 - [Pricing](https://coastglobal.org/pricing): Monthly retainer packages designed to keep your brand sharp, consistent, and always evolving.
-  - [Starter Plan](https://coastglobal.org/pricing): Free tier for freelancers and creative beginners. Up to 5 design projects, basic brand kit tools, community feedback access, starter UI components.
-  - [Professional Plan](https://coastglobal.org/pricing): $25/month for agencies and growing creative teams. Unlimited design projects, complete brand management, advanced UI component library, Figma and Adobe integration, team collaboration workspace.
-  - [Enterprise Plan](https://coastglobal.org/pricing): $250/month for large design teams. Everything in Professional plus dedicated creative strategist, white-label design system, custom component development, SSO and enterprise security, 24/7 premium support.
+  - [Creator Plan](https://coastglobal.org/pricing): Free tier for freelancers and creative beginners. Up to 5 design projects, basic brand kit tools, community feedback access, starter UI components.
+  - [Studio Plan](https://coastglobal.org/pricing): $25/month for agencies and growing creative teams. Unlimited design projects, complete brand management, advanced UI component library, Figma and Adobe integration, team collaboration workspace.
+  - [Agency Pro Plan](https://coastglobal.org/pricing): $250/month for large design teams. Everything in Studio plus dedicated creative strategist, white-label design system, custom component development, SSO and enterprise security, 24/7 premium support.
 
 ## Process
 
@@ -94,7 +94,7 @@
 
 - What is your typical project timeline? Our engagements typically range from 2 to 6 weeks depending on scope. A standalone logo design takes 2 to 3 weeks. A full brand identity system runs 4 to 6 weeks. Every project follows our four-step process: Discover, Design, Develop, and Launch.
 - Do you work with startups or established businesses? Both. We partner with solo founders, early-stage startups, small businesses, and growing companies. We have delivered projects across tech, healthcare, e-commerce, entertainment, food and beverage, and professional services.
-- What is your pricing structure? We offer project-based pricing determined by scope and value, plus three monthly retainer tiers: Starter (free), Professional ($25/month), and Enterprise ($250/month). Every project begins with a free discovery session.
+- What is your pricing structure? We offer project-based pricing determined by scope and value, plus three monthly retainer tiers: Creator (free), Studio ($25/month), and Agency Pro ($250/month). Every project begins with a free discovery session.
 - Do you offer ongoing support after launch? Yes - we view client relationships as long-term partnerships. Our retainer packages provide continuous access to design, development, and strategic support with priority turnaround.
 
 ## Company Stats

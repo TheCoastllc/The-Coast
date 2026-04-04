@@ -56,30 +56,8 @@ export default function CustomCursor() {
       gsap.to([outer, inner], { opacity: 1, duration: 0.3 })
     }
 
-    // Hover detection for interactive elements
-    const handleElementEnter = (e: Event) => {
-      const target = e.target as HTMLElement
-      const link = target.closest('a')
-      const cursorType = target.closest('[data-cursor]')?.getAttribute('data-cursor')
-
-      if (cursorType === 'view') {
-        gsap.to(outer, { width: 80, height: 80, duration: 0.3, ease: 'power2.out' })
-        gsap.to(text, { opacity: 1, duration: 0.2 })
-        text.textContent = 'View'
-      } else if (cursorType === 'text') {
-        gsap.to(outer, { width: 4, height: 32, borderRadius: '2px', duration: 0.3 })
-        gsap.to(dot, { scale: 0, duration: 0.2 })
-      } else if (link) {
-        gsap.to(outer, { scale: 1.5, duration: 0.3, ease: 'power2.out' })
-        gsap.to(dot, { opacity: 0, scale: 0, duration: 0.2 })
-        gsap.to(plus, { opacity: 1, scale: 1, duration: 0.2 })
-      } else {
-        gsap.to(outer, { scale: 1.5, duration: 0.3, ease: 'power2.out' })
-        gsap.to(dot, { scale: 0.5, duration: 0.3, ease: 'power2.out' })
-      }
-    }
-
-    const handleElementLeave = () => {
+    // Reset cursor to default state
+    const resetCursor = () => {
       gsap.to(outer, {
         width: 40,
         height: 40,
@@ -93,35 +71,62 @@ export default function CustomCursor() {
       gsap.to(text, { opacity: 0, duration: 0.2 })
     }
 
+    // Event delegation for hover effects — no MutationObserver needed
+    let currentHoverTarget: Element | null = null
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const interactive = target.closest('a, button, [role="button"], [data-cursor]')
+
+      if (interactive === currentHoverTarget) return
+      if (!interactive && currentHoverTarget) {
+        currentHoverTarget = null
+        resetCursor()
+        return
+      }
+      if (!interactive) return
+
+      currentHoverTarget = interactive
+      const cursorType = interactive.closest('[data-cursor]')?.getAttribute('data-cursor')
+
+      if (cursorType === 'view') {
+        gsap.to(outer, { width: 80, height: 80, duration: 0.3, ease: 'power2.out' })
+        gsap.to(text, { opacity: 1, duration: 0.2 })
+        text.textContent = 'View'
+      } else if (cursorType === 'text') {
+        gsap.to(outer, { width: 4, height: 32, borderRadius: '2px', duration: 0.3 })
+        gsap.to(dot, { scale: 0, duration: 0.2 })
+      } else if (interactive.closest('a')) {
+        gsap.to(outer, { scale: 1.5, duration: 0.3, ease: 'power2.out' })
+        gsap.to(dot, { opacity: 0, scale: 0, duration: 0.2 })
+        gsap.to(plus, { opacity: 1, scale: 1, duration: 0.2 })
+      } else {
+        gsap.to(outer, { scale: 1.5, duration: 0.3, ease: 'power2.out' })
+        gsap.to(dot, { scale: 0.5, duration: 0.3, ease: 'power2.out' })
+      }
+    }
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const related = e.relatedTarget as HTMLElement | null
+      if (related && currentHoverTarget?.contains(related)) return
+      if (currentHoverTarget) {
+        currentHoverTarget = null
+        resetCursor()
+      }
+    }
+
     document.addEventListener('mousemove', handleMouseMove)
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('mouseenter', handleMouseEnter)
-
-    // Delegate hover events for interactive elements
-    const interactiveSelector = 'a, button, [role="button"], [data-cursor]'
-    const boundElements = new WeakSet<Element>()
-
-    const bindElement = (el: Element) => {
-      if (boundElements.has(el)) return
-      el.addEventListener('mouseenter', handleElementEnter)
-      el.addEventListener('mouseleave', handleElementLeave)
-      boundElements.add(el)
-    }
-
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll(interactiveSelector).forEach(bindElement)
-    })
-
-    // Initial bind
-    document.querySelectorAll(interactiveSelector).forEach(bindElement)
-
-    observer.observe(document.body, { childList: true, subtree: true })
+    document.addEventListener('mouseover', handleMouseOver)
+    document.addEventListener('mouseout', handleMouseOut)
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('mouseenter', handleMouseEnter)
-      observer.disconnect()
+      document.removeEventListener('mouseover', handleMouseOver)
+      document.removeEventListener('mouseout', handleMouseOut)
     }
   }, [])
 

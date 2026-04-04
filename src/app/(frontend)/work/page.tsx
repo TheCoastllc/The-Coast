@@ -13,9 +13,30 @@ export const metadata: import('next').Metadata = {
   },
 }
 
+const workBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://coastglobal.org' },
+    { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://coastglobal.org/work' },
+  ],
+}
+
+const workCollectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': 'https://coastglobal.org/work#webpage',
+  url: 'https://coastglobal.org/work',
+  name: 'Our Work — Brand Transformations',
+  description: 'Explore brand transformations, logo design projects, and creative work from The Coast.',
+  isPartOf: { '@id': 'https://coastglobal.org/#website' },
+}
+
 export default function WorkPage() {
   return (
     <BlueprintLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workBreadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workCollectionSchema) }} />
       <WorkPageContent />
     </BlueprintLayout>
   )

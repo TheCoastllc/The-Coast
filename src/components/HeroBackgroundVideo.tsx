@@ -61,7 +61,7 @@ export function HeroBackgroundVideo() {
           loop
           playsInline
           autoPlay
-          preload="auto"
+          preload="metadata"
           className="h-full object-cover"
         />
       </div>

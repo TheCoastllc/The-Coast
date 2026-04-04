@@ -35,8 +35,6 @@ export default function Preloader() {
     const tl = gsap.timeline({
       onComplete: () => {
         document.body.style.overflow = ''
-          ; (window as any).__PRELOADER_DONE__ = true
-        window.dispatchEvent(new Event('preloader-done'))
         setDone(true)
       },
     })
@@ -95,7 +93,13 @@ export default function Preloader() {
     // 7. Brief hold — line sits as the seam
     tl.to({}, { duration: 0.15 })
 
-    // 8. Panels split — line travels with top panel as the seam
+    // 8. Signal hero to start animating BEFORE panels split (content is under the overlay)
+    tl.call(() => {
+      ;(window as any).__PRELOADER_DONE__ = true
+      window.dispatchEvent(new Event('preloader-done'))
+    })
+
+    // 9. Panels split — line travels with top panel as the seam
     tl.to(topPanel, { yPercent: -100, duration: 0.75, ease: 'power3.inOut' })
     tl.to(bottomPanel, { yPercent: 100, duration: 0.75, ease: 'power3.inOut' }, '<')
 

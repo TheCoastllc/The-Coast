@@ -253,12 +253,33 @@ async function PostsGrid({
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+const blogBreadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://coastglobal.org' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://coastglobal.org/blog' },
+  ],
+}
+
+const blogCollectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': 'https://coastglobal.org/blog#webpage',
+  url: 'https://coastglobal.org/blog',
+  name: 'The Coast Journal — Brand Design Insights',
+  description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses.',
+  isPartOf: { '@id': 'https://coastglobal.org/#website' },
+}
+
 export default async function BlogPage({ searchParams }: { searchParams: SearchParams }) {
   const { search, category, page } = await searchParams
   const currentPage = parseInt(page || '1')
 
   return (
     <BlueprintLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogBreadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogCollectionSchema) }} />
       {/* Hero — renders immediately, no DB calls */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="max-w-6xl mx-auto px-6 md:px-12">

@@ -70,7 +70,7 @@ export function MobileNav() {
 				aria-expanded={open}
 				aria-label="Toggle menu"
 				onClick={() => setOpen(!open)}
-				className="relative z-50 flex items-center justify-center size-10 rounded-md border border-border text-foreground hover:bg-muted/50 transition-colors"
+				className="relative z-50 flex items-center justify-center size-11 rounded-md border border-border text-foreground hover:bg-muted/50 transition-colors"
 			>
 				<AnimatePresence mode="wait" initial={false}>
 					{open ? (
@@ -104,7 +104,7 @@ export function MobileNav() {
 							id="mobile-menu-portal"
 							role="dialog"
 							aria-modal="true"
-							className="fixed inset-0 z-40 flex flex-col bg-background"
+							className="fixed inset-0 z-[60] flex flex-col bg-background"
 							initial={{ clipPath: "circle(0% at calc(100% - 2.5rem) 1.75rem)" }}
 							animate={{ clipPath: "circle(150% at calc(100% - 2.5rem) 1.75rem)" }}
 							exit={{ clipPath: "circle(0% at calc(100% - 2.5rem) 1.75rem)" }}

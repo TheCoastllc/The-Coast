@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { ButtonHTMLAttributes, type ReactNode } from 'react'
 import { usePageTransition } from '@/components/PageTransition'
 
-const sizeConfig: Record<string, { padding: string; fontSize: string }> = {
-  sm: { padding: '10px 24px', fontSize: '12px' },
+const sizeConfig: Record<string, { padding: string; fontSize: string; minHeight?: string }> = {
+  sm: { padding: '12px 24px', fontSize: '12px', minHeight: '44px' },
   md: { padding: '14px 36px', fontSize: '14px' },
 }
 
@@ -40,6 +40,7 @@ export function ShineButton({
     justifyContent: 'center',
     padding: s.padding,
     fontSize: s.fontSize,
+    ...(s.minHeight && { minHeight: s.minHeight }),
     fontFamily: "var(--font-space, 'Space Grotesk'), system-ui, sans-serif",
     fontWeight: 500,
     letterSpacing: '0.3px',

@@ -22,7 +22,7 @@ const anton = Anton({
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600'],
   variable: '--font-inter',
   display: 'swap',
 })
@@ -107,7 +107,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${inter.variable} ${anton.variable}`}>
+    <html lang="en" className={`dark ${inter.variable} ${anton.variable} relative`}>
       <body suppressHydrationWarning>
         <Preloader />
         <Noise />

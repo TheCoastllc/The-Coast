@@ -6,18 +6,20 @@ const BASE_URL = 'https://coastglobal.org'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE_URL, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${BASE_URL}/services`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${BASE_URL}/pricing`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/get-started`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/blog`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
-    { url: `${BASE_URL}/brand-avatar`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/vision`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/work`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE_URL}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: BASE_URL, changeFrequency: 'weekly', priority: 1.0 },
+    { url: `${BASE_URL}/services`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE_URL}/pricing`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE_URL}/get-started`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE_URL}/about`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/blog`, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${BASE_URL}/work`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/offers`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/brand-avatar`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/vision`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE_URL}/privacy`, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE_URL}/terms`, changeFrequency: 'yearly', priority: 0.3 },
     // Note: /cbi is excluded — noindexed placeholder
+    // Note: /offers-tools/* are internal rewrite paths for offers.coastglobal.org — excluded
   ]
 
   // Dynamically include all published blog posts
@@ -40,23 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB not available — blog posts omitted from sitemap
   }
 
-  // Blog category hub pages
-  const categoryPages: MetadataRoute.Sitemap = [
-    'brand-strategy',
-    'visual-identity',
-    'logo-design',
-    'web-design',
-    'social-media',
-    'creative-direction',
-    'case-study',
-    'industry-insights',
-  ].map((cat) => ({
-    url: `${BASE_URL}/blog/category/${cat}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }))
-
   // Work / portfolio pages
   const workPages: MetadataRoute.Sitemap = [
     'zappedco',
@@ -66,10 +51,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'prospry',
   ].map((id) => ({
     url: `${BASE_URL}/work/${id}`,
-    lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
-  return [...staticPages, ...categoryPages, ...workPages, ...blogPosts]
+  return [...staticPages, ...workPages, ...blogPosts]
 }

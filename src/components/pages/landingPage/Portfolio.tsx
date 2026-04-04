@@ -43,7 +43,7 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.7])
 
   return (
-    <div className="sticky" style={{ top: topOffset }}>
+    <div className="sticky relative" style={{ top: topOffset }}>
       <motion.div
         ref={cardRef}
         style={{ scale }}
@@ -85,7 +85,7 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
 
               <div className="flex flex-wrap gap-2">
                 {project.tags.map(tag => (
-                  <span key={tag} className="px-3 py-1 border border-white/10 text-white/60 text-[10px] uppercase tracking-widest rounded-full">
+                  <span key={tag} className="px-3 py-1 border border-white/10 text-white/70 text-[10px] uppercase tracking-widest rounded-full">
                     {tag}
                   </span>
                 ))}
@@ -94,7 +94,7 @@ function StackCard({ project, index, total }: { project: typeof projects[0]; ind
 
             <div className="mt-12 md:mt-0">
               <span
-                className="text-xs uppercase tracking-[0.2em] border-b border-white/20 text-white/60 pb-1 group-hover:text-primary group-hover:border-primary transition-colors"
+                className="text-xs uppercase tracking-[0.2em] border-b border-white/20 text-white/70 pb-1 group-hover:text-primary group-hover:border-primary transition-colors"
               >
                 View Case Study
               </span>

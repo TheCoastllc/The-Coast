@@ -82,6 +82,7 @@ export function Header() {
 								alt="The Coast Logo"
 								width={40}
 								height={40}
+								style={{ height: 'auto' }}
 								className="block md:hidden object-contain"
 								priority
 							/>
@@ -92,6 +93,7 @@ export function Header() {
 								alt="The Coast Logo"
 								width={70}
 								height={40}
+								style={{ height: 'auto' }}
 								className="hidden md:block object-contain"
 								priority
 							/>

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Clock, Calendar } from 'lucide-react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import { ShineButton } from '@/components/ui/ShineButton'
 
@@ -154,20 +155,18 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
+    '@id': `https://coastglobal.org/blog/${slug}#article`,
+    url: `https://coastglobal.org/blog/${slug}`,
     headline: post.title,
     description: post.excerpt || '',
     image: coverUrl || 'https://coastglobal.org/preview.jpg',
+    inLanguage: 'en-US',
     author: {
       '@type': 'Person',
       name: authorName,
     },
     publisher: {
-      '@type': 'Organization',
-      name: 'The Coast',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://coastglobal.org/full-logo.png',
-      },
+      '@id': 'https://coastglobal.org/#organization',
     },
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
@@ -175,6 +174,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       '@type': 'WebPage',
       '@id': `https://coastglobal.org/blog/${slug}`,
     },
+    isPartOf: { '@id': 'https://coastglobal.org/#website' },
+    ...(post.category && { articleSection: formatCategory(post.category) }),
+    ...(post.tags?.length && { keywords: post.tags.map((t: any) => t.tag).join(', ') }),
   }
 
   return (
@@ -252,10 +254,13 @@ export default async function BlogPostPage({ params }: { params: Params }) {
         <>
           <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 md:py-14">
             <div className="aspect-[16/9] relative overflow-hidden w-full">
-              <img
+              <Image
                 src={coverUrl}
                 alt={post.coverImage?.alt ?? post.title}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 1152px"
+                className="object-cover"
+                priority
               />
               {/* Corner accents */}
               <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary/60 pointer-events-none" />
@@ -398,10 +403,12 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                       <div className="absolute top-0 left-0 w-full h-[2px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                       {rpCover && (
                         <div className="aspect-[16/10] relative overflow-hidden">
-                          <img
+                          <Image
                             src={rpCover}
                             alt={rp.coverImage?.alt ?? rp.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                           />
                         </div>

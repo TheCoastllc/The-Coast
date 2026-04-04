@@ -1,97 +1,73 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, type Transition } from "motion/react";
-import { useState, type ReactNode, createContext, useContext, useEffect } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { gsap } from "gsap";
 import Link from "next/link";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-const STAGGER = 0.12;
+const STAGGER = 0.15;
 
-// Global flag to track if we've already done the intro animation in this session.
-// This persists across SPA navigations.
 let hasDoneIntro = false;
 
-// ─── Context for Syncing with Preloader ───
+// ─── Shared hook: hide on mount, animate on preloader-done ───
 
-const HeroUIContext = createContext<{
-    isFirstLoad: boolean;
-    isPreloaderActive: boolean;
-}>({ isFirstLoad: true, isPreloaderActive: true });
-
-export function HeroUIProvider({ children }: { children: ReactNode }) {
-    const [isFirstLoad, setIsFirstLoad] = useState(true);
-    const [isReady, setIsReady] = useState(false);
-
+function useHeroReveal(
+    ref: React.RefObject<HTMLElement | null>,
+    from: gsap.TweenVars,
+    to: gsap.TweenVars,
+    step: number,
+) {
     useEffect(() => {
-        // 1. Navigation Back: Visible immediately
+        const el = ref.current;
+        if (!el) return;
+
+        // Return visit — show immediately, no animation
         if (hasDoneIntro) {
-            setIsFirstLoad(false);
-            setIsReady(true);
+            gsap.set(el, to);
             return;
         }
 
-        // Helper to trigger the reveal after the 2.5s "after-preloader" delay
-        const triggerReveal = () => {
-            setTimeout(() => {
-                setIsReady(true);
-                hasDoneIntro = true;
-            }, 100);
+        // Hide immediately
+        gsap.set(el, from);
+
+        const reveal = () => {
+            gsap.to(el, {
+                ...to,
+                duration: 1.4,
+                delay: STAGGER * step,
+                ease: "power3.out",
+                onComplete: () => { hasDoneIntro = true; },
+            });
         };
 
-        // 2. Already Done (e.g. mounting late)
-        if (typeof window !== "undefined" && (window as any).__PRELOADER_DONE__) {
-            triggerReveal();
+        // Already done (late mount)
+        if ((window as any).__PRELOADER_DONE__) {
+            reveal();
             return;
         }
 
-        // 3. Wait for Event
-        const handlePreloaderDone = () => {
-            triggerReveal();
-        };
+        const handler = () => reveal();
+        window.addEventListener("preloader-done", handler);
 
-        window.addEventListener("preloader-done", handlePreloaderDone);
-
-        // 4. Safety Timeout: Force content to show if preloader hangs
-        // Total wait: ~1.5s for preloader + 2.5s delay = 4s
-        const safetyTimeout = setTimeout(() => {
-            if (!hasDoneIntro) {
-                setIsReady(true);
-                hasDoneIntro = true;
-            }
-        }, 4500);
+        // Safety timeout
+        const timeout = setTimeout(() => {
+            if (!hasDoneIntro) reveal();
+        }, 5000);
 
         return () => {
-            window.removeEventListener("preloader-done", handlePreloaderDone);
-            clearTimeout(safetyTimeout);
+            window.removeEventListener("preloader-done", handler);
+            clearTimeout(timeout);
         };
     }, []);
-
-    return (
-        <HeroUIContext.Provider value={{ isFirstLoad, isPreloaderActive: !isReady }}>
-            {children}
-        </HeroUIContext.Provider>
-    );
 }
 
-function useHeroUI() {
-    return useContext(HeroUIContext);
+// ─── Provider (just marks intro done, no state) ───
+
+export function HeroUIProvider({ children }: { children: ReactNode }) {
+    return <>{children}</>;
 }
 
-/* ─── Badge (slide-in from left) ─── */
-
-const badgeVariants = {
-    hidden: { opacity: 0, x: -20, transition: { duration: 0 } },
-    visible: (step: number) => ({
-        opacity: 1,
-        x: 0,
-        transition: {
-            duration: 0.8,
-            delay: STAGGER * step,
-            ease: EASE as unknown as Transition["ease"],
-        },
-    }),
-};
+// ─── Badge (fade + slide from left) ───
 
 export function HeroAnimatedBadge({
     children,
@@ -100,37 +76,26 @@ export function HeroAnimatedBadge({
     children: ReactNode;
     step?: number;
 }) {
-    const { isPreloaderActive } = useHeroUI();
+    const ref = useRef<HTMLDivElement>(null);
+    useHeroReveal(
+        ref,
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0 },
+        step,
+    );
+
     return (
-        <motion.div
-            variants={badgeVariants}
-            custom={step}
-            initial="visible"
-            animate={!isPreloaderActive ? "visible" : "hidden"}
-        >
+        <div ref={ref}>
             <Link href="/services"
                 className="group flex w-fit items-center gap-3 rounded-sm border bg-card p-1 shadow transition-all"
-
             >
                 {children}
             </Link>
-        </motion.div>
+        </div>
     );
 }
 
-/* ─── Word reveal (y: 100% → 0) ─── */
-
-const wordVariants = {
-    hidden: { y: "100%", transition: { duration: 0 } },
-    visible: (step: number) => ({
-        y: 0,
-        transition: {
-            duration: 1.2,
-            delay: STAGGER * step,
-            ease: EASE as unknown as Transition["ease"],
-        },
-    }),
-};
+// ─── Word mask reveal (yPercent 120 → 0 inside overflow-hidden) ───
 
 export function HeroAnimatedWord({
     children,
@@ -141,36 +106,28 @@ export function HeroAnimatedWord({
     step?: number;
     className?: string;
 }) {
-    const { isPreloaderActive } = useHeroUI();
+    const ref = useRef<HTMLSpanElement>(null);
+    useHeroReveal(
+        ref,
+        { yPercent: 120 },
+        { yPercent: 0 },
+        step,
+    );
+
     return (
-        <span className="block overflow-hidden">
-            <motion.span
-                variants={wordVariants}
-                custom={step}
-                initial="visible"
-                animate={!isPreloaderActive ? "visible" : "hidden"}
-                className={cn("block origin-bottom-left", className)}
+        <span className="block overflow-hidden pb-[0.1em]">
+            <span
+                ref={ref}
+                className={cn("block", className)}
+                style={{ willChange: "transform" }}
             >
                 {children}
-            </motion.span>
+            </span>
         </span>
     );
 }
 
-/* ─── Fade-up (for subtitle and CTAs) ─── */
-
-const fadeUpVariants = {
-    hidden: { opacity: 0, y: 20, transition: { duration: 0 } },
-    visible: (step: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 1,
-            delay: STAGGER * step,
-            ease: EASE as unknown as Transition["ease"],
-        },
-    }),
-};
+// ─── Fade-up (subtitle, CTAs) ───
 
 export function HeroAnimatedFadeUp({
     children,
@@ -183,35 +140,23 @@ export function HeroAnimatedFadeUp({
     className?: string;
     as?: "div" | "p";
 }) {
-    const { isPreloaderActive } = useHeroUI();
-    const Component = as === "p" ? motion.p : motion.div;
+    const ref = useRef<HTMLDivElement>(null);
+    useHeroReveal(
+        ref,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0 },
+        step,
+    );
+
+    const Tag = as === "p" ? "p" : "div";
     return (
-        <Component
-            variants={fadeUpVariants}
-            custom={step}
-            initial="visible"
-            animate={!isPreloaderActive ? "visible" : "hidden"}
-            className={className}
-        >
+        <Tag ref={ref as any} className={className}>
             {children}
-        </Component>
+        </Tag>
     );
 }
 
-/* ─── Video section wrapper (fade-up with ease) ─── */
-
-const videoVariants = {
-    hidden: { opacity: 0, y: 30, transition: { duration: 0 } },
-    visible: (step: number) => ({
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 1.2,
-            delay: STAGGER * step,
-            ease: EASE as unknown as Transition["ease"],
-        },
-    }),
-};
+// ─── Video section (fade + rise) ───
 
 export function HeroAnimatedVideo({
     children,
@@ -220,16 +165,17 @@ export function HeroAnimatedVideo({
     children: ReactNode;
     step?: number;
 }) {
-    const { isPreloaderActive } = useHeroUI();
+    const ref = useRef<HTMLDivElement>(null);
+    useHeroReveal(
+        ref,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0 },
+        step,
+    );
+
     return (
-        <motion.div
-            variants={videoVariants}
-            custom={step}
-            initial="visible"
-            animate={!isPreloaderActive ? "visible" : "hidden"}
-            className="relative"
-        >
+        <div ref={ref} className="relative">
             {children}
-        </motion.div>
+        </div>
     );
 }
