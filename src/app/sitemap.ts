@@ -40,5 +40,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB not available — blog posts omitted from sitemap
   }
 
-  return [...staticPages, ...blogPosts]
+  // Blog category hub pages
+  const categoryPages: MetadataRoute.Sitemap = [
+    'brand-strategy',
+    'visual-identity',
+    'logo-design',
+    'web-design',
+    'social-media',
+    'creative-direction',
+    'case-study',
+    'industry-insights',
+  ].map((cat) => ({
+    url: `${BASE_URL}/blog/category/${cat}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }))
+
+  // Work / portfolio pages
+  const workPages: MetadataRoute.Sitemap = [
+    'zappedco',
+    'amg-records',
+    'ogaticket',
+    'hatch-startup-nation',
+    'prospry',
+  ].map((id) => ({
+    url: `${BASE_URL}/work/${id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  return [...staticPages, ...categoryPages, ...workPages, ...blogPosts]
 }

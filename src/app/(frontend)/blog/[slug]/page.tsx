@@ -13,6 +13,22 @@ const formatCategory = (slug: string) =>
 
 type Params = Promise<{ slug: string }>
 
+export async function generateStaticParams() {
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const { docs } = await payload.find({
+      collection: 'posts',
+      where: { status: { equals: 'published' } },
+      limit: 1000,
+      depth: 0,
+      select: { slug: true } as any,
+    })
+    return docs.map((post: any) => ({ slug: post.slug }))
+  } catch {
+    return []
+  }
+}
+
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params
   try {
@@ -98,6 +114,43 @@ export default async function BlogPostPage({ params }: { params: Params }) {
     ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     : null
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://coastglobal.org' },
+      { '@type': 'ListItem', position: 2, name: 'The Journal', item: 'https://coastglobal.org/blog' },
+      ...(post.category
+        ? [{ '@type': 'ListItem', position: 3, name: formatCategory(post.category), item: `https://coastglobal.org/blog/category/${post.category}` },
+           { '@type': 'ListItem', position: 4, name: post.title }]
+        : [{ '@type': 'ListItem', position: 3, name: post.title }]),
+    ],
+  }
+
+  // Fetch related posts (same category, excluding current)
+  let relatedPosts: any[] = []
+  if (post.category) {
+    try {
+      const payload = await getPayload({ config: configPromise })
+      const { docs } = await payload.find({
+        collection: 'posts',
+        where: {
+          and: [
+            { status: { equals: 'published' } },
+            { category: { equals: post.category } },
+            { slug: { not_equals: slug } },
+          ],
+        },
+        limit: 3,
+        sort: '-publishedAt',
+        depth: 1,
+      })
+      relatedPosts = docs as any[]
+    } catch {
+      // ignore
+    }
+  }
+
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -126,6 +179,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
   return (
     <BlueprintLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       {/* ─── Article Header ───────────────────────────────────────────────── */}
       <section className="pt-28 pb-10 md:pt-36 md:pb-14">
@@ -143,9 +197,12 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           {/* Category + meta */}
           <div className="flex items-center gap-4 mb-6">
             {post.category && (
-              <span className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary border border-primary/30 px-2.5 py-1">
+              <Link
+                href={`/blog/category/${post.category}`}
+                className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary border border-primary/30 px-2.5 py-1 hover:bg-primary/10 transition-colors"
+              >
                 {formatCategory(post.category)}
-              </span>
+              </Link>
             )}
             {post.readingTime && (
               <span className="flex items-center gap-1.5 text-mono text-[10px] uppercase tracking-widest text-muted-foreground/40">
@@ -246,7 +303,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                 {post.category && (
                   <div className="flex items-start justify-between gap-2 py-3 border-t border-border">
                     <span className="text-mono text-[10px] uppercase tracking-widest text-muted-foreground/40">Category</span>
-                    <span className="text-mono text-xs text-primary">{formatCategory(post.category)}</span>
+                    <Link href={`/blog/category/${post.category}`} className="text-mono text-xs text-primary hover:underline">
+                      {formatCategory(post.category)}
+                    </Link>
                   </div>
                 )}
 
@@ -314,6 +373,61 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           </div>
         </div>
       </section>
+
+      {/* ─── Related Articles ────────────────────────────────────────────── */}
+      {relatedPosts.length > 0 && (
+        <>
+          <SectionBoundary />
+          <section className="py-12 md:py-16">
+            <div className="max-w-6xl mx-auto px-6 md:px-12">
+              <span className="text-mono text-[10px] uppercase tracking-widest text-muted-foreground/40 block mb-6">
+                More in {formatCategory(post.category)}
+              </span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2 border border-border">
+                {relatedPosts.map((rp: any) => {
+                  const rpCover = rp.coverImage?.cloudinary?.secure_url ?? rp.coverImage?.url ?? null
+                  const rpDate = rp.publishedAt
+                    ? new Date(rp.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                    : null
+                  return (
+                    <Link
+                      key={rp.id}
+                      href={`/blog/${rp.slug}`}
+                      className="group relative block bg-card overflow-hidden"
+                    >
+                      <div className="absolute top-0 left-0 w-full h-[2px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                      {rpCover && (
+                        <div className="aspect-[16/10] relative overflow-hidden">
+                          <img
+                            src={rpCover}
+                            alt={rp.coverImage?.alt ?? rp.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+                      <div className="p-5 flex flex-col gap-3">
+                        <h3 className="text-heading text-lg text-foreground group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                          {rp.title}
+                        </h3>
+                        {rp.excerpt && (
+                          <p className="text-body text-muted-foreground text-sm line-clamp-2 leading-relaxed">{rp.excerpt}</p>
+                        )}
+                        <div className="flex items-center justify-between mt-auto pt-3 border-t border-border">
+                          {rpDate && <span className="text-mono text-[10px] text-muted-foreground/50">{rpDate}</span>}
+                          <div className="w-8 h-8 border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+                            <ArrowRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-300" />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </BlueprintLayout>
   )
 }

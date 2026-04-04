@@ -50,6 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ projectId
       description: meta.description,
       url: `https://coastglobal.org/work/${projectId}`,
     },
+    ...(!meta.ready && { robots: { index: false, follow: true } }),
   }
 }
 
@@ -63,8 +64,33 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
 
   if (!meta) notFound()
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://coastglobal.org' },
+      { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://coastglobal.org/work' },
+      { '@type': 'ListItem', position: 3, name: meta.title.split(' — ')[0] },
+    ],
+  }
+
+  const creativeWorkSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: meta.title.split(' — ')[0],
+    description: meta.description,
+    url: `https://coastglobal.org/work/${projectId}`,
+    creator: {
+      '@type': 'Organization',
+      name: 'The Coast',
+      url: 'https://coastglobal.org',
+    },
+  }
+
   return (
     <BlueprintLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }} />
       {meta.ready ? (
         <ZappedCoPage />
       ) : (

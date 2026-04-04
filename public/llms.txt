@@ -57,6 +57,15 @@
 ## Blog
 
 - [The Journal](https://coastglobal.org/blog): Insights on brand design, visual identity, and creative strategy. Articles and thought leadership from The Coast team.
+- Categories:
+  - [Brand Strategy](https://coastglobal.org/blog/category/brand-strategy): Strategic brand positioning, messaging, and market differentiation.
+  - [Visual Identity](https://coastglobal.org/blog/category/visual-identity): Color systems, typography, and cohesive visual brand languages.
+  - [Logo Design](https://coastglobal.org/blog/category/logo-design): Logo concepts, mark design, and symbol creation.
+  - [Web Design](https://coastglobal.org/blog/category/web-design): Website design, UX/UI, and digital product experiences.
+  - [Social Media](https://coastglobal.org/blog/category/social-media): Social media branding, templates, and content strategy.
+  - [Creative Direction](https://coastglobal.org/blog/category/creative-direction): Art direction, campaign concepts, and creative leadership.
+  - [Case Study](https://coastglobal.org/blog/category/case-study): In-depth project walkthroughs and brand transformation stories.
+  - [Industry Insights](https://coastglobal.org/blog/category/industry-insights): Trends, analysis, and thought leadership in brand design.
 
 ## Get Started
 

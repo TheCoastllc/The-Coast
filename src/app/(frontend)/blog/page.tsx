@@ -10,15 +10,23 @@ import Image from 'next/image'
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
-export const metadata: import('next').Metadata = {
-  title: 'The Coast Journal — Brand Design Insights',
-  description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Journal.',
-  alternates: { canonical: 'https://coastglobal.org/blog' },
-  openGraph: {
-    title: 'The Coast Journal — Brand Design Insights',
-    description: 'Insights on brand design, visual identity, and creative strategy.',
-    url: 'https://coastglobal.org/blog',
-  },
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<import('next').Metadata> {
+  const { search, category, page } = await searchParams
+  const hasFilters = search || category || (page && page !== '1')
+
+  return {
+    title: category
+      ? `${category.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())} — The Coast Journal`
+      : 'The Coast Journal — Brand Design Insights',
+    description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Journal.',
+    alternates: { canonical: 'https://coastglobal.org/blog' },
+    openGraph: {
+      title: 'The Coast Journal — Brand Design Insights',
+      description: 'Insights on brand design, visual identity, and creative strategy.',
+      url: 'https://coastglobal.org/blog',
+    },
+    ...(hasFilters && { robots: { index: false, follow: true } }),
+  }
 }
 
 const POSTS_PER_PAGE = 9
