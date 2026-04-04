@@ -50,3 +50,8 @@ node_modules/
 /playwright/.cache/
 
 /docs
+
+# Prevent build-time sitemap generators from overwriting the dynamic sitemap
+public/sitemap.xml
+public/sitemap-*.xml
+next-sitemap.config.*
