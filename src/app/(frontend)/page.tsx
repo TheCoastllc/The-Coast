@@ -10,7 +10,7 @@ const Services = dynamic(() => import('@/components/pages/landingPage/Services')
 const ProcessSection = dynamic(() => import('@/components/pages/landingPage/ProcessSection'))
 const Portfolio = dynamic(() => import('@/components/pages/landingPage/Portfolio'))
 const Clients = dynamic(() => import('@/components/pages/landingPage/Clients'))
-const GoogleReviews = dynamic(() => import('@/components/pages/landingPage/GoogleReviews'))
+import GoogleReviews from '@/components/pages/landingPage/GoogleReviewsServer'
 import FAQ from '@/components/pages/landingPage/FAQ'
 const BlogPreview = dynamic(() => import('@/components/pages/landingPage/BlogPreview'))
 const Contact = dynamic(() => import('@/components/pages/landingPage/Contact'))
@@ -136,7 +136,9 @@ export default function HomePage() {
         <Clients />
       </div>
       <SectionBoundary />
-      <GoogleReviews />
+      <Suspense fallback={<div className="py-32 bg-black px-4"><div className="max-w-6xl mx-auto h-96 animate-pulse" /></div>}>
+        <GoogleReviews />
+      </Suspense>
       <SectionBoundary />
       <Suspense fallback={<div className="py-32 bg-black px-4"><div className="max-w-6xl mx-auto h-96 animate-pulse" /></div>}>
         <FAQ />

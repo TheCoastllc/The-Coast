@@ -1,8 +1,10 @@
 'use client'
 
-import { ReactGoogleReviews } from 'react-google-reviews'
+import { ReactGoogleReviews, type ReactGoogleReview } from 'react-google-reviews'
 import 'react-google-reviews/dist/index.css'
 import { AnimatedSectionLabel, AnimatedSectionHeading } from './AnimationWrappers'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const FEATURABLE_WIDGET_ID = '0678c24f-9212-4556-9ffa-baa00fe37ddb'
 
@@ -12,7 +14,53 @@ const StarIcon = ({ className }: { className: string }) => (
   </svg>
 )
 
-const GoogleReviews = () => {
+function ReviewCards({ reviews }: { reviews: ReactGoogleReview[] }) {
+  return (
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {reviews.map((review) => (
+        <div
+          key={review.reviewId}
+          className="bg-white/3 border border-white/10 rounded-xl p-6 hover:border-primary/30 transition-all duration-500"
+        >
+          <div className="flex gap-1 mb-4">
+            {[...Array(review.starRating)].map((_, i) => (
+              <StarIcon key={i} className="w-4 h-4 text-primary" />
+            ))}
+          </div>
+          <p className="text-white/50 text-sm font-light leading-relaxed mb-6 line-clamp-4">
+            {review.comment}
+          </p>
+          <div className="flex items-center gap-3 mt-auto">
+            {review.reviewer.profilePhotoUrl ? (
+              <Image
+                src={review.reviewer.profilePhotoUrl}
+                alt={review.reviewer.displayName}
+                className="w-10 h-10 rounded-full object-cover"
+                referrerPolicy="no-referrer"
+                width={40}
+                height={40}
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
+                {review.reviewer.displayName.charAt(0)}
+              </div>
+            )}
+            <div>
+              <p className="text-white font-medium text-sm">
+                {review.reviewer.displayName}
+              </p>
+              <p className="text-white/30 text-xs">Google Review</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function GoogleReviewsClient({ reviews }: { reviews: ReactGoogleReview[] }) {
+  const hasServerReviews = reviews.length > 0
+
   return (
     <section className="py-32 bg-black">
       <div className="max-w-6xl mx-auto px-6">
@@ -29,52 +77,22 @@ const GoogleReviews = () => {
           />
         </div>
 
-        <ReactGoogleReviews
-          layout="custom"
-          featurableId={FEATURABLE_WIDGET_ID}
-          renderer={(reviews) => (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {reviews.map((review) => (
-                <div
-                  key={review.reviewId}
-                  className="bg-white/3 border border-white/10 rounded-xl p-6 hover:border-primary/30 transition-all duration-500"
-                >
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(review.starRating)].map((_, i) => (
-                      <StarIcon key={i} className="w-4 h-4 text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-white/50 text-sm font-light leading-relaxed mb-6 line-clamp-4">
-                    {review.comment}
-                  </p>
-                  <div className="flex items-center gap-3 mt-auto">
-                    {review.reviewer.profilePhotoUrl ? (
-                      <img
-                        src={review.reviewer.profilePhotoUrl}
-                        alt={review.reviewer.displayName}
-                        className="w-10 h-10 rounded-full object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
-                        {review.reviewer.displayName.charAt(0)}
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-white font-medium text-sm">
-                        {review.reviewer.displayName}
-                      </p>
-                      <p className="text-white/30 text-xs">Google Review</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        />
+        {hasServerReviews ? (
+          <ReactGoogleReviews
+            layout="custom"
+            reviews={reviews}
+            renderer={(items) => <ReviewCards reviews={items} />}
+          />
+        ) : (
+          <ReactGoogleReviews
+            layout="custom"
+            featurableId={FEATURABLE_WIDGET_ID}
+            renderer={(items) => <ReviewCards reviews={items} />}
+          />
+        )}
 
         <div className="text-center mt-12">
-          <a
+          <Link
             href="https://search.google.com/local/writereview?placeid=ChIJ_fjV-mLpAo4Riif8WzjsV70"
             target="_blank"
             rel="noopener noreferrer"
@@ -82,11 +100,11 @@ const GoogleReviews = () => {
           >
             Leave a review
             <span aria-hidden="true">&rarr;</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
   )
 }
 
-export default GoogleReviews
+export default GoogleReviewsClient
