@@ -49,7 +49,7 @@ export default async function FAQ() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-20">
           <AnimatedSectionLabel>
-            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">07</span>
+            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">08</span>
             <div className="w-12 h-px bg-white/20" />
             <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Questions</span>
           </AnimatedSectionLabel>

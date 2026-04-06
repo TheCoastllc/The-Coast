@@ -77,7 +77,6 @@ export interface Config {
     requests: Request;
     'intake-submissions': IntakeSubmission;
     'event-intake-submissions': EventIntakeSubmission;
-    'google-reviews': GoogleReview;
     'contact-submissions': ContactSubmission;
     'tool-submissions': ToolSubmission;
     'payload-kv': PayloadKv;
@@ -97,7 +96,6 @@ export interface Config {
     requests: RequestsSelect<false> | RequestsSelect<true>;
     'intake-submissions': IntakeSubmissionsSelect<false> | IntakeSubmissionsSelect<true>;
     'event-intake-submissions': EventIntakeSubmissionsSelect<false> | EventIntakeSubmissionsSelect<true>;
-    'google-reviews': GoogleReviewsSelect<false> | GoogleReviewsSelect<true>;
     'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     'tool-submissions': ToolSubmissionsSelect<false> | ToolSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -484,22 +482,6 @@ export interface EventIntakeSubmission {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "google-reviews".
- */
-export interface GoogleReview {
-  id: number;
-  name: string;
-  initial: string;
-  color: string;
-  category: string;
-  text: string;
-  rating: number;
-  displayOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contact-submissions".
  */
 export interface ContactSubmission {
@@ -604,10 +586,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'event-intake-submissions';
         value: number | EventIntakeSubmission;
-      } | null)
-    | ({
-        relationTo: 'google-reviews';
-        value: number | GoogleReview;
       } | null)
     | ({
         relationTo: 'contact-submissions';
@@ -858,21 +836,6 @@ export interface EventIntakeSubmissionsSelect<T extends boolean = true> {
   timeline?: T;
   eventDescription?: T;
   additionalNotes?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "google-reviews_select".
- */
-export interface GoogleReviewsSelect<T extends boolean = true> {
-  name?: T;
-  initial?: T;
-  color?: T;
-  category?: T;
-  text?: T;
-  rating?: T;
-  displayOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -47,7 +47,7 @@ export default async function BlogPreview() {
       <div className="max-w-6xl mx-auto px-2 sm:px-4">
         <div className="mb-20">
           <div className="flex items-center gap-4 mb-8">
-            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">08</span>
+            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">09</span>
             <div className="w-12 h-px bg-white/20" />
             <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Insights</span>
           </div>

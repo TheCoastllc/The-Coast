@@ -29,7 +29,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://res.cloudinary.com https://storage.efferd.com; media-src 'self' blob: https://stream.mux.com https://*.mux.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://stream.mux.com https://*.mux.com; frame-ancestors 'self';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://res.cloudinary.com https://storage.efferd.com https://lh3.googleusercontent.com; media-src 'self' blob: https://stream.mux.com https://*.mux.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://stream.mux.com https://*.mux.com https://featurable.com; frame-ancestors 'self';",
           },
         ],
       },

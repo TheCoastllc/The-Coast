@@ -17,7 +17,6 @@ import { ProjectUpdates } from './collections/ProjectUpdates'
 import { Requests } from './collections/Requests'
 import { IntakeSubmissions } from './collections/IntakeSubmissions'
 import { EventIntakeSubmissions } from './collections/EventIntakeSubmissions'
-import { GoogleReviews } from './collections/GoogleReviews'
 import { ContactSubmissions } from './collections/ContactSubmissions'
 import { ToolSubmissions } from './collections/ToolSubmissions'
 import { FAQ as FAQGlobal } from './globals/FAQ'
@@ -62,7 +61,6 @@ export default buildConfig({
     Requests,
     IntakeSubmissions,
     EventIntakeSubmissions,
-    GoogleReviews,
     ContactSubmissions,
     ToolSubmissions,
   ],
