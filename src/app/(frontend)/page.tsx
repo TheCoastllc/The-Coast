@@ -10,9 +10,11 @@ const Services = dynamic(() => import('@/components/pages/landingPage/Services')
 const ProcessSection = dynamic(() => import('@/components/pages/landingPage/ProcessSection'))
 const Portfolio = dynamic(() => import('@/components/pages/landingPage/Portfolio'))
 const Clients = dynamic(() => import('@/components/pages/landingPage/Clients'))
-const FAQ = dynamic(() => import('@/components/pages/landingPage/FAQ'))
+import FAQ from '@/components/pages/landingPage/FAQ'
 const BlogPreview = dynamic(() => import('@/components/pages/landingPage/BlogPreview'))
 const Contact = dynamic(() => import('@/components/pages/landingPage/Contact'))
+
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: { absolute: 'The Coast | Brand Design Studio' },
@@ -133,9 +135,28 @@ export default function HomePage() {
         <Clients />
       </div>
       <SectionBoundary />
-      <FAQ />
-      <SectionBoundary />
       <Suspense fallback={<div className="py-32 bg-black px-4"><div className="max-w-6xl mx-auto h-96 animate-pulse" /></div>}>
+        <FAQ />
+      </Suspense>
+      <SectionBoundary />
+      <Suspense fallback={
+        <div className="py-32 bg-black px-4">
+          <div className="max-w-6xl mx-auto px-2 sm:px-4">
+            <div className="h-6 w-32 bg-white/5 rounded mb-20 animate-pulse" />
+            <div className="grid grid-cols-1 md:grid-cols-3 border border-white/10">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="aspect-square p-8 md:p-10 border-b md:border-b-0 md:border-r last:border-r-0 border-white/10 animate-pulse">
+                  <div className="h-3 w-20 bg-white/5 rounded mb-auto" />
+                  <div className="mt-auto space-y-2">
+                    <div className="h-6 w-3/4 bg-white/5 rounded" />
+                    <div className="h-6 w-1/2 bg-white/5 rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      }>
         <BlogPreview />
       </Suspense>
       <SectionBoundary />

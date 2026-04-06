@@ -1,5 +1,4 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/lib/payload-client'
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { DecorIcon } from '@/components/ui/decor-icon'
@@ -20,7 +19,7 @@ type Post = {
 
 async function getPosts(): Promise<Post[]> {
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayloadClient()
     const { docs } = await payload.find({
       collection: 'posts',
       limit: 3,

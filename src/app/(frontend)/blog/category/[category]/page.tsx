@@ -1,5 +1,4 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/lib/payload-client'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -49,7 +48,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
 
   let posts: any[] = []
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayloadClient()
     const { docs } = await payload.find({
       collection: 'posts',
       where: {

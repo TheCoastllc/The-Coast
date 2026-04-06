@@ -93,7 +93,6 @@ export function Header() {
 								alt="The Coast Logo"
 								width={70}
 								height={40}
-								style={{ height: 'auto' }}
 								className="hidden md:block object-contain"
 								priority
 							/>

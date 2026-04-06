@@ -20,6 +20,7 @@ import { EventIntakeSubmissions } from './collections/EventIntakeSubmissions'
 import { GoogleReviews } from './collections/GoogleReviews'
 import { ContactSubmissions } from './collections/ContactSubmissions'
 import { ToolSubmissions } from './collections/ToolSubmissions'
+import { FAQ as FAQGlobal } from './globals/FAQ'
 
 import { resendAdapter } from '@payloadcms/email-resend'
 import { cloudinaryStorage } from 'payload-cloudinary'
@@ -65,7 +66,7 @@ export default buildConfig({
     ContactSubmissions,
     ToolSubmissions,
   ],
-  globals: [PrivacyPolicy, TermsOfService],
+  globals: [PrivacyPolicy, TermsOfService, FAQGlobal],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

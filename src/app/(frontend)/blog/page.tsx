@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/lib/payload-client'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import BlogSearchClient from './BlogSearchClient'
@@ -84,7 +83,7 @@ async function PostsGrid({
   let categories: string[] = []
 
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayloadClient()
 
     const where: any = {
       and: [

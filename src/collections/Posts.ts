@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 
@@ -30,6 +31,14 @@ export const Posts: CollectionConfig = {
     read: () => true,
   },
   hooks: {
+    afterChange: [
+      ({ doc }) => {
+        revalidatePath('/')
+        revalidatePath('/blog')
+        if (doc.slug) revalidatePath(`/blog/${doc.slug}`)
+        if (doc.category) revalidatePath(`/blog/category/${doc.category}`)
+      },
+    ],
     beforeChange: [
       ({ data, operation }) => {
         if (!data) return data

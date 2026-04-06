@@ -1,7 +1,22 @@
+import type { Metadata } from 'next'
 import { getPayloadClient } from '@/lib/payload-client'
-import Link from 'next/link'
-import { AnimatedSectionLabel, AnimatedSectionHeading } from './AnimationWrappers'
-import { FAQAccordionList } from './FAQAccordion'
+import { BlueprintLayout } from '@/components/blueprint-layout'
+import { FAQAccordionList } from '@/components/pages/landingPage/FAQAccordion'
+
+export const revalidate = 3600
+
+export const metadata: Metadata = {
+  title: 'FAQ',
+  description:
+    'Frequently asked questions about The Coast — our process, pricing, timelines, and ongoing support for branding and design projects.',
+  alternates: { canonical: 'https://coastglobal.org/faq' },
+  openGraph: {
+    title: 'FAQ | The Coast',
+    description:
+      'Answers to common questions about our branding and design services.',
+    url: 'https://coastglobal.org/faq',
+  },
+}
 
 const hardcodedFaqs = [
   {
@@ -22,59 +37,66 @@ const hardcodedFaqs = [
   }
 ]
 
-async function getFAQs() {
+async function getAllFAQs() {
   try {
     const payload = await getPayloadClient()
     const data = await payload.findGlobal({ slug: 'faq' })
     const published = (data.items ?? []).filter((item) => item.published)
 
-    if (published.length === 0) {
-      return { faqs: hardcodedFaqs, totalCount: hardcodedFaqs.length }
-    }
+    if (published.length === 0) return hardcodedFaqs
 
-    return {
-      faqs: published.slice(0, 5).map((item) => ({ question: item.question, answer: item.answer })),
-      totalCount: published.length,
-    }
+    return published.map((item) => ({ question: item.question, answer: item.answer }))
   } catch {
-    return { faqs: hardcodedFaqs, totalCount: hardcodedFaqs.length }
+    return hardcodedFaqs
   }
 }
 
-export default async function FAQ() {
-  const { faqs, totalCount } = await getFAQs()
+export default async function FAQPage() {
+  const faqs = await getAllFAQs()
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://coastglobal.org/faq#faqpage',
+    url: 'https://coastglobal.org/faq',
+    name: 'Frequently Asked Questions',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
 
   return (
-    <section className="py-32 bg-black" id="faq">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-20">
-          <AnimatedSectionLabel>
-            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">07</span>
-            <div className="w-12 h-px bg-white/20" />
-            <span className="text-muted-foreground text-xs tracking-[0.3em] uppercase">Questions</span>
-          </AnimatedSectionLabel>
-          <AnimatedSectionHeading
-            text="Common Inquiries"
-            highlight={["Inquiries"]}
-            className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter"
-          />
-        </div>
-
-        {/* All FAQ text rendered server-side for AI crawlers */}
-        <FAQAccordionList items={faqs} />
-
-        {totalCount > 5 && (
-          <div className="max-w-4xl mx-auto mt-12 text-center">
-            <Link
-              href="/faq"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm tracking-[0.2em] uppercase font-mono"
-            >
-              See all questions
-              <span aria-hidden="true">&rarr;</span>
-            </Link>
+    <BlueprintLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <section className="pt-40 pb-32 bg-black min-h-screen">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="mb-20">
+            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">
+              FAQ
+            </span>
+            <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter text-white">
+              Frequently Asked{' '}
+              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                Questions
+              </span>
+            </h1>
+            <p className="mt-6 text-white/50 max-w-2xl text-sm md:text-base font-light leading-relaxed">
+              Everything you need to know about working with The Coast. Can&apos;t find
+              what you&apos;re looking for? Reach out to our team.
+            </p>
           </div>
-        )}
-      </div>
-    </section>
+
+          <FAQAccordionList items={faqs} />
+        </div>
+      </section>
+    </BlueprintLayout>
   )
 }

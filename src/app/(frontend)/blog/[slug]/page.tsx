@@ -1,5 +1,4 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/lib/payload-client'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Clock, Calendar } from 'lucide-react'
@@ -16,7 +15,7 @@ type Params = Promise<{ slug: string }>
 
 export async function generateStaticParams() {
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayloadClient()
     const { docs } = await payload.find({
       collection: 'posts',
       where: { status: { equals: 'published' } },
@@ -33,7 +32,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayloadClient()
     const { docs } = await payload.find({
       collection: 'posts',
       where: {
@@ -88,7 +87,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
   let post: any = null
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayloadClient()
     const { docs } = await payload.find({
       collection: 'posts',
       where: {
@@ -132,7 +131,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   let relatedPosts: any[] = []
   if (post.category) {
     try {
-      const payload = await getPayload({ config: configPromise })
+      const payload = await getPayloadClient()
       const { docs } = await payload.find({
         collection: 'posts',
         where: {

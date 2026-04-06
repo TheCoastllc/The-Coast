@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { GlobalConfig } from 'payload'
 
@@ -10,6 +11,13 @@ export const TermsOfService: GlobalConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath('/terms')
+      },
+    ],
   },
   fields: [
     {

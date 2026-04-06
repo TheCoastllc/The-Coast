@@ -1,5 +1,4 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/lib/payload-client'
 import type { Metadata } from 'next'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { BlueprintLayout } from '@/components/blueprint-layout'
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 export default async function TermsPage() {
   let termsData: any = null
   try {
-    const payload = await getPayload({ config: configPromise })
+    const payload = await getPayloadClient()
     termsData = await payload.findGlobal({ slug: 'terms-of-service' })
   } catch {
     // Global not yet seeded

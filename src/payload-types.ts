@@ -112,10 +112,12 @@ export interface Config {
   globals: {
     'privacy-policy': PrivacyPolicy;
     'terms-of-service': TermsOfService;
+    faq: Faq;
   };
   globalsSelect: {
     'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
     'terms-of-service': TermsOfServiceSelect<false> | TermsOfServiceSelect<true>;
+    faq: FaqSelect<false> | FaqSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1008,6 +1010,29 @@ export interface TermsOfService {
   createdAt?: string | null;
 }
 /**
+ * Manage frequently asked questions displayed on the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq".
+ */
+export interface Faq {
+  id: number;
+  /**
+   * Add, reorder, or remove FAQ entries. Drag to reorder.
+   */
+  items?:
+    | {
+        question: string;
+        answer: string;
+        category?: ('general' | 'pricing' | 'process' | 'support') | null;
+        published?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "privacy-policy_select".
  */
@@ -1025,6 +1050,24 @@ export interface PrivacyPolicySelect<T extends boolean = true> {
 export interface TermsOfServiceSelect<T extends boolean = true> {
   lastUpdated?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq_select".
+ */
+export interface FaqSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        category?: T;
+        published?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
