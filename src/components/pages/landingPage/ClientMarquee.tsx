@@ -30,7 +30,7 @@ export function ClientMarquee({ clients }: { clients: MarqueeBrand[] }) {
               <img
                 src={brand.logoUrl}
                 alt={brand.logoAlt || brand.name}
-                className="h-12 w-40 object-contain opacity-40 brightness-0 invert transition-all duration-500 hover:opacity-80 md:h-16 md:w-56"
+                className="h-12 w-40 object-contain opacity-40 transition-all duration-500 hover:opacity-80 md:h-16 md:w-56"
               />
             ) : (
               <span className="text-2xl md:text-3xl font-display uppercase tracking-tighter text-white/10 hover:text-white/40 transition-colors duration-500 cursor-default">
