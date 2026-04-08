@@ -111,11 +111,13 @@ export interface Config {
     'privacy-policy': PrivacyPolicy;
     'terms-of-service': TermsOfService;
     faq: Faq;
+    'trusted-by': TrustedBy;
   };
   globalsSelect: {
     'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
     'terms-of-service': TermsOfServiceSelect<false> | TermsOfServiceSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
+    'trusted-by': TrustedBySelect<false> | TrustedBySelect<true>;
   };
   locale: null;
   widgets: {
@@ -996,6 +998,38 @@ export interface Faq {
   createdAt?: string | null;
 }
 /**
+ * Manage the brands shown in the "Trusted By" sections (hero marquee and dedicated section). Each entry can be a text name, a logo image, or both.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trusted-by".
+ */
+export interface TrustedBy {
+  id: number;
+  /**
+   * Add, reorder, or remove brands. Provide a name, a logo, or both. Logos are rendered at a consistent size.
+   */
+  items?:
+    | {
+        /**
+         * Brand name. Shown as a fallback if no logo is provided.
+         */
+        name: string;
+        /**
+         * Optional logo image. Prefer transparent PNG or SVG. Will be rendered at a consistent height.
+         */
+        logo?: (number | null) | Media;
+        /**
+         * Optional link to the brand website.
+         */
+        url?: string | null;
+        published?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "privacy-policy_select".
  */
@@ -1028,6 +1062,24 @@ export interface FaqSelect<T extends boolean = true> {
         question?: T;
         answer?: T;
         category?: T;
+        published?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "trusted-by_select".
+ */
+export interface TrustedBySelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        url?: T;
         published?: T;
         id?: T;
       };
