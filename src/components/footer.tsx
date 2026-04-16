@@ -4,6 +4,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaXTwitter, FaPinterestP } from
 import Image from "next/image";
 import { DecorIcon } from "@/components/ui/decor-icon";
 import { TransitionLink } from "@/components/PageTransition";
+import { CookieSettingsLink } from "@/components/CookieSettingsLink";
 
 const MAIN_SITE = "https://coastglobal.org"
 
@@ -120,6 +121,9 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 					<div className="flex gap-4">
 						<FooterLink href="/privacy" isMinimal={isMinimal} className="text-xs text-muted-foreground hover:underline">Privacy Policy</FooterLink>
 						<FooterLink href="/terms" isMinimal={isMinimal} className="text-xs text-muted-foreground hover:underline">Terms of Service</FooterLink>
+						{!isMinimal && (
+							<CookieSettingsLink className="text-xs text-muted-foreground hover:underline cursor-pointer" />
+						)}
 					</div>
 				</div>
 			</div>

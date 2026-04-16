@@ -15,9 +15,8 @@ export type TrustedBrand = {
 const VISIBLE_COUNT = 8
 const CYCLE_MS = 3000
 
-function pickInitial(items: TrustedBrand[]): TrustedBrand[] {
+function pickRandom(items: TrustedBrand[]): TrustedBrand[] {
   if (items.length <= VISIBLE_COUNT) return items.slice(0, VISIBLE_COUNT)
-  // random initial 8
   const pool = [...items]
   const out: TrustedBrand[] = []
   for (let i = 0; i < VISIBLE_COUNT; i++) {
@@ -28,7 +27,11 @@ function pickInitial(items: TrustedBrand[]): TrustedBrand[] {
 }
 
 export function LogosSectionGrid({ items }: { items: TrustedBrand[] }) {
-  const [visible, setVisible] = useState<TrustedBrand[]>(() => pickInitial(items))
+  const [visible, setVisible] = useState<TrustedBrand[]>(() => items.slice(0, VISIBLE_COUNT))
+
+  useEffect(() => {
+    if (items.length > VISIBLE_COUNT) setVisible(pickRandom(items))
+  }, [items])
 
   useEffect(() => {
     if (items.length <= VISIBLE_COUNT) return

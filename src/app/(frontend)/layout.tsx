@@ -1,7 +1,6 @@
 import React from 'react'
 import './styles.css'
 import type { Metadata } from 'next'
-import Script from 'next/script'
 import { Inter, Anton } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
@@ -10,6 +9,7 @@ import Noise from '@/components/Noise'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { PageTransitionProvider } from '@/components/PageTransition'
+import { CookieBanner } from '@/components/CookieBanner'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -119,18 +119,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           </PageTransitionProvider>
         </QueryProvider>
         <CustomCursor />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-ZWSD7VN3DD"
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ZWSD7VN3DD');
-          `}
-        </Script>
+        <CookieBanner />
       </body>
     </html>
   )
