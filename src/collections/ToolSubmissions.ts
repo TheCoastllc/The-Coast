@@ -26,6 +26,7 @@ export const ToolSubmissions: CollectionConfig = {
         { label: 'Brand Quiz', value: 'brand-quiz' },
         { label: 'Brand Checklist', value: 'brand-checklist' },
         { label: '3-Second Test', value: '3-second-test' },
+        { label: 'Coast Brand Index (CBI)', value: 'cbi' },
       ],
     },
     { name: 'score', type: 'number' },

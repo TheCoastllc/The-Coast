@@ -504,7 +504,7 @@ export interface ToolSubmission {
   email: string;
   company?: string | null;
   role?: string | null;
-  tool: 'brand-quiz' | 'brand-checklist' | '3-second-test';
+  tool: 'brand-quiz' | 'brand-checklist' | '3-second-test' | 'cbi';
   score?: number | null;
   /**
    * Quiz tier, checklist band, or test outcome

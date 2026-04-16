@@ -1,5 +1,4 @@
 import { revalidatePath } from 'next/cache'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { GlobalConfig } from 'payload'
 
 export const TermsOfService: GlobalConfig = {
@@ -34,7 +33,6 @@ export const TermsOfService: GlobalConfig = {
       name: 'content',
       type: 'richText',
       label: 'Terms of Service Content',
-      editor: lexicalEditor(),
       admin: {
         description: 'Full Terms of Service text. Use headings, paragraphs, and lists.',
       },

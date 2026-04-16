@@ -1,18 +1,20 @@
-import React from 'react'
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
+
+const CbiLanding = dynamic(() => import('@/components/cbi/CbiLanding'), {
+  loading: () => (
+    <div className="min-h-screen bg-[#070F11] flex items-center justify-center">
+      <div className="w-6 h-6 border-2 border-[#C9A24B]/30 border-t-[#C9A24B] rounded-full animate-spin" />
+    </div>
+  ),
+})
 
 export const metadata: Metadata = {
-  title: 'Coast Brand Index',
-  robots: { index: false, follow: false },
+  title: 'Coast Brand Index — How Strong Is Your Wave?',
+  description:
+    'The Coast Brand Index scores your brand across 5 pillars and 20 criteria. Get your Wave Rating in under 2 minutes — free.',
 }
 
-const CbiPage = () => {
-    return (
-        <main className='flex min-h-screen justify-center items-center flex-col'>
-            <h1 className='text-3xl font-black text-muted-foreground'>COAST BRAND INDEX</h1>
-            <p>Coming soon</p>
-        </main>
-    )
+export default function CbiPage() {
+  return <CbiLanding />
 }
-
-export default CbiPage

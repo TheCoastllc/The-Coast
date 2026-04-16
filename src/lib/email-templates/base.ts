@@ -1,12 +1,18 @@
 /**
- * Reusable HTML email template for The Coast brand.
- * Based on the dark intake template with gold accents, Georgia serif body,
- * logo header, gold divider, brand signature, services bar, and social footer.
+ * Reusable HTML email shell for The Coast brand.
+ * Dark theme, gold accents, Georgia serif body, logo header, gold divider,
+ * brand signature, services bar, social footer.
+ *
+ * Compose specific emails in sibling files (brand-quiz.ts, cbi.ts, etc.)
+ * by building a body string out of the helpers below and wrapping it in
+ * emailShell().
  */
 
-const BRAND = {
-  logoUrl: 'https://beefree-storage.onesignal.com/thumbnails/ba73b3e1-9acf-484b-9457-8b81d9ed04ff/lllllAsset%2015.png_thumb.png?hash=1773663275005',
-  footerImgUrl: 'https://beefree-storage.onesignal.com/thumbnails/ba73b3e1-9acf-484b-9457-8b81d9ed04ff/lllllArtboard%2043-100.jpg_thumb.png?hash=1773657383202',
+export const BRAND = {
+  logoUrl:
+    'https://beefree-storage.onesignal.com/thumbnails/ba73b3e1-9acf-484b-9457-8b81d9ed04ff/lllllAsset%2015.png_thumb.png?hash=1773663275005',
+  footerImgUrl:
+    'https://beefree-storage.onesignal.com/thumbnails/ba73b3e1-9acf-484b-9457-8b81d9ed04ff/lllllArtboard%2043-100.jpg_thumb.png?hash=1773657383202',
   name: 'The Coast',
   url: 'https://coastglobal.org',
   email: 'hello@coastglobal.org',
@@ -20,9 +26,11 @@ const BRAND = {
     linkedin: 'https://www.linkedin.com/company/thecoastcompanylimited',
     twitter: 'https://twitter.com/TCoast13363',
   },
-}
+} as const
 
-/** Wraps body content in the full branded email shell (table-based, dark theme). */
+export const bodyFont = "font-family: Georgia, 'Times New Roman', serif;"
+export const sansFont = "font-family: Arial, Helvetica, sans-serif;"
+
 export function emailShell(opts: { title?: string; body: string }) {
   return `<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -142,22 +150,14 @@ export function emailShell(opts: { title?: string; body: string }) {
 </html>`
 }
 
-// ─── Body content helpers (use Georgia serif to match template) ───
-
-const bodyFont = "font-family: Georgia, 'Times New Roman', serif;"
-const sansFont = "font-family: Arial, Helvetica, sans-serif;"
-
-/** Body paragraph in Georgia serif. */
 export function paragraph(text: string) {
   return `<p class="body-text" style="margin:0 0 18px; ${bodyFont} font-size:17px; line-height:29px; color:#e8e4dc;">${text}</p>`
 }
 
-/** Bold-highlighted text span. */
 export function highlight(text: string, color: string = BRAND.gold) {
   return `<strong style="color:${color};">${text}</strong>`
 }
 
-/** Centered CTA button. */
 export function ctaButton(text: string, href: string = BRAND.ctaUrl) {
   return `
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin:28px 0;">
@@ -171,7 +171,6 @@ export function ctaButton(text: string, href: string = BRAND.ctaUrl) {
 </table>`
 }
 
-/** Large centered score display with colored badge. */
 export function scoreBlock(opts: { score: number; total: number; color: string; badge: string }) {
   return `
 <div style="text-align:center; padding:24px 0 28px;">
@@ -183,12 +182,10 @@ export function scoreBlock(opts: { score: number; total: number; color: string; 
 </div>`
 }
 
-/** Section heading (white, centered). */
 export function heading(text: string) {
   return `<p style="margin:0 0 18px; ${bodyFont} font-size:22px; line-height:32px; color:#ffffff; font-weight:700; text-align:center;">${text}</p>`
 }
 
-/** Info box with a title and bulleted items. */
 export function infoBox(opts: { title: string; items: string[]; color?: string }) {
   const dotColor = opts.color ?? BRAND.gold
   return `
@@ -200,15 +197,26 @@ export function infoBox(opts: { title: string; items: string[]; color?: string }
 </table>`
 }
 
-/** Ordered list. */
 export function orderedList(items: string[]) {
-  return items.map((item, i) => `<p style="margin:0 0 6px; ${sansFont} font-size:13px; line-height:22px; color:#aaaaaa;">${i + 1}. ${item}</p>`).join('')
+  return items
+    .map(
+      (item, i) =>
+        `<p style="margin:0 0 6px; ${sansFont} font-size:13px; line-height:22px; color:#aaaaaa;">${i + 1}. ${item}</p>`,
+    )
+    .join('')
 }
 
-/** Horizontal gold divider. */
 export function divider() {
   return `
 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin:24px 0;">
     <tr><td style="border-top: 1px solid #2a2a2a; font-size:0; line-height:0;">&nbsp;</td></tr>
 </table>`
+}
+
+export function contactBlock(person: { name: string; email: string; company?: string; role?: string }) {
+  return `
+<p><strong>Name:</strong> ${person.name}</p>
+<p><strong>Email:</strong> <a href="mailto:${person.email}">${person.email}</a></p>
+${person.company ? `<p><strong>Company:</strong> ${person.company}</p>` : ''}
+${person.role ? `<p><strong>Role:</strong> ${person.role}</p>` : ''}`
 }

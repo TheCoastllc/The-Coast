@@ -1,5 +1,4 @@
 import { revalidatePath } from 'next/cache'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import type { GlobalConfig } from 'payload'
 
 export const PrivacyPolicy: GlobalConfig = {
@@ -34,7 +33,6 @@ export const PrivacyPolicy: GlobalConfig = {
       name: 'content',
       type: 'richText',
       label: 'Privacy Policy Content',
-      editor: lexicalEditor(),
       admin: {
         description: 'Full Privacy Policy text. Use headings, paragraphs, and lists.',
       },

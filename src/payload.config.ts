@@ -1,5 +1,11 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  lexicalEditor,
+  FixedToolbarFeature,
+  EXPERIMENTAL_TableFeature,
+  TextStateFeature,
+  defaultColors,
+} from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -66,7 +72,21 @@ export default buildConfig({
     ToolSubmissions,
   ],
   globals: [PrivacyPolicy, TermsOfService, FAQGlobal, TrustedBy],
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      FixedToolbarFeature(),
+      EXPERIMENTAL_TableFeature(),
+      TextStateFeature({
+        state: {
+          color: {
+            ...defaultColors.background,
+            ...defaultColors.text,
+          },
+        },
+      }),
+    ],
+  }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
