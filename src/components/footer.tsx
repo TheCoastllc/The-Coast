@@ -173,7 +173,7 @@ const resources = [
 	},
 	{
 		title: "Contact",
-		href: "/#contact",
+		href: "/contact",
 	},
 	{
 		title: "Get Started",
