@@ -6,7 +6,8 @@ import Link from 'next/link'
 import { X } from 'lucide-react'
 
 const STORAGE_KEY = 'coast-cookie-consent'
-const GA_ID = 'G-ZWSD7VN3DD'
+const GA_ID = 'G-NCNJNBB2JD'
+const GTM_ID = 'GTM-WN8BS4GB'
 const OPEN_EVENT = 'coast:open-cookie-settings'
 
 type Consent = 'granted' | 'denied' | null
@@ -28,6 +29,28 @@ function injectGa() {
   document.head.appendChild(s)
 }
 
+function injectGtm() {
+  if (typeof window === 'undefined') return
+  if (document.getElementById('gtm-script')) return
+
+  const w = window as unknown as { dataLayer: Record<string, unknown>[] }
+  w.dataLayer = w.dataLayer || []
+  w.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+
+  const s = document.createElement('script')
+  s.id = 'gtm-script'
+  s.async = true
+  s.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`
+  document.head.appendChild(s)
+
+  if (!document.getElementById('gtm-noscript')) {
+    const n = document.createElement('noscript')
+    n.id = 'gtm-noscript'
+    n.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
+    document.body.insertBefore(n, document.body.firstChild)
+  }
+}
+
 export function CookieBanner() {
   const [consent, setConsent] = useState<Consent>(null)
   const [hydrated, setHydrated] = useState(false)
@@ -40,7 +63,10 @@ export function CookieBanner() {
     } catch {}
     setConsent(initial)
     setHydrated(true)
-    if (initial === 'granted') injectGa()
+    if (initial === 'granted') {
+      injectGa()
+      injectGtm()
+    }
 
     const reopen = () => setConsent(null)
     window.addEventListener(OPEN_EVENT, reopen)
@@ -58,7 +84,7 @@ export function CookieBanner() {
       try {
         document.cookie.split(';').forEach((c) => {
           const name = c.split('=')[0]?.trim()
-          if (name && (name.startsWith('_ga') || name === '_gid')) {
+          if (name && (name.startsWith('_ga') || name === '_gid' || name.startsWith('_gtm') || name.startsWith('_gcl'))) {
             document.cookie = `${name}=; Max-Age=0; path=/; domain=${window.location.hostname}`
             document.cookie = `${name}=; Max-Age=0; path=/; domain=.${window.location.hostname}`
           }
@@ -66,6 +92,7 @@ export function CookieBanner() {
       } catch {}
     } else if (value === 'granted') {
       injectGa()
+      injectGtm()
     }
     setConsent(value)
   }
