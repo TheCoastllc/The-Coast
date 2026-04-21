@@ -17,7 +17,7 @@ const ROUTE_NAMES: Record<string, string> = {
   '/': 'Home',
   '/services': 'Services',
   '/work': 'Work',
-  '/blog': 'Journal',
+  '/blog': 'Blog',
   '/about': 'About',
   '/pricing': 'Pricing',
   '/get-started': 'Get Started',
@@ -31,10 +31,17 @@ const ROUTE_NAMES: Record<string, string> = {
 }
 
 function getRouteName(path: string): string {
-  if (ROUTE_NAMES[path]) return ROUTE_NAMES[path]
-  if (path.startsWith('/blog/')) return 'Journal'
-  if (path.startsWith('/portal')) return 'Portal'
-  const segment = path.split('/').filter(Boolean).pop() || 'Page'
+  // Strip query/hash so "/blog?page=2" still matches.
+  const cleanPath = path.split('?')[0].split('#')[0]
+  if (ROUTE_NAMES[cleanPath]) return ROUTE_NAMES[cleanPath]
+  if (cleanPath.startsWith('/blog/category/')) return 'Blog'
+  if (cleanPath.startsWith('/blog/')) {
+    const slug = cleanPath.slice('/blog/'.length).replace(/\/$/, '')
+    if (!slug) return 'Blog'
+    return slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+  }
+  if (cleanPath.startsWith('/portal')) return 'Portal'
+  const segment = cleanPath.split('/').filter(Boolean).pop() || 'Page'
   return segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ')
 }
 
@@ -253,22 +260,28 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         {/* Cinematic Route Label */}
         <div
           ref={labelContainerRef}
-          className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+          className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-6 md:px-12"
           style={{ opacity: 0 }}
         >
           {/* Sub-label for editorial feel */}
           <p
             ref={subLabelRef}
-            className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.3em] text-white/50 mb-3 sm:mb-4"
+            className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.3em] text-white/50 mb-3 sm:mb-4 text-center"
           >
             Destination
           </p>
 
           {/* Mask container for main text */}
-          <div className="overflow-hidden pb-2">
+          <div className="overflow-hidden pb-2 max-w-5xl w-full">
             <span
               ref={labelRef}
-              className="block font-sans text-4xl sm:text-6xl md:text-7xl font-medium tracking-tight text-white"
+              className={`block font-sans font-medium tracking-tight text-white text-center leading-[1.05] text-balance ${
+                routeName.length > 40
+                  ? 'text-2xl sm:text-3xl md:text-5xl'
+                  : routeName.length > 20
+                  ? 'text-3xl sm:text-5xl md:text-6xl'
+                  : 'text-4xl sm:text-6xl md:text-7xl'
+              }`}
               style={{ willChange: 'transform' }}
             >
               {routeName}
@@ -287,12 +300,19 @@ type TransitionLinkProps = Omit<React.ComponentProps<typeof Link>, 'onClick'> & 
 
 export function TransitionLink({ href, children, ...props }: TransitionLinkProps) {
   const { navigateTo } = usePageTransition()
+  const pathname = usePathname()
   const hrefString = typeof href === 'string' ? href : href.pathname || '/'
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (hrefString.startsWith('http') || hrefString.startsWith('mailto:')) return
     if (hrefString.startsWith('#')) return
     if (hrefString.startsWith('/#')) return
+
+    // Same-pathname navigations (query/hash changes only) — skip transition,
+    // let Next's Link handle it. The overlay finishes by matching pathname,
+    // which never changes when only the query updates.
+    const targetPath = hrefString.split('?')[0].split('#')[0]
+    if (targetPath === pathname) return
 
     e.preventDefault()
     navigateTo(hrefString)

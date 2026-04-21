@@ -14,7 +14,7 @@ const conceptImages = [
   {
     id: 'night',
     number: '01',
-    src: '/images/Coast_HQ_nightglowing_beside-0.jpg',
+    src: '/vision/night.jpeg',
     alt: 'Conceptual rendering of The Coast HQ at night — futuristic waterfront architecture with starry sky (visionary concept only, not an actual building).',
     title: 'Night View',
     tagline: 'A beacon against the dark.',
@@ -24,7 +24,7 @@ const conceptImages = [
   {
     id: 'day',
     number: '02',
-    src: '/images/The_Coast_HQ_day_beach.png',
+    src: '/vision/day.png',
     alt: 'Conceptual rendering of The Coast HQ by day — futuristic waterfront architecture with blue sky and palm trees (visionary concept only, not an actual building).',
     title: 'Day View',
     tagline: 'Smooth sailing, made literal.',
@@ -34,7 +34,7 @@ const conceptImages = [
   {
     id: 'blueprint',
     number: '03',
-    src: '/images/Coast_HQ_blueprint.jpg',
+    src: '/vision/blueprint.jpeg',
     alt: 'Blueprint rendering of The Coast HQ — architectural blueprint with dimension lines and palm trees (visionary concept only, not an actual building).',
     title: 'Blueprint',
     tagline: 'Structure behind the vision.',
@@ -136,17 +136,17 @@ export default function VisionClient() {
                 <div className="flex">
                   {conceptImages.map((image) => (
                     <div key={image.id} className="flex-[0_0_100%] min-w-0 relative">
-                      <div className="aspect-[16/9] md:aspect-[21/9] relative bg-muted">
+                      <div className="aspect-video md:aspect-21/9 relative bg-muted">
                         <img
                           src={image.src}
                           alt={image.alt}
                           loading="lazy"
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            ;(e.target as HTMLImageElement).src = '/placeholder.svg'
+                            ; (e.target as HTMLImageElement).src = '/placeholder.svg'
                           }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-background/70 via-transparent to-transparent" />
 
                         <div className="absolute top-4 left-4 flex items-center gap-2 text-mono text-[10px] uppercase tracking-[0.2em] text-primary/90 px-3 py-1.5 border border-primary/40 bg-background/60 backdrop-blur-sm">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -178,9 +178,8 @@ export default function VisionClient() {
                   key={index}
                   onClick={() => emblaApi?.scrollTo(index)}
                   aria-label={`Go to rendering ${index + 1}`}
-                  className={`h-[2px] transition-all duration-300 ${
-                    selectedIndex === index ? 'w-10 bg-primary' : 'w-5 bg-border hover:bg-muted-foreground'
-                  }`}
+                  className={`h-[2px] transition-all duration-300 ${selectedIndex === index ? 'w-10 bg-primary' : 'w-5 bg-border hover:bg-muted-foreground'
+                    }`}
                 />
               ))}
             </div>

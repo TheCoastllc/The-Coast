@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { getPayloadClient } from '@/lib/payload-client'
-import Link from 'next/link'
+import { TransitionLink } from '@/components/PageTransition'
 import { ArrowRight } from 'lucide-react'
 import BlogSearchClient from './BlogSearchClient'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
@@ -158,7 +158,7 @@ async function PostsGrid({
                   : null
 
                 return (
-                  <Link
+                  <TransitionLink
                     key={post.id}
                     href={`/blog/${post.slug}`}
                     className="group relative block bg-card overflow-hidden"
@@ -214,7 +214,7 @@ async function PostsGrid({
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </TransitionLink>
                 )
               })}
             </div>
@@ -230,7 +230,7 @@ async function PostsGrid({
                 if (category) params.set('category', category)
                 params.set('page', String(i + 1))
                 return (
-                  <Link
+                  <TransitionLink
                     key={i}
                     href={`/blog?${params.toString()}`}
                     className={`w-10 h-10 text-mono text-sm transition-colors flex items-center justify-center border ${currentPage === i + 1
@@ -239,7 +239,7 @@ async function PostsGrid({
                       }`}
                   >
                     {i + 1}
-                  </Link>
+                  </TransitionLink>
                 )
               })}
             </div>
@@ -292,23 +292,6 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
             Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses.
           </p>
 
-        </div>
-      </section>
-
-      <SectionBoundary />
-
-      {/* Intro copy */}
-      <section className="py-12 md:py-16">
-        <div className="max-w-3xl mx-auto px-6 md:px-12 space-y-5 text-body text-muted-foreground text-base md:text-lg leading-relaxed">
-          <p>
-            The Journal is where The Coast publishes the ideas, frameworks, and working notes behind the brand systems we build. Every post is written by the strategists and designers on our team — not freelancers, not SEO mills — and is grounded in real client work, real decisions, and the lessons we have collected across hundreds of identity projects.
-          </p>
-          <p>
-            We write on four recurring themes. <strong className="text-foreground">Brand identity</strong> covers the visual system — logo, color, typography, and the invisible grammar that makes a brand feel inevitable. <strong className="text-foreground">Brand strategy</strong> is about positioning, narrative, and the choices a founder makes before a single pixel is drawn. <strong className="text-foreground">Marketing and growth</strong> traces how a brand compounds through websites, content, social, and paid channels. <strong className="text-foreground">Studio notes</strong> are the behind-the-scenes — process breakdowns, case studies, and the reasoning behind the decisions you see in our client work.
-          </p>
-          <p>
-            If you are a founder, marketer, or creative lead working on a brand that needs to grow up, this is the archive we built for you. Browse the latest below, filter by category, or search for the specific question you came here with.
-          </p>
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 import { getPayloadClient } from '@/lib/payload-client'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
+import { TransitionLink } from '@/components/PageTransition'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
@@ -84,13 +84,13 @@ export default async function CategoryPage({ params }: { params: Params }) {
       {/* Hero */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <Link
+          <TransitionLink
             href="/blog"
             className="inline-flex items-center gap-2 text-mono text-xs uppercase tracking-widest text-muted-foreground/50 hover:text-primary transition-colors mb-10 md:mb-14"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             All Articles
-          </Link>
+          </TransitionLink>
 
           <span className="text-mono text-muted-foreground/40 text-xs uppercase tracking-widest block mb-4">
             Category
@@ -123,7 +123,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
                   : null
 
                 return (
-                  <Link
+                  <TransitionLink
                     key={post.id}
                     href={`/blog/${post.slug}`}
                     className="group relative block bg-card overflow-hidden"
@@ -163,7 +163,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </TransitionLink>
                 )
               })}
             </div>

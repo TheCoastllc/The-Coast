@@ -1,12 +1,13 @@
 import { getPayloadClient } from '@/lib/payload-client'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Clock, Calendar } from 'lucide-react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import { ShineButton } from '@/components/ui/ShineButton'
+import { TransitionLink } from '@/components/PageTransition'
+import { jsxConverters } from '../lexicalConverters'
 
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -187,23 +188,23 @@ export default async function BlogPostPage({ params }: { params: Params }) {
         <div className="max-w-6xl mx-auto px-6 md:px-12">
 
           {/* Back link */}
-          <Link
+          <TransitionLink
             href="/blog"
             className="inline-flex items-center gap-2 text-mono text-xs uppercase tracking-widest text-muted-foreground/50 hover:text-primary transition-colors mb-10 md:mb-14"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             The Journal
-          </Link>
+          </TransitionLink>
 
           {/* Category + meta */}
           <div className="flex items-center gap-4 mb-6">
             {post.category && (
-              <Link
+              <TransitionLink
                 href={`/blog/category/${post.category}`}
                 className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary border border-primary/30 px-2.5 py-1 hover:bg-primary/10 transition-colors"
               >
                 {formatCategory(post.category)}
-              </Link>
+              </TransitionLink>
             )}
             {post.readingTime && (
               <span className="flex items-center gap-1.5 text-mono text-[10px] uppercase tracking-widest text-muted-foreground/40">
@@ -292,7 +293,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                   prose-img:rounded-none
                   prose-hr:border-border
                 ">
-                  <RichText data={post.content} />
+                  <RichText data={post.content} converters={jsxConverters} />
                 </div>
               )}
             </div>
@@ -307,9 +308,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                 {post.category && (
                   <div className="flex items-start justify-between gap-2 py-3 border-t border-border">
                     <span className="text-mono text-[10px] uppercase tracking-widest text-muted-foreground/40">Category</span>
-                    <Link href={`/blog/category/${post.category}`} className="text-mono text-xs text-primary hover:underline">
+                    <TransitionLink href={`/blog/category/${post.category}`} className="text-mono text-xs text-primary hover:underline">
                       {formatCategory(post.category)}
-                    </Link>
+                    </TransitionLink>
                   </div>
                 )}
 
@@ -362,7 +363,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
               </div>
 
               {/* Back to journal */}
-              <Link
+              <TransitionLink
                 href="/blog"
                 className="group flex items-center justify-between border border-border px-5 py-4 hover:border-primary/40 transition-colors"
               >
@@ -372,7 +373,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                 <div className="w-8 h-8 border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
                   <ArrowLeft className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
-              </Link>
+              </TransitionLink>
             </aside>
           </div>
         </div>
@@ -394,7 +395,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                     ? new Date(rp.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
                     : null
                   return (
-                    <Link
+                    <TransitionLink
                       key={rp.id}
                       href={`/blog/${rp.slug}`}
                       className="group relative block bg-card overflow-hidden"
@@ -426,7 +427,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </TransitionLink>
                   )
                 })}
               </div>
