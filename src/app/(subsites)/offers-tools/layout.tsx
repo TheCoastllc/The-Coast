@@ -6,12 +6,12 @@ export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
 
     title: {
-        default: 'Free Brand Tools | The Coast',
-        template: '%s | The Coast',
+        default: 'The Coast Brand Lab — Interactive Brand Diagnostics',
+        template: '%s | The Coast Brand Lab',
     },
 
     description:
-        'Free interactive brand diagnostic tools from The Coast. Take the brand quiz, score your brand consistency, and run the 3-second test.',
+        'The Coast Brand Lab: three interactive brand diagnostic tools for founders and marketing teams. Run the brand quiz, score consistency across 25 checkpoints, and take the 3-second first-impressions test — all free, all instant.',
 
     keywords: [
         'brand quiz',
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
         locale: 'en_US',
         url: SITE_URL,
         siteName: 'The Coast',
-        title: 'Free Brand Tools | The Coast',
+        title: 'The Coast Brand Lab — Interactive Brand Diagnostics',
         description:
-            'Free interactive brand diagnostic tools. Quiz your brand strength, audit your consistency, and test your first impressions.',
+            'Three interactive brand diagnostic tools: quiz your brand strength, audit your consistency, and test your first impressions — all free.',
         images: [
             {
                 url: '/preview.jpg',
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         site: '@TheCoastHQ',
         creator: '@TheCoastHQ',
-        title: 'Free Brand Tools | The Coast',
+        title: 'The Coast Brand Lab — Interactive Brand Diagnostics',
         description:
-            'Free interactive brand diagnostic tools from The Coast.',
+            'Three interactive brand diagnostic tools from The Coast: quiz, consistency audit, and the 3-second test.',
         images: ['/preview.jpg'],
     },
 

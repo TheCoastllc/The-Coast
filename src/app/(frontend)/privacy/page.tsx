@@ -4,7 +4,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import { BlueprintLayout } from '@/components/blueprint-layout'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
+  title: 'Privacy Policy & Data Practices — The Coast',
   description: 'Privacy Policy for The Coast — how we collect, use, and protect your personal information.',
   alternates: { canonical: 'https://coastglobal.org/privacy' },
   robots: { index: true, follow: true },

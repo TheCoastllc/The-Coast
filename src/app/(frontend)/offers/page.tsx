@@ -6,12 +6,12 @@ import { FadeOnLoad, FadeOnScroll, SubtleLabel } from '../about/AboutPageAnimati
 import { OfferCard } from './OfferCard'
 
 export const metadata: Metadata = {
-  title: 'Free Brand Tools',
+  title: 'Free Brand Diagnostic Tools — Quiz, Audit & 3-Second Test',
   description:
-    'Free interactive brand diagnostic tools: take our brand quiz, score your brand consistency, and run the 3-second test to see what your brand is really saying.',
+    'Free interactive brand diagnostic tools from The Coast: take the 10-question brand quiz, score your consistency across 25 checkpoints, and run the 3-second test to see what your brand is really saying.',
   alternates: { canonical: 'https://coastglobal.org/offers' },
   openGraph: {
-    title: 'Free Brand Tools | The Coast',
+    title: 'Free Brand Diagnostic Tools — Quiz, Audit & 3-Second Test | The Coast',
     description:
       'Three free interactive tools to diagnose your brand strength, consistency, and first impressions.',
     url: 'https://coastglobal.org/offers',

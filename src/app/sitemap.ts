@@ -42,13 +42,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB not available — blog posts omitted from sitemap
   }
 
-  // Work / portfolio pages
+  // Work / portfolio pages — only ready, fully-published case studies are indexed.
+  // Placeholder (under-construction) projects are noindex and excluded from the sitemap.
   const workPages: MetadataRoute.Sitemap = [
     'zappedco',
-    'amg-records',
-    'ogaticket',
-    'hatch-startup-nation',
-    'prospry',
   ].map((id) => ({
     url: `${BASE_URL}/work/${id}`,
     changeFrequency: 'monthly' as const,

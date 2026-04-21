@@ -4,7 +4,7 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 import { BlueprintLayout } from '@/components/blueprint-layout'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service',
+  title: 'Terms of Service & Client Agreement — The Coast',
   description: 'Terms of Service for The Coast — our service agreement, revision policy, and client responsibilities.',
   alternates: { canonical: 'https://coastglobal.org/terms' },
   robots: { index: true, follow: true },

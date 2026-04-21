@@ -6,7 +6,7 @@ import { ShineButton } from '@/components/ui/ShineButton'
 import { FadeOnLoad, FadeOnScroll, SubtleLabel } from './AboutPageAnimations'
 
 export const metadata: Metadata = {
-  title: 'About The Coast',
+  title: 'About The Coast — Brand Design Studio for Visionaries',
   description:
     'The Coast was built to level the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
   alternates: { canonical: 'https://coastglobal.org/about' },

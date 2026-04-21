@@ -136,10 +136,11 @@ export default function ZappedCoPage() {
           </div>
 
           <TextReveal
+            as="h1"
             className="text-4xl md:text-5xl lg:text-7xl font-display uppercase tracking-tighter"
             highlight={['Zapped']}
           >
-            Zapped Co
+            Zapped Co — Brand Transformation
           </TextReveal>
 
           <motion.p
