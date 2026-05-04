@@ -286,7 +286,11 @@ export interface Post {
    */
   readingTime?: number | null;
   /**
-   * Brief summary shown on blog cards and SEO meta.
+   * GEO answer box — write a direct answer to the post's core question in ≤50 words. Renders as a highlighted summary before the article. Required to publish.
+   */
+  directAnswer?: string | null;
+  /**
+   * Brief summary shown on blog cards and SEO meta description (120–160 chars ideal). Required to publish.
    */
   excerpt?: string | null;
   coverImage: number | Media;
@@ -709,6 +713,7 @@ export interface PostsSelect<T extends boolean = true> {
   publishedAt?: T;
   category?: T;
   readingTime?: T;
+  directAnswer?: T;
   excerpt?: T;
   coverImage?: T;
   content?: T;
