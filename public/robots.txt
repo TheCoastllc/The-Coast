@@ -40,9 +40,9 @@ Disallow: /
 User-agent: CCBot
 Disallow: /
 
-# anthropic-ai
+# anthropic-ai (Claude's real-time web search / citation crawler — allow for GEO visibility)
 User-agent: anthropic-ai
-Disallow: /
+Allow: /
 
 # Host
 Host: https://coastglobal.org
