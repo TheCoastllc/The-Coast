@@ -4,6 +4,10 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
   poweredByHeader: false,
 
+  turbopack: {
+    root: import.meta.dirname,
+  },
+
   images: {
     remotePatterns: [
       {

@@ -2,6 +2,7 @@
 import { cn } from '@/lib/utils';
 import { motion } from 'motion/react';
 import { ArrowRight, PenTool, Monitor, Zap, Globe } from 'lucide-react';
+import { usePageTransition } from '@/components/PageTransition';
 
 interface BentoGridItemProps {
   title: string;
@@ -9,6 +10,7 @@ interface BentoGridItemProps {
   icon: React.ReactNode;
   className?: string;
   size?: 'small' | 'medium' | 'large';
+  href?: string;
 }
 
 const BentoGridItem = ({
@@ -17,7 +19,9 @@ const BentoGridItem = ({
   icon,
   className,
   size = 'small',
+  href,
 }: BentoGridItemProps) => {
+  const { navigateTo } = usePageTransition();
   const variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -30,12 +34,14 @@ const BentoGridItem = ({
   return (
     <motion.div
       variants={variants}
+      onClick={() => href && navigateTo(href)}
       className={cn(
-        'group border-primary/10 bg-background hover:border-primary/30 relative flex h-full cursor-pointer flex-col justify-between overflow-hidden rounded-xl border px-6 pt-6 pb-10 shadow-md transition-all duration-500',
+        'group border-primary/10 bg-background hover:border-primary/30 relative flex h-full flex-col justify-between overflow-hidden rounded-xl border px-6 pt-6 pb-10 shadow-md transition-all duration-500',
+        href ? 'cursor-pointer' : 'cursor-default',
         className,
       )}
     >
-      <div className="absolute top-0 -right-1/2 z-0 size-full cursor-pointer bg-[linear-gradient(to_right,#3d16165e_1px,transparent_1px),linear-gradient(to_bottom,#3d16165e_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] bg-[size:24px_24px]"></div>
+      <div className="absolute top-0 -right-1/2 z-0 size-full bg-[linear-gradient(to_right,#3d16165e_1px,transparent_1px),linear-gradient(to_bottom,#3d16165e_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] bg-size-[24px_24px]"></div>
 
       <div className="text-primary/5 group-hover:text-primary/10 absolute right-1 bottom-3 scale-[6] transition-all duration-700 group-hover:scale-[6.2]">
         {icon}
@@ -49,12 +55,14 @@ const BentoGridItem = ({
           <h3 className="mb-2 text-xl font-semibold tracking-tight">{title}</h3>
           <p className="text-muted-foreground text-sm">{description}</p>
         </div>
-        <div className="text-primary mt-4 flex items-center text-sm">
-          <span className="mr-1">Learn more</span>
-          <ArrowRight className="size-4 transition-all duration-500 group-hover:translate-x-2" />
-        </div>
+        {href && (
+          <div className="text-primary mt-4 flex items-center text-sm">
+            <span className="mr-1">Learn more</span>
+            <ArrowRight className="size-4 transition-all duration-500 group-hover:translate-x-2" />
+          </div>
+        )}
       </div>
-      <div className="from-primary to-primary/30 absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r blur-2xl transition-all duration-500 group-hover:blur-lg" />
+      <div className="from-primary to-primary/30 absolute bottom-0 left-0 h-1 w-full bg-linear-to-r blur-2xl transition-all duration-500 group-hover:blur-lg" />
     </motion.div>
   );
 };
@@ -66,6 +74,7 @@ const items = [
       'Custom branding & logo design — your visual identity, refined and unforgettable. From mood boards to comprehensive brand guidelines, we engineer identities that demand attention.',
     icon: <PenTool className="size-6" strokeWidth={1.5} />,
     size: 'large' as const,
+    href: '/services/brand-identity',
   },
   {
     title: 'Digital Experience',
@@ -73,6 +82,7 @@ const items = [
       'Websites, apps, and digital products designed for impact, usability, and conversion. We blend cutting-edge technology with uncompromising aesthetics.',
     icon: <Monitor className="size-6" strokeWidth={1.5} />,
     size: 'small' as const,
+    href: '/services/website-design',
   },
   {
     title: 'Creative Strategy',
@@ -80,6 +90,7 @@ const items = [
       'Data-driven insights combined with bold creativity to position your brand as a market leader.',
     icon: <Zap className="size-6" strokeWidth={1.5} />,
     size: 'medium' as const,
+    href: '/services/brand-guidelines',
   },
   {
     title: 'Marketing Assets',
@@ -87,6 +98,7 @@ const items = [
       'Flyers, social graphics, pitch decks, and digital assets that convert — campaigns that capture attention and drive measurable results.',
     icon: <Globe className="size-6" strokeWidth={1.5} />,
     size: 'medium' as const,
+    href: '/services/social-graphics',
   },
 ];
 
@@ -117,6 +129,7 @@ export default function BentoGrid1() {
             description={item.description}
             icon={item.icon}
             size={item.size}
+            href={item.href}
             className={cn(
               item.size === 'large'
                 ? 'col-span-4'

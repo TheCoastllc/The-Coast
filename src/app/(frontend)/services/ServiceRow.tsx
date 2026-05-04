@@ -8,7 +8,7 @@ export function ServiceRow({
   service,
   index,
 }: {
-  service: { number: string; title: string; description: string }
+  service: { number: string; title: string; description: string; slug?: string }
   index: number
 }) {
   const { navigateTo } = usePageTransition()
@@ -19,7 +19,7 @@ export function ServiceRow({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.04 }}
       viewport={{ once: true }}
-      onClick={() => navigateTo('/get-started')}
+      onClick={() => navigateTo(service.slug ? `/services/${service.slug}` : '/get-started')}
       className="group relative border-b border-border cursor-pointer"
     >
       {/* Left primary bar indicator */}

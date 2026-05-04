@@ -3,6 +3,7 @@ import configPromise from '@payload-config'
 import type { MetadataRoute } from 'next'
 import { BLOG_CATEGORIES } from '@/lib/blog-categories'
 import { CASE_STUDIES } from '@/lib/case-studies'
+import { SERVICE_PAGES } from '@/lib/service-pages'
 
 const BASE_URL = 'https://coastglobal.org'
 
@@ -61,5 +62,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }))
 
-  return [...staticPages, ...categoryPages, ...workPages, ...blogPosts]
+  // Individual service landing pages
+  const servicePages: MetadataRoute.Sitemap = SERVICE_PAGES.map((s) => ({
+    url: `${BASE_URL}/services/${s.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
+  return [...staticPages, ...servicePages, ...categoryPages, ...workPages, ...blogPosts]
 }

@@ -51,31 +51,31 @@ const breadcrumbSchema = {
 const serviceGroups = [
   {
     category: 'Brand Identity',
-    label: '01 - 03',
+    label: '01 - 04',
     services: [
-      { number: '01', title: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds' },
-      { number: '02', title: 'Full Rebrand', description: 'Complete brand transformation package' },
-      { number: '03', title: 'Brand Identity Guidelines', description: 'Logo, colors, typography & usage rules' },
+      { number: '01', title: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds', slug: 'logo-design' },
+      { number: '02', title: 'Brand Identity', description: 'Complete visual identity system', slug: 'brand-identity' },
+      { number: '03', title: 'Full Rebrand', description: 'Complete brand transformation package', slug: 'rebrand' },
+      { number: '04', title: 'Brand Guidelines', description: 'Logo, colours, typography & usage rules', slug: 'brand-guidelines' },
     ],
   },
   {
     category: 'Collateral',
-    label: '04 - 07',
+    label: '05 - 08',
     services: [
-      { number: '04', title: 'Flyers', description: 'Print-ready promotional designs (digital + print)' },
-      { number: '05', title: 'EPK / Press Kit', description: 'Professional media kit for press & partners' },
-      { number: '06', title: 'Social Graphics', description: '5–10 branded templates for social platforms' },
-      { number: '07', title: 'Pitch Deck', description: 'Investor-ready presentation design' },
+      { number: '05', title: 'EPK / Press Kit', description: 'Professional media kit for press & partners', slug: 'epk-design' },
+      { number: '06', title: 'Social Graphics', description: '5–10 branded templates for social platforms', slug: 'social-graphics' },
+      { number: '07', title: 'Pitch Deck', description: 'Investor-ready presentation design', slug: 'pitch-deck' },
+      { number: '08', title: 'Flyers', description: 'Print-ready promotional designs (digital + print)', slug: 'flyers' },
     ],
   },
   {
     category: 'Digital',
-    label: '08 - 11',
+    label: '09 - 11',
     services: [
-      { number: '08', title: 'Website Design', description: 'Custom website design & development' },
-      { number: '09', title: 'Video & Motion', description: 'Promotional videos & animations (per piece)' },
-      { number: '10', title: 'Digital Marketing', description: 'SEO, ads setup, email campaigns' },
-      { number: '11', title: 'Social Media Management', description: 'Content creation, scheduling & management' },
+      { number: '09', title: 'Website Design', description: 'Custom website design & development', slug: 'website-design' },
+      { number: '10', title: 'Video & Motion', description: 'Promotional videos & animations (per piece)', slug: 'video-motion' },
+      { number: '11', title: 'Social Media Management', description: 'Content creation, scheduling & management', slug: 'social-media-management' },
     ],
   },
 ]
