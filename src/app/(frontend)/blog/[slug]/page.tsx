@@ -281,6 +281,16 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
             {/* Main content */}
             <div>
+              {post.directAnswer && (
+                <div className="mb-10 border-l-4 border-primary bg-primary/5 px-6 py-5">
+                  <span className="text-mono text-[10px] uppercase tracking-widest text-primary/70 block mb-2">
+                    TL;DR
+                  </span>
+                  <p className="text-body text-foreground text-lg leading-relaxed">
+                    {post.directAnswer}
+                  </p>
+                </div>
+              )}
               {post.content && (
                 <div className="prose prose-lg max-w-none prose-invert
                   prose-headings:font-heading prose-headings:text-foreground

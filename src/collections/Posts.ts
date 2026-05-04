@@ -13,9 +13,12 @@ const estimateReadingTime = (content: any): number => {
   return Math.max(1, Math.round(words / 230))
 }
 
+// Strip apostrophes/quotes before replacing other non-alphanumeric chars so
+// "can't" → "cant" instead of "can-t"
 const slugify = (text: string): string =>
   text
     .toLowerCase()
+    .replace(/['''"""]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
 
@@ -34,6 +37,7 @@ export const Posts: CollectionConfig = {
       ({ doc }) => {
         revalidatePath('/')
         revalidatePath('/blog')
+        revalidatePath('/llms.txt')
         if (doc.slug) revalidatePath(`/blog/${doc.slug}`)
         if (doc.category) revalidatePath(`/blog/category/${doc.category}`)
       },
@@ -129,11 +133,34 @@ export const Posts: CollectionConfig = {
       },
     },
     {
+      name: 'directAnswer',
+      type: 'textarea',
+      admin: {
+        description:
+          'GEO answer box — write a direct answer to the post\'s core question in ≤50 words. Renders as a highlighted summary before the article. Required to publish.',
+      },
+      validate: (value: string | null | undefined, { data }: { data: any }) => {
+        if (data?.status === 'published' && !value?.trim()) {
+          return 'Direct answer is required when publishing. Write ≤50 words answering the post\'s core question.'
+        }
+        return true
+      },
+    },
+    {
       name: 'excerpt',
       type: 'textarea',
       maxLength: 280,
       admin: {
-        description: 'Brief summary shown on blog cards and SEO meta.',
+        description: 'Brief summary shown on blog cards and SEO meta description (120–160 chars ideal). Required to publish.',
+      },
+      validate: (value: string | null | undefined, { data }: { data: any }) => {
+        if (data?.status === 'published' && !value?.trim()) {
+          return 'Excerpt is required when publishing — it becomes the SEO meta description.'
+        }
+        if (data?.status === 'published' && value && value.trim().length < 120) {
+          return `Excerpt is ${value.trim().length} chars — needs at least 120 for a meaningful SEO meta description.`
+        }
+        return true
       },
     },
     {

@@ -6,17 +6,7 @@ import type { Metadata } from 'next'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import TextReveal from '@/components/TextReveal'
 import Image from 'next/image'
-
-const CATEGORIES: Record<string, string> = {
-  'brand-strategy': 'Brand Strategy',
-  'visual-identity': 'Visual Identity',
-  'logo-design': 'Logo Design',
-  'web-design': 'Web Design',
-  'social-media': 'Social Media',
-  'creative-direction': 'Creative Direction',
-  'case-study': 'Case Study',
-  'industry-insights': 'Industry Insights',
-}
+import { BLOG_CATEGORIES as CATEGORIES } from '@/lib/blog-categories'
 
 type Params = Promise<{ category: string }>
 

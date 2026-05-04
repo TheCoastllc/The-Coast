@@ -1,6 +1,8 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { MetadataRoute } from 'next'
+import { BLOG_CATEGORIES } from '@/lib/blog-categories'
+import { CASE_STUDIES } from '@/lib/case-studies'
 
 const BASE_URL = 'https://coastglobal.org'
 
@@ -22,6 +24,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Note: /offers-tools/* are internal rewrite paths for offers.coastglobal.org — excluded
   ]
 
+  // Blog category pages — auto-generated from BLOG_CATEGORIES in src/lib/blog-categories.ts
+  const categoryPages: MetadataRoute.Sitemap = Object.keys(BLOG_CATEGORIES).map((slug) => ({
+    url: `${BASE_URL}/blog/category/${slug}`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
+
   // Dynamically include all published blog posts
   let blogPosts: MetadataRoute.Sitemap = []
   try {
@@ -42,15 +51,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB not available — blog posts omitted from sitemap
   }
 
-  // Work / portfolio pages — only ready, fully-published case studies are indexed.
-  // Placeholder (under-construction) projects are noindex and excluded from the sitemap.
-  const workPages: MetadataRoute.Sitemap = [
-    'zappedco',
-  ].map((id) => ({
-    url: `${BASE_URL}/work/${id}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
+  // Work / portfolio pages — sourced from CASE_STUDIES in src/lib/case-studies.ts.
+  // Set ready: true there to publish a case study; it auto-appears here.
+  const workPages: MetadataRoute.Sitemap = Object.entries(CASE_STUDIES)
+    .filter(([, meta]) => meta.ready)
+    .map(([id]) => ({
+      url: `${BASE_URL}/work/${id}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    }))
 
-  return [...staticPages, ...workPages, ...blogPosts]
+  return [...staticPages, ...categoryPages, ...workPages, ...blogPosts]
 }
