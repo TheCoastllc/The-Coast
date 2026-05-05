@@ -39,11 +39,15 @@ export const Posts: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidatePath('/')
-        revalidatePath('/blog')
-        revalidatePath('/llms.txt')
-        if (doc.slug) revalidatePath(`/blog/${doc.slug}`)
-        if (doc.category) revalidatePath(`/blog/category/${doc.category}`)
+        try {
+          revalidatePath('/')
+          revalidatePath('/blog')
+          revalidatePath('/llms.txt')
+          if (doc.slug) revalidatePath(`/blog/${doc.slug}`)
+          if (doc.category) revalidatePath(`/blog/category/${doc.category}`)
+        } catch {
+          // revalidatePath requires a Next.js server context — safe to ignore in scripts
+        }
       },
     ],
     beforeChange: [
@@ -148,7 +152,8 @@ export const Posts: CollectionConfig = {
         description:
           'GEO answer box — write a direct answer to the post\'s core question in ≤50 words. Renders as a highlighted summary before the article. Required to publish.',
       },
-      validate: (value: string | null | undefined, { data }: { data: any }) => {
+      validate: (value: string | null | undefined, { data, req }: { data: any; req: any }) => {
+        if (req?.context?.scriptUpdate) return true
         if (data?.status === 'published' && !value?.trim()) {
           return 'Direct answer is required when publishing. Write ≤50 words answering the post\'s core question.'
         }
@@ -162,7 +167,8 @@ export const Posts: CollectionConfig = {
       admin: {
         description: 'Brief summary shown on blog cards and SEO meta description (120–160 chars ideal). Required to publish.',
       },
-      validate: (value: string | null | undefined, { data }: { data: any }) => {
+      validate: (value: string | null | undefined, { data, req }: { data: any; req: any }) => {
+        if (req?.context?.scriptUpdate) return true
         if (data?.status === 'published' && !value?.trim()) {
           return 'Excerpt is required when publishing — it becomes the SEO meta description.'
         }
