@@ -1,3 +1,4 @@
+import { isAdmin } from '@/lib/payload-access'
 import type { CollectionConfig } from 'payload'
 import { sendAdminNotification } from '@/lib/notifications'
 
@@ -32,10 +33,10 @@ export const Requests: CollectionConfig = {
     ],
   },
   access: {
-    read: ({ req: { user } }) => Boolean(user),
-    create: ({ req: { user } }) => Boolean(user),
-    update: ({ req: { user } }) => Boolean(user),
-    delete: ({ req: { user } }) => Boolean(user),
+    read: isAdmin,
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   fields: [
     { name: 'client', type: 'relationship', relationTo: 'clients', required: true, index: true },

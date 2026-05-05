@@ -1,3 +1,4 @@
+import { isAuthenticated } from '@/lib/payload-access'
 import { revalidatePath } from 'next/cache'
 import type { GlobalConfig } from 'payload'
 
@@ -11,6 +12,7 @@ export const TrustedBy: GlobalConfig = {
   },
   access: {
     read: () => true,
+    update: isAuthenticated,
   },
   hooks: {
     afterChange: [

@@ -1,5 +1,6 @@
 import { revalidatePath } from 'next/cache'
 import type { CollectionConfig } from 'payload'
+import { isAuthenticated } from '@/lib/payload-access'
 
 const estimateReadingTime = (content: any): number => {
   if (!content?.root?.children) return 1
@@ -30,7 +31,10 @@ export const Posts: CollectionConfig = {
     group: 'Content',
   },
   access: {
-    read: () => true,
+    read: () => true, // public — blog posts are publicly readable
+    create: isAuthenticated,
+    update: isAuthenticated,
+    delete: isAuthenticated,
   },
   hooks: {
     afterChange: [

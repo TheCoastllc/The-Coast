@@ -1,3 +1,4 @@
+import { isAdmin } from '@/lib/payload-access'
 import type { CollectionConfig } from 'payload'
 
 export const ProjectUpdates: CollectionConfig = {
@@ -8,10 +9,10 @@ export const ProjectUpdates: CollectionConfig = {
     group: 'Projects & Clients',
   },
   access: {
-    read: ({ req: { user } }) => Boolean(user),
-    create: ({ req: { user } }) => Boolean(user),
-    update: ({ req: { user } }) => Boolean(user),
-    delete: ({ req: { user } }) => Boolean(user),
+    read: isAdmin,
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   fields: [
     { name: 'project', type: 'relationship', relationTo: 'projects', required: true, index: true },

@@ -1,3 +1,4 @@
+import { isAdmin } from '@/lib/payload-access'
 import type { CollectionConfig } from 'payload'
 
 export const ContactSubmissions: CollectionConfig = {
@@ -8,10 +9,10 @@ export const ContactSubmissions: CollectionConfig = {
     group: 'Intake & Requests',
   },
   access: {
-    read: ({ req: { user } }) => Boolean(user),
+    read: isAdmin,
     create: () => true,
-    update: ({ req: { user } }) => Boolean(user),
-    delete: ({ req: { user } }) => Boolean(user),
+    update: isAdmin,
+    delete: isAdmin,
   },
   fields: [
     { name: 'name', type: 'text', required: true },
