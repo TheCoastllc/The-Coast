@@ -43,6 +43,7 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: '- The Coast',
+      description: 'Brand management hub for The Coast — content, clients, and projects in one place.',
       icons: [{ rel: 'icon', type: 'image/png', url: '/logolight.png' }],
     },
     components: {

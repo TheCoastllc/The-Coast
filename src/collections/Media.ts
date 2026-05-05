@@ -4,15 +4,18 @@ import { isAdmin } from '@/lib/payload-access'
 export const Media: CollectionConfig = {
   slug: 'media',
   access: {
-    // Images are served via Cloudinary URLs directly — not via the Payload read API.
-    // Restricting read here only hides Media from the admin sidebar for non-admins.
-    read: isAdmin,
+    // Public read is required — Payload's /api/media/file/:name endpoint serves
+    // images on public pages. Restricting read here blocks those requests with 403.
+    // Use admin.hidden below to keep the collection out of the non-admin sidebar.
+    read: () => true,
     create: isAdmin,
     update: isAdmin,
     delete: isAdmin,
   },
   admin: {
     group: 'Content',
+    // Hide the Media collection from non-admin users in the sidebar
+    hidden: ({ user }) => (user as any)?.role !== 'admin',
   },
   fields: [
     {
