@@ -10,6 +10,7 @@ import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { PageTransitionProvider } from '@/components/PageTransition'
 import { CookieBanner } from '@/components/CookieBanner'
+import { Toaster } from 'sonner'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -120,6 +121,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         </QueryProvider>
         <CustomCursor />
         <CookieBanner />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   )
