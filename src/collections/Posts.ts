@@ -47,8 +47,13 @@ export const Posts: CollectionConfig = {
       },
     ],
     beforeChange: [
-      ({ data, operation }) => {
+      ({ data, operation, req }) => {
         if (!data) return data
+
+        // Auto-assign author to the logged-in user on create
+        if (operation === 'create' && !data.author && req.user?.id) {
+          data.author = req.user.id
+        }
 
         // Auto-generate slug from title
         if (data.title && (!data.slug || operation === 'create')) {
@@ -185,7 +190,10 @@ export const Posts: CollectionConfig = {
       required: false,
       admin: {
         position: 'sidebar',
-        description: 'Select the author of this post. Leave blank to show "The Coast" as byline.',
+        description: 'Auto-set to the logged-in user on create. Only admins can reassign.',
+      },
+      access: {
+        update: ({ req: { user } }) => (user as any)?.role === 'admin',
       },
     },
     {

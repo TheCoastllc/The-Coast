@@ -157,6 +157,10 @@ export interface User {
    * Display name shown as blog post author byline.
    */
   fullName?: string | null;
+  /**
+   * Admin: full access. Member: Posts, FAQ, TrustedBy, Privacy, and Terms only.
+   */
+  role: 'admin' | 'member';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -310,7 +314,7 @@ export interface Post {
     [k: string]: unknown;
   };
   /**
-   * Select the author of this post. Leave blank to show "The Coast" as byline.
+   * Auto-set to the logged-in user on create. Only admins can reassign.
    */
   author?: (number | null) | User;
   /**
@@ -649,6 +653,7 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   fullName?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
