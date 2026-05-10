@@ -54,9 +54,13 @@ export const Posts: CollectionConfig = {
       ({ data, operation, req }) => {
         if (!data) return data
 
-        // Auto-assign author to the logged-in user on create
-        if (operation === 'create' && !data.author && req.user?.id) {
-          data.author = req.user.id
+        // Auto-assign author on create. Non-admins always get themselves;
+        // admins default to themselves but can pick another user.
+        if (operation === 'create' && req.user?.id) {
+          const isAdmin = (req.user as any).role === 'admin'
+          if (!isAdmin || !data.author) {
+            data.author = req.user.id
+          }
         }
 
         // Auto-generate slug from title
@@ -83,6 +87,14 @@ export const Posts: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      validate: (value: string | null | undefined, { req }: { req: any }) => {
+        if (req?.context?.scriptUpdate) return true
+        const trimmed = value?.trim() ?? ''
+        if (!trimmed) return 'Title is required — give your post a clear, descriptive headline.'
+        if (trimmed.length < 10) return `Title is only ${trimmed.length} characters. Aim for at least 10 so it reads like a real headline.`
+        if (trimmed.length > 120) return `Title is ${trimmed.length} characters — keep it under 120 so it doesn't get truncated in search results.`
+        return true
+      },
     },
     {
       name: 'slug',
@@ -90,8 +102,21 @@ export const Posts: CollectionConfig = {
       required: true,
       unique: true,
       admin: {
-        description: 'Auto-generated from title. Edit to customize.',
+        description: 'Auto-generated from title. Admins can edit to customize.',
         position: 'sidebar',
+        readOnly: true,
+      },
+      access: {
+        update: ({ req: { user } }) => (user as any)?.role === 'admin',
+      },
+      validate: (value: string | null | undefined, { req }: { req: any }) => {
+        if (req?.context?.scriptUpdate) return true
+        const trimmed = value?.trim() ?? ''
+        if (!trimmed) return 'Slug is missing — it\'s normally generated from the title. Make sure the title isn\'t empty.'
+        if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(trimmed)) {
+          return 'Slug must be lowercase letters, numbers, and single hyphens only (e.g. "my-post-title"). No spaces, capitals, or special characters.'
+        }
+        return true
       },
     },
     {
@@ -104,6 +129,11 @@ export const Posts: CollectionConfig = {
       ],
       admin: {
         position: 'sidebar',
+        description: 'Only admins can publish or unpublish posts.',
+      },
+      access: {
+        create: ({ req: { user } }) => (user as any)?.role === 'admin',
+        update: ({ req: { user } }) => (user as any)?.role === 'admin',
       },
     },
     {
@@ -111,10 +141,14 @@ export const Posts: CollectionConfig = {
       type: 'date',
       admin: {
         position: 'sidebar',
-        description: 'Auto-set when published. Override to schedule.',
+        description: 'Auto-set when published. Admins can override to schedule.',
         date: {
           pickerAppearance: 'dayAndTime',
         },
+        readOnly: true,
+      },
+      access: {
+        update: ({ req: { user } }) => (user as any)?.role === 'admin',
       },
     },
     {
@@ -134,6 +168,11 @@ export const Posts: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
+      validate: (value: string | null | undefined, { req }: { req: any }) => {
+        if (req?.context?.scriptUpdate) return true
+        if (!value) return 'Pick a category in the sidebar — it controls where this post shows up on the blog.'
+        return true
+      },
     },
     {
       name: 'readingTime',
@@ -144,37 +183,40 @@ export const Posts: CollectionConfig = {
         description: 'Auto-calculated from content.',
         readOnly: true,
       },
+      access: {
+        update: () => false,
+      },
     },
     {
       name: 'directAnswer',
       type: 'textarea',
+      required: true,
       admin: {
         description:
-          'GEO answer box — write a direct answer to the post\'s core question in ≤50 words. Renders as a highlighted summary before the article. Required to publish.',
+          'GEO answer box — write a direct answer to the post\'s core question in ≤50 words. Renders as a highlighted summary before the article.',
       },
-      validate: (value: string | null | undefined, { data, req }: { data: any; req: any }) => {
+      validate: (value: string | null | undefined, { req }: { req: any }) => {
         if (req?.context?.scriptUpdate) return true
-        if (data?.status === 'published' && !value?.trim()) {
-          return 'Direct answer is required when publishing. Write ≤50 words answering the post\'s core question.'
-        }
+        const trimmed = value?.trim() ?? ''
+        if (!trimmed) return 'Direct answer is required. Write ≤50 words answering the post\'s core question — this is what AI search engines (ChatGPT, Perplexity, Google AI Overviews) cite.'
+        const wordCount = trimmed.split(/\s+/).filter(Boolean).length
+        if (wordCount > 50) return `Direct answer is ${wordCount} words — keep it ≤50 for AI engines to cite cleanly.`
         return true
       },
     },
     {
       name: 'excerpt',
       type: 'textarea',
+      required: true,
       maxLength: 280,
       admin: {
-        description: 'Brief summary shown on blog cards and SEO meta description (120–160 chars ideal). Required to publish.',
+        description: 'Brief summary shown on blog cards and SEO meta description (120–160 chars ideal).',
       },
-      validate: (value: string | null | undefined, { data, req }: { data: any; req: any }) => {
+      validate: (value: string | null | undefined, { req }: { req: any }) => {
         if (req?.context?.scriptUpdate) return true
-        if (data?.status === 'published' && !value?.trim()) {
-          return 'Excerpt is required when publishing — it becomes the SEO meta description.'
-        }
-        if (data?.status === 'published' && value && value.trim().length < 120) {
-          return `Excerpt is ${value.trim().length} chars — needs at least 120 for a meaningful SEO meta description.`
-        }
+        const trimmed = value?.trim() ?? ''
+        if (!trimmed) return 'Excerpt is required — it becomes the SEO meta description and shows on blog cards.'
+        if (trimmed.length < 120) return `Excerpt is ${trimmed.length} chars — needs at least 120 for a meaningful SEO meta description (120–160 ideal).`
         return true
       },
     },
@@ -183,22 +225,42 @@ export const Posts: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       required: true,
+      validate: (value: any, { req }: { req: any }) => {
+        if (req?.context?.scriptUpdate) return true
+        if (!value) return 'Cover image is required — pick one from the Media library, or ask an admin to upload a new image first.'
+        return true
+      },
     },
     {
       name: 'content',
       type: 'richText',
       required: true,
+      validate: (value: any, { req }: { req: any }) => {
+        if (req?.context?.scriptUpdate) return true
+        if (!value || !value.root) return 'Post content is empty — write the body of your post in the editor below.'
+        const extractText = (node: any): string => {
+          if (node?.text) return node.text
+          if (node?.children) return node.children.map(extractText).join(' ')
+          return ''
+        }
+        const wordCount = extractText(value.root).trim().split(/\s+/).filter(Boolean).length
+        if (wordCount === 0) return 'Post content is empty — write the body of your post in the editor below.'
+        if (wordCount < 50) return `Post body is only ${wordCount} word${wordCount === 1 ? '' : 's'} — write at least 50 words for a meaningful article.`
+        return true
+      },
     },
     {
       name: 'author',
       type: 'relationship',
       relationTo: 'users',
       required: false,
+      defaultValue: ({ user }) => user?.id,
       admin: {
         position: 'sidebar',
-        description: 'Auto-set to the logged-in user on create. Only admins can reassign.',
+        description: 'Pre-filled with you on create. Only admins can reassign.',
       },
       access: {
+        create: ({ req: { user } }) => (user as any)?.role === 'admin',
         update: ({ req: { user } }) => (user as any)?.role === 'admin',
       },
     },

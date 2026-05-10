@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { isAdmin } from '@/lib/payload-access'
+import { isAdmin, isAuthenticated } from '@/lib/payload-access'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -8,8 +8,10 @@ export const Media: CollectionConfig = {
     // images on public pages. Restricting read here blocks those requests with 403.
     // Use admin.hidden below to keep the collection out of the non-admin sidebar.
     read: () => true,
-    create: isAdmin,
-    update: isAdmin,
+    // Any authenticated user can upload (so members can add cover images to posts).
+    create: isAuthenticated,
+    update: isAuthenticated,
+    // Delete stays admin-only to prevent members removing images other posts depend on.
     delete: isAdmin,
   },
   admin: {

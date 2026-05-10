@@ -268,12 +268,15 @@ export interface Post {
   id: number;
   title: string;
   /**
-   * Auto-generated from title. Edit to customize.
+   * Auto-generated from title. Admins can edit to customize.
    */
   slug: string;
+  /**
+   * Only admins can publish or unpublish posts.
+   */
   status?: ('draft' | 'published') | null;
   /**
-   * Auto-set when published. Override to schedule.
+   * Auto-set when published. Admins can override to schedule.
    */
   publishedAt?: string | null;
   category:
@@ -290,13 +293,13 @@ export interface Post {
    */
   readingTime?: number | null;
   /**
-   * GEO answer box — write a direct answer to the post's core question in ≤50 words. Renders as a highlighted summary before the article. Required to publish.
+   * GEO answer box — write a direct answer to the post's core question in ≤50 words. Renders as a highlighted summary before the article.
    */
-  directAnswer?: string | null;
+  directAnswer: string;
   /**
-   * Brief summary shown on blog cards and SEO meta description (120–160 chars ideal). Required to publish.
+   * Brief summary shown on blog cards and SEO meta description (120–160 chars ideal).
    */
-  excerpt?: string | null;
+  excerpt: string;
   coverImage: number | Media;
   content: {
     root: {
@@ -314,7 +317,7 @@ export interface Post {
     [k: string]: unknown;
   };
   /**
-   * Auto-set to the logged-in user on create. Only admins can reassign.
+   * Pre-filled with you on create. Only admins can reassign.
    */
   author?: (number | null) | User;
   /**
