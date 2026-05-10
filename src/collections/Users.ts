@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { isAdmin, isAdminOrSelf } from '@/lib/payload-access'
+import { isAdmin, isAdminOrSelf, isAuthenticated } from '@/lib/payload-access'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -10,7 +10,9 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   access: {
-    read: isAdmin,
+    // Authenticated users need read access so the Posts "author" relationship
+    // field can render the byline (fullName) instead of "Untitled - ID: X".
+    read: isAuthenticated,
     create: isAdmin,
     update: isAdminOrSelf,
     delete: isAdmin,

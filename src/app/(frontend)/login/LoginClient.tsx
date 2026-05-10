@@ -40,29 +40,75 @@ function LoginForm() {
     e.preventDefault()
     if (isLocked || isLoading) return
 
+    const trimmedEmail = email.trim().toLowerCase()
+    if (!trimmedEmail || !password) {
+      toast.error('Please enter both your email and password.')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      toast.error('That email address doesn\'t look right. Check for typos.')
+      return
+    }
+
     setIsLoading(true)
     try {
       const res = await fetch('/api/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ email: email.trim().toLowerCase(), password }),
+        body: JSON.stringify({ email: trimmedEmail, password }),
       })
 
-      if (!res.ok) {
+      if (res.ok) {
+        router.push(redirect.startsWith('/') ? redirect : '/admin')
+        return
+      }
+
+      // Status-aware error reporting. Auth failures stay intentionally
+      // ambiguous (no credential enumeration); everything else is specific.
+      if (res.status === 401 || res.status === 403) {
         const newAttempts = attempts + 1
         setAttempts(newAttempts)
         if (newAttempts >= 5) {
           setLockedUntil(Date.now() + 30_000)
+          toast.error('Too many failed attempts. Locked for 30 seconds.')
+        } else {
+          const left = 5 - newAttempts
+          toast.error(
+            `Invalid email or password. ${left} attempt${left === 1 ? '' : 's'} left before a 30-second lock.`,
+          )
         }
-        // Generic message — never reveal whether email or password is wrong
-        toast.error('Invalid credentials. Please try again.')
         return
       }
 
-      router.push(redirect.startsWith('/') ? redirect : '/admin')
-    } catch {
-      toast.error('Something went wrong. Please try again.')
+      if (res.status === 429) {
+        toast.error('Too many requests. Please slow down and try again shortly.')
+        return
+      }
+
+      if (res.status >= 500) {
+        toast.error(`Server error (${res.status}). Our login service is having trouble — try again in a minute.`)
+        return
+      }
+
+      // Other 4xx: try to surface the server's message
+      let serverMsg = ''
+      try {
+        const body = await res.json()
+        serverMsg = body?.errors?.[0]?.message || body?.message || ''
+      } catch {
+        // ignore json parse failure
+      }
+      toast.error(serverMsg || `Login failed (${res.status}). Please double-check your details.`)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : ''
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+        toast.error('You appear to be offline. Check your internet connection.')
+      } else if (message.toLowerCase().includes('failed to fetch')) {
+        toast.error('Couldn\'t reach the login server. Check your connection or try again.')
+      } else {
+        toast.error(message ? `Login failed: ${message}` : 'Unexpected error during login. Please try again.')
+      }
     } finally {
       setIsLoading(false)
     }
