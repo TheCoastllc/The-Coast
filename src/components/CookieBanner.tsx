@@ -16,11 +16,17 @@ function injectGa() {
   if (typeof window === 'undefined') return
   if (document.getElementById('ga-script')) return
 
-  const w = window as unknown as { dataLayer: unknown[] }
+  const w = window as unknown as {
+    dataLayer: IArguments[]
+    gtag: (...args: unknown[]) => void
+  }
   w.dataLayer = w.dataLayer || []
-  const gtag = (...args: unknown[]) => w.dataLayer.push(args)
-  gtag('js', new Date())
-  gtag('config', GA_ID, { anonymize_ip: true })
+  w.gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params
+    w.dataLayer.push(arguments as unknown as IArguments)
+  }
+  w.gtag('js', new Date())
+  w.gtag('config', GA_ID, { anonymize_ip: true })
 
   const s = document.createElement('script')
   s.id = 'ga-script'
