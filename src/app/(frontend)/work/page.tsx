@@ -8,6 +8,7 @@ export const metadata: import('next').Metadata = {
     'Explore brand transformations, logo design projects, and creative work from The Coast. Real results for real businesses.',
   alternates: { canonical: 'https://coastglobal.org/work' },
   openGraph: {
+    type: 'website',
     title: 'Our Work | Brand Transformations | The Coast',
     description: 'Brand transformations, creative projects, and the stories behind them.',
     url: 'https://coastglobal.org/work',

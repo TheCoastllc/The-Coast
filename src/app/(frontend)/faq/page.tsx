@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'Frequently asked questions about The Coast — our process, pricing, timelines, and ongoing support for branding and design projects.',
   alternates: { canonical: 'https://coastglobal.org/faq' },
   openGraph: {
+    type: 'website',
     title: 'FAQ | The Coast',
     description:
       'Answers to common questions about our branding and design services.',

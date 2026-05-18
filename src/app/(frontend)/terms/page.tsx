@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://coastglobal.org/terms' },
   robots: { index: true, follow: true },
   openGraph: {
+    type: 'website',
     title: 'Terms of Service | The Coast',
     description: 'Service agreement, revision policy, and client responsibilities for The Coast.',
     url: 'https://coastglobal.org/terms',

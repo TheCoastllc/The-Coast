@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     'Build your custom brand package piece by piece. Select logo design, social media, copywriting, brand strategy, website design, marketing materials, and more.',
   alternates: { canonical: 'https://coastglobal.org/brand-avatar' },
   openGraph: {
+    type: 'website',
     title: 'Brand Builder — Build Your Brand Avatar | The Coast',
     description:
       'Interactive brand builder tool. Select the services that make up your complete brand identity.',

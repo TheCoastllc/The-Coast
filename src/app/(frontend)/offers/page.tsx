@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'Free interactive brand diagnostic tools from The Coast: take the 10-question brand quiz, score your consistency across 25 checkpoints, and run the 3-second test to see what your brand is really saying.',
   alternates: { canonical: 'https://coastglobal.org/offers' },
   openGraph: {
+    type: 'website',
     title: 'Free Brand Diagnostic Tools — Quiz, Audit & 3-Second Test | The Coast',
     description:
       'Three free interactive tools to diagnose your brand strength, consistency, and first impressions.',

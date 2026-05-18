@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ projectId
     description: meta.description,
     alternates: { canonical: `https://coastglobal.org/work/${projectId}` },
     openGraph: {
+      type: 'website',
       title: meta.title,
       description: meta.description,
       url: `https://coastglobal.org/work/${projectId}`,

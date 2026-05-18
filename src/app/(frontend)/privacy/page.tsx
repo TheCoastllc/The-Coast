@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://coastglobal.org/privacy' },
   robots: { index: true, follow: true },
   openGraph: {
+    type: 'website',
     title: 'Privacy Policy | The Coast',
     description: 'How The Coast collects, uses, and protects your personal information.',
     url: 'https://coastglobal.org/privacy',

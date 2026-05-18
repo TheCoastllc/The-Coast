@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'Custom logo design, visual identity, brand guidelines, marketing collateral, social graphics, pitch decks, video, digital marketing, and social media management.',
   alternates: { canonical: 'https://coastglobal.org/services' },
   openGraph: {
+    type: 'website',
     title: 'Brand Design Services | The Coast',
     description:
       'From logo design to full brand transformations - everything your business needs to stand out.',

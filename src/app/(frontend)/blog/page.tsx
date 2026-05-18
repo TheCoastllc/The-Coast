@@ -21,6 +21,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
     description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Journal.',
     alternates: { canonical: 'https://coastglobal.org/blog' },
     openGraph: {
+      type: 'website',
       title: 'The Coast Journal — Brand Design Insights',
       description: 'Insights on brand design, visual identity, and creative strategy.',
       url: 'https://coastglobal.org/blog',

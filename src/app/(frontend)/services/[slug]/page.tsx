@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     description: service.metaDescription,
     alternates: { canonical: `https://coastglobal.org/services/${service.slug}` },
     openGraph: {
+      type: 'website',
       title: service.metaTitle,
       description: service.metaDescription,
       url: `https://coastglobal.org/services/${service.slug}`,

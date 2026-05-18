@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     'Monthly retainer branding packages and à la carte design services. Transparent pricing for entrepreneurs and growing businesses.',
   alternates: { canonical: 'https://coastglobal.org/pricing' },
   openGraph: {
+    type: 'website',
     title: 'Pricing & Packages | The Coast',
     description:
       'Monthly retainer packages and one-time design services. Invest in your brand.',

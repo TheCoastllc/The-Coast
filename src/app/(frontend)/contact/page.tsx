@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     'Get in touch with The Coast. Reach our brand studio by email, phone, or form — we respond to every inquiry within 24 hours on business days.',
   alternates: { canonical: 'https://coastglobal.org/contact' },
   openGraph: {
+    type: 'website',
     title: 'Contact The Coast | Brand Design Studio',
     description:
       'Questions, partnerships, press, or projects — reach The Coast team directly. We reply within 24 hours.',

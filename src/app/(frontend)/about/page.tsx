@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'The Coast was built to level the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
   alternates: { canonical: 'https://coastglobal.org/about' },
   openGraph: {
+    type: 'website',
     title: 'About The Coast | Brand Design Studio',
     description:
       'Founded by David Coast, we turn visions into empires. Professional branding for entrepreneurs, artists, and growing businesses.',

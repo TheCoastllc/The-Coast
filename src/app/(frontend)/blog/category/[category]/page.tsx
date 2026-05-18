@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     description: `Articles and insights on ${label.toLowerCase()} from The Coast — brand design studio for entrepreneurs and growing businesses.`,
     alternates: { canonical: `https://coastglobal.org/blog/category/${category}` },
     openGraph: {
+      type: 'website',
       title: `${label} — The Coast Journal`,
       description: `Articles and insights on ${label.toLowerCase()} from The Coast.`,
       url: `https://coastglobal.org/blog/category/${category}`,
