@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { X } from 'lucide-react'
 
 const STORAGE_KEY = 'coast-cookie-consent'
-const GA_ID = 'G-NCNJNBB2JD'
+const GA_ID = 'G-ZWSD7VN3DD'
 const GTM_ID = 'GTM-WN8BS4GB'
 const OPEN_EVENT = 'coast:open-cookie-settings'
 
