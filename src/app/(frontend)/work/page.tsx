@@ -1,5 +1,6 @@
 import { BlueprintLayout } from '@/components/blueprint-layout'
 import WorkPageContent from '@/components/pages/workPage/WorkPageContent'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: import('next').Metadata = {
   title: 'Our Work — Brand Transformations',
@@ -10,6 +11,7 @@ export const metadata: import('next').Metadata = {
     title: 'Our Work | Brand Transformations | The Coast',
     description: 'Brand transformations, creative projects, and the stories behind them.',
     url: 'https://coastglobal.org/work',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

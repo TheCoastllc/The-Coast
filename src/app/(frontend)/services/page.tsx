@@ -4,6 +4,7 @@ import TextReveal from '@/components/TextReveal'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { FadeOnLoad, FadeOnScroll, SubtleLabel } from '../about/AboutPageAnimations'
 import { ServiceRow } from './ServiceRow'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Brand Design Services',
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
     description:
       'From logo design to full brand transformations - everything your business needs to stand out.',
     url: 'https://coastglobal.org/services',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

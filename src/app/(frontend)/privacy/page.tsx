@@ -2,6 +2,7 @@ import { getPayloadClient } from '@/lib/payload-client'
 import type { Metadata } from 'next'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { BlueprintLayout } from '@/components/blueprint-layout'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy & Data Practices — The Coast',
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     title: 'Privacy Policy | The Coast',
     description: 'How The Coast collects, uses, and protects your personal information.',
     url: 'https://coastglobal.org/privacy',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/hero'
 import { LogosSection } from '@/components/logos-section'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 const About = dynamic(() => import('@/components/pages/landingPage/About'))
 const Services = dynamic(() => import('@/components/pages/landingPage/Services'))
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
     title: 'The Coast | Brand Design Studio',
     description:
       'Building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

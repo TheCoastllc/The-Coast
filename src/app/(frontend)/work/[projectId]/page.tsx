@@ -6,6 +6,7 @@ import { BlueprintLayout } from '@/components/blueprint-layout'
 import ZappedCoPage from './ZappedCoPage'
 import UnderConstructionPage from './UnderConstructionPage'
 import { CASE_STUDIES as projectMeta } from '@/lib/case-studies'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ projectId: string }> }) {
   const { projectId } = await params
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ projectId
       title: meta.title,
       description: meta.description,
       url: `https://coastglobal.org/work/${projectId}`,
+      images: DEFAULT_OG_IMAGES,
     },
     ...(!meta.ready && { robots: { index: false, follow: true } }),
   }

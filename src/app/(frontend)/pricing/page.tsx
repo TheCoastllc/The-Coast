@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import PricingClient from './PricingClient'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Brand Design Pricing & Monthly Retainer Packages — The Coast',
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     description:
       'Monthly retainer packages and one-time design services. Invest in your brand.',
     url: 'https://coastglobal.org/pricing',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

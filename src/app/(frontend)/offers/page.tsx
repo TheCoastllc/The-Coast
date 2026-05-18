@@ -4,6 +4,7 @@ import TextReveal from '@/components/TextReveal'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { FadeOnLoad, FadeOnScroll, SubtleLabel } from '../about/AboutPageAnimations'
 import { OfferCard } from './OfferCard'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Free Brand Diagnostic Tools — Quiz, Audit & 3-Second Test',
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
     description:
       'Three free interactive tools to diagnose your brand strength, consistency, and first impressions.',
     url: 'https://coastglobal.org/offers',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import GetStartedClient from './GetStartedClient'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Start Your Brand Project — Free Consultation with The Coast',
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     description:
       'Tell us about yourself, your services needed, and your budget. Get a custom quote from The Coast.',
     url: 'https://coastglobal.org/get-started',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

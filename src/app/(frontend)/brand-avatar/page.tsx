@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import BrandAvatarClient from './BrandAvatarClient'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Brand Builder — Design Your Custom Brand Package',
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     description:
       'Interactive brand builder tool. Select the services that make up your complete brand identity.',
     url: 'https://coastglobal.org/brand-avatar',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

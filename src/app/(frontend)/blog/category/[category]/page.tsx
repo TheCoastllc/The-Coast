@@ -7,6 +7,7 @@ import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import TextReveal from '@/components/TextReveal'
 import Image from 'next/image'
 import { BLOG_CATEGORIES as CATEGORIES } from '@/lib/blog-categories'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 type Params = Promise<{ category: string }>
 
@@ -27,6 +28,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: `${label} — The Coast Journal`,
       description: `Articles and insights on ${label.toLowerCase()} from The Coast.`,
       url: `https://coastglobal.org/blog/category/${category}`,
+      images: DEFAULT_OG_IMAGES,
     },
   }
 }

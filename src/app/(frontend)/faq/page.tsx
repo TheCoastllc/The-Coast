@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getPayloadClient } from '@/lib/payload-client'
 import { BlueprintLayout } from '@/components/blueprint-layout'
 import { FAQAccordionList } from '@/components/pages/landingPage/FAQAccordion'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const revalidate = 3600
 
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
     description:
       'Answers to common questions about our branding and design services.',
     url: 'https://coastglobal.org/faq',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

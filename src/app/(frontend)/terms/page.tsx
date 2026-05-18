@@ -2,6 +2,7 @@ import { getPayloadClient } from '@/lib/payload-client'
 import type { Metadata } from 'next'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { BlueprintLayout } from '@/components/blueprint-layout'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Terms of Service & Client Agreement — The Coast',
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
     title: 'Terms of Service | The Coast',
     description: 'Service agreement, revision policy, and client responsibilities for The Coast.',
     url: 'https://coastglobal.org/terms',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

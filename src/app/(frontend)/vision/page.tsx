@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import VisionClient from './VisionClient'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Vision 2026 — The Coast HQ Concept & Future of Brand Design',
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
     description:
       'Visionary conceptual renderings of The Coast HQ — where innovation meets coastal serenity.',
     url: 'https://coastglobal.org/vision',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

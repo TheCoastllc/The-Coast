@@ -6,6 +6,7 @@ import BlogSearchClient from './BlogSearchClient'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import TextReveal from '@/components/TextReveal'
 import Image from 'next/image'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -23,6 +24,7 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
       title: 'The Coast Journal — Brand Design Insights',
       description: 'Insights on brand design, visual identity, and creative strategy.',
       url: 'https://coastglobal.org/blog',
+      images: DEFAULT_OG_IMAGES,
     },
     ...(hasFilters && { robots: { index: false, follow: true } }),
   }

@@ -5,6 +5,7 @@ import TextReveal from '@/components/TextReveal'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { FadeOnLoad, FadeOnScroll, SubtleLabel } from '../about/AboutPageAnimations'
 import ContactClient from './ContactClient'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Contact The Coast',
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     description:
       'Questions, partnerships, press, or projects — reach The Coast team directly. We reply within 24 hours.',
     url: 'https://coastglobal.org/contact',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

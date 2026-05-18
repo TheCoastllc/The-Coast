@@ -6,6 +6,7 @@ import { ShineButton } from '@/components/ui/ShineButton'
 import { TransitionLink } from '@/components/PageTransition'
 import { FadeOnLoad, FadeOnScroll, SubtleLabel } from '../../about/AboutPageAnimations'
 import { SERVICE_PAGES, SERVICE_PAGES_MAP } from '@/lib/service-pages'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 type Params = Promise<{ slug: string }>
 
@@ -26,6 +27,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: service.metaTitle,
       description: service.metaDescription,
       url: `https://coastglobal.org/services/${service.slug}`,
+      images: DEFAULT_OG_IMAGES,
     },
   }
 }

@@ -4,6 +4,7 @@ import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import TextReveal from '@/components/TextReveal'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { FadeOnLoad, FadeOnScroll, SubtleLabel } from './AboutPageAnimations'
+import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'About The Coast — Brand Design Studio for Visionaries',
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
     description:
       'Founded by David Coast, we turn visions into empires. Professional branding for entrepreneurs, artists, and growing businesses.',
     url: 'https://coastglobal.org/about',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 
