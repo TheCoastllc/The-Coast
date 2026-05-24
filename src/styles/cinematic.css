@@ -1,0 +1,640 @@
+/* =====================================================
+   Coast Studio — Cinematic Work + Case Study styles
+   Imported only by /work and /work/{slug} routes.
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* ── Local CSS variables (don't leak into rest of site) ── */
+.cinematic {
+  --cs-bg: #0d0d0d;
+  --cs-bg-2: #161616;
+  --cs-fg: #f6f1e8;
+  --cs-fg-2: #cdc7bb;
+  --cs-muted: #8a8780;
+  --cs-accent: #FF5C28;
+  --cs-line: rgba(246, 241, 232, 0.12);
+
+  /* Reset the surrounding-site theme inside this scope */
+  background: var(--cs-bg);
+  color: var(--cs-fg);
+}
+
+/* =====================================================
+   Shared tile internals (still / video crossfade)
+   ===================================================== */
+.cinematic .t-frame {
+  position: relative;
+  background: var(--tile-bg, #161616);
+  border-radius: 12px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cinematic .t-mockup {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
+}
+.cinematic .t-mockup img,
+.cinematic .t-mockup video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.cinematic .t-mockup .t-still,
+.cinematic .t-mockup .t-video {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cinematic .t-mockup .t-still { opacity: 1; z-index: 1; }
+.cinematic .t-mockup .t-video { opacity: 0; z-index: 2; }
+.cinematic .is-playing .t-still { opacity: 0; }
+.cinematic .is-playing .t-video { opacity: 1; }
+
+.cinematic [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cinematic [data-reveal].is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   Work feed hero (Cinematic Takeover)
+   ===================================================== */
+.cs-work-hero {
+  padding: 100px 32px 50px;
+  border-bottom: 1px solid var(--cs-line);
+}
+.cs-work-hero .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--cs-accent);
+  margin-bottom: 22px;
+}
+.cs-work-hero h1 {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 900;
+  font-size: clamp(60px, 9vw, 160px);
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--cs-fg);
+  max-width: 1300px;
+}
+.cs-work-hero h1 em {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  text-transform: none;
+  color: var(--cs-accent);
+  letter-spacing: -0.025em;
+}
+.cs-work-hero .sub {
+  margin-top: 28px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 2vw, 28px);
+  color: var(--cs-fg-2);
+  max-width: 800px;
+  line-height: 1.35;
+}
+.cs-work-hero .meta {
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--cs-line);
+  padding-top: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+}
+.cs-work-hero .meta strong { color: var(--cs-fg); font-weight: 500; }
+
+/* =====================================================
+   Takeover sections (one per project, 90vh)
+   ===================================================== */
+.cs-takeover-section {
+  min-height: 90vh;
+  padding: 80px 32px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 56px;
+  align-items: center;
+  background: var(--section-bg, var(--cs-bg));
+  position: relative;
+  transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+.cs-takeover-section .text {
+  color: var(--section-fg, var(--cs-fg));
+  max-width: 560px;
+  position: relative;
+  z-index: 2;
+}
+.cs-takeover-section .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2.4px;
+  margin-bottom: 18px;
+  opacity: 0.7;
+}
+.cs-takeover-section h3 {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 700;
+  font-size: clamp(48px, 6.5vw, 110px);
+  line-height: 0.92;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--section-fg, var(--cs-fg));
+  margin: 0;
+}
+.cs-takeover-section .tagline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 1.8vw, 30px);
+  margin-top: 22px;
+  line-height: 1.3;
+  opacity: 0.92;
+}
+.cs-takeover-section .summary {
+  margin-top: 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.6;
+  opacity: 0.78;
+  max-width: 480px;
+}
+.cs-takeover-section .roles {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cs-takeover-section .roles span {
+  padding: 6px 14px;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.cs-takeover-section .cta-row {
+  margin-top: 36px;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cs-takeover-section .cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: opacity 0.2s, padding-bottom 0.2s;
+  text-decoration: none;
+  cursor: pointer;
+}
+.cs-takeover-section .cta-primary {
+  padding: 14px 24px;
+  background: var(--section-fg, var(--cs-fg));
+  color: var(--section-bg, var(--cs-bg));
+  border-radius: 100px;
+  font-weight: 600;
+}
+.cs-takeover-section .cta-primary:hover { opacity: 0.88; }
+.cs-takeover-section .cta-secondary {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+  opacity: 0.78;
+  color: inherit;
+}
+.cs-takeover-section .cta-secondary:hover { padding-bottom: 6px; opacity: 1; }
+.cs-takeover-section .media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+}
+
+.cs-takeover-section.placeholder .media {
+  background: var(--section-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cs-takeover-section.placeholder .media-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--section-fg);
+  opacity: 0.45;
+}
+
+@media (max-width: 900px) {
+  .cs-takeover-section { grid-template-columns: 1fr; min-height: auto; }
+}
+
+/* =====================================================
+   Case study page
+   ===================================================== */
+.cs-case {
+  position: relative;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--cs-bg);
+  color: var(--cs-fg);
+}
+.cs-case-breadcrumb {
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+  border-bottom: 1px solid var(--cs-line);
+}
+.cs-case-breadcrumb a {
+  color: var(--cs-fg-2);
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.cs-case-breadcrumb a:hover { color: var(--cs-accent); }
+.cs-case-breadcrumb-sep { color: var(--cs-muted); opacity: 0.5; }
+
+.cs-case-hero {
+  position: relative;
+  padding: 80px 32px 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%, color-mix(in srgb, var(--case-bg, #18061e) 45%, transparent) 0%, transparent 80%),
+    var(--cs-bg);
+}
+.cs-case-hero-meta {
+  display: flex;
+  gap: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+  margin-bottom: 28px;
+}
+.cs-case-h1 {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 900;
+  font-size: clamp(72px, 11vw, 200px);
+  line-height: 0.88;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--cs-fg);
+  max-width: 1400px;
+  margin: 0;
+}
+.cs-case-tagline {
+  margin-top: 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--cs-fg-2);
+  max-width: 900px;
+}
+.cs-case-roles {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cs-case-roles span {
+  padding: 7px 14px;
+  border: 1px solid var(--cs-fg-2);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--cs-fg-2);
+}
+.cs-case-hero-media {
+  margin-top: 64px;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 60px 120px rgba(0, 0, 0, 0.5);
+}
+.cs-case-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.cs-case-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 60%,
+    color-mix(in srgb, var(--case-bg, #18061e) 60%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
+.cs-case-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--cs-accent);
+  margin-bottom: 32px;
+}
+
+/* Palette */
+.cs-case-palette {
+  padding: 100px 32px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.cs-case-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+.cs-case-swatch {
+  position: relative;
+  border-radius: 10px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.cs-case-swatch-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--swatch);
+}
+.cs-case-swatch-label {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--cs-fg);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 6px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Moments grid */
+.cs-case-moments {
+  padding: 80px 32px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.cs-case-moments-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.cs-case-moment {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cs-case-moment-frame {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--case-bg);
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.45),
+    0 8px 18px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cs-case-moment:hover .cs-case-moment-frame { transform: translateY(-4px); }
+.cs-case-moment-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.cs-case-moment-cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--cs-fg);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.cs-case-moment-cap-num {
+  color: var(--cs-muted);
+  font-weight: 500;
+}
+
+/* In motion */
+.cs-case-motion {
+  padding: 80px 32px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.cs-case-motion-frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 60px 120px rgba(0, 0, 0, 0.55);
+  background: var(--case-bg);
+}
+
+/* Stats */
+.cs-case-stats {
+  padding: 80px 32px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.cs-case-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--cs-line);
+  border-bottom: 1px solid var(--cs-line);
+}
+.cs-case-stat {
+  padding: 48px 28px;
+  border-right: 1px solid var(--cs-line);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cs-case-stat:last-child { border-right: 0; }
+.cs-case-stat-value {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 6vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--cs-fg);
+}
+.cs-case-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+}
+
+/* Stack chips */
+.cs-case-stack {
+  padding: 80px 32px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.cs-case-stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cs-case-stack-list span {
+  padding: 12px 22px;
+  border: 1px solid var(--cs-line);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--cs-fg);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Live site CTA */
+.cs-case-live {
+  padding: 80px 32px 120px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.cs-case-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 5.5vw, 96px);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--cs-accent);
+  border-bottom: 2px solid var(--cs-accent);
+  padding-bottom: 10px;
+  transition: padding-bottom 0.3s, opacity 0.3s;
+  text-decoration: none;
+}
+.cs-case-cta-link:hover { padding-bottom: 14px; opacity: 0.85; }
+.cs-case-live-url {
+  margin-top: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+}
+
+/* Next case */
+.cs-case-next {
+  display: block;
+  padding: 100px 48px;
+  background: var(--next-bg, var(--cs-bg-2));
+  color: var(--next-fg, var(--cs-fg));
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: padding-top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cs-case-next:hover { padding-top: 120px; }
+.cs-case-next-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 36px;
+}
+.cs-case-next-name {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 900;
+  font-size: clamp(54px, 8vw, 140px);
+  line-height: 0.92;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin: 0;
+}
+.cs-case-next-tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  font-size: clamp(15px, 1.4vw, 20px);
+  line-height: 1.4;
+  margin-top: 22px;
+  opacity: 0.85;
+  max-width: 800px;
+}
+.cs-case-next-cta {
+  margin-top: 36px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-block;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+}
+
+@media (max-width: 800px) {
+  .cs-case-moments-grid { grid-template-columns: 1fr; }
+  .cs-case-stats-grid { grid-template-columns: 1fr; }
+  .cs-case-stat { border-right: 0; border-bottom: 1px solid var(--cs-line); }
+  .cs-case-stat:last-child { border-bottom: 0; }
+}

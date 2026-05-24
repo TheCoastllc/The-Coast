@@ -1,5 +1,5 @@
 import { BlueprintLayout } from '@/components/blueprint-layout'
-import WorkPageContent from '@/components/pages/workPage/WorkPageContent'
+import CinematicWorkFeed from '@/components/CinematicWorkFeed'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: import('next').Metadata = {
@@ -69,7 +69,7 @@ export default function WorkPage() {
         </p>
       </section>
 
-      <WorkPageContent />
+      <CinematicWorkFeed />
     </BlueprintLayout>
   )
 }

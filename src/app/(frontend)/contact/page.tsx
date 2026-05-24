@@ -6,6 +6,7 @@ import { ShineButton } from '@/components/ui/ShineButton'
 import { FadeOnLoad, FadeOnScroll, SubtleLabel } from '../about/AboutPageAnimations'
 import ContactClient from './ContactClient'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { CalendlyEmbed } from '@/components/CalendlyEmbed'
 
 export const metadata: Metadata = {
   title: 'Contact The Coast',
@@ -153,6 +154,32 @@ export default function ContactPage() {
                 </div>
               ))}
             </FadeOnLoad>
+          </div>
+        </section>
+
+        <SectionBoundary />
+
+        {/* ─── Book a call (Calendly) ────────────────────────────────────────── */}
+        <section id="book-a-call" className="py-16 md:py-24" aria-labelledby="book-a-call-heading">
+          <div className="max-w-6xl mx-auto px-6 md:px-12">
+            <FadeOnScroll className="mb-10">
+              <span className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary block mb-3">
+                Skip the form
+              </span>
+              <h2
+                id="book-a-call-heading"
+                className="text-heading text-3xl md:text-4xl text-foreground max-w-2xl"
+              >
+                Pick a time. Talk to David in 30 minutes.
+              </h2>
+              <p className="text-body text-muted-foreground text-sm md:text-base leading-relaxed mt-4 max-w-2xl">
+                Bring a brief, a wild idea, or a half-finished moodboard. We&apos;ll tell you
+                if we&apos;re the right studio for it before the call ends.
+              </p>
+            </FadeOnScroll>
+            <FadeOnScroll delay={0.1}>
+              <CalendlyEmbed height="720px" />
+            </FadeOnScroll>
           </div>
         </section>
 

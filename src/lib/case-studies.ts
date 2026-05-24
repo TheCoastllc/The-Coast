@@ -1,41 +1,288 @@
 // Single source of truth for all case study pages.
+//
 // To publish a new case study:
 //   1. Add an entry below with ready: false and build the page component
 //   2. Flip ready: true when the page is done
 // That's it — sitemap, generateStaticParams, metadata (noindex), and llms.txt all update automatically.
+//
+// Two render styles supported:
+//   - style: 'custom'    → uses a hand-built React component (e.g. ZappedCoPage)
+//   - style: 'cinematic' → uses CinematicCaseStudy (palette / moments / motion / stats / stack / live)
+
+export interface Moment {
+  image: string
+  caption: string
+}
+export interface Stat {
+  value: string
+  label: string
+}
+
 export interface CaseStudyMeta {
   title: string
   description: string
   /** true = published and indexed; false = under construction (noindex) */
   ready: boolean
+  /** Render style. Defaults to 'custom' for backwards compatibility. */
+  style?: 'custom' | 'cinematic'
+
+  // ── Rich data used by the 'cinematic' renderer ──
+  client?: string          // 'TROI Trading & Tech'
+  tagline?: string         // '1-line headline for the case study hero'
+  category?: string        // 'Trading & AI'
+  role?: string[]
+  year?: number
+  color?: string           // brand color hex
+  textColor?: string       // foreground color when card uses `color` as bg
+  liveUrl?: string
+  stack?: string[]
+  palette?: string[]
+  moments?: Moment[]
+  stats?: Stat[]
+  summary?: string         // long-form description for listings
 }
 
 export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
+  // ─────────────────────────────────────────────────────────────
+  // Cinematic case studies (Coast Studio designed + built)
+  // ─────────────────────────────────────────────────────────────
+  troi: {
+    title: 'TROI Trading & Tech — Brand & Site | The Coast',
+    description:
+      'Brand site for John Dunham — U.S. Army vet running mentorship for traders and AI for business owners. Includes a 10-card testimonial deck and a /studio template system.',
+    ready: true,
+    style: 'cinematic',
+    client: 'TROI Trading & Tech',
+    tagline: 'A live-mentorship brand for traders and AI operators.',
+    category: 'Trading & AI',
+    role: ['Brand', 'Design', 'Development', 'CMS', 'Motion'],
+    year: 2026,
+    color: '#18061e',
+    textColor: '#f6f1e8',
+    liveUrl: 'https://troitradingandtech.com',
+    stack: ['Astro', 'GSAP', 'Lenis', 'Sanity', 'Vercel'],
+    palette: ['#18061e', '#D4A843', '#221030', '#f6f1e8', '#9a7a1e'],
+    moments: [
+      { image: '/portfolio/troi/moment-hero.jpg', caption: 'Hero — Build wealth with discipline' },
+      { image: '/portfolio/troi/moment-paths.jpg', caption: 'Dual-path — trader & operator' },
+      { image: '/portfolio/troi/moment-deck.jpg', caption: 'Playing-card testimonial deck' },
+      { image: '/portfolio/troi/moment-studio.jpg', caption: 'Studio — 32 branded templates' },
+    ],
+    stats: [
+      { value: '10', label: 'Testimonials' },
+      { value: '32', label: 'Studio templates' },
+      { value: '6+', label: 'Years running' },
+      { value: '2', label: 'Audiences' },
+    ],
+    summary:
+      "Full brand site for John Dunham — U.S. Army vet running mentorship for traders and AI for business owners. Includes a 10-card testimonial deck and a /studio template system that generates branded social posts, flyers, and ads.",
+  },
+
+  kando: {
+    title: 'Kando Elite Health — Brand & Site | The Coast',
+    description:
+      'Brand and site for a concierge healthcare practice — refined, exclusive, high-touch. Dusty-rose mauve on warm cream.',
+    ready: true,
+    style: 'cinematic',
+    client: 'Kando Elite Health',
+    tagline: 'Graceful care, exclusively yours.',
+    category: 'Healthcare',
+    role: ['Brand', 'Design', 'Development'],
+    year: 2026,
+    color: '#6B4C5A',
+    textColor: '#FAF6EC',
+    liveUrl: 'https://kandoelitehealth.com',
+    stack: ['Design', 'Development', 'Brand'],
+    palette: ['#6B4C5A', '#FAF6EC', '#3A2620', '#1f1b17'],
+    moments: [
+      { image: '/portfolio/kando/moment-hero.jpg', caption: 'Hero — graceful care' },
+      { image: '/portfolio/kando/moment-services.jpg', caption: 'Services overview' },
+      { image: '/portfolio/kando/moment-about.jpg', caption: 'Practice intro' },
+      { image: '/portfolio/kando/moment-contact.jpg', caption: 'Booking flow' },
+    ],
+    stats: [
+      { value: 'Private', label: 'Practice tier' },
+      { value: 'Concierge', label: 'Care model' },
+      { value: '1:1', label: 'Patient relationship' },
+    ],
+    summary:
+      'Brand and site for a concierge healthcare practice — refined, exclusive, high-touch. Dusty-rose mauve on warm cream signals luxury and discretion without shouting.',
+  },
+
+  'solomon-katsman': {
+    title: 'Solomon Katsman — Wealth Strategist Site | The Coast',
+    description:
+      'Wealth strategist site for taxable-income mitigation — Defined Benefit plans and exit-stage structures for high-earning business owners.',
+    ready: true,
+    style: 'cinematic',
+    client: 'Solomon Katsman',
+    tagline: 'Tax strategy for founders earning $400K–$5M annually.',
+    category: 'Finance',
+    role: ['Brand', 'Design', 'Development'],
+    year: 2026,
+    color: '#0C1B2A',
+    textColor: '#C9A55C',
+    liveUrl: 'https://solomonkatsman.com',
+    stack: ['Design', 'Development', 'Brand'],
+    palette: ['#0C1B2A', '#C9A55C', '#142840', '#F1ECDF', '#B8893A'],
+    moments: [
+      { image: '/portfolio/solomon-katsman/moment-hero.jpg', caption: 'Hero — strategic positioning' },
+      { image: '/portfolio/solomon-katsman/moment-quarterly.jpg', caption: 'Katsman Quarterly' },
+      { image: '/portfolio/solomon-katsman/moment-brochure.jpg', caption: 'Practice brochure' },
+      { image: '/portfolio/solomon-katsman/moment-cta.jpg', caption: 'Referral call to action' },
+    ],
+    stats: [
+      { value: '$400K–$5M', label: 'Target client income' },
+      { value: 'Referral', label: 'Practice access' },
+      { value: 'DB Plans', label: 'Core vehicle' },
+    ],
+    summary:
+      "Wealth strategist site for taxable-income mitigation — Defined Benefit plans and exit-stage structures for high-earning business owners. Referral-only practice via Alpha Innovation Partners.",
+  },
+
+  'omotunde-hospital': {
+    title: 'Omotunde Hospital — Healthcare Brand | The Coast',
+    description:
+      'Healthcare brand and site for a Nigerian hospital — warm rust + navy palette signals trust without sterility.',
+    ready: true,
+    style: 'cinematic',
+    client: 'Omotunde Hospital',
+    tagline: 'A Lagos-rooted healthcare brand built on warmth.',
+    category: 'Healthcare',
+    role: ['Brand', 'Design', 'Development'],
+    year: 2026,
+    color: '#b94a2a',
+    textColor: '#ffe2b5',
+    liveUrl: 'https://omotundehospital.org',
+    stack: ['WordPress', 'Custom theme', 'Brand'],
+    palette: ['#b94a2a', '#0a0e25', '#ffe2b5', '#f5a85a', '#a83622'],
+    moments: [
+      { image: '/portfolio/omotunde-hospital/moment-hero.jpg', caption: 'Hero — Lagos hospital' },
+      { image: '/portfolio/omotunde-hospital/moment-services.jpg', caption: 'Services grid' },
+      { image: '/portfolio/omotunde-hospital/moment-doctors.jpg', caption: 'Care team' },
+      { image: '/portfolio/omotunde-hospital/moment-contact.jpg', caption: 'Visit + contact' },
+    ],
+    stats: [
+      { value: 'Lagos', label: 'Region' },
+      { value: 'Multi-service', label: 'Care offering' },
+      { value: 'Warm', label: 'Brand temperature' },
+    ],
+    summary:
+      'Healthcare brand and site for a Nigerian hospital — warm rust + navy palette signals trust without sterility.',
+  },
+
+  'iamd-health': {
+    title: 'iAMD Health — Clinical Brand | The Coast',
+    description:
+      'Healthcare practice site with a deep-blue + cream palette — calm, trustworthy, considered. Built for patient confidence.',
+    ready: true,
+    style: 'cinematic',
+    client: 'iAMD Health',
+    tagline: 'A clinical practice brand built on reassurance.',
+    category: 'Healthcare',
+    role: ['Brand', 'Design', 'Development'],
+    year: 2026,
+    color: '#1F3554',
+    textColor: '#F0EAD6',
+    liveUrl: 'https://iamdhealth.org',
+    stack: ['Web', 'Brand'],
+    palette: ['#1F3554', '#F0EAD6', '#7A92B8'],
+    moments: [
+      { image: '/portfolio/iamd-health/moment-hero.jpg', caption: 'Hero — clinical reassurance' },
+      { image: '/portfolio/iamd-health/moment-services.jpg', caption: 'Services overview' },
+      { image: '/portfolio/iamd-health/moment-about.jpg', caption: 'Practice overview' },
+      { image: '/portfolio/iamd-health/moment-contact.jpg', caption: 'Booking flow' },
+    ],
+    stats: [
+      { value: 'Clinical', label: 'Tone' },
+      { value: 'Calm', label: 'Color register' },
+      { value: 'Patient-first', label: 'Design lens' },
+    ],
+    summary:
+      'Healthcare practice site with a deep-blue + cream palette — calm, trustworthy, considered. Built for patient confidence.',
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // Existing custom case studies (preserved)
+  // ─────────────────────────────────────────────────────────────
   zappedco: {
     title: 'Zapped Co — Brand Transformation | The Coast',
     description:
       'Complete brand identity transformation for Zapped Co — from DIY lightning bolt to a dynamic, modern visual system across 15+ deliverables.',
     ready: true,
+    style: 'custom',
+    client: 'Zapped Co',
+    tagline: 'Brand transformation across 15+ deliverables.',
+    category: 'Brand',
+    year: 2025,
+    color: '#00fa11',
+    textColor: '#0d0d0d',
   },
   'amg-records': {
     title: 'AMG Records — Brand Identity | The Coast',
     description: 'A bold visual identity for a record label pushing boundaries in sound and culture.',
     ready: false,
+    style: 'custom',
+    client: 'AMG Records',
+    tagline: 'A bold identity for a label pushing the sound.',
+    category: 'Brand',
+    year: 2026,
+    color: '#b91c1c',
+    textColor: '#fafafa',
   },
   ogaticket: {
     title: 'OgaTicket — Web Development | The Coast',
     description: "End-to-end digital platform for Africa's next-gen event ticketing experience.",
     ready: false,
+    style: 'custom',
+    client: 'OgaTicket',
+    tagline: "Africa's next-gen event ticketing platform.",
+    category: 'Development',
+    year: 2026,
+    color: '#0d5c63',
+    textColor: '#f5f5f5',
   },
   'hatch-startup-nation': {
     title: 'Hatch Startup Nation — Brand Identity | The Coast',
     description: 'Crafting the identity for an incubator nurturing the next wave of founders.',
     ready: false,
+    style: 'custom',
+    client: 'Hatch Startup Nation',
+    tagline: 'Identity for an incubator backing founders.',
+    category: 'Brand',
+    year: 2026,
+    color: '#1e3a8a',
+    textColor: '#fafafa',
   },
   prospry: {
     title: 'Prospry — Brand Identity | The Coast',
     description: 'A clean, prosperous visual system for a fintech brand built on trust.',
     ready: false,
+    style: 'custom',
+    client: 'Prospry',
+    tagline: 'A clean visual system for a fintech built on trust.',
+    category: 'Brand',
+    year: 2026,
+    color: '#15803d',
+    textColor: '#fafafa',
   },
-  // Add new case studies here — set ready: true to publish and include in sitemap
+}
+
+// Canonical list of project IDs in display order (Coast Studio cinematic projects first).
+export const CASE_STUDY_ORDER = [
+  'troi',
+  'kando',
+  'solomon-katsman',
+  'zappedco',
+  'omotunde-hospital',
+  'iamd-health',
+  'amg-records',
+  'ogaticket',
+  'hatch-startup-nation',
+  'prospry',
+] as const
+
+// Helper: list projects for the work feed, with ready ones first.
+export function listProjects() {
+  return CASE_STUDY_ORDER.map((id) => ({ id, ...CASE_STUDIES[id] })).filter(Boolean)
 }

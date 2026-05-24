@@ -38,7 +38,42 @@ export const TrustedBy: GlobalConfig = {
           type: 'text',
           required: true,
           admin: {
-            description: 'Brand name. Shown as a fallback if no logo is provided.',
+            description: 'Brand name. Shown as a typographic wordmark by default.',
+          },
+        },
+        {
+          name: 'wordmark',
+          type: 'text',
+          required: false,
+          admin: {
+            description:
+              'Optional display override (e.g. abbreviated form). Leave blank to use the name as-is.',
+          },
+        },
+        {
+          name: 'category',
+          type: 'text',
+          required: false,
+          admin: {
+            description:
+              'Short descriptor of the work, shown as a mono tag. Example: "BRANDING · WEB".',
+          },
+        },
+        {
+          name: 'year',
+          type: 'number',
+          required: false,
+          admin: {
+            description: 'Year of engagement (or most recent collaboration).',
+          },
+        },
+        {
+          name: 'caseStudySlug',
+          type: 'text',
+          required: false,
+          admin: {
+            description:
+              'If set, the card links to /work/[slug]. Matches an entry in src/lib/case-studies.ts.',
           },
         },
         {
@@ -48,7 +83,7 @@ export const TrustedBy: GlobalConfig = {
           required: false,
           admin: {
             description:
-              'Optional logo image. Prefer transparent PNG or SVG. Will be rendered at a consistent height.',
+              'Optional logo image. Kept for backwards compatibility — the TrustedLedger redesign prefers typographic wordmarks.',
           },
         },
         {
@@ -56,7 +91,7 @@ export const TrustedBy: GlobalConfig = {
           type: 'text',
           required: false,
           admin: {
-            description: 'Optional link to the brand website.',
+            description: 'Optional external link to the brand website.',
           },
         },
         { name: 'published', type: 'checkbox', defaultValue: true },

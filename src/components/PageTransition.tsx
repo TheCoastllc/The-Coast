@@ -175,6 +175,11 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         setIsTransitioning(false)
         setTargetRoute(null)
         pendingHref.current = null
+        // A11y: move focus to the new page's main landmark so screen readers
+        // + keyboard users land on fresh content, not somewhere stale.
+        // preventScroll because GSAP already restored scroll position.
+        const main = document.getElementById('content')
+        if (main) main.focus({ preventScroll: true })
       },
     })
 

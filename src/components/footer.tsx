@@ -101,6 +101,34 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 					</div>
 				</div>
 
+				{/* ─── W16: Display-type lockup ───
+				    Giant outlined "THE COAST" wordmark anchors the footer.
+				    Visible on default footer only (minimal variant keeps the
+				    older minimal layout for shared subsite pages). */}
+				{!isMinimal && (
+					<div className="relative -mx-4 mt-12 overflow-hidden border-t border-[var(--hairline)]">
+						<div className="relative mx-auto max-w-6xl px-4 py-12">
+							<div className="mb-8 flex items-end justify-between">
+								<span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--gold)]/70">
+									[ The studio ]
+								</span>
+								<span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--fg-subtle)]">
+									Built in Dallas · Working globally
+								</span>
+							</div>
+							<h2
+								aria-hidden="true"
+								className="text-outline font-display select-none uppercase leading-[0.85] tracking-tighter"
+								style={{
+									fontSize: 'clamp(4rem, 16vw, 14rem)',
+								}}
+							>
+								The Coast
+							</h2>
+						</div>
+					</div>
+				)}
+
 				{!isMinimal && (
 					<>
 						{/* Bottom horizontal divider + DecorIcons */}
@@ -116,7 +144,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 
 				<div className={cn("flex px-4 flex-col items-center justify-between gap-2 py-4 sm:flex-row", !isMinimal && "max-w-6xl")}>
 					<p className="font-light text-muted-foreground text-sm">
-						&copy; {new Date().getFullYear()} The Coast LLC, All rights reserved
+						&copy; {new Date().getFullYear()} The Coast LLC. All rights reserved.
 					</p>
 					<div className="flex gap-4">
 						<FooterLink href="/privacy" isMinimal={isMinimal} className="text-xs text-muted-foreground hover:underline">Privacy Policy</FooterLink>

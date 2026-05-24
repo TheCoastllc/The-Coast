@@ -54,7 +54,7 @@ export default buildConfig({
     },
   },
   email: resendAdapter({
-    defaultFromAddress: 'dev@admin.coastglobal.org',
+    defaultFromAddress: process.env.RESEND_FROM || 'dev@admin.coastglobal.org',
     defaultFromName: 'The Coast',
     apiKey: process.env.RESEND_API_KEY || '',
   }),

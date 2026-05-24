@@ -1,49 +1,36 @@
-import { DecorIcon } from '@/components/ui/decor-icon'
-import { FullWidthDivider } from '@/components/ui/full-width-divider'
 import { getPayloadClient } from '@/lib/payload-client'
-import { LogosSectionGrid, type TrustedBrand } from '@/components/logos-section-grid'
+import { TrustedLedger, type LedgerBrand } from '@/components/TrustedLedger'
+import { TRUSTED_BRANDS_FALLBACK } from '@/lib/trusted-brands-fallback'
 
-async function getBrands(): Promise<TrustedBrand[]> {
+/**
+ * Fetches the Payload `trusted-by` global. Returns the hardcoded fallback
+ * list when Payload is empty (fresh installs, local dev) so the section
+ * always has something to render.
+ */
+async function getBrands(): Promise<LedgerBrand[]> {
   try {
     const payload = await getPayloadClient()
     const data = await payload.findGlobal({ slug: 'trusted-by' })
     const items = (data.items ?? []).filter((item) => item.published)
 
-    return items.map((item, idx) => {
-      const logo = typeof item.logo === 'object' && item.logo !== null ? item.logo : null
-      return {
-        id: String(item.id ?? idx),
-        name: item.name,
-        logoUrl: logo?.url ?? null,
-        logoAlt: logo?.alt ?? item.name,
-        url: item.url ?? null,
-      }
-    })
+    if (items.length === 0) return TRUSTED_BRANDS_FALLBACK
+
+    return items.map((item, idx): LedgerBrand => ({
+      id: String(item.id ?? idx),
+      name: item.name,
+      wordmark: (item as any).wordmark ?? undefined,
+      category: (item as any).category ?? undefined,
+      year: (item as any).year ?? undefined,
+      caseStudySlug: (item as any).caseStudySlug ?? undefined,
+      url: item.url ?? undefined,
+    }))
   } catch {
-    return []
+    // Payload not ready / not connected — show the fallback rather than nothing.
+    return TRUSTED_BRANDS_FALLBACK
   }
 }
 
 export async function LogosSection() {
   const brands = await getBrands()
-
-  if (brands.length === 0) return null
-
-  return (
-    <section className="mb-12">
-      <h2 className="py-6 text-center font-medium text-lg text-muted-foreground tracking-tight md:text-xl">
-        Trusted by <span className="text-foreground">industry leaders</span>
-      </h2>
-      <div className="relative">
-        <DecorIcon className="size-4" position="top-left" />
-        <DecorIcon className="size-4" position="top-right" />
-        <DecorIcon className="size-4" position="bottom-left" />
-        <DecorIcon className="size-4" position="bottom-right" />
-
-        <FullWidthDivider className="-top-px" />
-        <LogosSectionGrid items={brands} />
-        <FullWidthDivider className="-bottom-px" />
-      </div>
-    </section>
-  )
+  return <TrustedLedger brands={brands} />
 }

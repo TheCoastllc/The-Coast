@@ -1024,15 +1024,31 @@ export interface TrustedBy {
   items?:
     | {
         /**
-         * Brand name. Shown as a fallback if no logo is provided.
+         * Brand name. Shown as a typographic wordmark by default.
          */
         name: string;
         /**
-         * Optional logo image. Prefer transparent PNG or SVG. Will be rendered at a consistent height.
+         * Optional display override (e.g. abbreviated form). Leave blank to use the name as-is.
+         */
+        wordmark?: string | null;
+        /**
+         * Short descriptor of the work, shown as a mono tag. Example: "BRANDING · WEB".
+         */
+        category?: string | null;
+        /**
+         * Year of engagement (or most recent collaboration).
+         */
+        year?: number | null;
+        /**
+         * If set, the card links to /work/[slug]. Matches an entry in src/lib/case-studies.ts.
+         */
+        caseStudySlug?: string | null;
+        /**
+         * Optional logo image. Kept for backwards compatibility — the TrustedLedger redesign prefers typographic wordmarks.
          */
         logo?: (number | null) | Media;
         /**
-         * Optional link to the brand website.
+         * Optional external link to the brand website.
          */
         url?: string | null;
         published?: boolean | null;
@@ -1091,6 +1107,10 @@ export interface TrustedBySelect<T extends boolean = true> {
     | T
     | {
         name?: T;
+        wordmark?: T;
+        category?: T;
+        year?: T;
+        caseStudySlug?: T;
         logo?: T;
         url?: T;
         published?: T;

@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { AnimatedSectionLabel, AnimatedSectionHeading, FadeIn } from './AnimationWrappers'
 import { ContactForm } from './ContactForm'
+import { CalendlyButton } from '@/components/CalendlyButton'
 
 export default function Contact() {
   return (
@@ -29,10 +30,16 @@ export default function Contact() {
               hello@coastglobal.org
               <ArrowUpRight className="w-8 h-8 group-hover:rotate-45 transition-transform duration-300 text-primary" />
             </a>
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col gap-6">
               <a href="tel:+16827020374" className="text-white/70 hover:text-primary transition-colors text-sm font-mono uppercase tracking-wider">
                 +1 (682) 702-0374
               </a>
+              <div className="pt-6 border-t border-white/10">
+                <p className="text-white/40 text-xs uppercase tracking-[0.2em] font-mono mb-4">
+                  Or skip the form
+                </p>
+                <CalendlyButton size="sm">Book a 30-min call</CalendlyButton>
+              </div>
             </div>
           </FadeIn>
 
