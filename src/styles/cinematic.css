@@ -1,19 +1,25 @@
 /* =====================================================
-   Coast Studio — Cinematic Work + Case Study styles
+   Cinematic Work + Case Study styles
    Imported only by /work and /work/{slug} routes.
+   Brand-aligned with the-coast: black canvas, gold accent.
+   Fonts (Anton, Inter, JetBrains Mono) come from the root layout's
+   next/font load — no @import url needed here.
    ===================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 /* ── Local CSS variables (don't leak into rest of site) ── */
 .cinematic {
-  --cs-bg: #0d0d0d;
-  --cs-bg-2: #161616;
-  --cs-fg: #f6f1e8;
+  --cs-bg: #0a0a0a;
+  --cs-bg-2: #141414;
+  --cs-fg: #f5f1e8;
   --cs-fg-2: #cdc7bb;
   --cs-muted: #8a8780;
-  --cs-accent: #FF5C28;
-  --cs-line: rgba(246, 241, 232, 0.12);
+  --cs-accent: #C9A24B;                /* the-coast gold (matches --primary) */
+  --cs-accent-soft: rgba(201, 162, 75, 0.15);
+  --cs-line: rgba(245, 241, 232, 0.12);
+  --cs-font-display: var(--font-anton), 'Anton', 'Arial Black', sans-serif;
+  --cs-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
   /* Reset the surrounding-site theme inside this scope */
   background: var(--cs-bg);
@@ -84,7 +90,7 @@
   margin-bottom: 22px;
 }
 .cs-work-hero h1 {
-  font-family: 'Big Shoulders Display', sans-serif;
+  font-family: var(--cs-font-display);
   font-weight: 900;
   font-size: clamp(60px, 9vw, 160px);
   line-height: 0.9;
@@ -94,8 +100,8 @@
   max-width: 1300px;
 }
 .cs-work-hero h1 em {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  
   font-weight: 500;
   text-transform: none;
   color: var(--cs-accent);
@@ -103,8 +109,8 @@
 }
 .cs-work-hero .sub {
   margin-top: 28px;
-  font-family: 'Fraunces', serif;
-  font-style: italic;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  
   font-weight: 400;
   font-size: clamp(20px, 2vw, 28px);
   color: var(--cs-fg-2);
@@ -154,7 +160,7 @@
   opacity: 0.7;
 }
 .cs-takeover-section h3 {
-  font-family: 'Big Shoulders Display', sans-serif;
+  font-family: var(--cs-font-display);
   font-weight: 700;
   font-size: clamp(48px, 6.5vw, 110px);
   line-height: 0.92;
@@ -164,8 +170,8 @@
   margin: 0;
 }
 .cs-takeover-section .tagline {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  
   font-weight: 400;
   font-size: clamp(20px, 1.8vw, 30px);
   margin-top: 22px;
@@ -306,7 +312,7 @@
   margin-bottom: 28px;
 }
 .cs-case-h1 {
-  font-family: 'Big Shoulders Display', sans-serif;
+  font-family: var(--cs-font-display);
   font-weight: 900;
   font-size: clamp(72px, 11vw, 200px);
   line-height: 0.88;
@@ -509,7 +515,7 @@
 }
 .cs-case-stat:last-child { border-right: 0; }
 .cs-case-stat-value {
-  font-family: 'Big Shoulders Display', sans-serif;
+  font-family: var(--cs-font-display);
   font-weight: 900;
   font-size: clamp(56px, 6vw, 96px);
   line-height: 0.9;
@@ -558,7 +564,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Big Shoulders Display', sans-serif;
+  font-family: var(--cs-font-display);
   font-weight: 700;
   font-size: clamp(40px, 5.5vw, 96px);
   line-height: 1;
@@ -603,7 +609,7 @@
   margin-bottom: 36px;
 }
 .cs-case-next-name {
-  font-family: 'Big Shoulders Display', sans-serif;
+  font-family: var(--cs-font-display);
   font-weight: 900;
   font-size: clamp(54px, 8vw, 140px);
   line-height: 0.92;
@@ -637,4 +643,245 @@
   .cs-case-stats-grid { grid-template-columns: 1fr; }
   .cs-case-stat { border-right: 0; border-bottom: 1px solid var(--cs-line); }
   .cs-case-stat:last-child { border-bottom: 0; }
+}
+
+/* =====================================================
+   Page color wash — subtle brand-color bleed at top of case study
+   ===================================================== */
+.cs-case-page-wash {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1400px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 80% 100% at 50% 0%,
+    color-mix(in srgb, var(--case-bg, #18061e) 35%, transparent) 0%,
+    transparent 70%
+  );
+  opacity: 0.8;
+}
+.cs-case > * { position: relative; z-index: 1; }
+.cs-case > .cs-case-page-wash { z-index: 0; }
+
+/* =====================================================
+   Sticky section nav
+   ===================================================== */
+.cs-case-nav {
+  position: sticky;
+  top: 14px;
+  z-index: 50;
+  margin: 20px auto 0;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 0 16px;
+}
+.cs-case-nav-inner {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  background: rgba(10, 10, 10, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--cs-line);
+  border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+.cs-case-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 100px;
+  font-family: var(--cs-font-mono);
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--cs-fg-2);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.cs-case-nav-link:hover { color: var(--cs-fg); }
+.cs-case-nav-link.is-active {
+  background: var(--cs-accent);
+  color: var(--cs-bg);
+}
+.cs-case-nav-num {
+  font-weight: 600;
+  opacity: 0.7;
+}
+.cs-case-nav-link.is-active .cs-case-nav-num { opacity: 0.65; }
+
+@media (max-width: 720px) {
+  .cs-case-nav-link .cs-case-nav-label { display: none; }
+  .cs-case-nav-link { padding: 8px 12px; }
+}
+
+/* =====================================================
+   UI moments — clickable button (lightbox trigger)
+   ===================================================== */
+.cs-case-moment-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+}
+.cs-case-moment-button:focus-visible {
+  outline: 2px solid var(--cs-accent);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+.cs-case-moment-frame { position: relative; }
+.cs-case-moment-zoom {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 10, 10, 0.7);
+  color: var(--cs-fg);
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.3s, transform 0.3s;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.cs-case-moment-button:hover .cs-case-moment-zoom,
+.cs-case-moment-button:focus-visible .cs-case-moment-zoom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   Lightbox modal
+   ===================================================== */
+.cs-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(8, 8, 8, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  padding: 64px 32px 100px;
+  cursor: zoom-out;
+}
+.cs-lightbox-img {
+  max-width: min(1400px, 95vw);
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.75);
+  cursor: default;
+  display: block;
+}
+.cs-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--cs-line);
+  background: rgba(20, 20, 20, 0.8);
+  color: var(--cs-fg);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+.cs-lightbox-close:hover {
+  background: var(--cs-accent);
+  border-color: var(--cs-accent);
+  color: var(--cs-bg);
+}
+.cs-lightbox-cap {
+  position: absolute;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 18px;
+  font-family: var(--cs-font-mono);
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--cs-fg);
+}
+.cs-lightbox-cap-num { color: var(--cs-muted); }
+.cs-lightbox-nav {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+}
+.cs-lightbox-nav button {
+  background: rgba(20, 20, 20, 0.7);
+  color: var(--cs-fg-2);
+  border: 1px solid var(--cs-line);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-family: var(--cs-font-mono);
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.cs-lightbox-nav button:hover {
+  background: var(--cs-accent);
+  color: var(--cs-bg);
+  border-color: var(--cs-accent);
+}
+
+/* =====================================================
+   Placeholder tile polish (in-progress projects on /work)
+   ===================================================== */
+.cs-takeover-section.placeholder .text .num,
+.cs-takeover-section.placeholder .text h3 {
+  opacity: 0.92;
+}
+.cs-takeover-section.placeholder .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 6px 14px;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+  font-family: var(--cs-font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.cs-takeover-section.placeholder .badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+  animation: cs-pulse 2.2s ease-in-out infinite;
+}
+@keyframes cs-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.18); }
 }

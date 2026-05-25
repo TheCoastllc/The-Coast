@@ -220,39 +220,63 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   },
   'amg-records': {
     title: 'AMG Records — Brand Identity | The Coast',
-    description: 'A bold visual identity for a record label pushing boundaries in sound and culture.',
-    ready: false,
-    style: 'custom',
+    description:
+      'Black-and-gold identity for a record label. Restrained, serious, made for artists who take the work seriously.',
+    ready: true,
+    style: 'cinematic',
     client: 'AMG Records',
-    tagline: 'A bold identity for a label pushing the sound.',
-    category: 'Brand',
+    tagline: 'A black-and-gold identity for a label that takes the work seriously.',
+    category: 'Music · Brand',
+    role: ['Brand', 'Logo system', 'Web design'],
     year: 2026,
-    color: '#b91c1c',
-    textColor: '#fafafa',
+    color: '#0a0a0c',
+    textColor: '#C9A24B',
+    liveUrl: 'https://www.amgrecord.com',
+    stack: ['Web', 'Brand', 'Logo system'],
+    palette: ['#0a0a0c', '#C9A24B', '#1a1a1a', '#f5f5f5'],
+    moments: [
+      { image: '/portfolio/amg-records/moment-hero.jpg', caption: 'Hero — label identity' },
+      { image: '/portfolio/amg-records/moment-roster.jpg', caption: 'Artist roster' },
+      { image: '/portfolio/amg-records/moment-releases.jpg', caption: 'Latest releases' },
+      { image: '/portfolio/amg-records/moment-contact.jpg', caption: 'Submissions / contact' },
+    ],
+    stats: [
+      { value: 'Black', label: 'Identity base' },
+      { value: 'Gold', label: 'Accent system' },
+      { value: 'Music', label: 'Category' },
+    ],
+    summary:
+      'Identity and site for a record label that needed to look as serious as the music. Black-and-gold palette, condensed type, restrained motion.',
   },
   ogaticket: {
     title: 'OgaTicket — Web Development | The Coast',
-    description: "End-to-end digital platform for Africa's next-gen event ticketing experience.",
-    ready: false,
-    style: 'custom',
+    description:
+      "End-to-end digital platform for Africa's next-gen event ticketing experience.",
+    ready: true,
+    style: 'cinematic',
     client: 'OgaTicket',
     tagline: "Africa's next-gen event ticketing platform.",
     category: 'Development',
+    role: ['Brand', 'Design', 'Development', 'Product'],
     year: 2026,
-    color: '#0d5c63',
-    textColor: '#f5f5f5',
-  },
-  'hatch-startup-nation': {
-    title: 'Hatch Startup Nation — Brand Identity | The Coast',
-    description: 'Crafting the identity for an incubator nurturing the next wave of founders.',
-    ready: false,
-    style: 'custom',
-    client: 'Hatch Startup Nation',
-    tagline: 'Identity for an incubator backing founders.',
-    category: 'Brand',
-    year: 2026,
-    color: '#1e3a8a',
-    textColor: '#fafafa',
+    color: '#F97316',
+    textColor: '#FFFFFF',
+    liveUrl: 'https://ogaticket.com',
+    stack: ['Web', 'Payments', 'Custom build'],
+    palette: ['#F97316', '#25292E', '#FFFFFF', '#FFD641'],
+    moments: [
+      { image: '/portfolio/ogaticket/moment-hero.jpg', caption: 'Hero — discover events' },
+      { image: '/portfolio/ogaticket/moment-events.jpg', caption: 'Event listings' },
+      { image: '/portfolio/ogaticket/moment-checkout.jpg', caption: 'Ticket checkout' },
+      { image: '/portfolio/ogaticket/moment-organizers.jpg', caption: 'For organizers' },
+    ],
+    stats: [
+      { value: 'Africa', label: 'Built for' },
+      { value: 'Events', label: 'Category' },
+      { value: 'Payments', label: 'Core flow' },
+    ],
+    summary:
+      'End-to-end ticketing platform built for the African events market — fast checkout, organizer tools, and a brand that holds up under scale.',
   },
   prospry: {
     title: 'Prospry — Brand Identity | The Coast',
@@ -268,17 +292,18 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   },
 }
 
-// Canonical list of project IDs in display order (Coast Studio cinematic projects first).
+// Canonical list of project IDs in display order.
+// Order: cinematic ready projects first (TROI showcase, then by recency),
+// then custom-style (Zapped Co), then under-construction at the end.
 export const CASE_STUDY_ORDER = [
   'troi',
   'kando',
   'solomon-katsman',
-  'zappedco',
-  'omotunde-hospital',
-  'iamd-health',
   'amg-records',
   'ogaticket',
-  'hatch-startup-nation',
+  'omotunde-hospital',
+  'iamd-health',
+  'zappedco',
   'prospry',
 ] as const
 

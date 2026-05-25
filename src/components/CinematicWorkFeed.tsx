@@ -72,9 +72,6 @@ export default function CinematicWorkFeed() {
     <div ref={rootRef} className="cinematic">
       {/* Hero */}
       <section className="cs-work-hero" data-reveal>
-        <div className="label">
-          Selected work · {ready.length} live · {placeholders.length} in progress · {year}
-        </div>
         <h1>
           Selected <em>work.</em>
         </h1>
@@ -82,13 +79,6 @@ export default function CinematicWorkFeed() {
           Brand transformations, cinematic web builds, and AI systems for ambitious operators and
           founders.
         </p>
-        <div className="meta">
-          <span>
-            <strong>{ordered.length}</strong> projects
-          </span>
-          <span>The Coast</span>
-          <span>↓ Scroll</span>
-        </div>
       </section>
 
       {/* Cinematic sections — ready projects */}
@@ -179,9 +169,7 @@ export default function CinematicWorkFeed() {
               </div>
               <h3>{p.client || p.id}</h3>
               {p.tagline && <div className="tagline">{p.tagline}</div>}
-              <div className="roles">
-                <span>Coming soon</span>
-              </div>
+              <div className="badge">In progress</div>
               <div className="cta-row">
                 <Link href={`/work/${p.id}`} className="cta cta-secondary">
                   Preview →
