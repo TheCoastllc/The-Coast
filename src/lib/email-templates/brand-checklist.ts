@@ -10,7 +10,7 @@ export function buildChecklistUserEmail(score: number, band: Band, counts: Check
     scoreBlock({ score, total: 50, color: info.color, badge: info.label }),
     `<div style="text-align:center;padding:24px 0;">
       <span style="color:#28A77A;font-weight:600;margin:0 12px;">${counts.yes} Yes</span>
-      <span style="color:#C9A24B;font-weight:600;margin:0 12px;">${counts.part} Partial</span>
+      <span style="color:#E6B24D;font-weight:600;margin:0 12px;">${counts.part} Partial</span>
       <span style="color:#D94F3D;font-weight:600;margin:0 12px;">${counts.no} No</span>
     </div>`,
     paragraph(info.description),

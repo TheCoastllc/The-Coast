@@ -12,7 +12,7 @@ export function ProgressBar({
   return (
     <div className={cn('h-1 w-full bg-white/[0.06] overflow-hidden', className)}>
       <div
-        className="h-full bg-[#C9A24B] transition-all duration-500 ease-out"
+        className="h-full bg-[#E6B24D] transition-all duration-500 ease-out"
         style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
       />
     </div>

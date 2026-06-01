@@ -53,7 +53,7 @@ const AnimatedNumber = ({
   }, [inView, target])
 
   return (
-    <span className="text-display text-5xl md:text-7xl lg:text-8xl tabular-nums" style={{ color: '#C9A24B' }}>
+    <span className="text-display text-5xl md:text-7xl lg:text-8xl tabular-nums" style={{ color: '#E6B24D' }}>
       {count}
       {suffix}
     </span>

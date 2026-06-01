@@ -37,7 +37,7 @@ export default function PortalSidebar({ collapsed, onToggle, onSignOut }: Portal
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen bg-[#0a0a0a] border-r border-border/40 transition-all duration-300 flex flex-col',
+        'fixed left-0 top-0 z-40 h-screen bg-[#0A0C12] border-r border-border/40 transition-all duration-300 flex flex-col',
         collapsed ? 'w-16' : 'w-64'
       )}
     >

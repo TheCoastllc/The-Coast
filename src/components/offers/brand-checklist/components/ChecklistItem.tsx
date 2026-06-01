@@ -6,7 +6,7 @@ import { Check, Minus, X } from 'lucide-react'
 
 const options: { value: CheckValue; label: string; icon: typeof Check; activeColor: string }[] = [
   { value: 'yes', label: 'Yes', icon: Check, activeColor: '#28A77A' },
-  { value: 'part', label: 'Part', icon: Minus, activeColor: '#C9A24B' },
+  { value: 'part', label: 'Part', icon: Minus, activeColor: '#E6B24D' },
   { value: 'no', label: 'No', icon: X, activeColor: '#D94F3D' },
 ]
 
@@ -27,7 +27,7 @@ export function ChecklistItem({
       className={cn(
         'flex items-start gap-4 py-4 px-5 border-b border-white/[0.04] transition-colors',
         current === 'yes' && 'bg-[#28A77A]/[0.03]',
-        current === 'part' && 'bg-[#C9A24B]/[0.03]',
+        current === 'part' && 'bg-[#E6B24D]/[0.03]',
         current === 'no' && 'bg-[#D94F3D]/[0.03]',
       )}
     >

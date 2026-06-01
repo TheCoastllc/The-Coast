@@ -18,7 +18,7 @@ export function OffersCTA({
         </p>
         <a
           href="https://coastglobal.org/get-started"
-          className="inline-flex items-center gap-2.5 bg-[#C9A24B] text-[#0D1117] px-7 py-3 text-sm font-semibold tracking-wide rounded-sm hover:bg-[#C9A24B]/90 transition-colors"
+          className="inline-flex items-center gap-2.5 bg-[#E6B24D] text-[#0A0C12] px-7 py-3 text-sm font-semibold tracking-wide rounded-sm hover:bg-[#E6B24D]/90 transition-colors"
         >
           Get Your Free Brand Audit
           <ArrowRight className="w-4 h-4" />

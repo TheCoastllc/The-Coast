@@ -30,7 +30,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Mobile header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 h-14 bg-[#0a0a0a] border-b border-border/40 flex items-center px-4">
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 h-14 bg-[#0A0C12] border-b border-border/40 flex items-center px-4">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="p-2 rounded-lg hover:bg-muted/50 transition-colors text-muted-foreground"

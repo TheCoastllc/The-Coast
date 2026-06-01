@@ -17,7 +17,7 @@ export function IntakeScreen() {
     form.name.trim().length > 0 && form.brand.trim().length > 0 && form.website.trim().length > 0
 
   return (
-    <div className="min-h-screen bg-[#070F11] text-white font-sans overflow-auto">
+    <div className="min-h-screen bg-[#06080C] text-white font-sans overflow-auto">
       <div className="max-w-[420px] mx-auto px-8 flex flex-col justify-center min-h-screen">
         <button
           onClick={() => dispatch({ type: 'SET_PHASE', phase: 'hero' })}
@@ -26,7 +26,7 @@ export function IntakeScreen() {
           ← Back
         </button>
 
-        <div className="text-[10px] tracking-[4px] text-[#C9A24B] uppercase font-semibold mb-8">
+        <div className="text-[10px] tracking-[4px] text-[#E6B24D] uppercase font-semibold mb-8">
           Step 1 of 3
         </div>
 
@@ -40,7 +40,7 @@ export function IntakeScreen() {
                 value={form[field.key]}
                 type={field.type ?? 'text'}
                 onChange={(e) => dispatch({ type: 'UPDATE_FORM', patch: { [field.key]: e.target.value } })}
-                className="w-full py-3.5 bg-transparent border-0 border-b border-white/25 text-white text-[17px] font-light outline-none tracking-[0.3px] focus:border-[#C9A24B] transition-colors"
+                className="w-full py-3.5 bg-transparent border-0 border-b border-white/25 text-white text-[17px] font-light outline-none tracking-[0.3px] focus:border-[#E6B24D] transition-colors"
               />
             </div>
           ))}
@@ -51,7 +51,7 @@ export function IntakeScreen() {
           disabled={!ready}
           className={`mt-12 w-full px-12 py-4 border text-xs font-bold tracking-[3px] uppercase transition-colors ${
             ready
-              ? 'border-[#C9A24B] text-[#C9A24B] cursor-pointer hover:bg-[#C9A24B] hover:text-[#070F11]'
+              ? 'border-[#E6B24D] text-[#E6B24D] cursor-pointer hover:bg-[#E6B24D] hover:text-[#06080C]'
               : 'border-white/15 text-white/30 cursor-default'
           }`}
         >

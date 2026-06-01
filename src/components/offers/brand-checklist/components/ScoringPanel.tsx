@@ -22,7 +22,7 @@ export function ScoringPanel() {
           <span className="text-white/30 text-[10px] uppercase tracking-wider">Yes</span>
         </div>
         <div className="flex flex-col gap-0.5">
-          <span className="text-[#C9A24B] text-xl font-bold tabular-nums">{derived.partCount}</span>
+          <span className="text-[#E6B24D] text-xl font-bold tabular-nums">{derived.partCount}</span>
           <span className="text-white/30 text-[10px] uppercase tracking-wider">Partial</span>
         </div>
         <div className="flex flex-col gap-0.5">

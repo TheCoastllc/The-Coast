@@ -20,7 +20,7 @@ export const bands: Record<Band, BandInfo> = {
     range: '21\u201335',
     description:
       "You have recognisable strengths alongside real gaps. These inconsistencies are likely costing you trust and revenue \u2014 they're fixable with the right framework.",
-    color: '#C9A24B',
+    color: '#E6B24D',
   },
   critical: {
     label: 'Critical Gaps',

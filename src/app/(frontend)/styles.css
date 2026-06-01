@@ -12,7 +12,7 @@
   --popover: oklch(0.12 0 0);
   --popover-foreground: oklch(0.95 0 0);
 
-  /* Gold primary: #C9A24B */
+  /* Gold primary: #E6B24D */
   --primary: oklch(0.72 0.12 75);
   --primary-foreground: oklch(0.1 0 0);
 
@@ -337,7 +337,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #C9A24B;
+    background: #E6B24D;
   }
 
   ::selection {
@@ -419,18 +419,18 @@
   }
 
   .text-outline-gold {
-    -webkit-text-stroke: 2px #C9A24B;
+    -webkit-text-stroke: 2px #E6B24D;
     -webkit-text-fill-color: transparent;
   }
 
   @media (min-width: 768px) {
     .text-outline-gold {
-      -webkit-text-stroke: 3px #C9A24B;
+      -webkit-text-stroke: 3px #E6B24D;
     }
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #C9A24B 0%, #e8c973 50%, #C9A24B 100%);
+    background: linear-gradient(135deg, #E6B24D 0%, #e8c973 50%, #E6B24D 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -534,7 +534,7 @@
 }
 
 .prose a:hover {
-  color: #C9A24B;
+  color: #E6B24D;
 }
 
 .prose blockquote {
@@ -888,4 +888,31 @@ body.ocean {
 body.ocean .surface-floor,
 body.ocean main {
   background: transparent;
+}
+
+/* Re-map A's Tailwind theme tokens to the ocean palette (frontend only, via
+   body.ocean). A's utilities resolve through these plain :root vars, so this
+   recolors the token-driven majority of the UI in one move — without touching
+   the Payload /admin panel (which never loads this stylesheet). */
+body.ocean {
+  --background: #0a0c12;
+  --foreground: #edeff2;
+  --card: #12161d;
+  --card-foreground: #edeff2;
+  --popover: #12161d;
+  --popover-foreground: #edeff2;
+  --primary: #e6b24d; /* lamp-gold (was #E6B24D) */
+  --primary-foreground: #0a0c12;
+  --secondary: #1a2230;
+  --secondary-foreground: #edeff2;
+  --muted: #161c27;
+  --muted-foreground: #aab2bc;
+  --accent: #1a2230;
+  --accent-foreground: #edeff2;
+  --border: rgba(237, 239, 242, 0.1);
+  --input: rgba(237, 239, 242, 0.12);
+  --ring: #7fd3c7; /* teal focus ring */
+  --gold: 42 75% 60%;
+  --gold-dark: 42 60% 45%;
+  --surface: #12161d;
 }

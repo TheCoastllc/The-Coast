@@ -16,7 +16,7 @@ export function CategoryStepScreen() {
   const isLast = currentCategory === categories.length - 1
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0D1117] text-white">
+    <div className="min-h-screen flex flex-col bg-[#0A0C12] text-white">
       <ScoreDock />
 
       {/* Step progress */}
@@ -29,7 +29,7 @@ export function CategoryStepScreen() {
             Pillar {currentCategory + 1} of {categories.length}
           </p>
           <div className="flex items-baseline gap-3 mb-2">
-            <span className="text-[#C9A24B]/40 text-sm font-mono">{cat.num}</span>
+            <span className="text-[#E6B24D]/40 text-sm font-mono">{cat.num}</span>
             <h2 className="text-xl md:text-2xl font-semibold tracking-tight">{cat.name}</h2>
           </div>
           <p className="text-white/30 text-xs">
@@ -45,7 +45,7 @@ export function CategoryStepScreen() {
             <span className="w-2 h-2 rounded-full bg-[#28A77A]" /> Yes = 2 pts
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#C9A24B]" /> Partially = 1 pt
+            <span className="w-2 h-2 rounded-full bg-[#E6B24D]" /> Partially = 1 pt
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-[#D94F3D]" /> No = 0 pts
@@ -90,7 +90,7 @@ export function CategoryStepScreen() {
             className={cn(
               'inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-sm transition-all',
               derived.categoryComplete
-                ? 'bg-[#C9A24B] text-[#0D1117] hover:bg-[#C9A24B]/90'
+                ? 'bg-[#E6B24D] text-[#0A0C12] hover:bg-[#E6B24D]/90'
                 : 'bg-white/[0.06] text-white/20 cursor-not-allowed',
             )}
           >

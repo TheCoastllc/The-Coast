@@ -8,15 +8,15 @@ export function EmailSection() {
 
   if (submitted) {
     return (
-      <section className="bg-[#0D1117] flex flex-col justify-center items-center px-6 py-16 text-center">
-        <p className="text-[#C9A24B] text-xs tracking-[0.3em] uppercase mb-4">Sent</p>
+      <section className="bg-[#0A0C12] flex flex-col justify-center items-center px-6 py-16 text-center">
+        <p className="text-[#E6B24D] text-xs tracking-[0.3em] uppercase mb-4">Sent</p>
         <p className="text-white/50 text-sm">Check your inbox for your results and recommendations.</p>
       </section>
     )
   }
 
   return (
-    <section className="bg-[#0D1117] flex flex-col justify-center items-center px-6 py-20 text-center">
+    <section className="bg-[#0A0C12] flex flex-col justify-center items-center px-6 py-20 text-center">
       <EmailCapture
         tool="3-second-test"
         heading="Get your brand assessment delivered"

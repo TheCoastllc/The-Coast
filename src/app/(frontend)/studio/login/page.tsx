@@ -54,7 +54,7 @@ export default async function StudioLoginPage({
             fontSize: '11px',
             letterSpacing: '2px',
             textTransform: 'uppercase',
-            color: '#C9A24B',
+            color: '#E6B24D',
             marginBottom: '20px',
           }}
         >
@@ -77,7 +77,7 @@ export default async function StudioLoginPage({
             style={{
               fontStyle: 'italic',
               fontWeight: 300,
-              color: '#C9A24B',
+              color: '#E6B24D',
             }}
           >
             password.
@@ -160,7 +160,7 @@ export default async function StudioLoginPage({
               marginTop: '24px',
               width: '100%',
               padding: '16px 22px',
-              background: '#C9A24B',
+              background: '#E6B24D',
               color: '#0a0a0c',
               fontFamily:
                 "'JetBrains Mono', ui-monospace, SFMono-Regular, monospace",
@@ -190,7 +190,7 @@ export default async function StudioLoginPage({
             color: 'rgba(240, 234, 214, 0.4)',
           }}
         >
-          <a href="/" style={{ color: '#C9A24B', textDecoration: 'none' }}>
+          <a href="/" style={{ color: '#E6B24D', textDecoration: 'none' }}>
             ← Back to coastglobal.org
           </a>
         </div>

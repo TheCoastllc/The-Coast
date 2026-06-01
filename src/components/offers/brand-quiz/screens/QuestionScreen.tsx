@@ -14,7 +14,7 @@ export function QuestionScreen() {
   const progress = ((currentQuestion + (selectedAnswer !== null ? 1 : 0)) / questions.length) * 100
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0D1117]">
+    <div className="min-h-screen flex flex-col bg-[#0A0C12]">
       {/* Progress */}
       <ProgressBar progress={progress} className="fixed top-0 left-0 right-0 z-50 bg-white/[0.06]" />
 

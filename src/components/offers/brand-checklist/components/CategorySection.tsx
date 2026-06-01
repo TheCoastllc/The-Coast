@@ -19,7 +19,7 @@ export function CategorySection({
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-3 bg-white/[0.02] border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
-          <span className="text-[#C9A24B]/40 text-xs font-mono">{category.num}</span>
+          <span className="text-[#E6B24D]/40 text-xs font-mono">{category.num}</span>
           <span className="text-white text-sm font-medium tracking-wide">{category.name}</span>
         </div>
         <div className="flex gap-6 text-[10px] text-white/20 uppercase tracking-wider">

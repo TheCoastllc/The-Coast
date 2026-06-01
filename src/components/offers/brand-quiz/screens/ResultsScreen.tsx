@@ -14,7 +14,7 @@ export function ResultsScreen() {
   const result = resultTiers[resultTier]
 
   return (
-    <div className="min-h-screen bg-[#0D1117] px-5 py-16 md:py-24">
+    <div className="min-h-screen bg-[#0A0C12] px-5 py-16 md:py-24">
       <div className="max-w-2xl mx-auto">
         {/* Badge + Score */}
         <div className="text-center mb-10">
@@ -60,7 +60,7 @@ export function ResultsScreen() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href="https://coastglobal.org/get-started"
-            className="inline-flex items-center gap-2.5 bg-[#C9A24B] text-[#0D1117] px-7 py-3 text-sm font-semibold tracking-wide rounded-sm hover:bg-[#C9A24B]/90 transition-colors"
+            className="inline-flex items-center gap-2.5 bg-[#E6B24D] text-[#0A0C12] px-7 py-3 text-sm font-semibold tracking-wide rounded-sm hover:bg-[#E6B24D]/90 transition-colors"
           >
             {result.cta}
             <ArrowRight className="w-4 h-4" />

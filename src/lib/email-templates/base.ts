@@ -17,8 +17,8 @@ export const BRAND = {
   url: 'https://coastglobal.org',
   email: 'hello@coastglobal.org',
   phone: '(682) 702-0374',
-  gold: '#C9A24B',
-  dark: '#0a0a0a',
+  gold: '#E6B24D',
+  dark: '#0A0C12',
   card: '#111111',
   ctaUrl: 'https://coastglobal.org/get-started',
   socials: {

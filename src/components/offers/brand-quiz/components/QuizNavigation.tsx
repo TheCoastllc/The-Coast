@@ -36,7 +36,7 @@ export function QuizNavigation({
         className={cn(
           'inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-sm transition-all',
           canGoForward
-            ? 'bg-[#C9A24B] text-[#0D1117] hover:bg-[#C9A24B]/90'
+            ? 'bg-[#E6B24D] text-[#0A0C12] hover:bg-[#E6B24D]/90'
             : 'bg-white/[0.06] text-white/20 cursor-not-allowed',
         )}
       >

@@ -17,7 +17,7 @@ export function OffersHeader() {
   const activePath = pathname?.replace('/offers-tools', '') || ''
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-[#0D1117]/90 backdrop-blur-md border-b border-white/[0.06]">
+    <header className="fixed inset-x-0 top-0 z-50 bg-[#0A0C12]/90 backdrop-blur-md border-b border-white/[0.06]">
       <div className="max-w-5xl mx-auto flex items-center justify-between h-14 px-5">
         {/* Left: Logo + back link */}
         <a
@@ -38,7 +38,7 @@ export function OffersHeader() {
               className={cn(
                 'px-3 py-1.5 text-xs tracking-wide rounded-md transition-colors',
                 activePath === link.href
-                  ? 'text-[#C9A24B] bg-[#C9A24B]/10'
+                  ? 'text-[#E6B24D] bg-[#E6B24D]/10'
                   : 'text-white/40 hover:text-white/70 hover:bg-white/[0.04]',
               )}
             >
@@ -50,7 +50,7 @@ export function OffersHeader() {
         {/* Right: CTA */}
         <a
           href="https://coastglobal.org/get-started"
-          className="hidden sm:flex items-center text-xs text-[#C9A24B] hover:text-[#C9A24B]/80 transition-colors font-medium tracking-wide"
+          className="hidden sm:flex items-center text-xs text-[#E6B24D] hover:text-[#E6B24D]/80 transition-colors font-medium tracking-wide"
         >
           Free Brand Audit
         </a>

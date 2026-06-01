@@ -10,12 +10,12 @@
 
 /* ── Local CSS variables (don't leak into rest of site) ── */
 .cinematic {
-  --cs-bg: #0a0a0a;
+  --cs-bg: #0A0C12;
   --cs-bg-2: #141414;
   --cs-fg: #f5f1e8;
   --cs-fg-2: #cdc7bb;
   --cs-muted: #8a8780;
-  --cs-accent: #C9A24B;                /* the-coast gold (matches --primary) */
+  --cs-accent: #E6B24D;                /* the-coast gold (matches --primary) */
   --cs-accent-soft: rgba(201, 162, 75, 0.15);
   --cs-line: rgba(245, 241, 232, 0.12);
   --cs-font-display: 'Editorial New', var(--font-anton), Georgia, serif;

@@ -124,7 +124,7 @@ export default function StudioPage() {
               fontSize: '11px',
               letterSpacing: '2px',
               textTransform: 'uppercase',
-              color: '#C9A24B',
+              color: '#E6B24D',
               marginBottom: '20px',
             }}
           >
@@ -145,7 +145,7 @@ export default function StudioPage() {
             <em
               style={{
                 fontStyle: 'italic',
-                color: '#C9A24B',
+                color: '#E6B24D',
                 fontWeight: 300,
               }}
             >
@@ -162,9 +162,9 @@ export default function StudioPage() {
             }}
           >
             Cinematic scroll videos and full asset bundles for every live
-            Coast case study. Each project ships both <strong style={{color:'#C9A24B'}}>.mp4</strong>{' '}
+            Coast case study. Each project ships both <strong style={{color:'#E6B24D'}}>.mp4</strong>{' '}
             (universal — Premiere, Final Cut, iMovie, social uploads) and{' '}
-            <strong style={{color:'#C9A24B'}}>.webm</strong> (smaller, web embeds).
+            <strong style={{color:'#E6B24D'}}>.webm</strong> (smaller, web embeds).
             Use the per-file download buttons. {totalVideos} videos available.
           </p>
 
@@ -190,7 +190,7 @@ export default function StudioPage() {
                   padding: '8px 14px',
                   border: '1px solid rgba(201, 162, 75, 0.3)',
                   borderRadius: '999px',
-                  color: '#C9A24B',
+                  color: '#E6B24D',
                   textDecoration: 'none',
                   background: 'rgba(201, 162, 75, 0.04)',
                 }}
@@ -223,11 +223,11 @@ export default function StudioPage() {
           }}
         >
           Internal use only · The Coast ·{' '}
-          <a href="/work" style={{ color: '#C9A24B' }}>
+          <a href="/work" style={{ color: '#E6B24D' }}>
             ← Back to /work
           </a>
           {' · '}
-          <a href="/studio/logout" style={{ color: '#C9A24B' }}>
+          <a href="/studio/logout" style={{ color: '#E6B24D' }}>
             Sign out
           </a>
         </footer>
@@ -247,7 +247,7 @@ function ProjectCard({
 }) {
   const { id, meta, files, mp4Href, mp4Size, webmHref, webmSize, previewHref } =
     project
-  const brand = meta.color ?? '#C9A24B'
+  const brand = meta.color ?? '#E6B24D'
 
   return (
     <section
@@ -276,7 +276,7 @@ function ProjectCard({
           marginBottom: '20px',
         }}
       >
-        <span style={{ color: '#C9A24B' }}>
+        <span style={{ color: '#E6B24D' }}>
           {String(index + 1).padStart(2, '0')}
         </span>
         <span>{meta.category}</span>
@@ -353,7 +353,7 @@ function ProjectCard({
                 alignItems: 'center',
                 gap: '10px',
                 padding: '14px 22px',
-                background: '#C9A24B',
+                background: '#E6B24D',
                 color: '#0a0a0c',
                 fontFamily:
                   "'JetBrains Mono', ui-monospace, SFMono-Regular, monospace",
@@ -380,7 +380,7 @@ function ProjectCard({
                 gap: '10px',
                 padding: '10px 22px',
                 background: 'transparent',
-                color: '#C9A24B',
+                color: '#E6B24D',
                 fontFamily:
                   "'JetBrains Mono', ui-monospace, SFMono-Regular, monospace",
                 fontSize: '11px',
@@ -512,7 +512,7 @@ function ProjectCard({
                       width: '6px',
                       height: '6px',
                       background:
-                        f.kind === 'video' ? '#C9A24B' : 'rgba(240,234,214,0.4)',
+                        f.kind === 'video' ? '#E6B24D' : 'rgba(240,234,214,0.4)',
                       borderRadius: '50%',
                       marginRight: '10px',
                       verticalAlign: 'middle',
@@ -540,7 +540,7 @@ function ProjectCard({
                     fontSize: '10px',
                     letterSpacing: '1.5px',
                     textTransform: 'uppercase',
-                    color: '#C9A24B',
+                    color: '#E6B24D',
                     textDecoration: 'none',
                     padding: '6px 12px',
                     border: '1px solid rgba(201, 162, 75, 0.3)',

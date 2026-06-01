@@ -4,21 +4,21 @@ import { useCbi } from '../CbiContext'
 import { WAVE_SCALE } from '../data/waves'
 import { WaveRow } from '../components/WaveRow'
 
-const BRAND_GOLD = '#C9A24B'
+const BRAND_GOLD = '#E6B24D'
 
 export function HeroScreen() {
   const { dispatch } = useCbi()
   const go = () => dispatch({ type: 'SET_PHASE', phase: 'intake' })
 
   return (
-    <div className="min-h-screen bg-[#070F11] overflow-auto font-sans text-white">
+    <div className="min-h-screen bg-[#06080C] overflow-auto font-sans text-white">
       <div className="flex items-center justify-between max-w-[900px] mx-auto px-8 py-6">
         <span className="text-[11px] font-bold tracking-[5px] text-white/60 uppercase">
           The Coast
         </span>
         <button
           onClick={go}
-          className="text-[11px] font-bold tracking-[2px] uppercase text-[#C9A24B] hover:text-[#C9A24B]/80 transition-colors"
+          className="text-[11px] font-bold tracking-[2px] uppercase text-[#E6B24D] hover:text-[#E6B24D]/80 transition-colors"
         >
           Get Your Score
         </button>
@@ -44,7 +44,7 @@ export function HeroScreen() {
 
         <button
           onClick={go}
-          className="mt-12 px-12 py-4 border border-[#C9A24B] text-[#C9A24B] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#C9A24B] hover:text-[#070F11]"
+          className="mt-12 px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
         >
           Get Your Free Score
         </button>
@@ -107,7 +107,7 @@ export function HeroScreen() {
       <div className="text-center px-8 pt-16 pb-12">
         <button
           onClick={go}
-          className="px-12 py-4 border border-[#C9A24B] text-[#C9A24B] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#C9A24B] hover:text-[#070F11]"
+          className="px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
         >
           Get Your Free Score
         </button>

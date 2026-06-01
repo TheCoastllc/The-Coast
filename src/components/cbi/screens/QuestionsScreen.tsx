@@ -22,7 +22,7 @@ export function QuestionsScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-[#070F11] text-white font-sans overflow-auto relative">
+    <div className="min-h-screen bg-[#06080C] text-white font-sans overflow-auto relative">
       <div className="fixed top-7 left-0 right-0 flex justify-center gap-3 z-10">
         {questions.map((_, i) => (
           <div
@@ -34,7 +34,7 @@ export function QuestionsScreen() {
             )}
             style={{
               background:
-                i < qIdx ? '#C9A24B' : i === qIdx ? 'rgba(201,162,75,0.65)' : 'rgba(255,255,255,0.2)',
+                i < qIdx ? '#E6B24D' : i === qIdx ? 'rgba(201,162,75,0.65)' : 'rgba(255,255,255,0.2)',
             }}
           />
         ))}
@@ -47,7 +47,7 @@ export function QuestionsScreen() {
         <div className="text-[10px] tracking-[4px] text-white/55 uppercase font-semibold mb-2">
           Pillar {q.num}
         </div>
-        <div className="text-[10px] tracking-[3px] text-[#C9A24B] uppercase font-semibold mb-9">
+        <div className="text-[10px] tracking-[3px] text-[#E6B24D] uppercase font-semibold mb-9">
           {q.pillar}
         </div>
 
@@ -63,7 +63,7 @@ export function QuestionsScreen() {
                 className={cn(
                   'w-full px-5 py-4 text-left text-sm font-normal leading-[1.5] transition-all border-l-2',
                   isSel
-                    ? 'bg-[#C9A24B]/15 border-[#C9A24B] text-white'
+                    ? 'bg-[#E6B24D]/15 border-[#E6B24D] text-white'
                     : 'bg-transparent border-transparent text-white/70 hover:text-white/95',
                 )}
               >

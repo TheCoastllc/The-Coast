@@ -57,7 +57,7 @@ export function ResultsScreen() {
   const weakest = pillars.reduce((min, p) => (p.score < min.score ? p : min), pillars[0])
 
   return (
-    <div className="min-h-screen bg-[#070F11] text-white font-sans overflow-auto">
+    <div className="min-h-screen bg-[#06080C] text-white font-sans overflow-auto">
       <section className="flex flex-col items-center justify-center text-center min-h-[75vh] px-8 pt-16">
         <motion.div
           initial={{ opacity: 0 }}
@@ -298,7 +298,7 @@ export function ResultsScreen() {
 
           <a
             href="https://coastglobal.org/get-started"
-            className="inline-block px-12 py-4 border border-[#C9A24B] text-[#C9A24B] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#C9A24B] hover:text-[#070F11]"
+            className="inline-block px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
           >
             Get the Full Report
           </a>

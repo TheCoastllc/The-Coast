@@ -12,7 +12,7 @@ type EmailCaptureProps = {
 }
 
 const inputClass =
-  'w-full bg-white/[0.04] border border-white/10 text-white text-sm px-4 py-3 rounded-sm placeholder:text-white/25 focus:outline-none focus:border-[#C9A24B]/40 disabled:opacity-50'
+  'w-full bg-white/[0.04] border border-white/10 text-white text-sm px-4 py-3 rounded-sm placeholder:text-white/25 focus:outline-none focus:border-[#E6B24D]/40 disabled:opacity-50'
 
 export function EmailCapture({
   tool,
@@ -50,7 +50,7 @@ export function EmailCapture({
 
   return (
     <div className="max-w-md w-full text-center">
-      <p className="text-[#C9A24B] text-xs tracking-[0.3em] uppercase mb-6">
+      <p className="text-[#E6B24D] text-xs tracking-[0.3em] uppercase mb-6">
         Almost There
       </p>
       <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mb-4">
@@ -100,7 +100,7 @@ export function EmailCapture({
           <button
             onClick={handleSubmit}
             disabled={!canSubmit || submitting}
-            className="bg-[#C9A24B] text-[#0D1117] px-5 py-3 text-sm font-semibold rounded-sm hover:bg-[#C9A24B]/90 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-[#E6B24D] text-[#0A0C12] px-5 py-3 text-sm font-semibold rounded-sm hover:bg-[#E6B24D]/90 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {submitting ? (
               <>

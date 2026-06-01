@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react'
 
 export function CTASection() {
   return (
-    <section className="min-h-[70vh] bg-[#0D1117] flex flex-col justify-center items-center px-6 md:px-16 py-20 text-center relative overflow-hidden">
+    <section className="min-h-[70vh] bg-[#0A0C12] flex flex-col justify-center items-center px-6 md:px-16 py-20 text-center relative overflow-hidden">
       {/* Decorative gradient */}
       <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(201,162,75,0.06)_0%,transparent_70%)] pointer-events-none" />
 
@@ -17,7 +17,7 @@ export function CTASection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="https://coastglobal.org/get-started"
-            className="inline-flex items-center justify-center gap-2.5 bg-[#C9A24B] text-[#0D1117] px-8 py-4 text-sm font-bold tracking-wide rounded-sm hover:bg-[#C9A24B]/90 transition-colors shadow-[0_4px_20px_rgba(201,162,75,0.25)]"
+            className="inline-flex items-center justify-center gap-2.5 bg-[#E6B24D] text-[#0A0C12] px-8 py-4 text-sm font-bold tracking-wide rounded-sm hover:bg-[#E6B24D]/90 transition-colors shadow-[0_4px_20px_rgba(201,162,75,0.25)]"
           >
             Get Your Free Brand Audit
             <ArrowRight className="w-4 h-4" />

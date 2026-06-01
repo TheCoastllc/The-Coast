@@ -42,7 +42,7 @@ export const resultTiers: Record<ResultTier, ResultData> = {
       "Visual identity that's close \u2014 but not quite locked in",
     ],
     cta: 'Get Your Free Brand Audit',
-    color: '#C9A24B',
+    color: '#E6B24D',
   },
   established: {
     badge: 'ESTABLISHED BRAND',

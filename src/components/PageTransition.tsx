@@ -233,7 +233,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                 left: `${i * (100 / BAR_COUNT)}%`,
                 // Adding + 2px physically forces the panels to overlap and kills the gap
                 width: `calc(${100 / BAR_COUNT}% + 2px)`,
-                backgroundColor: '#0a0a0a',
+                backgroundColor: '#0A0C12',
                 transform: 'scaleY(0)',
                 transformOrigin: 'bottom center',
                 willChange: 'transform',

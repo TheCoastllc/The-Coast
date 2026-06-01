@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic'
 
 const CbiLanding = dynamic(() => import('@/components/cbi/CbiLanding'), {
   loading: () => (
-    <div className="min-h-screen bg-[#070F11] flex items-center justify-center">
-      <div className="w-6 h-6 border-2 border-[#C9A24B]/30 border-t-[#C9A24B] rounded-full animate-spin" />
+    <div className="min-h-screen bg-[#06080C] flex items-center justify-center">
+      <div className="w-6 h-6 border-2 border-[#E6B24D]/30 border-t-[#E6B24D] rounded-full animate-spin" />
     </div>
   ),
 })

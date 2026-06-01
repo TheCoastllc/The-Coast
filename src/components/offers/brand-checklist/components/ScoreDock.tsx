@@ -9,7 +9,7 @@ export function ScoreDock() {
   const band = derived.band ? bands[derived.band] : null
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-[#0D1117]/95 backdrop-blur-md border-b border-white/[0.06]">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-[#0A0C12]/95 backdrop-blur-md border-b border-white/[0.06]">
       <div className="max-w-4xl mx-auto flex items-center justify-between h-14 px-5">
         {/* Score */}
         <div className="flex items-center gap-3">

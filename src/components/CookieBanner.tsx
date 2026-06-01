@@ -119,7 +119,7 @@ export function CookieBanner() {
             aria-label="Cookie consent"
             className="fixed bottom-4 left-4 right-4 z-100 md:left-6 md:right-auto md:max-w-md"
           >
-            <div className="relative rounded-2xl border border-white/10 bg-[#0D1117]/95 p-5 shadow-2xl backdrop-blur-md md:p-6">
+            <div className="relative rounded-2xl border border-white/10 bg-[#0A0C12]/95 p-5 shadow-2xl backdrop-blur-md md:p-6">
               <button
                 type="button"
                 onClick={() => handleChoice('denied')}
@@ -138,7 +138,7 @@ export function CookieBanner() {
                 visitors use our site. No cookies are set unless you accept. Read our{' '}
                 <Link
                   href="/privacy"
-                  className="text-[#C9A24B] underline underline-offset-2 hover:text-[#C9A24B]/80"
+                  className="text-[#E6B24D] underline underline-offset-2 hover:text-[#E6B24D]/80"
                 >
                   privacy policy
                 </Link>
@@ -156,7 +156,7 @@ export function CookieBanner() {
                 <button
                   type="button"
                   onClick={() => handleChoice('granted')}
-                  className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-[#C9A24B] px-4 text-sm font-medium text-[#0D1117] transition hover:bg-[#C9A24B]/90"
+                  className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-[#E6B24D] px-4 text-sm font-medium text-[#0A0C12] transition hover:bg-[#E6B24D]/90"
                 >
                   Accept
                 </button>

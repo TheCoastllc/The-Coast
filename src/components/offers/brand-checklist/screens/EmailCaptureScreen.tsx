@@ -7,7 +7,7 @@ export function EmailCaptureScreen() {
   const { derived, dispatch } = useChecklist()
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-5 bg-[#0D1117]">
+    <div className="min-h-screen flex items-center justify-center px-5 bg-[#0A0C12]">
       <EmailCapture
         tool="brand-checklist"
         heading="Get your detailed score breakdown"

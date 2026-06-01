@@ -11,7 +11,7 @@ const outcomes = [
     title: 'The viewer got mixed signals.',
     description:
       "Visuals said one thing, words said another, or the positioning was unclear. Confusion at the first impression stage is fatal \u2014 customers default to clarity, and if they can't find it with you, they'll find it with your competitor.",
-    color: '#C9A24B',
+    color: '#E6B24D',
   },
   {
     label: 'The Credible Brand',
@@ -24,9 +24,9 @@ const outcomes = [
 
 export function OutcomesSection() {
   return (
-    <section className="min-h-screen bg-[#0D1117] flex flex-col justify-center px-6 md:px-16 py-20">
+    <section className="min-h-screen bg-[#0A0C12] flex flex-col justify-center px-6 md:px-16 py-20">
       <div className="max-w-[760px] mx-auto w-full">
-        <span className="text-[#C9A24B] text-[11px] font-bold tracking-[0.2em] uppercase mb-6 block">
+        <span className="text-[#E6B24D] text-[11px] font-bold tracking-[0.2em] uppercase mb-6 block">
           What the Test Reveals
         </span>
         <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight tracking-tight mb-12">

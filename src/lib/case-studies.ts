@@ -230,10 +230,10 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     role: ['Brand', 'Logo system', 'Web design'],
     year: 2026,
     color: '#0a0a0c',
-    textColor: '#C9A24B',
+    textColor: '#E6B24D',
     liveUrl: 'https://www.amgrecord.com',
     stack: ['Web', 'Brand', 'Logo system'],
-    palette: ['#0a0a0c', '#C9A24B', '#1a1a1a', '#f5f5f5'],
+    palette: ['#0a0a0c', '#E6B24D', '#1a1a1a', '#f5f5f5'],
     moments: [
       { image: '/portfolio/amg-records/moment-hero.jpg', caption: 'Hero — label identity' },
       { image: '/portfolio/amg-records/moment-roster.jpg', caption: 'Artist roster' },

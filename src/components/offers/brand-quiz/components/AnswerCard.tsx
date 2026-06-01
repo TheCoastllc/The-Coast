@@ -19,7 +19,7 @@ export function AnswerCard({
       className={cn(
         'w-full text-left flex items-start gap-4 p-4 border rounded-sm transition-all duration-200',
         selected
-          ? 'border-[#C9A24B] bg-[#C9A24B]/[0.08]'
+          ? 'border-[#E6B24D] bg-[#E6B24D]/[0.08]'
           : 'border-white/[0.08] hover:border-white/20 bg-white/[0.03]',
       )}
     >
@@ -27,7 +27,7 @@ export function AnswerCard({
         className={cn(
           'shrink-0 w-7 h-7 flex items-center justify-center rounded-full text-xs font-semibold transition-colors',
           selected
-            ? 'bg-[#C9A24B] text-[#0D1117]'
+            ? 'bg-[#E6B24D] text-[#0A0C12]'
             : 'bg-white/[0.08] text-white/50',
         )}
       >

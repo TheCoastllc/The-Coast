@@ -7,7 +7,7 @@ export function IntroScreen() {
   const { dispatch } = useQuiz()
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-5 bg-[#0D1117] relative">
+    <div className="min-h-screen flex flex-col items-center justify-center px-5 bg-[#0A0C12] relative">
       <a
         href="/offers-tools"
         className="absolute top-6 left-6 inline-flex items-center gap-1.5 text-white/30 hover:text-white/60 text-xs transition-colors"
@@ -16,7 +16,7 @@ export function IntroScreen() {
         Back to Offers
       </a>
       <div className="max-w-lg text-center">
-        <p className="text-[#C9A24B] text-xs tracking-[0.3em] uppercase mb-6">
+        <p className="text-[#E6B24D] text-xs tracking-[0.3em] uppercase mb-6">
           10 Questions &middot; 60 Seconds &middot; Free
         </p>
         <h1 className="text-3xl md:text-5xl font-semibold text-white tracking-tight leading-tight mb-5">
@@ -29,7 +29,7 @@ export function IntroScreen() {
         </p>
         <button
           onClick={() => dispatch({ type: 'START' })}
-          className="inline-flex items-center gap-2.5 bg-[#C9A24B] text-[#0D1117] px-8 py-3.5 text-sm font-semibold tracking-wide rounded-sm hover:bg-[#C9A24B]/90 transition-colors"
+          className="inline-flex items-center gap-2.5 bg-[#E6B24D] text-[#0A0C12] px-8 py-3.5 text-sm font-semibold tracking-wide rounded-sm hover:bg-[#E6B24D]/90 transition-colors"
         >
           Start the Quiz
           <ArrowRight className="w-4 h-4" />

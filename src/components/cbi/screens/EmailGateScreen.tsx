@@ -36,7 +36,7 @@ export function EmailGateScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-[#070F11] text-white font-sans overflow-auto">
+    <div className="min-h-screen bg-[#06080C] text-white font-sans overflow-auto">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ export function EmailGateScreen() {
           autoFocus
           onKeyDown={(e) => e.key === 'Enter' && submit()}
           onChange={(e) => dispatch({ type: 'UPDATE_FORM', patch: { email: e.target.value } })}
-          className="w-full max-w-[320px] py-3.5 bg-transparent border-0 border-b border-white/25 text-white text-[17px] font-light outline-none text-center placeholder:text-white/30 focus:border-[#C9A24B] transition-colors"
+          className="w-full max-w-[320px] py-3.5 bg-transparent border-0 border-b border-white/25 text-white text-[17px] font-light outline-none text-center placeholder:text-white/30 focus:border-[#E6B24D] transition-colors"
         />
 
         <button
@@ -67,7 +67,7 @@ export function EmailGateScreen() {
           disabled={!ready || submitting}
           className={`mt-10 px-12 py-4 border text-xs font-bold tracking-[3px] uppercase transition-colors min-w-[220px] ${
             ready && !submitting
-              ? 'border-[#C9A24B] text-[#C9A24B] cursor-pointer hover:bg-[#C9A24B] hover:text-[#070F11]'
+              ? 'border-[#E6B24D] text-[#E6B24D] cursor-pointer hover:bg-[#E6B24D] hover:text-[#06080C]'
               : 'border-white/15 text-white/30 cursor-default'
           }`}
         >
