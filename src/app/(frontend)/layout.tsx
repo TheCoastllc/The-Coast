@@ -4,8 +4,12 @@ import type { Metadata } from 'next'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
-import CustomCursor from '@/components/CustomCursor'
 import Noise from '@/components/Noise'
+import { Cursor } from '@/components/chrome/Cursor'
+import { HUD } from '@/components/chrome/HUD'
+import { CompassRose } from '@/components/chrome/CompassRose'
+import { CardLampGlow } from '@/components/chrome/CardLampGlow'
+import { SeaParallax } from '@/components/chrome/SeaParallax'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { PageTransitionProvider } from '@/components/PageTransition'
@@ -159,7 +163,11 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             <Footer />
           </PageTransitionProvider>
         </QueryProvider>
-        <CustomCursor />
+        <HUD />
+        <CompassRose />
+        <Cursor />
+        <CardLampGlow />
+        <SeaParallax />
         <CookieBanner />
         <Toaster position="top-right" richColors />
       </body>
