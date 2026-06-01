@@ -10,6 +10,7 @@ import { HUD } from '@/components/chrome/HUD'
 import { CompassRose } from '@/components/chrome/CompassRose'
 import { CardLampGlow } from '@/components/chrome/CardLampGlow'
 import { SeaParallax } from '@/components/chrome/SeaParallax'
+import { LenisProvider } from '@/components/motion/LenisProvider'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { PageTransitionProvider } from '@/components/PageTransition'
@@ -168,6 +169,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <Cursor />
         <CardLampGlow />
         <SeaParallax />
+        <LenisProvider />
         <CookieBanner />
         <Toaster position="top-right" richColors />
       </body>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,9 +20,12 @@ if (typeof window !== "undefined") {
  *  - prefers-reduced-motion falls back to native scroll
  */
 export function LenisProvider() {
+  const pathname = usePathname();
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // App-like areas keep native scroll (forms, file lists, dashboards).
+    if (pathname && (pathname.startsWith("/portal") || pathname.startsWith("/studio"))) return;
 
     const lenis = new Lenis({
       lerp: 0.1,
@@ -42,7 +46,7 @@ export function LenisProvider() {
       lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
