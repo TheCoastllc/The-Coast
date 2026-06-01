@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Cancel older runs of the same branch — keep only the latest.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint & typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # ESLint config currently fails with a FlatCompat circular-ref under
+      # eslint 10. Non-blocking until the config is migrated to native flat
+      # config. Typecheck below IS blocking.
+      - name: Lint
+        run: bun run lint
+        continue-on-error: true
+
+      - name: Typecheck
+        run: bun run typecheck

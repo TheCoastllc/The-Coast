@@ -18,7 +18,7 @@
   --cs-accent: #C9A24B;                /* the-coast gold (matches --primary) */
   --cs-accent-soft: rgba(201, 162, 75, 0.15);
   --cs-line: rgba(245, 241, 232, 0.12);
-  --cs-font-display: var(--font-anton), 'Anton', 'Arial Black', sans-serif;
+  --cs-font-display: 'Editorial New', var(--font-anton), Georgia, serif;
   --cs-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
   /* Reset the surrounding-site theme inside this scope */
@@ -100,7 +100,7 @@
   max-width: 1300px;
 }
 .cs-work-hero h1 em {
-  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-family: var(--font-sans);
   
   font-weight: 500;
   text-transform: none;
@@ -109,7 +109,7 @@
 }
 .cs-work-hero .sub {
   margin-top: 28px;
-  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-family: var(--font-sans);
   
   font-weight: 400;
   font-size: clamp(20px, 2vw, 28px);
@@ -170,7 +170,7 @@
   margin: 0;
 }
 .cs-takeover-section .tagline {
-  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-family: var(--font-sans);
   
   font-weight: 400;
   font-size: clamp(20px, 1.8vw, 30px);

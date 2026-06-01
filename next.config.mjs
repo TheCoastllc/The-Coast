@@ -38,7 +38,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com; img-src 'self' data: blob: https://res.cloudinary.com https://storage.efferd.com https://lh3.googleusercontent.com https://*.calendly.com; media-src 'self' blob: https://stream.mux.com https://*.mux.com; font-src 'self' https://assets.calendly.com; connect-src 'self' https://www.google-analytics.com https://stream.mux.com https://*.mux.com https://featurable.com https://calendly.com https://*.calendly.com; frame-src 'self' https://calendly.com https://*.calendly.com; frame-ancestors 'self';",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://assets.calendly.com https://api.fontshare.com; img-src 'self' data: blob: https://res.cloudinary.com https://storage.efferd.com https://lh3.googleusercontent.com https://*.calendly.com; media-src 'self' blob: https://stream.mux.com https://*.mux.com; font-src 'self' https://assets.calendly.com https://cdn.fontshare.com https://api.fontshare.com; connect-src 'self' https://www.google-analytics.com https://stream.mux.com https://*.mux.com https://featurable.com https://calendly.com https://*.calendly.com; frame-src 'self' https://calendly.com https://*.calendly.com; frame-ancestors 'self';",
           },
         ],
       },

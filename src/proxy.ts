@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { STUDIO_COOKIE_NAME, verifyToken } from '@/lib/studio-auth'
 
 const SUBDOMAIN_MAP: Record<string, string> = {
   cbi: '/cbi',
@@ -19,9 +20,31 @@ const SECURITY_HEADERS = {
   'Referrer-Policy': 'strict-origin-when-cross-origin',
 }
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
   const { pathname } = request.nextUrl
+
+  // ── /studio gate ───────────────────────────────────────────────────────
+  // Internal download hub for the team. Anything under /studio requires a
+  // signed cookie; /studio/login and /studio/logout stay open so users can
+  // sign in / out.
+  if (
+    pathname === '/studio' ||
+    (pathname.startsWith('/studio/') &&
+      !pathname.startsWith('/studio/login') &&
+      !pathname.startsWith('/studio/logout'))
+  ) {
+    const token = request.cookies.get(STUDIO_COOKIE_NAME)?.value
+    const valid = await verifyToken(token)
+    if (!valid) {
+      const loginUrl = new URL('/studio/login', request.url)
+      loginUrl.searchParams.set(
+        'next',
+        request.nextUrl.pathname + request.nextUrl.search,
+      )
+      return NextResponse.redirect(loginUrl)
+    }
+  }
 
   const subdomain = Object.keys(SUBDOMAIN_MAP).find(
     (sub) =>
