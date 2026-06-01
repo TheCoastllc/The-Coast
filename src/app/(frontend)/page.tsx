@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
-import { HeroSection } from '@/components/hero'
+import { StoryHero } from '@/components/hero/StoryHero'
+import { StoryHeadline } from '@/components/hero/StoryHeadline'
 import { LogosSection } from '@/components/logos-section'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
@@ -117,10 +118,12 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }} />
-      {/* Hero area */}
-      <div className="relative flex min-h-screen flex-col overflow-hidden px-4 supports-[overflow:clip]:overflow-clip">
-        <div className="relative max-w-6xl mx-auto grow">
-          <HeroSection />
+      {/* Ocean boat-voyage hero: fixed StoryHero canvas (z:-1) + scrubbed headline + 300vh scroll runway */}
+      <StoryHero meet="reflect" />
+      <StoryHeadline />
+      <div className="relative z-[1] h-[300vh]" aria-hidden="true" />
+      <div className="relative z-[1] px-4">
+        <div className="max-w-6xl mx-auto">
           <LogosSection />
         </div>
       </div>

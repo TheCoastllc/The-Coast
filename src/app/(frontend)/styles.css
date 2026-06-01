@@ -878,3 +878,14 @@ body.ocean[data-premium~="lampglow"] .glass:hover::before { opacity: 1; }
 body.ocean[data-premium~="editorial"] :is(h1, h2, h3):not(.no-marble) {
   letter-spacing: -0.025em;
 }
+
+/* The ocean ground (global SeaBackdrop, fixed z:-2) + the homepage StoryHero
+   canvas (z:-1) show through: make the frontend body + A's opaque "floor"
+   transparent. Non-homepage pages still get the sea via the global SeaBackdrop. */
+body.ocean {
+  background: transparent;
+}
+body.ocean .surface-floor,
+body.ocean main {
+  background: transparent;
+}

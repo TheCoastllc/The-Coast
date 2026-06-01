@@ -178,7 +178,7 @@ export function StoryHero({ meet = "cross", boat = "rig" }: { meet?: MeetMode; b
   const active = useActiveByScroll(3); // freeze once content covers the fixed canvas
   const depth = usePremiumActive().has("depth"); // premium: a stronger bloom on the gold sun
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 0 }} aria-hidden>
+    <div style={{ position: "fixed", inset: 0, zIndex: -1 }} aria-hidden>
       <Canvas
         gl={{ antialias: q.tier !== "low", powerPreference: "high-performance" }}
         camera={{ position: [0, 2.6, 6.0], fov: 52, near: 0.1, far: 140 }}

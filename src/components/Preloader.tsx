@@ -109,6 +109,17 @@ export default function Preloader() {
     }
   }, [])
 
+  // Safety net: never let the intro permanently block the page (e.g. React
+  // StrictMode double-invoke in dev, or a stalled timeline behind the heavy
+  // R3F hero). Guarantees the overlay clears.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      document.body.style.overflow = ''
+      setDone(true)
+    }, 6500)
+    return () => clearTimeout(t)
+  }, [])
+
   if (done) return null
 
   return (

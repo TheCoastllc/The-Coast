@@ -12,6 +12,7 @@ import { PageTransitionProvider } from '@/components/PageTransition'
 import { CookieBanner } from '@/components/CookieBanner'
 import { Toaster } from 'sonner'
 import { PREMIUM_KEYS } from '@/lib/premium'
+import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -148,6 +149,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         />
       </head>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
+        <SeaBackdrop />
         <Preloader />
         <Noise />
         <QueryProvider>
