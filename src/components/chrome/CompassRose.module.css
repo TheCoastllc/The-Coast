@@ -1,0 +1,83 @@
+.wrap {
+  position: fixed;
+  right: 1.6rem;
+  bottom: 3rem;
+  z-index: var(--z-chrome);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  opacity: 0.85;
+}
+.rose {
+  width: 92px;
+  height: 92px;
+  overflow: visible;
+}
+.ringOuter {
+  fill: none;
+  stroke: var(--color-teal);
+  stroke-width: 0.8;
+  opacity: 0.4;
+}
+.ringInner {
+  fill: none;
+  stroke: var(--color-teal);
+  stroke-width: 0.6;
+  opacity: 0.2;
+}
+.tick {
+  stroke: var(--color-steel);
+  stroke-width: 0.8;
+  opacity: 0.5;
+}
+/* rotated via the SVG `transform` attribute (rotate around viewBox 0,0 = center);
+   no CSS transform here, or the pivot resolves to the svg's CSS box corner. */
+.rayL {
+  fill: var(--color-steel);
+  opacity: 0.45;
+}
+.rayR {
+  fill: var(--color-teal);
+  opacity: 0.55;
+}
+.rayNorthL {
+  fill: var(--color-accent);
+  opacity: 0.9;
+}
+.rayNorthR {
+  fill: var(--color-accent);
+  opacity: 0.6;
+}
+.cardinal {
+  fill: var(--color-teal);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  opacity: 0.75;
+}
+.hud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18rem;
+}
+.read {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: var(--color-steel);
+  white-space: nowrap;
+}
+@media (max-width: 820px) {
+  .wrap {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transform: none !important;
+  }
+}

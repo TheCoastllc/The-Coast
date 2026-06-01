@@ -1,0 +1,64 @@
+.top,
+.bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  padding: 1.5rem var(--hud-pad);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: var(--z-chrome);
+}
+
+.top {
+  top: var(--nav-h);
+  justify-content: flex-end;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-mono);
+}
+
+.gold {
+  color: var(--color-gold);
+  opacity: 0.85;
+}
+
+.dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 8px var(--color-gold);
+  margin-right: 0.6rem;
+  vertical-align: middle;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .top,
+  .bottom {
+    padding: 1rem;
+    font-size: 0.55rem;
+  }
+}

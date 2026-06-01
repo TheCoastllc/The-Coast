@@ -1,0 +1,72 @@
+/* a scroll-runway spacer - drives the fold + the fixed layer's fade */
+.section {
+  position: relative;
+  height: 150vh;
+}
+
+/* the boat + copy live in a FIXED full-viewport layer so they're never clipped;
+   opaque bg covers the frozen hero canvas; the footer (z1) scrolls up over it */
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--color-bg);
+  will-change: opacity;
+}
+
+.canvasWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12vh;
+  text-align: center;
+  pointer-events: none;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1.2rem;
+}
+
+.title {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  letter-spacing: -0.015em;
+  color: var(--color-white);
+  min-height: 1.3em;
+}
+
+/* the two halves of the tagline occupy the same spot and crossfade */
+.phraseA,
+.phraseB {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  will-change: opacity, transform, filter;
+}
+.phraseB {
+  opacity: 0;
+}
+
+.sub {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  margin-top: 1.4rem;
+}

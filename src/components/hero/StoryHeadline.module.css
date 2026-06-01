@@ -1,0 +1,71 @@
+.wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.stack {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* both phrases occupy the same cell so one morphs into the other */
+.phrase {
+  grid-area: 1 / 1;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.8rem, 9vw, 7.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  text-shadow: 0 0 52px rgba(219, 82, 39, 0.25), 0 0 100px rgba(2, 54, 97, 0.5);
+  will-change: opacity, transform, filter;
+  white-space: nowrap;
+}
+
+.phraseB {
+  opacity: 0;
+}
+
+/* the promise tagline - smaller, italic, wraps, holds as the finale */
+.phraseC {
+  opacity: 0;
+  font-size: clamp(1.7rem, 4.6vw, 3.7rem);
+  font-style: italic;
+  line-height: 1.12;
+  white-space: normal;
+  max-width: 18ch;
+  text-shadow: 0 0 48px rgba(219, 82, 39, 0.3), 0 0 90px rgba(2, 54, 97, 0.45);
+}
+
+.cue {
+  position: absolute;
+  bottom: 9vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  animation: cuePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes cuePulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .phrase {
+    white-space: normal;
+  }
+}

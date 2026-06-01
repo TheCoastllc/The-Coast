@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles.css'
 import type { Metadata } from 'next'
-import { Inter, Anton } from 'next/font/google'
+import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import Preloader from '@/components/Preloader'
 import CustomCursor from '@/components/CustomCursor'
@@ -11,6 +11,7 @@ import { Header } from '@/components/header'
 import { PageTransitionProvider } from '@/components/PageTransition'
 import { CookieBanner } from '@/components/CookieBanner'
 import { Toaster } from 'sonner'
+import { PREMIUM_KEYS } from '@/lib/premium'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -25,6 +26,21 @@ const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+// Ocean redesign display + mono faces (ported from coast-site)
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-cormorant',
+  display: 'swap',
+})
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
   display: 'swap',
 })
 
@@ -108,7 +124,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${inter.variable} ${anton.variable} relative`}>
+    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable} relative`}>
       <head>
         {/* Premium pairing: PP Editorial New (display serif) + PP Neue Montreal (body grotesk).
             Loaded via Fontshare CDN (Pangram Pangram, free for commercial use).
@@ -131,7 +147,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           href="https://api.fontshare.com/v2/css?f[]=neue-montreal@400,500,600,700&f[]=editorial-new@200,400,500,700&display=swap"
         />
       </head>
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
         <Preloader />
         <Noise />
         <QueryProvider>

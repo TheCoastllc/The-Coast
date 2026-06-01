@@ -620,3 +620,261 @@
   pointer-events: none;
   z-index: 1;
 }
+
+/* ============================================================
+   OCEAN REDESIGN — tokens + utilities ported from coast-site.
+   Scoped under body.ocean (the (frontend) <body>) so the Payload
+   /admin panel (its own layout, no styles.css) and A's existing
+   Tailwind base stay untouched. Fonts (--font-cormorant /
+   --font-jetbrains / --font-inter) are provided by next/font in the
+   (frontend) layout. Utility CLASS names below are unique to B (no
+   collision with A), so they're declared globally; the bare-element
+   heading-glow rule is .ocean-scoped so it can't reach /portal-free
+   admin or A's non-ocean trees.
+   ============================================================ */
+body.ocean {
+  --color-bg: #0a0c12;
+  --color-bg-alt: #12161d;
+  --color-bg-deep: #06080c;
+  --color-blue: #023661;
+  --color-blue-dim: #04243f;
+  --color-surface: #3f3a42;
+  --color-steel: #76828e;
+  --color-accent: #e76b27;
+  --color-accent-dim: #7e2e18;
+  --color-teal: #7fd3c7;
+  --color-teal-dim: #4e9e94;
+  --color-teal-glow: rgba(127, 211, 199, 0.4);
+  --color-teal-neon: #66e8d6;
+  --color-gold: #e6b24d;
+  --color-gold-dim: #a8792e;
+  --color-gold-glow: rgba(230, 178, 77, 0.42);
+  --glow-teal: 0 0 10px rgba(127, 211, 199, 0.35), 0 0 24px rgba(127, 211, 199, 0.16);
+  --glow-gold: 0 0 10px rgba(230, 178, 77, 0.42), 0 0 26px rgba(230, 178, 77, 0.18);
+  --glow-orange: 0 0 10px rgba(231, 107, 39, 0.4), 0 0 24px rgba(231, 107, 39, 0.16);
+  --text-glow-teal: 0 0 16px rgba(127, 211, 199, 0.45);
+  --text-glow-gold: 0 0 18px rgba(230, 178, 77, 0.45);
+  --color-white: #edeff2;
+  --color-white-dim: #aab2bc;
+  --color-ember: #2a1610;
+  --color-cream: var(--color-white);
+  --color-cream-dim: var(--color-white-dim);
+  --color-mono: var(--color-steel);
+  --color-signal: #3a6ea5;
+  --color-border: rgba(237, 239, 242, 0.1);
+  --color-border-gold: rgba(231, 107, 39, 0.3);
+  --color-border-accent: rgba(231, 107, 39, 0.3);
+
+  --world-line: var(--color-teal);
+  --world-ink: var(--color-steel);
+  --world-glow: 0 0 10px rgba(127, 211, 199, 0.25);
+
+  --nav-h: 64px;
+  --hud-pad: 32px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --z-canvas: 0;
+  --z-grain: 3;
+  --z-chrome: 10;
+  --z-gate: 50;
+  --z-cursor: 100;
+  --z-overlay: 200;
+
+  /* fonts: wired to next/font CSS variables set on <html> in the layout */
+  --font-display-var: var(--font-cormorant);
+  --font-mono-var: var(--font-jetbrains);
+  --font-body-var: var(--font-inter);
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-mono: var(--font-jetbrains), Menlo, monospace;
+  --font-body: var(--font-inter), "Helvetica Neue", sans-serif;
+}
+
+/* universal grain overlay (very subtle film texture) */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain, 3);
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+/* universal vignette */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain, 3);
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(6, 8, 12, 0.72) 100%);
+}
+
+/* typography utilities */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+.t-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+.t-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+.t-gold { color: var(--color-gold); }
+.t-dim { color: var(--color-cream-dim); }
+
+/* character reveal (CharReveal-style spans, used by ported components) */
+.word { display: inline-block; white-space: nowrap; }
+.char { display: inline-block; will-change: transform, opacity, filter; }
+
+/* glowing headings: clean cool-white type + soft neon-teal glow.
+   add class "no-marble" to opt a heading out (kinetic hero/boat text). */
+.ocean :is(h1, h2, h3):not(.no-marble) {
+  color: var(--color-white);
+  text-shadow: var(--text-glow-teal);
+}
+
+/* thin glowing-gold vertical rule for major hero/section titles */
+.accent-rule { position: relative; padding-left: 1rem; }
+.accent-rule::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  bottom: 0.12em;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-gold);
+  box-shadow: var(--glow-gold);
+}
+
+/* glow cards: translucent dark-navy card with a glowing colored border.
+   variants via data-glow: teal (default) / gold / orange. */
+.glass {
+  position: relative;
+  background: linear-gradient(160deg, rgba(13, 28, 46, 0.72), rgba(8, 16, 28, 0.74));
+  border: 1px solid color-mix(in srgb, var(--gc, var(--color-teal)) 60%, transparent);
+  border-radius: 14px;
+  color: var(--color-white);
+  box-shadow: var(--gg, var(--glow-teal)), inset 0 0 22px rgba(127, 211, 199, 0.05);
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out),
+    border-color 0.45s var(--ease-out);
+}
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid color-mix(in srgb, var(--gc, var(--color-teal)) 16%, transparent);
+  border-radius: 10px;
+  pointer-events: none;
+}
+.glass:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--gc, var(--color-teal)) 88%, transparent);
+  box-shadow: var(--gg-strong, 0 0 16px rgba(127, 211, 199, 0.45), 0 0 34px rgba(127, 211, 199, 0.22)),
+    inset 0 0 22px rgba(127, 211, 199, 0.07);
+}
+.glass[data-glow="gold"] {
+  --gc: var(--color-gold);
+  --gg: var(--glow-gold);
+  --gg-strong: 0 0 16px rgba(230, 178, 77, 0.5), 0 0 34px rgba(230, 178, 77, 0.24);
+}
+.glass[data-glow="orange"] {
+  --gc: var(--color-accent);
+  --gg: var(--glow-orange);
+  --gg-strong: 0 0 16px rgba(231, 107, 39, 0.5), 0 0 34px rgba(231, 107, 39, 0.22);
+}
+.glass :is(h1, h2, h3, h4) {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  color: var(--gc, var(--color-teal));
+  -webkit-text-fill-color: var(--gc, var(--color-teal));
+  text-shadow: 0 0 14px color-mix(in srgb, var(--gc, var(--color-teal)) 42%, transparent);
+}
+
+/* gold "key takeaway" pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1.1em;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 70%, transparent);
+  border-radius: 999px;
+  background: rgba(230, 178, 77, 0.06);
+  box-shadow: var(--glow-gold);
+  color: var(--color-gold);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* thin bordered aside note box */
+.note {
+  position: relative;
+  padding: 0.85em 1.2em;
+  border: 1px solid color-mix(in srgb, var(--gc, var(--color-teal)) 38%, transparent);
+  border-radius: 10px;
+  background: rgba(8, 16, 28, 0.5);
+  color: var(--color-white-dim);
+  font-size: 0.85rem;
+}
+
+/* card icon (glowing line-art, inherits the card's --gc) */
+.cardIcon {
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 1.1rem;
+  color: var(--gc, var(--color-teal));
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gc, var(--color-teal)) 55%, transparent));
+}
+
+/* lampglow: a soft light tracks the cursor across a glass card */
+body.ocean[data-premium~="lampglow"] .glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--gc, var(--color-teal)) 20%, transparent), transparent 60%);
+  transition: opacity 0.35s var(--ease-out);
+}
+body.ocean[data-premium~="lampglow"] .glass:hover::before { opacity: 1; }
+
+/* ignite: a glass card's glow ramps up as it scrolls into view */
+@keyframes glassIgnite {
+  from {
+    border-color: color-mix(in srgb, var(--gc, var(--color-teal)) 16%, transparent);
+    box-shadow: 0 0 0 rgba(127, 211, 199, 0), inset 0 0 22px rgba(127, 211, 199, 0.04);
+  }
+  to {
+    border-color: color-mix(in srgb, var(--gc, var(--color-teal)) 60%, transparent);
+    box-shadow: var(--gg, var(--glow-teal)), inset 0 0 22px rgba(127, 211, 199, 0.05);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  body.ocean[data-premium~="ignite"] .glass {
+    animation: glassIgnite linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 75%;
+  }
+}
+
+/* editorial: tighter display tracking on ocean headings */
+body.ocean[data-premium~="editorial"] :is(h1, h2, h3):not(.no-marble) {
+  letter-spacing: -0.025em;
+}

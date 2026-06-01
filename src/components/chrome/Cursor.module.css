@@ -1,0 +1,163 @@
+/* the compass - a small rose that follows the pointer with easing */
+.compass {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(8, 12, 18, 0.3), transparent 70%);
+  transition: width 0.26s var(--ease-out), height 0.26s var(--ease-out);
+  will-change: transform;
+}
+.compass[data-state="active"],
+.compass[data-state="label"] {
+  width: 42px;
+  height: 42px;
+}
+
+.rose {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.ring {
+  fill: none;
+  stroke: var(--color-teal);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+.tick {
+  stroke: var(--color-steel);
+  stroke-width: 1;
+  opacity: 0.7;
+}
+.tickN {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  opacity: 0.95;
+}
+
+/* the two-tone needle - rotated via JS toward travel/lock target */
+.needle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: center center;
+  will-change: transform;
+}
+.needle::before {
+  content: "";
+  position: absolute;
+  left: -2.5px;
+  bottom: 0;
+  border-left: 2.5px solid transparent;
+  border-right: 2.5px solid transparent;
+  border-bottom: 11px solid var(--color-accent);
+  filter: drop-shadow(0 0 2px rgba(219, 82, 39, 0.5));
+}
+.needle::after {
+  content: "";
+  position: absolute;
+  left: -2.5px;
+  top: 0;
+  border-left: 2.5px solid transparent;
+  border-right: 2.5px solid transparent;
+  border-top: 9px solid var(--color-steel);
+}
+
+/* white-hot precision center */
+.core {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #eafcff;
+  box-shadow: 0 0 6px 1px rgba(127, 211, 199, 0.8);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transition: width 0.2s var(--ease-out), height 0.2s var(--ease-out), opacity 0.2s;
+  will-change: transform;
+}
+.core[data-state="active"] {
+  width: 5px;
+  height: 5px;
+}
+.core[data-state="label"] {
+  opacity: 0;
+}
+
+.label {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-teal);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out);
+}
+.compass[data-state="label"] .label {
+  opacity: 1;
+}
+
+/* sonar ping rings on click */
+.rings {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: calc(var(--z-cursor) - 1);
+}
+.sonar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--color-teal);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+}
+.ping {
+  animation: sonar 0.85s var(--ease-out) forwards;
+}
+@keyframes sonar {
+  0% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sonar {
+    animation: none;
+  }
+}
+
+@media (hover: none) {
+  .compass,
+  .core,
+  .rings {
+    display: none;
+  }
+}

@@ -1,0 +1,453 @@
+.marine {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.swimmer {
+  position: absolute;
+  will-change: transform;
+}
+.body,
+.jellyInner,
+.seahorseInner {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* gentle whole-body sway */
+.body {
+  transform-origin: center;
+  animation: undulate 4.2s ease-in-out infinite;
+}
+@keyframes undulate {
+  0%,
+  100% {
+    transform: rotate(-2.6deg);
+  }
+  50% {
+    transform: rotate(2.6deg);
+  }
+}
+
+/* ---------- depth-layered placement (near = bold + sharp, deep = faint + blurred) ---------- */
+.whale {
+  top: 60%;
+  width: 380px;
+  opacity: 0.22;
+  animation: swimR 150s linear infinite;
+}
+.manta {
+  top: 20%;
+  width: 162px;
+  opacity: 0.6;
+  animation: swimR 80s linear infinite;
+  animation-delay: -28s;
+}
+.turtle {
+  top: 64%;
+  width: 150px;
+  opacity: 0.78;
+  animation: swimL 92s linear infinite;
+  animation-delay: -48s;
+}
+.octopus {
+  top: 16%;
+  width: 138px;
+  opacity: 0.7;
+  animation: swimL 104s linear infinite;
+  animation-delay: -20s;
+  filter: drop-shadow(0 0 7px rgba(74, 214, 230, 0.45));
+}
+.koi {
+  top: 42%;
+  width: 184px;
+  opacity: 0.95;
+  animation: swimR 60s linear infinite;
+  animation-delay: -14s;
+  /* a single static glow on the nearest/sharpest creature (perf canary - keep to one) */
+  filter: drop-shadow(0 0 6px rgba(127, 211, 199, 0.5));
+}
+.seahorse {
+  left: 30%;
+  width: 56px;
+  opacity: 0.85;
+  animation: riseDrift 70s linear infinite;
+  animation-delay: -30s;
+  filter: drop-shadow(0 0 5px rgba(231, 167, 77, 0.55));
+}
+.shoal {
+  top: 32%;
+  width: 124px;
+  opacity: 0.68;
+  animation: swimR 88s linear infinite;
+  animation-delay: -60s;
+}
+.jelly {
+  left: 70%;
+  width: 64px;
+  opacity: 0.78;
+  animation: riseDrift 58s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(102, 232, 214, 0.55));
+}
+.jelly .jellyInner {
+  animation: undulate 6s ease-in-out infinite;
+}
+
+@keyframes swimR {
+  0% {
+    transform: translate(-26vw, 0);
+  }
+  30% {
+    transform: translate(22vw, -2.5vh);
+  }
+  60% {
+    transform: translate(62vw, 2.5vh);
+  }
+  100% {
+    transform: translate(126vw, 0);
+  }
+}
+@keyframes swimL {
+  0% {
+    transform: translate(126vw, 0) scaleX(-1);
+  }
+  30% {
+    transform: translate(70vw, 2.5vh) scaleX(-1);
+  }
+  60% {
+    transform: translate(28vw, -2.5vh) scaleX(-1);
+  }
+  100% {
+    transform: translate(-26vw, 0) scaleX(-1);
+  }
+}
+@keyframes riseDrift {
+  0% {
+    transform: translate(0, 118vh);
+  }
+  50% {
+    transform: translate(4vw, 44vh);
+  }
+  100% {
+    transform: translate(-3vw, -38vh);
+  }
+}
+
+/* ---------- per-part motion (pivots via transform-box: fill-box) ---------- */
+.koiTail,
+.koiDorsal,
+.koiPec,
+.koiPelvic,
+.wingL,
+.wingR,
+.bell,
+.tentacles,
+.flipFront,
+.flipFrontLow,
+.fluke,
+.whalePec,
+.arms,
+.shFin {
+  transform-box: fill-box;
+}
+.koiTail {
+  transform-origin: 100% 50%;
+  animation: tailSweep 1.3s ease-in-out infinite;
+}
+.koiDorsal {
+  transform-origin: 50% 100%;
+  animation: finFlutter 1.9s ease-in-out infinite;
+}
+.koiPec {
+  transform-origin: 50% 0%;
+  animation: finFlutter 1.5s ease-in-out infinite;
+}
+.koiPelvic {
+  transform-origin: 50% 0%;
+  animation: finFlutter 1.7s ease-in-out infinite;
+}
+.wingL {
+  transform-origin: 100% 50%;
+  animation: wingFlapL 2.8s ease-in-out infinite;
+}
+.wingR {
+  transform-origin: 0% 50%;
+  animation: wingFlapR 2.8s ease-in-out infinite;
+}
+.bell {
+  transform-origin: 50% 58%;
+  animation: bellPulse 3.0s ease-in-out infinite;
+}
+.tentacles {
+  transform-origin: 50% 0%;
+  animation: tentacleSway 3.8s ease-in-out infinite;
+}
+.flipFront {
+  transform-origin: 0% 80%;
+  animation: flipStroke 2.6s ease-in-out infinite;
+}
+.flipFrontLow {
+  transform-origin: 0% 20%;
+  animation: flipStrokeAlt 2.6s ease-in-out infinite;
+}
+.fluke {
+  transform-origin: 100% 50%;
+  animation: tailSweep 5.5s ease-in-out infinite;
+}
+.whalePec {
+  transform-origin: 50% 0%;
+  animation: finFlutter 5.5s ease-in-out infinite;
+}
+.arms {
+  transform-origin: 50% 18%;
+  animation: armSway 3.6s ease-in-out infinite;
+}
+.shFin {
+  transform-origin: 100% 50%;
+  animation: finFlutter 0.5s ease-in-out infinite;
+}
+
+/* deeper, more organic motion = a more alive reef (ref: flowing fins + ruffled tentacles) */
+@keyframes tailSweep {
+  0%,
+  100% {
+    transform: rotate(-18deg) skewY(4deg);
+  }
+  50% {
+    transform: rotate(18deg) skewY(-4deg);
+  }
+}
+@keyframes finFlutter {
+  0%,
+  100% {
+    transform: rotate(-9deg);
+  }
+  50% {
+    transform: rotate(9deg);
+  }
+}
+@keyframes wingFlapL {
+  0%,
+  100% {
+    transform: rotate(-13deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+@keyframes wingFlapR {
+  0%,
+  100% {
+    transform: rotate(13deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+}
+/* jet-propulsion pulse: squash hard, then over-recover (a real jellyfish beat) */
+@keyframes bellPulse {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  40% {
+    transform: scale(1.15, 0.8);
+  }
+  64% {
+    transform: scale(0.92, 1.1);
+  }
+}
+/* tentacles ripple + stretch like the reference's frilly streamers */
+@keyframes tentacleSway {
+  0%,
+  100% {
+    transform: skewX(-10deg) scaleY(1);
+  }
+  50% {
+    transform: skewX(10deg) scaleY(1.07);
+  }
+}
+@keyframes flipStroke {
+  0%,
+  100% {
+    transform: rotate(-15deg);
+  }
+  50% {
+    transform: rotate(23deg);
+  }
+}
+@keyframes flipStrokeAlt {
+  0%,
+  100% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-23deg);
+  }
+}
+/* octopus arms curl + undulate */
+@keyframes armSway {
+  0%,
+  100% {
+    transform: skewX(-7deg) scaleY(0.95) rotate(-2deg);
+  }
+  50% {
+    transform: skewX(7deg) scaleY(1.05) rotate(2deg);
+  }
+}
+
+/* ---------- atmosphere ---------- */
+.godrays {
+  position: absolute;
+  inset: -12% -20%;
+  background: repeating-linear-gradient(
+    108deg,
+    transparent 0 92px,
+    rgba(150, 210, 225, 0.05) 92px 98px,
+    transparent 98px 240px
+  );
+  opacity: 0.32;
+  animation: godrayDrift 32s linear infinite;
+}
+@keyframes godrayDrift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(130px);
+  }
+}
+.plankton {
+  position: absolute;
+  inset: 0;
+}
+.plankton span {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #aef0e6;
+  box-shadow: 0 0 5px 1px rgba(127, 211, 199, 0.7);
+  animation-name: planktonDrift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@keyframes planktonDrift {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-32vh) translateX(10px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* kelp anchored + swaying at the side edges */
+.kelp {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+.kelpL {
+  left: -8px;
+}
+.kelpR {
+  right: -8px;
+  flex-direction: row-reverse;
+}
+.strand {
+  transform-origin: bottom center;
+  animation: kelpSway 8s ease-in-out infinite alternate;
+}
+.strandSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+@keyframes kelpSway {
+  0% {
+    transform: rotate(-3deg) skewX(-2deg);
+  }
+  100% {
+    transform: rotate(3.5deg) skewX(2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .body,
+  .jellyInner,
+  .swimmer,
+  .koiTail,
+  .koiDorsal,
+  .koiPec,
+  .koiPelvic,
+  .wingL,
+  .wingR,
+  .bell,
+  .tentacles,
+  .flipFront,
+  .flipFrontLow,
+  .fluke,
+  .whalePec,
+  .arms,
+  .shFin,
+  .godrays,
+  .caustic,
+  .plankton span,
+  .strand {
+    animation: none;
+  }
+}
+
+/* ===== Round 12 neon recolour (preview-gated): stop-colour defaults + overrides ===== */
+.gMantaA { stop-color: #6a93bc; }
+.gMantaB { stop-color: #2b537e; }
+.gMantaC { stop-color: #0c2238; }
+.gJellyA { stop-color: #e6f6f3; stop-opacity: 0.62; }
+.gJellyB { stop-color: #9fd8d0; stop-opacity: 0.26; }
+.gJellyC { stop-color: #7fd3c7; stop-opacity: 0; }
+.gTurtleA { stop-color: #5fa088; }
+.gTurtleB { stop-color: #1d3a37; }
+.gOctoA { stop-color: #c96a8e; }
+.gOctoB { stop-color: #5b2a52; }
+.gWhaleA { stop-color: #16374f; }
+.gWhaleB { stop-color: #061620; }
+.gKelpA { stop-color: #1f5a3a; stop-opacity: 0.6; }
+.gKelpB { stop-color: #3f8f5e; stop-opacity: 0.1; }
+
+:global(body[data-premium~="neon"]) .gMantaA { stop-color: #3ef0e0; }
+:global(body[data-premium~="neon"]) .gMantaB { stop-color: #12b7c2; }
+:global(body[data-premium~="neon"]) .gMantaC { stop-color: #052e3c; }
+:global(body[data-premium~="neon"]) .gJellyA { stop-color: #c2fff6; stop-opacity: 0.72; }
+:global(body[data-premium~="neon"]) .gJellyB { stop-color: #66e8d6; stop-opacity: 0.36; }
+:global(body[data-premium~="neon"]) .gJellyC { stop-color: #66e8d6; stop-opacity: 0; }
+:global(body[data-premium~="neon"]) .gTurtleA { stop-color: #46e6c4; }
+:global(body[data-premium~="neon"]) .gTurtleB { stop-color: #0a3d44; }
+:global(body[data-premium~="neon"]) .gOctoA { stop-color: #4ad6e6; }
+:global(body[data-premium~="neon"]) .gOctoB { stop-color: #1d5a6e; }
+:global(body[data-premium~="neon"]) .gWhaleA { stop-color: #0f8fa8; }
+:global(body[data-premium~="neon"]) .gWhaleB { stop-color: #03222b; }
+:global(body[data-premium~="neon"]) .gKelpA { stop-color: #14b39a; stop-opacity: 0.6; }
+:global(body[data-premium~="neon"]) .gKelpB { stop-color: #5fe8c0; stop-opacity: 0.12; }
+
+/* ===== Round 12 depth parallax (preview-gated): the reef drifts with scroll ===== */
+:global(body[data-premium~="depth"]) .marine {
+  transform: translate3d(0, calc(var(--sy, 0) * 0.045px), 0);
+  will-change: transform;
+}
