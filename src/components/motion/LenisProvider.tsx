@@ -24,6 +24,9 @@ export function LenisProvider() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Touch devices keep crisp native scroll - Lenis smoothing layered over native
+    // momentum is what causes the jank on phones.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     // App-like areas keep native scroll (forms, file lists, dashboards).
     if (pathname && (pathname.startsWith("/portal") || pathname.startsWith("/studio"))) return;
 

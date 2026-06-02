@@ -1,6 +1,6 @@
 import React from 'react'
 import './styles.css'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
 import { Nav } from '@/components/chrome/Nav'
@@ -48,6 +48,13 @@ const jetbrains = JetBrains_Mono({
   variable: '--font-jetbrains',
   display: 'swap',
 })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  maximumScale: 5,
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

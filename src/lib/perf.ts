@@ -15,7 +15,7 @@ export type Quality = {
 };
 
 const HIGH: Quality = { tier: "high", dpr: [1, 2], seaSegments: 190, postfx: true, clouds: 6 };
-const MID: Quality = { tier: "mid", dpr: [1, 1.5], seaSegments: 130, postfx: true, clouds: 5 };
+const MID: Quality = { tier: "mid", dpr: [1, 2], seaSegments: 130, postfx: true, clouds: 5 };
 const LOW: Quality = { tier: "low", dpr: [1, 1], seaSegments: 80, postfx: false, clouds: 3 };
 
 function detect(): Quality {

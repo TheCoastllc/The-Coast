@@ -582,3 +582,56 @@
   font-size: clamp(1.4rem, 3vw, 2.4rem);
   color: var(--color-white);
 }
+
+/* ── Mobile responsive ── tighter spacing, shorter bands, no horizontal overflow ── */
+@media (max-width: 768px) {
+  .content { padding: 0 1.4rem; }
+  .content :global(.section) { padding: 4.5rem 0; }
+  .thesisBody { max-width: 100%; font-size: 1.05rem; }
+  .ventureList { margin: 2rem 0 1.5rem; }
+  .ventureRow { padding: 1.2rem 1.4rem; }
+  .closingTitle { max-width: 100%; }
+
+  /* image bands: shorter so they don't dominate small viewports */
+  .imageBand { height: 56vh; min-height: 300px; }
+  .imageBandCaption { padding: 1.6rem 1.5rem; }
+
+  /* clients wall: tighter gaps so wordmarks wrap cleanly */
+  .clientsWall { gap: 1.1rem 1.8rem; }
+
+  /* wave teaser band: reduce padding */
+  .waveTeaser { padding: 2.4rem 1.6rem; }
+  .waveCopy { max-width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .content { padding: 0 1.1rem; }
+  .content :global(.section) { padding: 4rem 0; }
+  .reviewsRating { margin-bottom: 2rem; }
+  .clientsWall { gap: 1rem 1.4rem; }
+}
+
+@media (max-width: 480px) {
+  .content :global(.section) { padding: 3.4rem 0; }
+  .heroInner { max-width: 92vw; }
+  .sub { margin-top: 1.8rem; letter-spacing: 0.28em; }
+
+  /* image bands: cap height on phones so they stay proportionate */
+  .imageBand { height: 44vh; min-height: 240px; }
+  .imageBandCaption { padding: 1.3rem 1.2rem; }
+
+  /* stats strip: tighten cell padding */
+  .stat { padding: 1.8rem 0.8rem; }
+
+  .ventureRow { padding: 1.1rem 1.2rem; }
+  .clientsWall { gap: 0.9rem 1.3rem; margin-top: 2rem; }
+  .waveTeaser { padding: 2rem 1.2rem; }
+  .reviewCard { padding: 1.7rem; }
+}
+
+@media (max-width: 360px) {
+  .content { padding: 0 0.9rem; }
+  .imageBand { min-height: 210px; }
+  .stat { padding: 1.6rem 0.6rem; }
+  .clientsWall { gap: 0.8rem 1.1rem; }
+}

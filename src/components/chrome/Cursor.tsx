@@ -9,6 +9,10 @@ import styles from "./Cursor.module.css";
  * - The needle swings toward your direction of travel, settles to north when idle,
  *   and LOCKS ON (points at) interactive elements on hover.
  * - A click pings a sonar ring. Over [data-cursor-label] elements it reveals a label.
+ *
+ * Perf: the rAF loop only runs while the pointer is moving (and the easing is still
+ * settling) and stops when idle or the tab is hidden, so it never steals frames from
+ * the WebGL scenes - which is what made it feel delayed.
  */
 export function Cursor() {
   const compassRef = useRef<HTMLDivElement>(null);
@@ -29,13 +33,23 @@ export function Cursor() {
     let angle = -90; // needle angle (atan2 space; -90 = north/up)
     let vel = 0; // needle angular velocity (damped spring back to north)
     let raf = 0;
+    let running = false;
+    let lastMove = performance.now();
     let hoverState: "default" | "active" | "label" = "default";
     let labelText = "";
     let ringIdx = 0;
 
+    const settled = () =>
+      Math.abs(mx - sx) < 0.15 &&
+      Math.abs(my - sy) < 0.15 &&
+      Math.abs(angle + 90) < 0.4 &&
+      Math.abs(vel) < 0.02;
+
     const onMove = (e: MouseEvent) => {
       mx = e.clientX;
       my = e.clientY;
+      lastMove = performance.now();
+      kick();
       const t = e.target as HTMLElement | null;
       if (!t) return;
       const labelEl = t.closest<HTMLElement>("[data-cursor-label]");
@@ -96,18 +110,42 @@ export function Cursor() {
       angle = Math.max(-145, Math.min(-35, angle + vel));
       if (needleRef.current) needleRef.current.style.transform = `rotate(${angle + 90}deg)`;
 
+      // stop the loop once the pointer is idle and the easing has settled
+      if (performance.now() - lastMove > 450 && settled()) {
+        running = false;
+        return;
+      }
       raf = requestAnimationFrame(tick);
     };
 
-    window.addEventListener("mousemove", onMove);
+    function kick() {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
+      }
+    }
+
+    const onVis = () => {
+      if (document.hidden) {
+        running = false;
+        cancelAnimationFrame(raf);
+      } else {
+        lastMove = performance.now();
+        kick();
+      }
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mousedown", onDown);
     window.addEventListener("mouseup", onUp);
-    raf = requestAnimationFrame(tick);
+    document.addEventListener("visibilitychange", onVis);
+    kick(); // settle to the initial position, then idle-stop
 
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mouseup", onUp);
+      document.removeEventListener("visibilitychange", onVis);
       cancelAnimationFrame(raf);
     };
   }, []);

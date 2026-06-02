@@ -49,7 +49,7 @@ function ReviewCard({ r }: { r: MarqueeReview }) {
       <div className={styles.person}>
         {r.avatar ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={r.avatar} alt="" className={styles.avatar} loading="lazy" referrerPolicy="no-referrer" />
+          <img src={r.avatar} alt="" className={styles.avatar} width={36} height={36} loading="lazy" decoding="async" referrerPolicy="no-referrer" />
         ) : (
           <span className={styles.avatarFallback} aria-hidden="true">{initials(r.name)}</span>
         )}

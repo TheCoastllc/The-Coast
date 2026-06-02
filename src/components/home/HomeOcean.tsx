@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { StoryHero } from "@/components/hero/StoryHero";
+import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import { FoldingBoat } from "@/components/hero/FoldingBoat";
 import { RevealGroup } from "@/components/motion/RevealGroup";
@@ -79,7 +79,7 @@ export function HomeOcean({
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   return (
     <>
-      <StoryHero meet="reflect" />
+      <HeroStage meet="reflect" />
       <StoryHeadline />
       {/* tall transparent runway: gives scroll distance for the 3 hero acts */}
       <div className={styles.storyTrack} />

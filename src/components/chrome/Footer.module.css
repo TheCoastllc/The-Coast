@@ -119,3 +119,30 @@
   text-transform: uppercase;
   color: var(--color-mono);
 }
+
+/* ── Mobile responsive ── reduce padding, wrap link/social rows cleanly ── */
+@media (max-width: 768px) {
+  .footer { margin-top: 5rem; padding: 3.5rem 1.4rem 4rem; }
+  .inner { gap: 1.5rem; margin-bottom: 2.4rem; }
+  .links { gap: 1.2rem 1.6rem; }
+  .utility { margin-bottom: 2.4rem; padding-top: 1.6rem; gap: 1.2rem 1.6rem; }
+  .meta { gap: 1.2rem; padding-top: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .footer { margin-top: 4rem; padding: 3rem 1.1rem 3.5rem; }
+  /* stack the brand + nav links so the wrap reads cleanly, left-aligned */
+  .inner { flex-direction: column; align-items: flex-start; gap: 1.4rem; }
+  .links { gap: 1rem 1.4rem; }
+  .brandText { font-size: 1.25rem; }
+  /* social row above the legal links, both left-aligned */
+  .utility { flex-direction: column; align-items: flex-start; gap: 1.3rem; }
+  .legal { gap: 1rem 1.4rem; }
+  .meta { flex-direction: column; gap: 0.9rem; }
+  .line { font-size: 0.6rem; letter-spacing: 0.22em; }
+}
+
+@media (max-width: 360px) {
+  .footer { padding: 2.6rem 0.9rem 3rem; }
+  .links { gap: 0.9rem 1.2rem; }
+}

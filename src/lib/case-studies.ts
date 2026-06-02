@@ -78,6 +78,30 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
       "Full brand site for John Dunham — U.S. Army vet running mentorship for traders and AI for business owners. Includes a 10-card testimonial deck and a /studio template system that generates branded social posts, flyers, and ads.",
   },
 
+  'dada-global-finance': {
+    title: 'Dada Global Finance - Brand & Website | The Coast',
+    description:
+      'Brand and website for Dada Global Financial Group - a boutique wealth and life-insurance firm protecting families through generational wealth planning. Designed and built by The Coast.',
+    ready: true,
+    style: 'cinematic',
+    client: 'Dada Global Finance',
+    tagline: 'A covenant of protection - generational wealth, quietly architected.',
+    category: 'Finance · Web',
+    role: ['Brand', 'Web', 'Development'],
+    year: 2025,
+    color: '#0c1b30',
+    textColor: '#f4efe3',
+    liveUrl: 'https://dadaglobalfin.com',
+    stack: ['Design', 'Development', 'Web'],
+    palette: ['#0c1b30', '#c9a24a', '#13294a', '#f4efe3'],
+    moments: [
+      { image: '/portfolio/dada-global-finance/cover.jpg', caption: 'Hero - A Covenant of Protection' },
+    ],
+    stats: [],
+    summary:
+      'A boutique wealth and life-insurance brand. The Coast designed and built the full brand site for Dada Global Financial Group - an editorial serif identity in dark navy and gold, and a calm, trust-first experience at dadaglobalfin.com.',
+  },
+
   kando: {
     title: 'Kando Elite Health — Brand & Site | The Coast',
     description:

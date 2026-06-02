@@ -172,7 +172,28 @@ function StoryScene({
   );
 }
 
-export function StoryHero({ meet = "cross", boat = "rig" }: { meet?: MeetMode; boat?: BoatMode }) {
+/** Fires onReady after the scene has actually painted a few frames, so the
+ *  WebGL hero only fades in once it's real (no transparent reef gap). */
+function FirstFrame({ onReady }: { onReady?: () => void }) {
+  const n = useRef(0);
+  useFrame(() => {
+    n.current += 1;
+    if (n.current === 3) onReady?.();
+  });
+  return null;
+}
+
+export function StoryHero({
+  meet = "cross",
+  boat = "rig",
+  postfx = true,
+  onReady,
+}: {
+  meet?: MeetMode;
+  boat?: BoatMode;
+  postfx?: boolean;
+  onReady?: () => void;
+}) {
   const progress = useHeroProgress(2.4);
   const q = useQuality();
   const active = useActiveByScroll(3); // freeze once content covers the fixed canvas
@@ -189,7 +210,8 @@ export function StoryHero({ meet = "cross", boat = "rig" }: { meet?: MeetMode; b
         <Suspense fallback={null}>
           <StoryScene progress={progress} meet={meet} segments={q.seaSegments} clouds={q.clouds} boatMode={boat} />
         </Suspense>
-        {q.postfx && (
+        <FirstFrame onReady={onReady} />
+        {active && postfx && q.postfx && (
           <EffectComposer>
             <Bloom intensity={depth ? 1.45 : 1.0} luminanceThreshold={depth ? 0.45 : 0.55} luminanceSmoothing={0.7} mipmapBlur />
             <Vignette eskil={false} offset={0.3} darkness={0.8} />

@@ -3,16 +3,17 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useQuality } from "@/lib/perf";
 
 /**
  * Persistent ambient background that lives behind every chamber.
  * A slow drift of faint warm motes - dust in a shaft of light.
- * Deliberately light: no postprocessing, low particle count, transparent
- * canvas so the page background shows through and content islands float
- * over it.
+ * Light by design: no postprocessing, transparent canvas, adaptive DPR +
+ * particle count by device tier, and it pauses when the tab is hidden so it
+ * never steals frames from scrolling or the cursor.
  */
 
-const COUNT = 1800;
+const COUNT_BY_TIER = { low: 500, mid: 1100, high: 1800 } as const;
 
 const VERT = /* glsl */ `
   attribute float aSeed;
@@ -47,14 +48,14 @@ const FRAG = /* glsl */ `
   }
 `;
 
-function Motes({ color }: { color: number }) {
+function Motes({ color, count }: { color: number; count: number }) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const mouse = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
 
   const { geometry, uniforms } = useMemo(() => {
-    const pos = new Float32Array(COUNT * 3);
-    const seed = new Float32Array(COUNT);
-    for (let i = 0; i < COUNT; i++) {
+    const pos = new Float32Array(count * 3);
+    const seed = new Float32Array(count);
+    for (let i = 0; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 24;
       pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
       pos[i * 3 + 2] = -6 + Math.random() * 8;
@@ -69,14 +70,14 @@ function Motes({ color }: { color: number }) {
       uColor: { value: new THREE.Color(0x9a814f) },
     };
     return { geometry: geo, uniforms: u };
-  }, []);
+  }, [count]);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       mouse.current.tx = (e.clientX / window.innerWidth - 0.5) * 0.6;
       mouse.current.ty = -(e.clientY / window.innerHeight - 0.5) * 0.6;
     };
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
@@ -109,11 +110,18 @@ function Motes({ color }: { color: number }) {
 }
 
 export function ChamberAtmosphere({ color = 0x9a814f }: { color?: number }) {
+  const q = useQuality();
   const [enabled, setEnabled] = useState(true);
+  const [paused, setPaused] = useState(false);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setEnabled(false);
+      return;
     }
+    const onVis = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
   if (!enabled) return null;
@@ -129,11 +137,12 @@ export function ChamberAtmosphere({ color = 0x9a814f }: { color?: number }) {
       aria-hidden
     >
       <Canvas
-        gl={{ alpha: true, antialias: true, powerPreference: "low-power" }}
+        gl={{ alpha: true, antialias: q.tier !== "low", powerPreference: "low-power" }}
         camera={{ position: [0, 0, 8], fov: 60, near: 0.1, far: 60 }}
-        dpr={[1, 1.5]}
+        dpr={q.dpr}
+        frameloop={paused ? "never" : "always"}
       >
-        <Motes color={color} />
+        <Motes color={color} count={COUNT_BY_TIER[q.tier]} />
       </Canvas>
     </div>
   );

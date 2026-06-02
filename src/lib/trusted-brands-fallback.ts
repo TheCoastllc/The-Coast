@@ -5,62 +5,14 @@ import type { LedgerBrand } from '@/components/TrustedLedger'
  * global is empty (fresh installs, local dev without a populated DB).
  *
  * The canonical list comes from David's brief. Edit the Payload global to
- * change what's actually shown in production — this list only kicks in when
+ * change what's actually shown in production - this list only kicks in when
  * Payload returns zero entries.
  *
- * Roster locked: 10 brands (May 2026 update).
- * - Removed: Happreneurs
- * - Added: TROI, Kando, New Era Aesthetics, Solomon Katsman
- * - The Coast itself is intentionally NOT in the list (per Q1).
- * - All brands render as typographic wordmarks (per Q2). No logo PNGs needed.
+ * Roster updated: removed Duda, Global Finance Group, Hatch SN. Added Dada
+ * Global Finance (our build, dadaglobalfin.com). OgaTicket, AMG Records and
+ * Zapped Co sit at the bottom. All brands render as typographic wordmarks.
  */
 export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
-  {
-    id: 'duda',
-    name: 'Duda',
-    wordmark: 'Duda',
-    category: 'BRAND SYSTEM',
-    year: 2024,
-  },
-  {
-    id: 'global-finance-group',
-    name: 'Global Finance Group',
-    wordmark: 'Global Finance',
-    category: 'IDENTITY · WEB',
-    year: 2023,
-  },
-  {
-    id: 'amg-records',
-    name: 'AMG Records',
-    wordmark: 'AMG Records',
-    category: 'BRAND IDENTITY',
-    year: 2024,
-    caseStudySlug: 'amg-records',
-  },
-  {
-    id: 'ogaticket',
-    name: 'OgaTicket',
-    wordmark: 'OgaTicket',
-    category: 'WEB · PRODUCT',
-    year: 2024,
-    caseStudySlug: 'ogaticket',
-  },
-  {
-    id: 'zapped',
-    name: 'Zapped Co',
-    wordmark: 'Zapped Co',
-    category: 'REBRAND · 15+ DELIVERABLES',
-    year: 2024,
-    caseStudySlug: 'zappedco',
-  },
-  {
-    id: 'hatch-startup-nation',
-    name: 'Hatch Startup Nation',
-    wordmark: 'Hatch SN',
-    category: 'IDENTITY · INCUBATOR',
-    year: 2023,
-    caseStudySlug: 'hatch-startup-nation',
-  },
   {
     id: 'troi',
     name: 'TROI Trading & Tech',
@@ -92,5 +44,38 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
     category: 'WEALTH · PERSONAL BRAND',
     year: 2025,
     url: 'https://solomonkatsman.com',
+  },
+  {
+    id: 'dada-global-finance',
+    name: 'Dada Global Finance',
+    wordmark: 'Dada Global Finance',
+    category: 'FINANCE · WEB',
+    year: 2025,
+    caseStudySlug: 'dada-global-finance',
+    url: 'https://dadaglobalfin.com',
+  },
+  {
+    id: 'ogaticket',
+    name: 'OgaTicket',
+    wordmark: 'OgaTicket',
+    category: 'WEB · PRODUCT',
+    year: 2024,
+    caseStudySlug: 'ogaticket',
+  },
+  {
+    id: 'amg-records',
+    name: 'AMG Records',
+    wordmark: 'AMG Records',
+    category: 'BRAND IDENTITY',
+    year: 2024,
+    caseStudySlug: 'amg-records',
+  },
+  {
+    id: 'zapped',
+    name: 'Zapped Co',
+    wordmark: 'Zapped Co',
+    category: 'REBRAND · 15+ DELIVERABLES',
+    year: 2024,
+    caseStudySlug: 'zappedco',
   },
 ]

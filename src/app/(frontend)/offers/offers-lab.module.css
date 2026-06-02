@@ -325,3 +325,72 @@
   color: var(--color-steel);
   margin-top: 1.4rem;
 }
+
+/* ── Mobile responsive ── single column, fluid sizing, no horizontal overflow ── */
+@media (max-width: 768px) {
+  /* flagship: tighter padding, ensure it never overflows the viewport */
+  .flagship {
+    padding: clamp(1.5rem, 6vw, 2.4rem);
+    margin-top: 0.5rem;
+  }
+  /* grid already stacks at 860px - lock the gap and keep both columns full-width */
+  .flagshipGrid { gap: 2rem; }
+  .flagshipGrid > div { min-width: 0; }
+  .flagTitle { font-size: clamp(2.2rem, 9vw, 3.4rem); margin: 0.8rem 0 1rem; }
+  .flagBlurb { font-size: 1rem; max-width: 100%; }
+  .flagSample,
+  .flagSamplePrompt,
+  .scoreLine { max-width: 100%; }
+  /* stat row (5 pillars / 20 criteria / 2 min / Free) wraps and spreads evenly */
+  .flagMeta { gap: 1rem 1.4rem; }
+  .flagMetaItem { flex: 1 1 auto; min-width: 4.5rem; }
+  .flagMetaVal { font-size: 1.5rem; }
+
+  /* wave instrument column: never wider than viewport, chart scales to fit */
+  .waveWrap { padding: 1.3rem 1.1rem 1rem; }
+  .waveSvg { width: 100%; max-width: 100%; height: auto; }
+  .scoreNum { font-size: 2.8rem; }
+
+  /* tool showcase rows already stack at 760px - tighten + reorder for readability */
+  .tool { gap: 1rem; padding: clamp(1.4rem, 5vw, 2rem); }
+  .toolNum { font-size: clamp(2.6rem, 12vw, 3.6rem); }
+  .toolDesc,
+  .sample,
+  .samplePrompt { max-width: 100%; }
+  /* aside (stats + Continue) sits below the body, full width */
+  .toolStats { gap: 1.6rem; flex-wrap: wrap; }
+}
+
+@media (max-width: 600px) {
+  .flagMeta { gap: 0.9rem 1.2rem; }
+  .flagMetaItem { min-width: 3.8rem; }
+  .toolNum { font-size: clamp(2.4rem, 13vw, 3.2rem); }
+  .narrative { max-width: 100%; }
+  .ctaRow { gap: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+  .flagship { padding: 1.4rem 1.2rem; }
+  .flagTitle { font-size: clamp(2rem, 10vw, 2.8rem); }
+  .flagBadge { font-size: 0.58rem; letter-spacing: 0.24em; }
+  /* stat pillars: two per row so values stay legible */
+  .flagMeta { gap: 0.9rem 1rem; }
+  .flagMetaItem { flex: 1 1 40%; min-width: 0; }
+  .waveWrap { padding: 1.1rem 0.9rem 0.9rem; }
+  .scoreNum { font-size: 2.4rem; }
+  .scoreLine { font-size: 0.95rem; }
+  .tool { padding: 1.3rem 1.1rem; }
+  .toolTitle { font-size: clamp(1.4rem, 7vw, 1.7rem); }
+  .toolTagline { font-size: 1rem; }
+  .sample { padding: 0.9rem 1rem; }
+  .toolStat { min-width: 0; }
+}
+
+@media (max-width: 360px) {
+  .flagTitle { font-size: 1.85rem; }
+  .flagMetaVal { font-size: 1.35rem; }
+  .scoreNum { font-size: 2.1rem; }
+  .scoreWave { font-size: 0.58rem; letter-spacing: 0.14em; }
+  .toolNum { font-size: 2.4rem; }
+  .toolStats { gap: 1.2rem; }
+}

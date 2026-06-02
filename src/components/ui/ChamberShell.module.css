@@ -167,3 +167,40 @@
   color: var(--color-gold);
   font-weight: 500;
 }
+
+/* ── Mobile responsive ── reduce hero padding, fit title/preface, no overflow ── */
+@media (max-width: 768px) {
+  .main { padding-top: calc(var(--nav-h) + 2.5rem); padding-bottom: 3rem; }
+  .hero { padding: 4rem 1.4rem 3.5rem; }
+  .eyebrow { font-size: 0.6rem; letter-spacing: 0.26em; margin-bottom: 1.5rem; gap: 0.5rem; }
+  /* title can be long ("Know Your Brand") - clamp so it never spills the viewport */
+  .chamber { font-size: clamp(2.6rem, 11vw, 5rem); margin-bottom: 1.2rem; overflow-wrap: break-word; }
+  .preface { font-size: clamp(1.1rem, 4vw, 1.4rem); max-width: 100%; }
+  .body { padding: 0 1.4rem; }
+  .body :global(.section) { padding: 4rem 0; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 3.4rem 1.1rem 3rem; }
+  .body { padding: 0 1.1rem; }
+  .body :global(.section) { padding: 3.6rem 0; }
+}
+
+@media (max-width: 480px) {
+  .main { padding-top: calc(var(--nav-h) + 2rem); }
+  .hero { padding: 3rem 1rem 2.6rem; overflow: hidden; }
+  .chamber { font-size: clamp(2.2rem, 12vw, 3.4rem); }
+  .preface { font-size: 1.05rem; line-height: 1.45; }
+  .epigraph { font-size: 0.62rem; letter-spacing: 0.24em; }
+  .body { padding: 0 0.95rem; }
+  .body :global(.section) { padding: 3rem 0; }
+  /* shrink the giant ghosted section numeral so it stays behind the title */
+  :global(body[data-premium~="editorial"]) .body :global(.sectionTitle)::before {
+    font-size: clamp(4rem, 22vw, 7rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .chamber { font-size: clamp(2rem, 12vw, 3rem); }
+  .body { padding: 0 0.8rem; }
+}
