@@ -56,6 +56,51 @@
   color: var(--color-gold);
 }
 
+/* Social + legal/utility row (sits between the nav links and the meta lines) */
+.utility {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-steel);
+  transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+
+.socialLink:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+}
+
 .meta {
   max-width: 1200px;
   margin: 0 auto;

@@ -1,0 +1,274 @@
+/* Intake project-inquiry form — coast-site ocean design.
+   Visual language matches getStarted.module.css (glass inputs, gold chips/cards,
+   mono eyebrows, serif titles, gold next-button). */
+
+.page {
+  min-height: 100vh;
+  padding: 9rem 1.5rem 6rem;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .page { padding: 7.5rem 1.25rem 4.5rem; }
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header (light ocean treatment — no big ChamberShell hero) */
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+}
+.title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  line-height: 1.1;
+  color: var(--color-white);
+  margin-bottom: 0.6rem;
+}
+.sub {
+  color: var(--color-white-dim);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Progress bar */
+.progress {
+  margin-bottom: 3rem;
+}
+.progressHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
+.progressStep {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+.progressLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.progressTrack {
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-gold);
+  box-shadow: 0 0 14px -2px color-mix(in srgb, var(--color-gold) 60%, transparent);
+}
+
+/* Panel */
+.panel { min-height: 360px; }
+.panelTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  line-height: 1.12;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+.panelSub {
+  color: var(--color-white-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Fields */
+.fields { display: flex; flex-direction: column; gap: 1.1rem; }
+.fieldsWide { display: flex; flex-direction: column; gap: 1.6rem; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 0.45rem; }
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: color-mix(in srgb, var(--color-white) 4%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-white);
+  font-size: 0.95rem;
+  font-family: var(--font-sans, inherit);
+  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.textarea { resize: none; line-height: 1.55; }
+.input::placeholder,
+.textarea::placeholder { color: color-mix(in srgb, var(--color-steel) 80%, transparent); }
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-teal) 60%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-teal) 16%, transparent);
+}
+/* Native date control needs a readable indicator on the dark surface */
+.input::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
+
+/* Chips (single- and multi-select pills) */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip {
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  color: var(--color-white-dim);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+}
+.chip:hover { border-color: color-mix(in srgb, var(--color-gold) 45%, transparent); color: var(--color-white); }
+.chip[data-on='true'] {
+  border-color: var(--color-gold);
+  background: color-mix(in srgb, var(--color-gold) 16%, transparent);
+  color: var(--color-white);
+}
+
+/* Selectable cards (services + budget grids) */
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+@media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-white-dim);
+  font-size: 0.9rem;
+  transition: all 0.25s var(--ease-out);
+}
+.card:hover { border-color: color-mix(in srgb, var(--color-gold) 40%, transparent); }
+.card[data-on='true'] {
+  border-color: var(--color-gold);
+  background: color-mix(in srgb, var(--color-gold) 12%, transparent);
+  color: var(--color-white);
+}
+.check {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  color: #0a0c12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Field grouping for the multi-section steps */
+.group { display: flex; flex-direction: column; gap: 0.6rem; }
+
+/* Nav buttons */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.6rem;
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  cursor: pointer;
+  transition: color 0.3s var(--ease-out);
+}
+.back:hover { color: var(--color-white); }
+.next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  background: var(--color-gold);
+  color: #0a0c12;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--color-gold);
+  transition: all 0.3s var(--ease-out);
+}
+.next:hover:not(:disabled) {
+  box-shadow: 0 0 26px -6px color-mix(in srgb, var(--color-gold) 70%, transparent);
+  transform: translateY(-1px);
+}
+.next:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Success / submitted state */
+.done {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 1.5rem;
+}
+.doneIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.6rem;
+  color: var(--color-gold);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+  background: color-mix(in srgb, var(--color-gold) 12%, transparent);
+  box-shadow: 0 0 40px -10px color-mix(in srgb, var(--color-gold) 55%, transparent);
+}
+.doneTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.05;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+.doneSub {
+  color: var(--color-white-dim);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  max-width: 30rem;
+  margin-bottom: 2rem;
+}

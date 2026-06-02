@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { HomeOcean } from '@/components/home/HomeOcean'
+import { fetchReviews, getReviewStats } from '@/lib/google-reviews'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const revalidate = 3600
@@ -98,13 +99,27 @@ const professionalServiceSchema = {
   ],
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Real Google reviews (Featurable proxy, 5h cached). Empty on failure -> HomeOcean
+  // falls back to representative samples so the section never renders broken.
+  const raw = await fetchReviews()
+  const stats = getReviewStats(raw)
+  const reviews = raw
+    .filter((r) => r.comment && r.comment.trim().length > 0)
+    .slice(0, 3)
+    .map((r) => ({
+      quote: r.comment,
+      name: r.reviewer.displayName || 'Google reviewer',
+      stars: Math.round(r.starRating) || 5,
+    }))
+  const reviewStats = { average: stats.averageRating, count: stats.count }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }} />
-      <HomeOcean />
+      <HomeOcean reviews={reviews} reviewStats={reviewStats} />
     </>
   )
 }
