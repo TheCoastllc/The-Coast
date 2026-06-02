@@ -174,10 +174,6 @@ const company = [
 		href: "/work",
 	},
 	{
-		title: "Pricing",
-		href: "/pricing",
-	},
-	{
 		title: "Vision",
 		href: "/vision",
 	},

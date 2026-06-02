@@ -119,7 +119,6 @@ export default function OffersPage() {
           <h2 className="sectionTitle">Get a full brand audit from our team.</h2>
           <div className={styles.ctaRow}>
             <ShineButton href="/get-started" size="md">Get Started</ShineButton>
-            <ShineButton href="/pricing" size="md" variant="ghost">View Pricing</ShineButton>
           </div>
         </section>
       </ChamberShell>

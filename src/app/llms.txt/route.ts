@@ -79,13 +79,6 @@ export async function GET() {
 - [Creative Strategy](${BASE_URL}/services): Data-driven insights combined with bold creativity to position your brand as a market leader.
 - [Marketing Assets](${BASE_URL}/services): Flyers, social graphics, pitch decks, and digital assets that convert.
 
-## Pricing
-
-- [Pricing](${BASE_URL}/pricing): Monthly retainer packages designed to keep your brand sharp, consistent, and always evolving.
-  - [Creator Plan](${BASE_URL}/pricing): Free tier for freelancers and creative beginners. Up to 5 design projects, basic brand kit tools, community feedback access, starter UI components.
-  - [Studio Plan](${BASE_URL}/pricing): $25/month for agencies and growing creative teams. Unlimited design projects, complete brand management, advanced UI component library, Figma and Adobe integration, team collaboration workspace.
-  - [Agency Pro Plan](${BASE_URL}/pricing): $250/month for large design teams. Everything in Studio plus dedicated creative strategist, white-label design system, custom component development, SSO and enterprise security, 24/7 premium support.
-
 ## Process
 
 - [How Does The Coast's Brand Design Process Work?](${BASE_URL}/#process): Our four-step process for transforming your brand.
@@ -137,7 +130,7 @@ ${postLines}
 
 - What is your typical project timeline? Our engagements typically range from 2 to 6 weeks depending on scope. A standalone logo design takes 2 to 3 weeks. A full brand identity system runs 4 to 6 weeks.
 - Do you work with startups or established businesses? Both. We partner with solo founders, early-stage startups, small businesses, and growing companies across tech, healthcare, e-commerce, entertainment, food and beverage, and professional services.
-- What is your pricing structure? We offer project-based pricing determined by scope and value, plus three monthly retainer tiers: Creator (free), Studio ($25/month), and Agency Pro ($250/month). Every project begins with a free discovery session.
+- What is your pricing structure? We offer project-based pricing determined by scope and value, with a custom proposal provided after a free discovery session.
 - Do you offer ongoing support after launch? Yes - our retainer packages provide continuous access to design, development, and strategic support with priority turnaround.
 
 ## Company Stats

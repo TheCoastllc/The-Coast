@@ -12,7 +12,6 @@ export const NAV: Section[] = [
   { slug: "work",     path: "/work",     chamber: "Selected Work",    label: "Work" },
   { slug: "visuals",  path: "/visuals",  chamber: "The Visual Field", label: "Visuals" },
   { slug: "services", path: "/services", chamber: "What We Do",       label: "Services" },
-  { slug: "pricing",  path: "/pricing",  chamber: "Invest",           label: "Pricing" },
   { slug: "journal",  path: "/blog",     chamber: "The Journal",      label: "Journal" },
   { slug: "offers",   path: "/offers",   chamber: "The Brand Lab",    label: "Offers" },
   { slug: "about",    path: "/about",    chamber: "The Studio",       label: "About" },

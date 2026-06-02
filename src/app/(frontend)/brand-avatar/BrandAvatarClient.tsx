@@ -134,8 +134,8 @@ export default function BrandAvatarClient() {
             <div className="text-center mt-8">
               <p className="text-body text-muted-foreground text-sm">
                 Select services above to build your custom package, or{' '}
-                <Link href="/pricing" className="text-primary hover:underline">
-                  view our monthly retainer plans
+                <Link href="/get-started" className="text-primary hover:underline">
+                  start your project
                 </Link>
                 .
               </p>
