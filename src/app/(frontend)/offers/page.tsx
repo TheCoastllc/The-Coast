@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
-import { OffersSwitcher } from './OffersSwitcher'
-import { OffersLab } from './OffersLab'
-import { OffersEditorial } from './OffersEditorial'
-import { OffersInteractive } from './OffersInteractive'
+import { OffersBrandLab } from './OffersLab'
 
 export const metadata: Metadata = {
   title: 'The Brand Lab - Free Brand Diagnostics & The Coast Brand Index',
@@ -42,24 +39,13 @@ const breadcrumbSchema = {
   ],
 }
 
-type OffersVariant = 'lab' | 'editorial' | 'interactive'
-
-export default async function OffersPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ offers?: string }>
-}) {
-  const sp = await searchParams
-  const v: OffersVariant =
-    sp.offers === 'editorial' || sp.offers === 'interactive' ? sp.offers : 'lab'
-
+export default function OffersPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offersSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <OffersSwitcher current={v} />
-      {v === 'editorial' ? <OffersEditorial /> : v === 'interactive' ? <OffersInteractive /> : <OffersLab />}
+      <OffersBrandLab />
     </>
   )
 }
