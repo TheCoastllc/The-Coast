@@ -1,14 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { StoryHero } from "@/components/hero/StoryHero";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import { FoldingBoat } from "@/components/hero/FoldingBoat";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
-import { THESIS, SERVICES, WORK, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
+import { THESIS, SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
+import { CASE_STUDIES } from "@/lib/case-studies";
+import { TRUSTED_BRANDS_FALLBACK } from "@/lib/trusted-brands-fallback";
 import { ReviewsMarquee } from "./ReviewsMarquee";
 import styles from "./HomeOcean.module.css";
+
+/* Clients shown on the "Trusted by" wall (real roster; links to case studies or live sites). */
+const CLIENTS = TRUSTED_BRANDS_FALLBACK;
+
+/* Image-led "Selected work" cards — ready, cinematic case studies that have a cover frame. */
+const FEATURED_CASES = Object.entries(CASE_STUDIES)
+  .filter(([, c]) => c.ready && c.style === "cinematic" && !!c.moments?.length)
+  .slice(0, 6)
+  .map(([slug, c]) => ({
+    slug,
+    client: c.client ?? slug,
+    category: c.category ?? "",
+    year: c.year,
+    image: c.moments![0].image,
+  }));
 
 /* Google Reviews social proof. HomeOcean is a client component and
  * src/lib/google-reviews.ts is server-only (module-level fetch), so the
@@ -104,17 +122,45 @@ export function HomeOcean({
             </Link>
           </section>
 
-          <section className={`section ${styles.venturesPreview}`}>
+          <section className={`section ${styles.clientsSection}`}>
+            <p className={styles.thesisLabel}>Trusted by</p>
+            <div className={styles.clientsWall}>
+              {CLIENTS.map((c) => {
+                const href = c.caseStudySlug ? `/work/${c.caseStudySlug}` : c.url ?? null;
+                const inner = (
+                  <>
+                    <span className={styles.clientWordmark}>{c.wordmark ?? c.name}</span>
+                    {c.category && <span className={styles.clientCat}>{c.category}</span>}
+                  </>
+                );
+                if (!href) return <span key={c.id} className={styles.clientLink}>{inner}</span>;
+                return href.startsWith("http") ? (
+                  <a key={c.id} href={href} target="_blank" rel="noopener noreferrer" className={styles.clientLink} data-cursor-label="Visit">{inner}</a>
+                ) : (
+                  <Link key={c.id} href={href} className={styles.clientLink} data-cursor-label="Case study">{inner}</Link>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className={`section ${styles.workShowcase}`}>
             <p className={styles.thesisLabel}>Selected work</p>
-            <div className={styles.ventureList}>
-              {WORK.slice(0, 5).map((w) => (
-                <article key={w.name} className={`${styles.ventureRow} glass`}>
-                  <div className={styles.ventureName}>
-                    <span>{w.name}</span>
+            <div className={styles.workGrid}>
+              {FEATURED_CASES.map((w) => (
+                <Link key={w.slug} href={`/work/${w.slug}`} className={styles.workCard} data-cursor-label="View">
+                  <div className={styles.workThumb}>
+                    <Image src={w.image} alt={w.client} fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" className="object-cover" />
                   </div>
-                  <p className={styles.ventureTag}>{w.category}</p>
-                  <span className={styles.ventureStatus} />
-                </article>
+                  <span className={styles.workScrim} aria-hidden="true" />
+                  <span className={styles.workCardArrow} aria-hidden="true">↗</span>
+                  <div className={styles.workCardMeta}>
+                    <span className={styles.workClient}>{w.client}</span>
+                    <span className={styles.workCat}>
+                      <span>{w.category}</span>
+                      {w.year && <span>{w.year}</span>}
+                    </span>
+                  </div>
+                </Link>
               ))}
             </div>
             <Link href="/work" className={styles.cta} data-cursor-label="Explore">
@@ -149,6 +195,20 @@ export function HomeOcean({
               rating={displayRating}
               leaveReviewUrl={leaveReviewUrl ?? FALLBACK_LEAVE_URL}
             />
+          </section>
+
+          <section className="section">
+            <div className={`${styles.waveTeaser} glass`} data-glow="gold">
+              <p className={styles.thesisLabel}>The Coast Brand Index</p>
+              <h2 className={styles.waveTitle}>How strong is your wave?</h2>
+              <p className={styles.waveCopy}>
+                Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
+              </p>
+              <Link href="/cbi" className={styles.cta} data-cursor-label="Measure">
+                Take the test
+                <span className={styles.ctaArrow}>→</span>
+              </Link>
+            </div>
           </section>
 
           <section className={`section ${styles.closing}`}>

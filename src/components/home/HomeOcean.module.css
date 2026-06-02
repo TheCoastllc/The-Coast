@@ -362,6 +362,142 @@
   color: var(--color-steel);
 }
 
+/* Trusted-by client wall (static wordmarks -> case studies / live sites) */
+.clientsSection { text-align: center; }
+.clientsWall {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem 2.8rem;
+  max-width: 1000px;
+  margin: 2.4rem auto 0;
+}
+.clientLink {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+.clientWordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--color-white-dim);
+  transition: color 0.3s var(--ease-out), text-shadow 0.3s var(--ease-out);
+}
+.clientLink:hover .clientWordmark {
+  color: var(--color-gold);
+  text-shadow: 0 0 26px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+.clientCat {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+/* Image-led Selected Work */
+.workShowcase { text-align: center; }
+.workGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem;
+  margin-top: 2.4rem;
+  text-align: left;
+}
+@media (max-width: 900px) { .workGrid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .workGrid { grid-template-columns: 1fr; } }
+.workCard {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-white) 4%, transparent);
+  transition: border-color 0.4s var(--ease-out);
+}
+.workCard:hover { border-color: color-mix(in srgb, var(--color-gold) 55%, transparent); }
+.workThumb { position: absolute; inset: 0; }
+.workThumb :global(img) {
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+.workCard:hover .workThumb :global(img) { transform: scale(1.06); }
+.workScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 9, 15, 0.94) 0%, rgba(6, 9, 15, 0.35) 45%, transparent 72%);
+}
+.workCardArrow {
+  position: absolute;
+  top: 0.9rem;
+  right: 1.1rem;
+  font-family: var(--font-mono);
+  color: var(--color-white);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  z-index: 1;
+}
+.workCard:hover .workCardArrow { opacity: 1; transform: translate(0, 0); }
+.workCardMeta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.3rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  z-index: 1;
+}
+.workClient {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.05;
+  color: var(--color-white);
+}
+.workCat {
+  display: flex;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* CBI "How strong is your wave" teaser band */
+.waveTeaser {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3.2rem 2.4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.waveTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  color: var(--color-white);
+  text-shadow: var(--text-glow-teal, 0 0 30px rgba(127, 211, 199, 0.25));
+  margin: 0.8rem 0 1rem;
+}
+.waveCopy {
+  max-width: 540px;
+  color: var(--color-white-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
 /* --- 3-act story track (over the fixed StoryHero canvas) --- */
 .storyTrack {
   position: relative;

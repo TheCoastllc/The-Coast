@@ -14,6 +14,7 @@ export const NAV: Section[] = [
   { slug: "services", path: "/services", chamber: "What We Do",       label: "Services" },
   { slug: "journal",  path: "/blog",     chamber: "The Journal",      label: "Journal" },
   { slug: "offers",   path: "/offers",   chamber: "The Brand Lab",    label: "Offers" },
+  { slug: "wave",     path: "/cbi",      chamber: "How Strong Is Your Wave", label: "Wave" },
   { slug: "about",    path: "/about",    chamber: "The Studio",       label: "About" },
   { slug: "contact",  path: "/contact",  chamber: "Start",            label: "Contact" },
 ];
