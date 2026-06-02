@@ -2,14 +2,15 @@
 // That single change automatically: adds the page to the sitemap, makes it indexable,
 // includes it in generateStaticParams, and removes the noindex flag from metadata.
 //
-// Two render styles:
-//   - style: 'custom'    → hand-built React component (ZappedCoPage)
-//   - style: 'cinematic' → CinematicCaseStudy renderer (palette / moments / motion / stats / stack)
+// Three render bodies (all wrapped by ChamberShell in the ocean design):
+//   - ready: false      → UnderConstructionPage (fallback notice)
+//   - style: 'cinematic' → CinematicBody (palette / moments / motion / stats / stack / live)
+//   - style: 'custom'    → hand-built body (ZappedCoPage)
 import { notFound } from 'next/navigation'
-import { BlueprintLayout } from '@/components/blueprint-layout'
+import { ChamberShell } from '@/components/ui/ChamberShell'
 import ZappedCoPage from './ZappedCoPage'
 import UnderConstructionPage from './UnderConstructionPage'
-import CinematicCaseStudy from '@/components/CinematicCaseStudy'
+import CinematicBody from './CinematicBody'
 import { CASE_STUDIES as projectMeta } from '@/lib/case-studies'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
@@ -65,6 +66,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
 
   if (!meta) notFound()
 
+  // Display name for the chamber title — strip the " — …" marketing suffix.
+  const displayName = meta.client ?? meta.title.split(' — ')[0]
+
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -116,20 +120,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
     }
   }
 
-  // Pick the renderer based on style
-  const renderProject = () => {
-    if (!meta.ready) return <UnderConstructionPage projectId={projectId} />
-    if (meta.style === 'cinematic') return <CinematicCaseStudy projectId={projectId} />
-    // Default / 'custom' style — hand-built pages
+  // Pick the body renderer based on style / ready state.
+  const renderBody = () => {
+    if (!meta.ready) return <UnderConstructionPage />
+    if (meta.style === 'cinematic') return <CinematicBody projectId={projectId} />
+    // Default / 'custom' style — hand-built bodies
     if (projectId === 'zappedco') return <ZappedCoPage />
-    return <UnderConstructionPage projectId={projectId} />
+    return <UnderConstructionPage />
   }
 
   return (
-    <BlueprintLayout>
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }} />
-      {renderProject()}
-    </BlueprintLayout>
+      <ChamberShell
+        index="02"
+        label="Work"
+        chamber={displayName}
+        preface={meta.tagline ?? meta.description}
+      >
+        {renderBody()}
+      </ChamberShell>
+    </>
   )
 }
