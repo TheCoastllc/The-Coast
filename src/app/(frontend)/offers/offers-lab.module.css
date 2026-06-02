@@ -1,0 +1,193 @@
+/* ── Cinematic Brand Lab ── flagship CBI wave hero + large glass tool showcases */
+
+/* CBI flagship */
+.flagship {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.4rem, 5vw, 4.2rem);
+  margin-top: 1rem;
+  isolation: isolate;
+}
+.flagshipGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 4vw, 3.6rem);
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .flagshipGrid { grid-template-columns: 1fr; gap: 2.4rem; }
+}
+.flagBadge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.flagTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 1rem 0 1.2rem;
+}
+.flagBlurb {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-white-dim);
+  max-width: 46ch;
+  margin-bottom: 1.8rem;
+}
+.flagMeta {
+  display: flex;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+  margin: 0 0 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--color-border);
+}
+.flagMetaItem { display: flex; flex-direction: column; gap: 0.25rem; }
+.flagMetaVal {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--color-gold);
+}
+.flagMetaLabel {
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+/* the wave instrument on the right of the flagship */
+.waveWrap {
+  position: relative;
+  border-radius: 12px;
+  padding: 1.6rem 1.4rem 1.2rem;
+  background: linear-gradient(170deg, rgba(13, 28, 46, 0.5), rgba(8, 16, 28, 0.35));
+  border: 1px solid var(--color-border);
+}
+.waveSvg { display: block; width: 100%; height: auto; }
+.waveCaption {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+/* soft gold sun-core bloom behind the flagship */
+.flagBloom {
+  position: absolute;
+  z-index: -1;
+  width: 60%;
+  aspect-ratio: 1;
+  right: -8%;
+  top: -30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-gold-glow), transparent 62%);
+  opacity: 0.5;
+  pointer-events: none;
+  filter: blur(8px);
+}
+
+/* narrative line */
+.narrative {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  color: var(--color-cream);
+  max-width: 22ch;
+}
+.narrative :global(.word) { color: inherit; }
+
+/* big tool showcase rows */
+.tools { display: flex; flex-direction: column; gap: 1.6rem; margin-top: 2.4rem; }
+.tool {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(1.4rem, 3vw, 2.8rem);
+  padding: clamp(1.8rem, 3.2vw, 2.6rem) clamp(1.8rem, 3.4vw, 2.8rem);
+}
+@media (max-width: 760px) {
+  .tool { grid-template-columns: 1fr; gap: 1.2rem; }
+}
+.toolNum {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.8rem, 6vw, 4.4rem);
+  line-height: 0.85;
+  color: color-mix(in srgb, var(--gc, var(--color-teal)) 70%, transparent);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--gc, var(--color-teal)) 30%, transparent);
+}
+.toolBody { display: flex; flex-direction: column; gap: 0.55rem; }
+.toolTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.1;
+}
+.toolTagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-teal);
+}
+.toolDesc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-white-dim);
+  max-width: 54ch;
+}
+.toolAside { display: flex; flex-direction: column; align-items: flex-end; gap: 1.1rem; }
+@media (max-width: 760px) { .toolAside { align-items: flex-start; } }
+.toolStats { display: flex; gap: 1.2rem; }
+.toolStat { display: flex; flex-direction: column; gap: 0.2rem; text-align: right; }
+@media (max-width: 760px) { .toolStat { text-align: left; } }
+.toolStatVal {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--gc, var(--color-teal));
+}
+.toolStatLabel {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+.toolCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gc, var(--color-gold));
+  transition: gap 0.3s var(--ease-out);
+}
+.tool:hover .toolCta { gap: 0.9rem; }
+
+.ctaRow { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+.ctaNote {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  margin-top: 1.4rem;
+}
