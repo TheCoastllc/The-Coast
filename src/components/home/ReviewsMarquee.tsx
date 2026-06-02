@@ -30,7 +30,8 @@ function fmtDate(iso?: string | null): string | null {
   if (!iso) return null
   const d = new Date(iso)
   if (isNaN(d.getTime())) return null
-  return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+  // timeZone:'UTC' keeps server + client output identical (no hydration mismatch)
+  return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
 }
 
 function initials(name: string): string {
@@ -55,7 +56,7 @@ function ReviewCard({ r }: { r: MarqueeReview }) {
         )}
         <span className={styles.personMeta}>
           <span className={styles.name}>{r.name}</span>
-          {date && <span className={styles.date}>{date}</span>}
+          {date && <span className={styles.date} suppressHydrationWarning>{date}</span>}
         </span>
       </div>
     </article>
