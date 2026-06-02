@@ -3,16 +3,15 @@ import './styles.css'
 import type { Metadata } from 'next'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import QueryProvider from '@/components/QueryProvider'
-import Preloader from '@/components/Preloader'
-import Noise from '@/components/Noise'
+import { Nav } from '@/components/chrome/Nav'
+import { ScrollThread } from '@/components/chrome/ScrollThread'
 import { Cursor } from '@/components/chrome/Cursor'
 import { HUD } from '@/components/chrome/HUD'
 import { CompassRose } from '@/components/chrome/CompassRose'
 import { CardLampGlow } from '@/components/chrome/CardLampGlow'
 import { SeaParallax } from '@/components/chrome/SeaParallax'
 import { LenisProvider } from '@/components/motion/LenisProvider'
-import { Footer } from '@/components/footer'
-import { Header } from '@/components/header'
+import { Footer } from '@/components/chrome/Footer'
 import { PageTransitionProvider } from '@/components/PageTransition'
 import { CookieBanner } from '@/components/CookieBanner'
 import { Toaster } from 'sonner'
@@ -155,17 +154,18 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       </head>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
         <SeaBackdrop />
-        <Preloader />
-        <Noise />
         <QueryProvider>
           <PageTransitionProvider>
-            <Header />
+            <Nav />
             {children}
             <Footer />
           </PageTransitionProvider>
         </QueryProvider>
         <HUD />
+        <ScrollThread />
         <CompassRose />
+        <div className="vignette" />
+        <div className="grain" />
         <Cursor />
         <CardLampGlow />
         <SeaParallax />
