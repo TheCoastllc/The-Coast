@@ -1,33 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import styles from "./Mark.module.css";
 
+const LOGO_AR = 1145 / 412; // coast-logo.png intrinsic aspect ratio
+
 /**
- * The Coast logo lockup (iC mark + wordmark). Renders the supplied file from
- * /public at a fixed HEIGHT, preserving its natural aspect ratio; if the file
- * isn't there it hides gracefully (no broken-image icon). Drop the asset at
- * public/coast-logo.png.
+ * The Coast logo lockup. Rendered through next/image so a ~30px-tall logo is
+ * served as a tiny optimized AVIF/WebP (not the 1145x412 source). Hides
+ * gracefully if the asset is missing. Drop the asset at public/coast-logo.png.
  */
 export function Mark({ size = 30, className, alt = "The Coast" }: { size?: number; className?: string; alt?: string }) {
   const [ok, setOk] = useState(true);
-  const ref = useRef<HTMLImageElement>(null);
-
-  // catch a load failure that happened before hydration attached onError
-  useEffect(() => {
-    const img = ref.current;
-    if (img && img.complete && img.naturalWidth === 0) setOk(false);
-  }, []);
-
   if (!ok) return null;
+  const w = Math.round(size * LOGO_AR);
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      ref={ref}
+    <Image
       src="/coast-logo.png"
       alt={alt}
+      width={w}
+      height={size}
+      sizes={`${w}px`}
+      priority
       className={`${styles.mark} ${className ?? ""}`}
-      style={{ height: size, width: "auto" }}
       onError={() => setOk(false)}
     />
   );

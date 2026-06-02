@@ -137,28 +137,6 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
     <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable} relative`}>
-      <head>
-        {/* Premium pairing: PP Editorial New (display serif) + PP Neue Montreal (body grotesk).
-            Loaded via Fontshare CDN (Pangram Pangram, free for commercial use).
-            CSP whitelisted in next.config.mjs. Inter + Anton stay as fallbacks. */}
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          rel="preconnect"
-          href="https://api.fontshare.com"
-          crossOrigin=""
-        />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          rel="preconnect"
-          href="https://cdn.fontshare.com"
-          crossOrigin=""
-        />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=neue-montreal@400,500,600,700&f[]=editorial-new@200,400,500,700&display=swap"
-        />
-      </head>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
         <SeaBackdrop />
         <QueryProvider>

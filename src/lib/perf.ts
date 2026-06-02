@@ -48,6 +48,23 @@ export function useQuality(): Quality {
 }
 
 /**
+ * True ONLY on devices that should run WebGL: a fine pointer (desktop), a
+ * non-low tier, and motion allowed. SSR-safe - returns false until mounted, so
+ * the heavy three.js chunk is never even requested on touch / low-end devices.
+ * Gate every dynamic WebGL import behind this so phones ship zero three.js.
+ */
+export function useWebGLAllowed(): boolean {
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    setOk(!reduced && !coarse && detect().tier !== "low");
+  }, []);
+  return ok;
+}
+
+/**
  * True while the page is scrolled within `maxViewports` of the top. Used to
  * freeze the fixed hero canvas (frameloop "never") once content covers it, so
  * it stops burning GPU cycles. Only re-renders on the boolean transition.

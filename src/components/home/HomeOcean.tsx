@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
-import { FoldingBoat } from "@/components/hero/FoldingBoat";
+import dynamic from "next/dynamic";
+import { useWebGLAllowed } from "@/lib/perf";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { THESIS, SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
@@ -12,6 +13,12 @@ import { CASE_STUDIES } from "@/lib/case-studies";
 import { TRUSTED_BRANDS_FALLBACK } from "@/lib/trusted-brands-fallback";
 import { ReviewsMarquee } from "./ReviewsMarquee";
 import styles from "./HomeOcean.module.css";
+
+// three.js finale - desktop only, lazy-loaded (never on touch / low-end).
+const FoldingBoat = dynamic(
+  () => import("@/components/hero/FoldingBoat").then((m) => ({ default: m.FoldingBoat })),
+  { ssr: false }
+);
 
 /* Clients shown on the "Trusted by" wall (real roster; links to case studies or live sites). */
 const CLIENTS = TRUSTED_BRANDS_FALLBACK;
@@ -77,6 +84,7 @@ export function HomeOcean({
     reviews && reviews.length >= 1 ? reviews : [...REVIEWS];
   const displayRating =
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
+  const webgl = useWebGLAllowed();
   return (
     <>
       <HeroStage meet="reflect" />
@@ -222,7 +230,7 @@ export function HomeOcean({
       </div>
 
       {/* the folding finale - flat paper scrubs into a boat */}
-      <FoldingBoat />
+      {webgl && <FoldingBoat />}
     </>
   );
 }

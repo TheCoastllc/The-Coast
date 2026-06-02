@@ -1,40 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useQuality } from "@/lib/perf";
-import { StoryHero, MeetMode } from "./StoryHero";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useWebGLAllowed } from "@/lib/perf";
 import { StoryHeroStatic } from "./StoryHeroStatic";
-import { BoatMode } from "./Boat";
+import type { MeetMode } from "./StoryHero";
+import type { BoatMode } from "./Boat";
+
+// three.js / R3F live ONLY in this chunk. It is loaded lazily (ssr:false) and
+// only when useWebGLAllowed() is true (capable desktop) - so touch / low-end
+// devices download none of it. The type-only imports above are erased at build.
+const StoryHero = dynamic(() => import("./StoryHero").then((m) => ({ default: m.StoryHero })), {
+  ssr: false,
+});
 
 /**
- * Decides the hero per device + masks the WebGL warmup:
- * - Always renders the crisp CSS StoryHeroStatic immediately (first paint = sun/waves, never the reef).
- * - On capable devices (tier !== low, motion allowed) mounts the WebGL StoryHero ABOVE it and
- *   fades it in only once its scene has actually painted (onReady) - so there is no transparent gap.
- * - On low-end / reduced-motion devices the WebGL hero is never mounted; the static scene IS the hero
- *   (zero WebGL cost, perfectly sharp).
+ * Always paints the crisp CSS StoryHeroStatic instantly (sun/sky/waves, no WebGL).
+ * On capable desktops it lazy-loads the animated WebGL hero and fades it in once
+ * its first frame paints. On phones / low-end / reduced-motion the static scene IS
+ * the hero - zero three.js, instant + smooth.
  */
 export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode; boat?: BoatMode }) {
-  const q = useQuality();
-  const [mounted, setMounted] = useState(false);
-  const [reduced, setReduced] = useState(false);
-  const [coarse, setCoarse] = useState(false);
+  const webgl = useWebGLAllowed();
   const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    if (typeof window !== "undefined") {
-      setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-      setCoarse(window.matchMedia("(pointer: coarse)").matches);
-    }
-  }, []);
-
-  const useWebGL = mounted && q.tier !== "low" && !reduced;
 
   return (
     <>
       <StoryHeroStatic />
-      {useWebGL && (
+      {webgl && (
         <div
           style={{
             position: "fixed",
@@ -46,7 +39,7 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
           }}
           aria-hidden
         >
-          <StoryHero meet={meet} boat={boat} postfx={!coarse} onReady={() => setReady(true)} />
+          <StoryHero meet={meet} boat={boat} onReady={() => setReady(true)} />
         </div>
       )}
     </>
