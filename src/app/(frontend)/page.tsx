@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { HomeOcean } from '@/components/home/HomeOcean'
-import { fetchReviews, getReviewStats } from '@/lib/google-reviews'
+import { fetchReviews, getReviewStats, LEAVE_REVIEW_URL } from '@/lib/google-reviews'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const revalidate = 3600
@@ -106,11 +106,13 @@ export default async function HomePage() {
   const stats = getReviewStats(raw)
   const reviews = raw
     .filter((r) => r.comment && r.comment.trim().length > 0)
-    .slice(0, 3)
+    .slice(0, 20)
     .map((r) => ({
       quote: r.comment,
       name: r.reviewer.displayName || 'Google reviewer',
       stars: Math.round(r.starRating) || 5,
+      avatar: r.reviewer.profilePhotoUrl || null,
+      date: r.createTime || r.updateTime || null,
     }))
   const reviewStats = { average: stats.averageRating, count: stats.count }
 
@@ -119,7 +121,7 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }} />
-      <HomeOcean reviews={reviews} reviewStats={reviewStats} />
+      <HomeOcean reviews={reviews} reviewStats={reviewStats} leaveReviewUrl={LEAVE_REVIEW_URL} />
     </>
   )
 }

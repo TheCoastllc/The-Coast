@@ -7,6 +7,7 @@ import { FoldingBoat } from "@/components/hero/FoldingBoat";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { THESIS, SERVICES, WORK, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
+import { ReviewsMarquee } from "./ReviewsMarquee";
 import styles from "./HomeOcean.module.css";
 
 /* Google Reviews social proof. HomeOcean is a client component and
@@ -36,33 +37,26 @@ const REVIEWS = [
   },
 ] as const;
 
-function Stars({ count }: { count: number }) {
-  return (
-    <span className={styles.reviewStars} aria-label={`${count} out of 5 stars`}>
-      {Array.from({ length: count }).map((_, i) => (
-        <svg key={i} viewBox="0 0 20 20" width="14" height="14" fill="currentColor" aria-hidden="true">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </span>
-  );
-}
-
 /** The home exactly as built in coast-site: the scroll-driven boat-voyage hero
  *  (StoryHero + morphing StoryHeadline) over a tall runway, then the editorial
  *  content sections, then the folding-boat finale. Baked (no ?hero/?meet switcher). */
-type DisplayReview = { quote: string; name: string; stars: number };
+type DisplayReview = { quote: string; name: string; stars: number; avatar?: string | null; date?: string | null };
+
+const FALLBACK_LEAVE_URL =
+  "https://search.google.com/local/writereview?placeid=ChIJ_fjV-mLpAo4Riif8WzjsV70";
 
 export function HomeOcean({
   reviews,
   reviewStats,
+  leaveReviewUrl,
 }: {
   /** Real Google reviews fetched server-side; falls back to representative samples. */
   reviews?: DisplayReview[];
   reviewStats?: { average: number; count: number };
+  leaveReviewUrl?: string;
 } = {}) {
-  const displayReviews: readonly DisplayReview[] =
-    reviews && reviews.length >= 1 ? reviews.slice(0, 3) : REVIEWS;
+  const displayReviews: DisplayReview[] =
+    reviews && reviews.length >= 1 ? reviews : [...REVIEWS];
   const displayRating =
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   return (
@@ -150,23 +144,11 @@ export function HomeOcean({
           </section>
 
           <section className={`section ${styles.reviewsSection}`}>
-            <p className={styles.thesisLabel}>What clients say</p>
-            <p className={styles.reviewsRating}>
-              <span className={styles.reviewsRatingStars} aria-hidden="true">★</span>
-              {displayRating.average.toFixed(1)}
-              <span className={styles.reviewsRatingFrom}>
-                from {displayRating.count} Google reviews
-              </span>
-            </p>
-            <div className={styles.reviewGrid}>
-              {displayReviews.map((r) => (
-                <article key={r.name} className={`${styles.reviewCard} glass`}>
-                  <Stars count={r.stars} />
-                  <p className={styles.reviewQuote}>{r.quote}</p>
-                  <p className={styles.reviewName}>{r.name}</p>
-                </article>
-              ))}
-            </div>
+            <ReviewsMarquee
+              reviews={displayReviews}
+              rating={displayRating}
+              leaveReviewUrl={leaveReviewUrl ?? FALLBACK_LEAVE_URL}
+            />
           </section>
 
           <section className={`section ${styles.closing}`}>
