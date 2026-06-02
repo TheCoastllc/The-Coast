@@ -1,0 +1,145 @@
+/* Blog index — coast-site editorial/glass design over the sea */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* post card uses .glass for the frame; this lays out its insides */
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  height: 100%;
+}
+.cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-teal) 22%, transparent);
+}
+.cover :global(img) {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+.card:hover .cover :global(img) {
+  transform: scale(1.05);
+}
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.4rem 1.5rem 1.6rem;
+  flex: 1;
+}
+.cat {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.45rem;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  transition: color 0.3s var(--ease-out);
+}
+.card:hover .title {
+  color: var(--color-teal);
+}
+.excerpt {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-white-dim);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.meta {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+.searchWrap {
+  margin-bottom: 1.5rem;
+}
+
+.empty {
+  padding: 6rem 0;
+  text-align: center;
+}
+.emptyLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  display: block;
+  margin-bottom: 1rem;
+}
+.emptyTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  color: var(--color-white);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px dashed color-mix(in srgb, var(--color-teal) 30%, transparent);
+}
+.pageLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  margin-right: 1rem;
+}
+.pageLink {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-white-dim);
+  transition: border-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+.pageLink:hover {
+  border-color: color-mix(in srgb, var(--color-teal) 55%, transparent);
+  color: var(--color-white);
+}
+.pageLink[data-active="true"] {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  box-shadow: var(--glow-gold);
+}
