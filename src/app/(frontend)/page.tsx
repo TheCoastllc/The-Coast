@@ -1,21 +1,6 @@
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
-import dynamic from 'next/dynamic'
-import { StoryHero } from '@/components/hero/StoryHero'
-import { StoryHeadline } from '@/components/hero/StoryHeadline'
-import { LogosSection } from '@/components/logos-section'
-import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
+import { HomeOcean } from '@/components/home/HomeOcean'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
-
-const About = dynamic(() => import('@/components/pages/landingPage/About'))
-const Services = dynamic(() => import('@/components/pages/landingPage/Services'))
-const ProcessSection = dynamic(() => import('@/components/pages/landingPage/ProcessSection'))
-const Portfolio = dynamic(() => import('@/components/pages/landingPage/Portfolio'))
-const Clients = dynamic(() => import('@/components/pages/landingPage/Clients'))
-import GoogleReviews from '@/components/pages/landingPage/GoogleReviewsServer'
-import FAQ from '@/components/pages/landingPage/FAQ'
-const BlogPreview = dynamic(() => import('@/components/pages/landingPage/BlogPreview'))
-const Contact = dynamic(() => import('@/components/pages/landingPage/Contact'))
 
 export const revalidate = 3600
 
@@ -57,7 +42,8 @@ const organizationSchema = {
     width: 200,
     height: 60,
   },
-  description: 'Brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
+  description:
+    'Brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
   email: 'hello@coastglobal.org',
   telephone: '+16827020374',
   foundingDate: '2023-02',
@@ -114,63 +100,11 @@ const professionalServiceSchema = {
 
 export default function HomePage() {
   return (
-    <BlueprintLayout>
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }} />
-      {/* Ocean boat-voyage hero: fixed StoryHero canvas (z:-1) + scrubbed headline + 300vh scroll runway */}
-      <StoryHero meet="reflect" />
-      <StoryHeadline />
-      <div className="relative z-[1] h-[300vh]" aria-hidden="true" />
-      <div className="relative z-[1] px-4">
-        <div className="max-w-6xl mx-auto">
-          <LogosSection />
-        </div>
-      </div>
-
-      <SectionBoundary />
-      <About />
-      <SectionBoundary />
-      <Services />
-      <SectionBoundary />
-      <ProcessSection />
-      <SectionBoundary />
-      <Portfolio />
-      <SectionBoundary />
-      <div className='w-full overflow-hidden'>
-        <Clients />
-      </div>
-      <SectionBoundary />
-      <Suspense fallback={<div className="py-32 bg-black px-4"><div className="max-w-6xl mx-auto h-96 animate-pulse" /></div>}>
-        <GoogleReviews />
-      </Suspense>
-      <SectionBoundary />
-      <Suspense fallback={<div className="py-32 bg-black px-4"><div className="max-w-6xl mx-auto h-96 animate-pulse" /></div>}>
-        <FAQ />
-      </Suspense>
-      <SectionBoundary />
-      <Suspense fallback={
-        <div className="py-32 bg-black px-4">
-          <div className="max-w-6xl mx-auto px-2 sm:px-4">
-            <div className="h-6 w-32 bg-white/5 rounded mb-20 animate-pulse" />
-            <div className="grid grid-cols-1 md:grid-cols-3 border border-white/10">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="aspect-square p-8 md:p-10 border-b md:border-b-0 md:border-r last:border-r-0 border-white/10 animate-pulse">
-                  <div className="h-3 w-20 bg-white/5 rounded mb-auto" />
-                  <div className="mt-auto space-y-2">
-                    <div className="h-6 w-3/4 bg-white/5 rounded" />
-                    <div className="h-6 w-1/2 bg-white/5 rounded" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      }>
-        <BlogPreview />
-      </Suspense>
-      <SectionBoundary />
-      <Contact />
-    </BlueprintLayout>
+      <HomeOcean />
+    </>
   )
 }

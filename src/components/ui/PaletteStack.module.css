@@ -1,0 +1,63 @@
+.wrap {
+  display: grid;
+  gap: 4px;
+  margin-top: 2.5rem;
+}
+
+/* stacked rows (like the moodboard) */
+.wrap[data-layout="stack"] {
+  grid-template-columns: 1fr;
+}
+
+/* horizontal row of tall swatches */
+.wrap[data-layout="row"] {
+  grid-template-columns: repeat(5, 1fr);
+}
+@media (max-width: 700px) {
+  .wrap[data-layout="row"] {
+    grid-template-columns: 1fr;
+  }
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.6rem 1.8rem;
+  min-height: 92px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.4s var(--ease-out);
+}
+.wrap[data-layout="row"] .swatch {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: 200px;
+}
+
+.swatch:hover {
+  transform: translateY(-3px);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+.hex {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+}
+
+/* contrast: light text on dark swatches, dark text on light */
+.swatch[data-dark="true"] .name,
+.swatch[data-dark="true"] .hex {
+  color: rgba(237, 239, 242, 0.92);
+}
+.swatch[data-dark="false"] .name,
+.swatch[data-dark="false"] .hex {
+  color: rgba(10, 12, 18, 0.9);
+}

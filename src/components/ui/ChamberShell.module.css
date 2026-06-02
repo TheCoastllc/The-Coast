@@ -1,0 +1,169 @@
+.main {
+  padding-top: calc(var(--nav-h) + 4rem);
+  padding-bottom: 4rem;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  position: relative;
+  padding: 7rem 2rem 6rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.heroInner {
+  max-width: 980px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 2rem;
+}
+
+.idx,
+.eyebrowLabel,
+.eyebrowSep {
+  display: inline-block;
+}
+
+.eyebrowSep {
+  color: var(--color-mono);
+}
+
+.chamber {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 9vw, 7rem);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-cream);
+  margin-bottom: 1.5rem;
+}
+
+.preface {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  line-height: 1.5;
+  color: var(--color-cream-dim);
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+}
+
+.epigraph {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-mono);
+  margin-top: 2rem;
+}
+
+.body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.body :global(.section) {
+  padding: 6rem 0;
+  position: relative;
+  border-bottom: none;
+}
+.body :global(.section)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--world-line) 42%, transparent);
+  box-shadow: var(--world-glow);
+}
+.body :global(.section:last-child)::after {
+  display: none;
+}
+
+.body :global(.sectionTitle) {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  color: var(--color-cream);
+}
+
+/* editorial: a giant ghosted OUTLINE section numeral behind each title */
+:global(body[data-premium~="editorial"]) .body {
+  counter-reset: ghostsec;
+}
+:global(body[data-premium~="editorial"]) .body :global(.section) {
+  counter-increment: ghostsec;
+}
+:global(body[data-premium~="editorial"]) .body :global(.sectionTitle) {
+  position: relative;
+}
+:global(body[data-premium~="editorial"]) .body :global(.sectionTitle)::before {
+  content: counter(ghostsec, decimal-leading-zero);
+  position: absolute;
+  z-index: -1;
+  top: -0.62em;
+  left: -0.06em;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(5rem, 15vw, 10rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in srgb, var(--color-teal) 34%, transparent);
+  opacity: 0.68;
+  pointer-events: none;
+  user-select: none;
+}
+
+.body :global(.sectionLabel) {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1.5rem;
+}
+
+.body :global(.lede) {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  line-height: 1.5;
+  color: var(--color-cream-dim);
+  max-width: 760px;
+  margin-bottom: 2rem;
+}
+
+.body :global(.prose) {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-cream);
+  max-width: 740px;
+  margin-bottom: 1.4rem;
+}
+
+.body :global(.prose b),
+.body :global(.prose strong) {
+  color: var(--color-gold);
+  font-weight: 500;
+}

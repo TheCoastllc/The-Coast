@@ -1,0 +1,38 @@
+.wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--color-bg);
+  cursor: none;
+}
+
+.trailImg {
+  position: absolute;
+  width: clamp(180px, 18vw, 300px);
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translate(-50%, -50%) scale(0.55);
+  border: 1px solid rgba(237, 239, 242, 0.1);
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  pointer-events: none;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}

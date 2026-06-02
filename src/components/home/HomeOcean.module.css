@@ -1,0 +1,373 @@
+/* Hero (first viewport, over the fixed WebGL scene) */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.heroInner {
+  max-width: 90vw;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 8vw, 7rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--color-cream);
+  text-shadow: 0 0 52px rgba(219, 82, 39, 0.22), 0 0 90px rgba(2, 54, 97, 0.4);
+}
+
+.sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 0.8vw, 0.78rem);
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  margin-top: 2.4rem;
+  color: var(--color-gold);
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: 9vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, transparent, var(--color-gold));
+  opacity: 0.5;
+}
+
+.scrollLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-mono);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+/* Scrolling content over the fixed hero */
+
+.content {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-bg) 12%,
+    var(--color-bg) 100%
+  );
+  padding: 0 2rem;
+}
+
+.content :global(.section) {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 7rem 0;
+  position: relative;
+  border-bottom: none;
+}
+.content :global(.section)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--world-line) 42%, transparent);
+  box-shadow: var(--world-glow);
+}
+
+.thesisLabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1.6rem;
+}
+
+.thesisTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--color-cream);
+  margin-bottom: 1.6rem;
+}
+
+.thesisBody {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-cream-dim);
+  max-width: 720px;
+}
+
+/* Ventures preview */
+
+.ventureList {
+  margin: 2.5rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ventureRow {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr auto;
+  gap: 2rem;
+  align-items: baseline;
+  padding: 1.5rem 1.9rem;
+}
+
+.ventureRow::before {
+  content: "";
+  position: absolute;
+  margin-left: -1rem;
+  margin-top: 0.6rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.ventureRow[data-accent="gold"]:hover::before { opacity: 1; background: var(--color-gold); box-shadow: 0 0 8px var(--color-gold); }
+.ventureRow[data-accent="cyan"]:hover::before { opacity: 1; background: var(--color-signal); box-shadow: 0 0 8px var(--color-signal); }
+
+.ventureName {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 300;
+  color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ventureFull {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+.ventureTag {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--color-white-dim);
+}
+
+.ventureStatus {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .ventureRow {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .ventureStatus {
+    text-align: left;
+  }
+}
+
+/* Closing */
+
+.closing {
+  text-align: center;
+}
+
+.closingTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  line-height: 1.3;
+  color: var(--color-cream);
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+}
+
+/* CTA shared */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 2rem;
+  padding: 1.1rem 2.2rem;
+  border: 1px solid var(--color-gold);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  transition: background 0.4s var(--ease-out), color 0.4s var(--ease-out);
+}
+
+.cta:hover {
+  background: var(--color-gold);
+  color: var(--color-bg);
+}
+
+.ctaArrow {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* Stats strip */
+.statsSection {
+  text-align: center;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--color-border);
+}
+@media (max-width: 700px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.stat {
+  padding: 2.4rem 1rem;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.stat:last-child {
+  border-right: none;
+}
+.statValue {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  color: var(--color-accent);
+  line-height: 1;
+}
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+/* --- 3-act story track (over the fixed StoryHero canvas) --- */
+.storyTrack {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  height: 300vh; /* scroll runway for the 3 acts */
+}
+
+.beat {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.beatInner {
+  max-width: 900px;
+}
+
+.beatLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1.6rem;
+}
+
+.beatTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  text-shadow: 0 0 52px rgba(219, 82, 39, 0.22), 0 0 90px rgba(2, 54, 97, 0.45);
+}
+
+.beatSub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  color: var(--color-white-dim);
+  margin-top: 1.4rem;
+}
+
+.beatCue {
+  display: inline-block;
+  margin-top: 2.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+/* editorial image moments woven into the scroll */
+.imageBand {
+  position: relative;
+  width: 100%;
+  height: 72vh;
+  min-height: 420px;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.imageBandCaption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 2.2rem 2.4rem;
+  background: linear-gradient(to top, rgba(6, 8, 12, 0.75), transparent);
+  pointer-events: none;
+}
+.imageBandText {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  color: var(--color-white);
+}
