@@ -1,0 +1,185 @@
+.modeNote {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: baseline;
+}
+.modeValue {
+  color: var(--color-accent);
+}
+.modeHint {
+  color: var(--color-steel);
+  opacity: 0.6;
+}
+
+/* Featured */
+.featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.featured > *:first-child {
+  grid-column: 1 / -1; /* first featured spans full width */
+}
+@media (max-width: 760px) {
+  .featured {
+    grid-template-columns: 1fr;
+  }
+  .featured > *:first-child {
+    grid-column: auto;
+  }
+}
+
+.featuredCell,
+.cell {
+  min-height: 1px;
+}
+
+/* Grid (the rest) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  border: 1px solid color-mix(in srgb, var(--color-teal) 32%, transparent);
+  background: var(--color-bg-alt);
+  height: 100%;
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease-out), transform 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+.card:hover {
+  border-color: color-mix(in srgb, var(--color-teal) 75%, transparent);
+  box-shadow: var(--glow-teal);
+  transform: translateY(-4px);
+}
+
+/* 3D-only: type-forward card on a blue field with an orange glow */
+.card[data-mode="3d"] {
+  position: relative;
+  background: linear-gradient(160deg, var(--color-blue-dim) 0%, var(--color-bg-alt) 70%);
+}
+.card[data-mode="3d"]::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(230, 178, 77, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.card[data-mode="3d"] {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.cardBig.card[data-mode="3d"] {
+  min-height: 380px;
+}
+
+/* pins mode thumb */
+.thumb {
+  aspect-ratio: 16 / 10;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-surface) 100%);
+}
+.cardBig .thumb {
+  aspect-ratio: 21 / 9;
+}
+.thumb[data-i="1"] { background: linear-gradient(135deg, var(--color-surface), var(--color-accent-dim)); }
+.thumb[data-i="2"] { background: linear-gradient(135deg, var(--color-blue-dim), var(--color-steel)); }
+.thumb[data-i="3"] { background: linear-gradient(135deg, var(--color-accent-dim), var(--color-blue)); }
+.thumb[data-i="4"] { background: linear-gradient(135deg, var(--color-steel), var(--color-blue-dim)); }
+.thumb[data-i="5"] { background: linear-gradient(135deg, var(--color-blue), var(--color-accent-dim)); }
+
+.thumbTag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: rgba(237, 239, 242, 0.6);
+  padding: 0.9rem 1.1rem;
+}
+
+.cardBody {
+  padding: 1.8rem;
+}
+.cardBig .cardBody {
+  padding: 2.4rem;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.8rem;
+}
+
+.cat {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.year {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--color-steel);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin-bottom: 0.7rem;
+}
+.cardBig .name {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.blurb {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-white-dim);
+  max-width: 52ch;
+  margin-bottom: 1.2rem;
+}
+
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.service {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-cream-dim);
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--color-border);
+}

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
-import TextReveal from '@/components/TextReveal'
-import { ShineButton } from '@/components/ui/ShineButton'
-import { FadeOnLoad, FadeOnScroll, SubtleLabel } from '../about/AboutPageAnimations'
-import { ServiceRow } from './ServiceRow'
+import { ChamberShell } from '@/components/ui/ChamberShell'
+import { Reveal } from '@/components/motion/Reveal'
+import { variantForIndex } from '@/components/motion/revealVariants'
+import { SERVICES, PROCESS, ENGAGEMENT } from '@/lib/content/coast'
+import { CardIcon } from '@/components/ui/CardIcon'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import styles from './services.module.css'
 
 export const metadata: Metadata = {
   title: 'Brand Design Services',
@@ -51,140 +52,79 @@ const breadcrumbSchema = {
   ],
 }
 
-const serviceGroups = [
-  {
-    category: 'Brand Identity',
-    label: '01 - 04',
-    services: [
-      { number: '01', title: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds', slug: 'logo-design' },
-      { number: '02', title: 'Brand Identity', description: 'Complete visual identity system', slug: 'brand-identity' },
-      { number: '03', title: 'Full Rebrand', description: 'Complete brand transformation package', slug: 'rebrand' },
-      { number: '04', title: 'Brand Guidelines', description: 'Logo, colours, typography & usage rules', slug: 'brand-guidelines' },
-    ],
-  },
-  {
-    category: 'Collateral',
-    label: '05 - 08',
-    services: [
-      { number: '05', title: 'EPK / Press Kit', description: 'Professional media kit for press & partners', slug: 'epk-design' },
-      { number: '06', title: 'Social Graphics', description: '5–10 branded templates for social platforms', slug: 'social-graphics' },
-      { number: '07', title: 'Pitch Deck', description: 'Investor-ready presentation design', slug: 'pitch-deck' },
-      { number: '08', title: 'Flyers', description: 'Print-ready promotional designs (digital + print)', slug: 'flyers' },
-    ],
-  },
-  {
-    category: 'Digital',
-    label: '09 - 11',
-    services: [
-      { number: '09', title: 'Website Design', description: 'Custom website design & development', slug: 'website-design' },
-      { number: '10', title: 'Video & Motion', description: 'Promotional videos & animations (per piece)', slug: 'video-motion' },
-      { number: '11', title: 'Social Media Management', description: 'Content creation, scheduling & management', slug: 'social-media-management' },
-    ],
-  },
-]
-
 export default function ServicesPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <BlueprintLayout>
-        {/* Hero */}
-        <section className="pt-32 pb-12 md:pt-40 md:pb-16">
-          <div className="max-w-6xl mx-auto px-6 md:px-12">
-            <SubtleLabel className="text-mono text-muted-foreground/40 text-xs uppercase tracking-widest block mb-4">
-              What Brand Design Services Are Available?
-            </SubtleLabel>
-            <TextReveal as="h1" className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">
-              Services
-            </TextReveal>
-            <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
-              From identity design to complete brand transformations - everything you need to stand out.
-            </p>
-
-            {/* Stats strip */}
-            <FadeOnLoad delay={0.3} className="flex items-center gap-8 mt-10 pt-8 border-t border-border">
-              {[
-                { value: '11', label: 'Services' },
-                { value: '3', label: 'Disciplines' },
-                { value: '∞', label: 'Custom scopes' },
-              ].map(({ value, label }) => (
-                <div key={label} className="flex flex-col gap-0.5">
-                  <span className="text-heading text-2xl md:text-3xl text-foreground">{value}</span>
-                  <span className="text-mono text-xs text-muted-foreground/60 uppercase tracking-wider">{label}</span>
-                </div>
-              ))}
-            </FadeOnLoad>
+      <ChamberShell
+        index="03"
+        label="Services"
+        chamber="What We Do"
+        preface="An end-to-end ecosystem for the visionaries behind the brands."
+      >
+        {/* Services */}
+        <section className="section">
+          <div className={styles.list}>
+            {SERVICES.map((s, i) => (
+              <Reveal key={s.name} variant={variantForIndex(i)}>
+                <article className={`${styles.service} glass`} data-glow={['', 'gold', 'orange'][i % 3] || undefined}>
+                  <CardIcon name={s.icon} className="cardIcon" />
+                  <div className={styles.head}>
+                    <span className={styles.idx}>{String(i + 1).padStart(2, '0')}</span>
+                    <h3 className={styles.name}>{s.name}</h3>
+                  </div>
+                  <p className={styles.body}>{s.body}</p>
+                  <ul className={styles.items}>
+                    {s.items.map((it) => (
+                      <li key={it} className={styles.item}>
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+            ))}
           </div>
+          <p className="pill takeaway">Six services, one coherent system</p>
         </section>
 
-        <SectionBoundary />
-
-        {/* Services grouped */}
-        <section className="py-16 md:py-24">
-          <div className="max-w-6xl mx-auto px-6 md:px-12">
-            {serviceGroups.map((group, gi) => (
-              <div key={group.category} className={gi > 0 ? 'mt-14 md:mt-20' : ''}>
-                {/* Category header */}
-                <div className="flex items-center gap-4 mb-0 border-t border-border pt-4">
-                  <span className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary/60">
-                    {group.category}
-                  </span>
-                  <span className="text-mono text-[10px] text-muted-foreground/30 ml-auto">
-                    {group.label}
-                  </span>
+        {/* Process */}
+        <section className="section">
+          <p className="sectionLabel">How we work</p>
+          <h2 className="sectionTitle">Four steps, two to six weeks.</h2>
+          <div className={styles.process}>
+            {PROCESS.map((p, i) => (
+              <Reveal key={p.n} variant={variantForIndex(i)}>
+                <div className={`${styles.step} glass`} data-glow={['', 'gold', 'orange'][i % 3] || undefined}>
+                  <CardIcon name={p.icon} className="cardIcon" />
+                  <span className={styles.stepNum}>{p.n}</span>
+                  <h4 className={styles.stepTitle}>{p.title}</h4>
+                  <p className={styles.stepBody}>{p.body}</p>
                 </div>
+              </Reveal>
+            ))}
+          </div>
+          <p className="pill takeaway">Discovery to launch in two to six weeks</p>
+        </section>
 
-                {/* Rows */}
-                {group.services.map((service, i) => (
-                  <ServiceRow key={service.number} service={service} index={gi * 4 + i} />
-                ))}
+        {/* Engagement */}
+        <section className="section">
+          <p className="sectionLabel">Engagement</p>
+          <h2 className="sectionTitle">{ENGAGEMENT.lead}</h2>
+          <p className="prose">{ENGAGEMENT.body}</p>
+          <div className={styles.models}>
+            {ENGAGEMENT.models.map((m) => (
+              <div key={m.name} className={`${styles.model} glass`}>
+                <h4 className={styles.modelName}>{m.name}</h4>
+                <p className={styles.modelDetail}>{m.detail}</p>
+                <span className={styles.modelTime}>{m.time}</span>
               </div>
             ))}
           </div>
         </section>
-
-        <SectionBoundary />
-
-        {/* ─── Educational citable content for AI crawlers ──────────────────── */}
-        <section className="py-16 md:py-24">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 space-y-12">
-            <FadeOnScroll>
-              <h2 className="text-heading text-2xl md:text-3xl text-foreground mb-4">Why Professional Logo Design Matters for Small Businesses</h2>
-              <p className="text-body text-muted-foreground text-base leading-relaxed max-w-3xl">
-                A professional logo is the cornerstone of any brand identity - it is the single most-seen element of your business and often the first impression a potential customer receives. Research consistently shows that consumers form opinions about a brand within seconds of seeing its logo, and those impressions directly influence purchasing decisions. A professionally designed logo communicates credibility, establishes trust, and differentiates your business from competitors who rely on generic templates or clip art. At The Coast, our logo design process includes deep discovery into your business positioning, three distinct creative concepts, two rounds of revisions, and final delivery in every format you need - from web-optimized SVGs to print-ready vector files. The investment in professional logo design pays for itself by building the kind of brand recognition that turns casual browsers into loyal customers.
-              </p>
-            </FadeOnScroll>
-            <FadeOnScroll>
-              <h2 className="text-heading text-2xl md:text-3xl text-foreground mb-4">The Value of a Complete Brand Identity System</h2>
-              <p className="text-body text-muted-foreground text-base leading-relaxed max-w-3xl">
-                A complete brand identity system goes far beyond a logo - it encompasses your color palette, typography, photography style, iconography, voice and tone, and comprehensive usage guidelines that ensure consistency across every touchpoint. Businesses with consistent brand presentation across all platforms experience significantly higher revenue growth than those with inconsistent branding. The Coast delivers complete brand identity systems that include primary and secondary logo variations, a strategic color palette with hex, RGB, and CMYK values, typeface pairings for digital and print, brand pattern elements, social media templates, and a comprehensive brand guidelines document that empowers your entire team to maintain brand consistency without creative bottlenecks.
-              </p>
-            </FadeOnScroll>
-          </div>
-        </section>
-
-        <SectionBoundary />
-
-        {/* CTA */}
-        <section className="py-16 md:py-24">
-          <div className="max-w-6xl mx-auto px-6 md:px-12">
-            <FadeOnScroll className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-              <div>
-                <p className="text-mono text-muted-foreground/40 text-xs uppercase tracking-widest mb-2">Ready to start?</p>
-                <p className="text-heading text-2xl md:text-4xl text-foreground max-w-md">
-                  Want ongoing support? See our monthly retainer packages.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-                <ShineButton href="/get-started" size="md">Request a Quote</ShineButton>
-                <ShineButton href="/pricing" size="md" variant="ghost">View Packages</ShineButton>
-              </div>
-            </FadeOnScroll>
-          </div>
-        </section>
-      </BlueprintLayout>
+      </ChamberShell>
     </>
   )
 }
