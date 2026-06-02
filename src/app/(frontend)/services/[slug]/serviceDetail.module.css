@@ -1,0 +1,228 @@
+/* Service detail — coast-site ocean. Glass cards, mono eyebrows,
+   serif titles, teal italic taglines, gold accents over the sea. */
+
+/* ── Hero answer block + stats ─────────────────────────────── */
+.answer {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  line-height: 1.6;
+  color: var(--color-cream);
+  max-width: 60ch;
+  padding-left: 1.4rem;
+  border-left: 2px solid var(--color-gold);
+}
+
+.stats {
+  margin-top: 2.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.6rem;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.statValue {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1;
+  color: var(--color-gold);
+}
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+
+/* ── Deliverables ──────────────────────────────────────────── */
+.deliverables {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 2.4rem;
+}
+@media (max-width: 760px) {
+  .deliverables { grid-template-columns: 1fr; }
+}
+.deliverable {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--color-cream);
+}
+.deliverableMark {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.5rem;
+  background: var(--color-gold);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-gold) 55%, transparent);
+}
+
+/* ── Process ───────────────────────────────────────────────── */
+.process {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+@media (max-width: 760px) {
+  .process { grid-template-columns: 1fr; }
+}
+.step {
+  padding: 2.2rem 2rem;
+  height: 100%;
+}
+.stepNum {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: 1rem;
+}
+.stepTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  margin-bottom: 0.8rem;
+}
+.stepBody {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--color-white-dim);
+}
+
+/* ── Audiences ─────────────────────────────────────────────── */
+.audiences {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+@media (max-width: 900px) {
+  .audiences { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .audiences { grid-template-columns: 1fr; }
+}
+.audience {
+  padding: 1.8rem 1.7rem;
+  height: 100%;
+}
+.audienceLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: 0.9rem;
+}
+.audienceBody {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-white-dim);
+}
+
+/* ── FAQs ──────────────────────────────────────────────────── */
+.faqs {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.faq {
+  padding-left: 1.4rem;
+  border-left: 2px solid color-mix(in srgb, var(--color-teal) 45%, transparent);
+}
+.faqQ {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  line-height: 1.25;
+  color: var(--color-cream);
+  margin-bottom: 0.7rem;
+}
+.faqA {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--color-white-dim);
+  max-width: 70ch;
+}
+
+/* ── Related services ──────────────────────────────────────── */
+.related {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+@media (max-width: 760px) {
+  .related { grid-template-columns: 1fr; }
+}
+.relatedCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.8rem 1.7rem;
+  height: 100%;
+}
+.relatedNum {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--color-gold);
+}
+.relatedName {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+.relatedCta {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.3s var(--ease-out);
+}
+.relatedCard:hover .relatedCta { gap: 0.9rem; }
+
+/* ── CTA row ───────────────────────────────────────────────── */
+.ctaMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.2rem 0 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+.ctaMetaDot { color: color-mix(in srgb, var(--color-steel) 50%, transparent); }
+.ctaRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

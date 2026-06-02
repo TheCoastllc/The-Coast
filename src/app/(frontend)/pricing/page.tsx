@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import PricingClient from './PricingClient'
+import { ChamberShell } from '@/components/ui/ChamberShell'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
@@ -121,7 +122,16 @@ export default function PricingPage() {
         </p>
       </section>
 
-      <PricingClient />
+      <ChamberShell
+        index="08"
+        label="Pricing"
+        chamber="Invest in Your Brand"
+        preface="Monthly partnership plans built to keep your brand sharp, consistent, and always evolving. No hidden fees, no long-term lock-in."
+      >
+        <section className="section">
+          <PricingClient />
+        </section>
+      </ChamberShell>
     </>
   )
 }

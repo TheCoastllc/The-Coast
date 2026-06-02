@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import GetStartedClient from './GetStartedClient'
+import { ChamberShell } from '@/components/ui/ChamberShell'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
@@ -63,7 +64,16 @@ export default function GetStartedPage() {
         </p>
       </section>
 
-      <GetStartedClient />
+      <ChamberShell
+        index="00"
+        label="Get Started"
+        chamber="Start a Project"
+        preface="Tell us about your business and what you need. A strategist reads every submission personally and replies within one business day."
+      >
+        <section className="section">
+          <GetStartedClient />
+        </section>
+      </ChamberShell>
     </>
   )
 }
