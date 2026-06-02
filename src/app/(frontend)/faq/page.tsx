@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getPayloadClient } from '@/lib/payload-client'
-import { BlueprintLayout } from '@/components/blueprint-layout'
-import { FAQAccordionList } from '@/components/pages/landingPage/FAQAccordion'
+import { ChamberShell } from '@/components/ui/ChamberShell'
+import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const revalidate = 3600
@@ -74,32 +74,24 @@ export default async function FAQPage() {
   }
 
   return (
-    <BlueprintLayout>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <section className="pt-40 pb-32 bg-black min-h-screen">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-20">
-            <span className="text-primary text-xs tracking-[0.3em] uppercase font-mono">
-              FAQ
-            </span>
-            <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tighter text-white">
-              Frequently Asked{' '}
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                Questions
-              </span>
-            </h1>
-            <p className="mt-6 text-white/50 max-w-2xl text-sm md:text-base font-light leading-relaxed">
-              Everything you need to know about working with The Coast. Can&apos;t find
-              what you&apos;re looking for? Reach out to our team.
-            </p>
-          </div>
 
-          <FAQAccordionList items={faqs} />
-        </div>
-      </section>
-    </BlueprintLayout>
+      <ChamberShell
+        index="09"
+        label="FAQ"
+        chamber="Common Inquiries"
+        preface="Answers to the questions we hear most - scope, timelines, process, and how we work."
+      >
+        <section className="section">
+          <p className="sectionLabel">Questions</p>
+          <FaqAccordion items={faqs} />
+          <p className="pill takeaway">Still curious? Reach out and we will answer.</p>
+        </section>
+      </ChamberShell>
+    </>
   )
 }
