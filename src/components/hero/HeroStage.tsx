@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { useWebGLAllowed, useIdleReady } from "@/lib/perf";
+import { useWebGLAllowed, useHeroMountTrigger } from "@/lib/perf";
 import { StoryHeroStatic } from "./StoryHeroStatic";
 import type { MeetMode } from "./StoryHero";
 import type { BoatMode } from "./Boat";
@@ -22,13 +22,13 @@ const StoryHero = dynamic(() => import("./StoryHero").then((m) => ({ default: m.
  */
 export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode; boat?: BoatMode }) {
   const webgl = useWebGLAllowed();
-  const idle = useIdleReady(); // defer the three.js chunk off the critical load path
+  const trigger = useHeroMountTrigger(); // desktop: eager on idle. phone: on first touch/scroll.
   const [ready, setReady] = useState(false);
 
   return (
     <>
       <StoryHeroStatic />
-      {webgl && idle && (
+      {webgl && trigger && (
         <div
           style={{
             position: "fixed",
