@@ -86,7 +86,7 @@ function Plane({ src }: { src: string }) {
 export function LiquidImage({ index = 0 }: { index?: number }) {
   const src = EDITORIAL[index % EDITORIAL.length].src;
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 9990 }}>
       <Canvas camera={{ position: [0, 0, 2], fov: 50 }} dpr={[1, 2]} gl={{ antialias: true }}>
         <color attach="background" args={["#0A0C12"]} />
         <Suspense fallback={null}>

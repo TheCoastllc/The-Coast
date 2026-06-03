@@ -155,7 +155,7 @@ function Cloud({ data }: { data: ImgData }) {
 export function ParticleDissolve({ index = 0 }: { index?: number }) {
   const data = useImageData(EDITORIAL[index % EDITORIAL.length].src);
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 9990 }}>
       <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, 2]} gl={{ antialias: true }}>
         <color attach="background" args={["#0A0C12"]} />
         {data && <Cloud data={data} />}

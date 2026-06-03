@@ -142,7 +142,7 @@ function Current() {
 
 export function Undertow() {
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 0, cursor: "grab" }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 9990, cursor: "grab" }}>
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 2]} gl={{ antialias: true }}>
         <color attach="background" args={["#06101c"]} />
         <fogExp2 attach="fog" args={["#06101c", 0.12]} />

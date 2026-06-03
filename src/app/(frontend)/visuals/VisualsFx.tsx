@@ -55,13 +55,13 @@ function Inner() {
             right: 0,
             bottom: "5rem",
             textAlign: "center",
-            zIndex: 40,
             fontFamily: "var(--font-mono)",
             fontSize: "0.7rem",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
             color: "var(--color-steel)",
             pointerEvents: "none",
+            zIndex: 9991,
           }}
         >
           The {fx} showcase runs on desktop
@@ -84,7 +84,7 @@ function Inner() {
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
           border: "1px solid var(--color-border)",
-          zIndex: 50,
+          zIndex: 9999,
         }}
       >
         <span
