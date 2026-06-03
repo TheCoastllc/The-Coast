@@ -1,6 +1,7 @@
-/* Cinematic CSS/SVG hero - sun, drifting clouds, undulating waves, a sailing boat.
-   Pure CSS (no WebGL) so it's crisp on every DPR and fast on phones, yet alive.
-   This is the mobile/low-end hero AND the instant base under the desktop WebGL hero. */
+/* Cinematic CSS hero - sun, drifting clouds, flowing waves, a sailing boat.
+   ALL motion is GPU-composited (transform/opacity only, will-change) so it's
+   smooth on phones and never blocks the main thread. No WebGL, crisp on every DPR.
+   Mobile/low-end hero + instant base under the desktop WebGL hero. */
 .stage {
   position: fixed;
   inset: 0;
@@ -26,9 +27,10 @@
   left: 50%;
   width: clamp(220px, 34vw, 460px);
   height: clamp(220px, 34vw, 460px);
-  transform: translate(-50%, -50%);
+  margin: calc(clamp(220px, 34vw, 460px) / -2) 0 0 calc(clamp(220px, 34vw, 460px) / -2);
   border-radius: 999px;
   background: radial-gradient(circle, rgba(244, 137, 74, 0.24) 0%, rgba(219, 82, 39, 0.08) 42%, transparent 66%);
+  will-change: transform, opacity;
   animation: glowPulse 6s ease-in-out infinite;
 }
 .sun {
@@ -37,22 +39,22 @@
   left: 50%;
   width: clamp(56px, 8vw, 110px);
   height: clamp(56px, 8vw, 110px);
-  transform: translate(-50%, -50%);
+  margin: calc(clamp(56px, 8vw, 110px) / -2) 0 0 calc(clamp(56px, 8vw, 110px) / -2);
   border-radius: 999px;
   background: radial-gradient(circle at 50% 42%, #fff1dc 0%, #ffd49a 30%, #f59a52 60%, #e0642c 88%, #d2551f 100%);
   box-shadow: 0 0 42px 7px rgba(244, 137, 74, 0.45), 0 0 120px 30px rgba(219, 82, 39, 0.2);
 }
 
-/* ── Drifting clouds ── */
+/* ── Drifting clouds (slow, GPU) ── */
 .cloud {
   position: absolute;
   border-radius: 999px;
-  background: radial-gradient(ellipse 60% 100% at 50% 60%, rgba(173, 196, 214, 0.16), rgba(120, 150, 174, 0.05) 60%, transparent 75%);
+  background: radial-gradient(ellipse 60% 100% at 50% 60%, rgba(173, 196, 214, 0.15), rgba(120, 150, 174, 0.05) 60%, transparent 75%);
   filter: blur(6px);
+  will-change: transform;
 }
-.cloud1 { top: 22%; left: 8%;  width: 240px; height: 64px; opacity: 0.8; animation: drift 34s ease-in-out infinite alternate; }
-.cloud2 { top: 34%; left: 58%; width: 300px; height: 76px; opacity: 0.6; animation: drift 46s ease-in-out infinite alternate-reverse; }
-.cloud3 { top: 16%; left: 64%; width: 200px; height: 54px; opacity: 0.5; animation: drift 40s ease-in-out infinite alternate; }
+.cloud1 { top: 21%; left: 6%;  width: 260px; height: 64px; animation: drift 60s ease-in-out infinite alternate; }
+.cloud2 { top: 33%; left: 60%; width: 320px; height: 78px; animation: drift 78s ease-in-out infinite alternate-reverse; }
 
 /* ── Horizon + sea ── */
 .horizon {
@@ -63,7 +65,7 @@
   height: 2px;
   background: linear-gradient(to right, transparent, rgba(255, 200, 140, 0.5) 34%, rgba(255, 214, 156, 0.82) 50%, rgba(255, 200, 140, 0.5) 66%, transparent);
   box-shadow: 0 0 26px 5px rgba(244, 137, 74, 0.32);
-  z-index: 2;
+  z-index: 3;
 }
 .sea {
   position: absolute;
@@ -74,32 +76,41 @@
   background: linear-gradient(to bottom, #0c3151 0%, #0a2540 32%, #061a2c 72%, #03101c 100%);
 }
 
-/* ── Animated waves ── */
-.waves {
+/* ── Flowing waves: div layers (background image) translated on the GPU ── */
+.waveLayer {
   position: absolute;
   left: 0;
-  right: 0;
-  top: 56%;
-  width: 100%;
-  height: 44%;
-  z-index: 3;
-}
-.wave {
-  transform-box: view-box;
+  width: 200%;
+  background-repeat: repeat-x;
+  background-position: 0 bottom;
+  background-size: 360px 100%;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  z-index: 2;
 }
-.wave1 { fill: rgba(46, 108, 168, 0.20); animation: waveX 18s linear infinite; }
-.wave2 { fill: rgba(36, 92, 150, 0.30); animation: waveX 13s linear infinite reverse; }
-.wave3 { fill: rgba(20, 60, 104, 0.55); animation: waveX 9s linear infinite; }
+.waveBack {
+  top: 59%;
+  height: 26%;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120' preserveAspectRatio='none'%3E%3Cpath d='M0 54 q 90 -34 180 0 t 180 0 V120 H0 Z' fill='%232e6ca8'/%3E%3C/svg%3E");
+  animation: flow 30s linear infinite;
+}
+.waveFront {
+  top: 63%;
+  height: 30%;
+  opacity: 0.75;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120' preserveAspectRatio='none'%3E%3Cpath d='M0 50 q 90 -30 180 0 t 180 0 V120 H0 Z' fill='%23143c68'/%3E%3C/svg%3E");
+  animation: flow 19s linear infinite reverse;
+}
 
-/* sun glimmer reflected on the water */
+/* sun glimmer on the water */
 .reflection {
   position: absolute;
   top: 60%;
   bottom: 14%;
   left: 50%;
   width: clamp(26px, 3.4vw, 54px);
-  transform: translateX(-50%);
+  margin-left: calc(clamp(26px, 3.4vw, 54px) / -2);
   background: linear-gradient(to bottom, rgba(255, 184, 122, 0.5), rgba(244, 137, 74, 0.12) 52%, transparent);
   filter: blur(1.5px);
   z-index: 3;
@@ -111,42 +122,44 @@
   top: 58.5%;
   left: 50%;
   width: clamp(46px, 9vw, 84px);
-  transform: translate(-50%, -50%);
+  margin: calc(clamp(46px, 9vw, 84px) * -0.45) 0 0 calc(clamp(46px, 9vw, 84px) / -2);
   z-index: 4;
-  animation: sail 22s ease-in-out infinite alternate;
+  will-change: transform;
+  animation: sail 26s ease-in-out infinite alternate;
 }
 .boatInner {
   display: block;
   width: 100%;
   height: auto;
   transform-origin: 50% 90%;
-  animation: bob 4.4s ease-in-out infinite;
+  will-change: transform;
+  animation: bob 4.6s ease-in-out infinite;
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+  0%, 100% { transform: translateZ(0) scale(1); opacity: 0.85; }
+  50% { transform: translateZ(0) scale(1.06); opacity: 1; }
 }
 @keyframes drift {
-  from { transform: translateX(-6%); }
-  to { transform: translateX(6%); }
+  from { transform: translate3d(-5%, 0, 0); }
+  to { transform: translate3d(5%, 0, 0); }
 }
-@keyframes waveX {
-  from { transform: translateX(0); }
-  to { transform: translateX(-360px); }
+@keyframes flow {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-360px, 0, 0); }
 }
 @keyframes bob {
-  0%, 100% { transform: translateY(0) rotate(-2.2deg); }
-  50% { transform: translateY(-5px) rotate(2.2deg); }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-2.2deg); }
+  50% { transform: translate3d(0, -5px, 0) rotate(2.2deg); }
 }
 @keyframes sail {
-  from { transform: translate(-62%, -50%); }
-  to { transform: translate(-38%, -50%); }
+  from { transform: translate3d(-14%, 0, 0); }
+  to { transform: translate3d(14%, 0, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sunGlow, .cloud1, .cloud2, .cloud3, .wave1, .wave2, .wave3, .boat, .boatInner {
+  .sunGlow, .cloud1, .cloud2, .waveBack, .waveFront, .boat, .boatInner {
     animation: none !important;
   }
 }

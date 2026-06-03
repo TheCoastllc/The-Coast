@@ -1,14 +1,11 @@
 import styles from "./StoryHeroStatic.module.css";
 
-// One seamless sine ribbon (wavelength 360) that tiles under a -360px translateX loop.
-const wavePath = (y: number, a: number) =>
-  `M-360 ${y} q 90 ${-a} 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 t 180 0 V200 H-360 Z`;
-
 /**
- * Cinematic CSS/SVG hero: a glowing sun, drifting clouds, undulating waves, and a
- * little origami boat sailing the horizon. No WebGL - crisp on every DPR and fast
- * on phones, but alive. It's the mobile/low-end hero and the instant base the
- * desktop WebGL hero fades in over.
+ * Cinematic CSS hero: a glowing sun, drifting clouds, flowing waves, and a little
+ * origami boat sailing the horizon. All motion is GPU-composited (transform/opacity),
+ * so it's smooth on phones and never blocks the main thread - no WebGL, crisp on
+ * every DPR. It's the mobile/low-end hero and the instant base the desktop WebGL
+ * hero fades in over.
  */
 export function StoryHeroStatic() {
   return (
@@ -18,16 +15,12 @@ export function StoryHeroStatic() {
 
       <span className={`${styles.cloud} ${styles.cloud1}`} />
       <span className={`${styles.cloud} ${styles.cloud2}`} />
-      <span className={`${styles.cloud} ${styles.cloud3}`} />
 
       <span className={styles.horizon} />
       <div className={styles.sea} />
 
-      <svg className={styles.waves} viewBox="0 0 1440 200" preserveAspectRatio="none">
-        <path className={`${styles.wave} ${styles.wave1}`} d={wavePath(40, 16)} />
-        <path className={`${styles.wave} ${styles.wave2}`} d={wavePath(78, 24)} />
-        <path className={`${styles.wave} ${styles.wave3}`} d={wavePath(124, 18)} />
-      </svg>
+      <div className={`${styles.waveLayer} ${styles.waveBack}`} />
+      <div className={`${styles.waveLayer} ${styles.waveFront}`} />
 
       <span className={styles.reflection} />
 
