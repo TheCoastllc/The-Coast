@@ -27,6 +27,7 @@ const code = (i: number) => `00${119 + i * 6}_0${(i % 4) + 1}`
 
 export default function VisualsPage() {
   return (
+    <>
     <ChamberShell
       index="02"
       label="Visuals"
@@ -68,8 +69,11 @@ export default function VisualsPage() {
         ))}
       </div>
 
-      {/* Preview switcher for the immersive WebGL effects (desktop, after interaction) */}
-      <VisualsFx />
     </ChamberShell>
+    {/* Preview switcher for the immersive WebGL effects (desktop, after interaction).
+        Rendered OUTSIDE ChamberShell so its fixed overlays escape <main>'s stacking
+        context and R3F renders correctly (portaling R3F broke its render loop). */}
+    <VisualsFx />
+    </>
   )
 }
