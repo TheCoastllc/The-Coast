@@ -6,7 +6,6 @@ import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger, usePointerFine, useReducedMotion } from "@/lib/perf";
-import { useFxMode } from "@/components/visuals/useFxMode";
 import { TypeMask } from "@/components/visuals/TypeMask";
 import { CursorReveal } from "@/components/visuals/CursorReveal";
 import { ImageTrail } from "@/components/visuals/ImageTrail";
@@ -90,11 +89,10 @@ export function HomeOcean({
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
-  const fxRaw = useFxMode();
   const fine = usePointerFine();
   const reduced = useReducedMotion();
-  // saved-effect previews are cursor/desktop-only; touch + reduced-motion keep the baked content
-  const fx = fine && !reduced ? fxRaw : "none";
+  // saved effects are baked ON for desktop; touch + reduced-motion keep the plain content
+  const baked = fine && !reduced;
 
   const clientsContent = (
     <>
@@ -166,14 +164,14 @@ export function HomeOcean({
 
           <section
             className={`section ${styles.clientsSection}`}
-            style={fx === "trail" ? { position: "relative" } : undefined}
+            style={baked ? { position: "relative" } : undefined}
           >
-            {fx === "trail" && (
+            {baked && (
               <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden>
                 <ImageTrail contained images={FEATURED_CASES.map((w) => w.image)} />
               </div>
             )}
-            {fx === "trail" ? (
+            {baked ? (
               <div style={{ position: "relative", zIndex: 1 }}>{clientsContent}</div>
             ) : (
               clientsContent
@@ -182,8 +180,8 @@ export function HomeOcean({
 
           <section className={`section ${styles.workShowcase}`}>
             <p className={styles.thesisLabel}>Selected work</p>
-            {fx === "lens" ? (
-              <CursorReveal images={FEATURED_CASES.map((w) => ({ src: w.image, caption: w.client }))} />
+            {baked ? (
+              <CursorReveal images={FEATURED_CASES.map((w) => ({ src: w.image, caption: w.client, href: `/work/${w.slug}` }))} />
             ) : (
               <div className={styles.workGrid}>
                 {FEATURED_CASES.map((w) => (
@@ -253,7 +251,7 @@ export function HomeOcean({
           </section>
 
           <section className={`section ${styles.closing}`}>
-            {fx === "typemask" ? (
+            {baked ? (
               <TypeMask words={[COMPANY.promise]} image={EDITORIAL[1].src} size="headline" />
             ) : (
               <h2 className={styles.closingTitle}>{COMPANY.promise}.</h2>

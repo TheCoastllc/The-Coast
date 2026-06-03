@@ -3,7 +3,7 @@
 import { EDITORIAL } from "@/lib/content/coast";
 import styles from "./CursorReveal.module.css";
 
-type Panel = { src: string; caption?: string };
+type Panel = { src: string; caption?: string; href?: string };
 
 /**
  * Each panel shows a dimmed, abstracted image. A vivid "lens" of the real
@@ -24,13 +24,13 @@ export function CursorReveal({
 }) {
   const panels: Panel[] = images ?? EDITORIAL.slice(0, 6);
 
-  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMove = (e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
     const r = el.getBoundingClientRect();
     el.style.setProperty("--mx", `${e.clientX - r.left}px`);
     el.style.setProperty("--my", `${e.clientY - r.top}px`);
   };
-  const onLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onLeave = (e: React.MouseEvent<HTMLElement>) => {
     // park the lens off-panel so it fades out
     e.currentTarget.style.setProperty("--mx", `-200px`);
     e.currentTarget.style.setProperty("--my", `-200px`);
@@ -41,19 +41,30 @@ export function CursorReveal({
       className={styles.grid}
       style={columns ? { gridTemplateColumns: `repeat(${columns}, 1fr)` } : undefined}
     >
-      {panels.map((img, i) => (
-        <div
-          key={`${img.src}-${i}`}
-          className={styles.panel}
-          style={aspect ? { aspectRatio: aspect } : undefined}
-          onMouseMove={onMove}
-          onMouseLeave={onLeave}
-        >
-          <div className={styles.base} style={{ backgroundImage: `url(${img.src})` }} />
-          <div className={styles.lens} style={{ backgroundImage: `url(${img.src})` }} />
-          {img.caption && <span className={styles.caption}>{img.caption}</span>}
-        </div>
-      ))}
+      {panels.map((img, i) => {
+        const inner = (
+          <>
+            <div className={styles.base} style={{ backgroundImage: `url(${img.src})` }} />
+            <div className={styles.lens} style={{ backgroundImage: `url(${img.src})` }} />
+            {img.caption && <span className={styles.caption}>{img.caption}</span>}
+          </>
+        );
+        const common = {
+          className: styles.panel,
+          style: aspect ? { aspectRatio: aspect } : undefined,
+          onMouseMove: onMove,
+          onMouseLeave: onLeave,
+        };
+        return img.href ? (
+          <a key={`${img.src}-${i}`} href={img.href} {...common} data-cursor-label="View">
+            {inner}
+          </a>
+        ) : (
+          <div key={`${img.src}-${i}`} {...common}>
+            {inner}
+          </div>
+        );
+      })}
     </div>
   );
 }
