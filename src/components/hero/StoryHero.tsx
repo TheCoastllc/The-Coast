@@ -8,7 +8,7 @@ import { WATER_VERT, WATER_FRAG } from "./water";
 import { Boat, BoatMode } from "./Boat";
 import { DriftClouds } from "./clouds";
 import { useHeroProgress } from "./useHeroProgress";
-import { useQuality, useActiveByScroll } from "@/lib/perf";
+import { useHeroQuality, useActiveByScroll } from "@/lib/perf";
 import { usePremiumActive } from "@/components/chrome/usePremium";
 
 /* Acts: open IN THE WAVES with a tiny sun anchored above the headline ->
@@ -195,7 +195,7 @@ export function StoryHero({
   onReady?: () => void;
 }) {
   const progress = useHeroProgress(2.4);
-  const q = useQuality();
+  const q = useHeroQuality();
   const active = useActiveByScroll(3); // freeze once content covers the fixed canvas
   const depth = usePremiumActive().has("depth"); // premium: a stronger bloom on the gold sun
   return (

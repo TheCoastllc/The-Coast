@@ -5,7 +5,7 @@ import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
-import { useWebGLAllowed } from "@/lib/perf";
+import { useDesktopOnlyWebGL } from "@/lib/perf";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { THESIS, SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
@@ -84,7 +84,7 @@ export function HomeOcean({
     reviews && reviews.length >= 1 ? reviews : [...REVIEWS];
   const displayRating =
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
-  const webgl = useWebGLAllowed();
+  const webgl = useDesktopOnlyWebGL();
   return (
     <>
       <HeroStage meet="reflect" />

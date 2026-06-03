@@ -17,6 +17,8 @@ export type Quality = {
 const HIGH: Quality = { tier: "high", dpr: [1, 2], seaSegments: 190, postfx: true, clouds: 6 };
 const MID: Quality = { tier: "mid", dpr: [1, 2], seaSegments: 130, postfx: true, clouds: 5 };
 const LOW: Quality = { tier: "low", dpr: [1, 1], seaSegments: 80, postfx: false, clouds: 3 };
+// Phones: light enough to run the REAL WebGL hero smoothly - no postfx, low geo, capped DPR.
+const MOBILE: Quality = { tier: "low", dpr: [1, 1.5], seaSegments: 54, postfx: false, clouds: 3 };
 
 function detect(): Quality {
   if (typeof navigator === "undefined" || typeof window === "undefined") return MID;
@@ -47,13 +49,38 @@ export function useQuality(): Quality {
   return q;
 }
 
+/** Quality for the HERO canvas: a light MOBILE profile on touch devices, the full
+ *  detected tier on desktop - so the real WebGL hero runs fast on phones. */
+export function useHeroQuality(): Quality {
+  const [q, setQ] = useState<Quality>(MID);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setQ(window.matchMedia("(pointer: coarse)").matches ? MOBILE : detect());
+  }, []);
+  return q;
+}
+
 /**
- * True ONLY on devices that should run WebGL: a fine pointer (desktop), a
- * non-low tier, and motion allowed. SSR-safe - returns false until mounted, so
- * the heavy three.js chunk is never even requested on touch / low-end devices.
- * Gate every dynamic WebGL import behind this so phones ship zero three.js.
+ * Whether to load the HERO WebGL. Allowed on mobile too (the hero runs a light
+ * MOBILE profile via useHeroQuality) and is lazy-loaded so the static hero paints
+ * first. Only reduced-motion / data-saver opt out. SSR-safe (false until mounted).
  */
 export function useWebGLAllowed(): boolean {
+  const [ok, setOk] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
+    setOk(!reduced && !saveData);
+  }, []);
+  return ok;
+}
+
+/**
+ * Whether to load SECONDARY / ambient WebGL (chamber motes, the folding-boat
+ * finale). Capable desktops only - phones spend their whole budget on the hero.
+ */
+export function useDesktopOnlyWebGL(): boolean {
   const [ok, setOk] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
