@@ -7,6 +7,15 @@
   cursor: none;
 }
 
+/* contained: an absolute layer inside a positioned section, never blocks clicks */
+.contained {
+  position: absolute;
+  z-index: 0;
+  background: transparent;
+  cursor: auto;
+  pointer-events: none;
+}
+
 .trailImg {
   position: absolute;
   width: clamp(180px, 18vw, 300px);

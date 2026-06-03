@@ -43,8 +43,27 @@
   color: var(--color-steel);
 }
 
+/* headline mode: sits inside a page section instead of taking the full viewport */
+.compact .row {
+  min-height: auto;
+  padding: 3rem 1rem;
+  gap: 0.8rem;
+  border-bottom: none;
+}
+.compact .word {
+  font-size: clamp(2.8rem, 9vw, 7rem);
+  line-height: 1.0;
+}
+
 /* fixed attachment is unreliable on touch - fall back to a contained window */
 @media (hover: none) {
+  .word {
+    background-attachment: scroll;
+  }
+}
+
+/* reduced motion: no scroll-coupled moving-window; the image sits still in the type */
+@media (prefers-reduced-motion: reduce) {
   .word {
     background-attachment: scroll;
   }

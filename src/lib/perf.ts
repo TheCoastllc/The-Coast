@@ -92,6 +92,35 @@ export function useDesktopOnlyWebGL(): boolean {
 }
 
 /**
+ * True when the user has asked for reduced motion. SSR-safe (false until mounted,
+ * so first paint matches the server). Used to fall back cursor/scroll effects to
+ * their calm baked content.
+ */
+export function useReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+  return reduced;
+}
+
+/**
+ * True only on devices with a fine pointer (mouse / trackpad). Used to gate
+ * cursor-driven CSS effects (the cursor lens, the image trail, the type-mask
+ * window) so touch devices fall back to the plain baked content instead of a
+ * dead `cursor:none` panel or an empty overlay. SSR-safe (false until mounted).
+ */
+export function usePointerFine(): boolean {
+  const [fine, setFine] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setFine(window.matchMedia("(pointer: fine)").matches);
+  }, []);
+  return fine;
+}
+
+/**
  * True once the page has finished its initial load AND the main thread goes idle.
  * Used to defer mounting heavy WebGL (chunk download + shader compile + GPU init)
  * OFF the critical load path - so first paint / LCP / TBT are never taxed by it.

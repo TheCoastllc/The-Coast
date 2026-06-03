@@ -59,3 +59,18 @@
   pointer-events: none;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 }
+
+/* reduced motion: no cursor lens - show the vivid image statically, normal cursor */
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    cursor: auto;
+  }
+  .base {
+    filter: saturate(1.05);
+  }
+  .lens {
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 0;
+  }
+}

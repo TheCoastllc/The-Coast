@@ -2,6 +2,9 @@
 
 import Image from 'next/image'
 import { Reveal } from '@/components/motion/Reveal'
+import { CursorReveal } from '@/components/visuals/CursorReveal'
+import { useFxMode } from '@/components/visuals/useFxMode'
+import { usePointerFine, useReducedMotion } from '@/lib/perf'
 import { variantForIndex } from '@/components/motion/revealVariants'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { TransitionLink } from '@/components/PageTransition'
@@ -21,8 +24,13 @@ interface Props {
  */
 export default function CinematicBody({ projectId }: Props) {
   const project = CASE_STUDIES[projectId] as CaseStudyMeta | undefined
+  const fxRaw = useFxMode()
+  const fine = usePointerFine()
+  const reduced = useReducedMotion()
   if (!project) return null
 
+  // ?fx=lens preview: cursor-lens over the cover (desktop/cursor only)
+  const lens = fine && !reduced && fxRaw === 'lens'
   const orderedIds = CASE_STUDY_ORDER
   const idx = orderedIds.indexOf(projectId as (typeof orderedIds)[number])
   const nextId = orderedIds[(idx + 1) % orderedIds.length]
@@ -56,17 +64,25 @@ export default function CinematicBody({ projectId }: Props) {
       {/* Hero media */}
       <section className="section">
         <Reveal variant="mask-wipe">
-          <div className={`glass ${styles.frame}`}>
-            <Image
-              src={heroUrl}
-              alt={`${project.client ?? projectId} site preview`}
-              fill
-              sizes="(max-width: 760px) 100vw, 1080px"
-              className="object-cover"
-              priority
-              draggable={false}
+          {lens ? (
+            <CursorReveal
+              images={[{ src: heroUrl, caption: project.client ?? projectId }]}
+              columns={1}
+              aspect="16 / 10"
             />
-          </div>
+          ) : (
+            <div className={`glass ${styles.frame}`}>
+              <Image
+                src={heroUrl}
+                alt={`${project.client ?? projectId} site preview`}
+                fill
+                sizes="(max-width: 760px) 100vw, 1080px"
+                className="object-cover"
+                priority
+                draggable={false}
+              />
+            </div>
+          )}
         </Reveal>
       </section>
 

@@ -3,6 +3,7 @@ import { ChamberShell } from '@/components/ui/ChamberShell'
 import { Plate } from '@/components/visuals/Plate'
 import { FillText } from '@/components/visuals/FillText'
 import { WaveSwell } from '@/components/visuals/waves/WaveSwell'
+import { VisualsFx } from './VisualsFx'
 import { EDITORIAL } from '@/lib/content/coast'
 import styles from './visuals.module.css'
 
@@ -66,6 +67,9 @@ export default function VisualsPage() {
           </div>
         ))}
       </div>
+
+      {/* Preview switcher for the immersive WebGL effects (desktop, after interaction) */}
+      <VisualsFx />
     </ChamberShell>
   )
 }

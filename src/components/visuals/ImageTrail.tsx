@@ -8,11 +8,23 @@ const POOL = 16;
 const THRESHOLD = 70; // px of movement before the next image spawns
 
 /**
- * Editorial images stream off the cursor in its wake and dissolve - a kinetic
- * trail. A recycled pool of <img> elements is repositioned and re-animated as
- * the pointer moves. Full color, no filter.
+ * Images stream off the cursor in its wake and dissolve - a kinetic trail. A
+ * recycled pool of <img> elements is repositioned and re-animated as the pointer
+ * moves. Full color, no filter.
+ *
+ * `images` drives the wake (e.g. case-study covers); defaults to the editorial
+ * set. `contained` makes it an absolute layer inside a positioned parent (the
+ * wake only spawns over that region) instead of a full-viewport takeover - used
+ * to sit behind a section like the clients band.
  */
-export function ImageTrail() {
+export function ImageTrail({
+  images,
+  contained = false,
+}: {
+  images?: string[];
+  contained?: boolean;
+}) {
+  const srcs = images ?? EDITORIAL.map((e) => e.src);
   const wrap = useRef<HTMLDivElement>(null);
   const imgs = useRef<HTMLImageElement[]>([]);
   const idx = useRef(0);
@@ -43,6 +55,8 @@ export function ImageTrail() {
       const r = el.getBoundingClientRect();
       const x = e.clientX - r.left;
       const y = e.clientY - r.top;
+      // contained: only react to movement over this region
+      if (contained && (x < 0 || y < 0 || x > r.width || y > r.height)) return;
       if (!last.current.set) {
         last.current = { x, y, set: true };
         return;
@@ -54,12 +68,14 @@ export function ImageTrail() {
       spawn(x, y);
     };
 
-    el.addEventListener("pointermove", onMove);
-    return () => el.removeEventListener("pointermove", onMove);
-  }, []);
+    // contained mode listens on window (its own layer is pointer-events:none)
+    const target: Window | HTMLElement = contained ? window : el;
+    target.addEventListener("pointermove", onMove as EventListener);
+    return () => target.removeEventListener("pointermove", onMove as EventListener);
+  }, [contained]);
 
   return (
-    <div ref={wrap} className={styles.wrap}>
+    <div ref={wrap} className={`${styles.wrap} ${contained ? styles.contained : ""}`}>
       {Array.from({ length: POOL }).map((_, i) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -67,13 +83,13 @@ export function ImageTrail() {
           ref={(el) => {
             if (el) imgs.current[i] = el;
           }}
-          src={EDITORIAL[i % EDITORIAL.length].src}
+          src={srcs[i % srcs.length]}
           alt=""
           className={styles.trailImg}
           draggable={false}
         />
       ))}
-      <div className={styles.hint}>Move your cursor</div>
+      {!contained && <div className={styles.hint}>Move your cursor</div>}
     </div>
   );
 }

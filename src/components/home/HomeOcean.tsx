@@ -5,7 +5,11 @@ import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
-import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
+import { useDesktopOnlyWebGL, useHeroMountTrigger, usePointerFine, useReducedMotion } from "@/lib/perf";
+import { useFxMode } from "@/components/visuals/useFxMode";
+import { TypeMask } from "@/components/visuals/TypeMask";
+import { CursorReveal } from "@/components/visuals/CursorReveal";
+import { ImageTrail } from "@/components/visuals/ImageTrail";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { THESIS, SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
@@ -86,6 +90,35 @@ export function HomeOcean({
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
+  const fxRaw = useFxMode();
+  const fine = usePointerFine();
+  const reduced = useReducedMotion();
+  // saved-effect previews are cursor/desktop-only; touch + reduced-motion keep the baked content
+  const fx = fine && !reduced ? fxRaw : "none";
+
+  const clientsContent = (
+    <>
+      <p className={styles.thesisLabel}>Trusted by</p>
+      <div className={styles.clientsWall}>
+        {CLIENTS.map((c) => {
+          const href = c.caseStudySlug ? `/work/${c.caseStudySlug}` : c.url ?? null;
+          const inner = (
+            <>
+              <span className={styles.clientWordmark}>{c.wordmark ?? c.name}</span>
+              {c.category && <span className={styles.clientCat}>{c.category}</span>}
+            </>
+          );
+          if (!href) return <span key={c.id} className={styles.clientLink}>{inner}</span>;
+          return href.startsWith("http") ? (
+            <a key={c.id} href={href} target="_blank" rel="noopener noreferrer" className={styles.clientLink} data-cursor-label="Visit">{inner}</a>
+          ) : (
+            <Link key={c.id} href={href} className={styles.clientLink} data-cursor-label="Case study">{inner}</Link>
+          );
+        })}
+      </div>
+    </>
+  );
+
   return (
     <>
       <HeroStage meet="reflect" />
@@ -131,47 +164,46 @@ export function HomeOcean({
             </Link>
           </section>
 
-          <section className={`section ${styles.clientsSection}`}>
-            <p className={styles.thesisLabel}>Trusted by</p>
-            <div className={styles.clientsWall}>
-              {CLIENTS.map((c) => {
-                const href = c.caseStudySlug ? `/work/${c.caseStudySlug}` : c.url ?? null;
-                const inner = (
-                  <>
-                    <span className={styles.clientWordmark}>{c.wordmark ?? c.name}</span>
-                    {c.category && <span className={styles.clientCat}>{c.category}</span>}
-                  </>
-                );
-                if (!href) return <span key={c.id} className={styles.clientLink}>{inner}</span>;
-                return href.startsWith("http") ? (
-                  <a key={c.id} href={href} target="_blank" rel="noopener noreferrer" className={styles.clientLink} data-cursor-label="Visit">{inner}</a>
-                ) : (
-                  <Link key={c.id} href={href} className={styles.clientLink} data-cursor-label="Case study">{inner}</Link>
-                );
-              })}
-            </div>
+          <section
+            className={`section ${styles.clientsSection}`}
+            style={fx === "trail" ? { position: "relative" } : undefined}
+          >
+            {fx === "trail" && (
+              <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden>
+                <ImageTrail contained images={FEATURED_CASES.map((w) => w.image)} />
+              </div>
+            )}
+            {fx === "trail" ? (
+              <div style={{ position: "relative", zIndex: 1 }}>{clientsContent}</div>
+            ) : (
+              clientsContent
+            )}
           </section>
 
           <section className={`section ${styles.workShowcase}`}>
             <p className={styles.thesisLabel}>Selected work</p>
-            <div className={styles.workGrid}>
-              {FEATURED_CASES.map((w) => (
-                <Link key={w.slug} href={`/work/${w.slug}`} className={styles.workCard} data-cursor-label="View">
-                  <div className={styles.workThumb}>
-                    <Image src={w.image} alt={w.client} fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" className="object-cover" />
-                  </div>
-                  <span className={styles.workScrim} aria-hidden="true" />
-                  <span className={styles.workCardArrow} aria-hidden="true">↗</span>
-                  <div className={styles.workCardMeta}>
-                    <span className={styles.workClient}>{w.client}</span>
-                    <span className={styles.workCat}>
-                      <span>{w.category}</span>
-                      {w.year && <span>{w.year}</span>}
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            {fx === "lens" ? (
+              <CursorReveal images={FEATURED_CASES.map((w) => ({ src: w.image, caption: w.client }))} />
+            ) : (
+              <div className={styles.workGrid}>
+                {FEATURED_CASES.map((w) => (
+                  <Link key={w.slug} href={`/work/${w.slug}`} className={styles.workCard} data-cursor-label="View">
+                    <div className={styles.workThumb}>
+                      <Image src={w.image} alt={w.client} fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" className="object-cover" />
+                    </div>
+                    <span className={styles.workScrim} aria-hidden="true" />
+                    <span className={styles.workCardArrow} aria-hidden="true">↗</span>
+                    <div className={styles.workCardMeta}>
+                      <span className={styles.workClient}>{w.client}</span>
+                      <span className={styles.workCat}>
+                        <span>{w.category}</span>
+                        {w.year && <span>{w.year}</span>}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
             <Link href="/work" className={styles.cta} data-cursor-label="Explore">
               All work
               <span className={styles.ctaArrow}>→</span>
@@ -221,7 +253,11 @@ export function HomeOcean({
           </section>
 
           <section className={`section ${styles.closing}`}>
-            <h2 className={styles.closingTitle}>{COMPANY.promise}.</h2>
+            {fx === "typemask" ? (
+              <TypeMask words={[COMPANY.promise]} image={EDITORIAL[1].src} size="headline" />
+            ) : (
+              <h2 className={styles.closingTitle}>{COMPANY.promise}.</h2>
+            )}
             <Link href="/contact" className={styles.cta} data-cursor-label="Start">
               Start a project
               <span className={styles.ctaArrow}>→</span>
