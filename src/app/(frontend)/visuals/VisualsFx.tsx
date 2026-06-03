@@ -1,6 +1,7 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
@@ -39,8 +40,12 @@ function Inner() {
   const webgl = useDesktopOnlyWebGL(); // desktop, fine pointer, not reduced-motion, tier != low
   const trigger = useHeroMountTrigger(); // first interaction - keeps three.js out of audits
   const live = fx !== "archive" && webgl && trigger;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  return (
+  // Portal to <body> so the fixed full-screen effects + switcher escape the
+  // ChamberShell <main> stacking context (z-index:1) and render above the page.
+  const content = (
     <>
       {live && fx === "liquid" && <LiquidImage />}
       {live && fx === "melt" && <ScrollMeltFilm />}
@@ -127,6 +132,9 @@ function Inner() {
       </nav>
     </>
   );
+
+  if (!mounted) return null;
+  return createPortal(content, document.body);
 }
 
 /** Preview switcher for the immersive WebGL effects on /visuals. Default "archive"
