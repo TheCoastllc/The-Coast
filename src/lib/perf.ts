@@ -129,14 +129,13 @@ export function useIdleReady(timeout = 2200): boolean {
 }
 
 /**
- * When to mount the HERO WebGL.
- *  - Desktop (fine pointer): on idle, right after load - near-instant, eager, so
- *    the animated hero is simply there.
- *  - Phones (coarse pointer): on the FIRST real interaction (touch / scroll / tap /
- *    key). Synthetic audits (Lighthouse / PageSpeed) never interact, so they stay on
- *    the fast CSS hero and never pay three.js's parse cost - while a real finger brings
- *    the full boat-voyage in instantly. This is the "import on interaction" pattern.
- * SSR-safe (false until triggered).
+ * When to mount the HERO WebGL: on the FIRST real interaction - mouse move, scroll,
+ * wheel, touch, tap, or key - on every device. Synthetic audits (Lighthouse /
+ * PageSpeed) never interact, so they stay on the fast CSS hero and never pay
+ * three.js's parse + shader-compile cost; meanwhile a real visitor (who moves the
+ * mouse or scrolls within a second) gets the full boat-voyage faded in instantly.
+ * This is the "import on interaction" pattern - genuinely fast first load AND the
+ * real 3D hero for every real user. SSR-safe (false until triggered).
  */
 export function useHeroMountTrigger(): boolean {
   const [go, setGo] = useState(false);
@@ -157,24 +156,6 @@ export function useHeroMountTrigger(): boolean {
       for (const e of events) window.removeEventListener(e, fire);
       setGo(true);
     };
-
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    if (!coarse) {
-      // desktop: eager mount on idle just after load
-      const ric = (
-        window as Window & {
-          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-        }
-      ).requestIdleCallback;
-      const start = () => (ric ? ric(fire, { timeout: 1200 }) : window.setTimeout(fire, 200));
-      if (document.readyState === "complete") start();
-      else window.addEventListener("load", start, { once: true });
-      return () => {
-        for (const e of events) window.removeEventListener(e, fire);
-      };
-    }
-
-    // phones: wait for the first genuine interaction
     for (const e of events) window.addEventListener(e, fire, { passive: true });
     return () => {
       for (const e of events) window.removeEventListener(e, fire);

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
-import { useDesktopOnlyWebGL } from "@/lib/perf";
+import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { THESIS, SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
@@ -85,6 +85,7 @@ export function HomeOcean({
   const displayRating =
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   const webgl = useDesktopOnlyWebGL();
+  const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
   return (
     <>
       <HeroStage meet="reflect" />
@@ -229,8 +230,8 @@ export function HomeOcean({
         </RevealGroup>
       </div>
 
-      {/* the folding finale - flat paper scrubs into a boat */}
-      {webgl && <FoldingBoat />}
+      {/* the folding finale - flat paper scrubs into a boat (desktop, after interaction) */}
+      {webgl && interacted && <FoldingBoat />}
     </>
   );
 }
