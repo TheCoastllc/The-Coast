@@ -92,6 +92,43 @@ export function useDesktopOnlyWebGL(): boolean {
 }
 
 /**
+ * True once the page has finished its initial load AND the main thread goes idle.
+ * Used to defer mounting heavy WebGL (chunk download + shader compile + GPU init)
+ * OFF the critical load path - so first paint / LCP / TBT are never taxed by it.
+ * The crisp CSS hero shows instantly; the real WebGL fades in a beat later. Has a
+ * hard timeout fallback so it always eventually fires. SSR-safe (false until idle).
+ */
+export function useIdleReady(timeout = 2200): boolean {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let done = false;
+    const cap = { id: 0 as number | ReturnType<typeof setTimeout> };
+    const go = () => {
+      if (done) return;
+      done = true;
+      setReady(true);
+    };
+    const schedule = () => {
+      const ric = (
+        window as Window & {
+          requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+        }
+      ).requestIdleCallback;
+      if (ric) ric(go, { timeout });
+      else setTimeout(go, 200);
+    };
+    // wait for the load event so first paint + LCP land before three.js touches the CPU
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+    // hard cap: never let the hero hang on a busy thread that never goes idle
+    cap.id = setTimeout(go, timeout + 1800);
+    return () => clearTimeout(cap.id as ReturnType<typeof setTimeout>);
+  }, [timeout]);
+  return ready;
+}
+
+/**
  * True while the page is scrolled within `maxViewports` of the top. Used to
  * freeze the fixed hero canvas (frameloop "never") once content covers it, so
  * it stops burning GPU cycles. Only re-renders on the boolean transition.
