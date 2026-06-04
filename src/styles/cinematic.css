@@ -20,6 +20,10 @@
   --cs-line: rgba(245, 241, 232, 0.12);
   --cs-font-display: 'Editorial New', var(--font-anton), Georgia, serif;
   --cs-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  /* the kit's Fontshare faces (Editorial New / Neue Montreal) aren't loaded on
+     the-coast - resolve those references to the site's own faces instead. */
+  --font-display: var(--cs-font-display);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
   /* Reset the surrounding-site theme inside this scope */
   background: var(--cs-bg);

@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
-import { ChamberShell } from '@/components/ui/ChamberShell'
-import { Reveal } from '@/components/motion/Reveal'
-import { variantForIndex } from '@/components/motion/revealVariants'
-import { WORK, type WorkItem } from '@/lib/content/coast'
+import CinematicWorkFeed from '@/components/CinematicWorkFeed'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
-import styles from './work.module.css'
 
 export const metadata: Metadata = {
   title: 'Our Work — Brand Transformations',
@@ -39,61 +35,15 @@ const workCollectionSchema = {
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
 }
 
-function Card({ item, index, big = false }: { item: WorkItem; index: number; big?: boolean }) {
-  return (
-    <article className={`${styles.card} ${big ? styles.cardBig : ''}`} data-mode="3d">
-      <div className={styles.cardBody}>
-        <div className={styles.cardTop}>
-          <span className={styles.cat}>{item.category}</span>
-          <span className={styles.year}>{item.year}</span>
-        </div>
-        <h3 className={styles.name}>{item.name}</h3>
-        <p className={styles.blurb}>{item.blurb}</p>
-        <div className={styles.services}>
-          {item.services.map((s) => (
-            <span key={s} className={styles.service}>
-              {s}
-            </span>
-          ))}
-        </div>
-      </div>
-    </article>
-  )
-}
-
+// The /work index is the cinematic, video-driven feed: full-bleed brand-color
+// takeover sections, one per project, with hover/scroll-play scroll videos.
+// (Detail pages at /work/[projectId] stay on their own cinematic renderer.)
 export default function WorkPage() {
-  const featured = WORK.filter((w) => w.featured)
-  const rest = WORK.filter((w) => !w.featured)
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workBreadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workCollectionSchema) }} />
-
-      <ChamberShell
-        index="01"
-        label="Work"
-        chamber="Selected Work"
-        preface="Thirty brands, fifty projects. A sample of what we have built."
-      >
-        <section className="section">
-          <div className={styles.featured}>
-            {featured.map((w, i) => (
-              <Reveal key={w.name} variant={i % 2 === 0 ? 'mask-wipe' : 'rise-blur'} className={styles.featuredCell}>
-                <Card item={w} index={i} big />
-              </Reveal>
-            ))}
-          </div>
-
-          <div className={styles.grid}>
-            {rest.map((w, i) => (
-              <Reveal key={w.name} variant={variantForIndex(i)} className={styles.cell}>
-                <Card item={w} index={i + featured.length} />
-              </Reveal>
-            ))}
-          </div>
-        </section>
-      </ChamberShell>
+      <CinematicWorkFeed />
     </>
   )
 }
