@@ -24,19 +24,21 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
       const sections = gsap.utils.toArray<HTMLElement>(".section", el);
       sections.forEach((s) => {
         gsap.set(s, { opacity: 0, y: 44, filter: "blur(6px)" });
-        ScrollTrigger.create({
-          trigger: s,
-          start: "top 84%",
-          once: true,
-          onEnter: () =>
-            gsap.to(s, {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              duration: 1.1,
-              ease: "power3.out",
-            }),
-        });
+        const reveal = () =>
+          gsap.to(s, {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 1.1,
+            ease: "power3.out",
+          });
+        // Already in view on mount (e.g. the top of a hero-less landing) - reveal
+        // now instead of waiting for a scroll that may never come.
+        if (s.getBoundingClientRect().top < window.innerHeight * 0.9) {
+          reveal();
+          return;
+        }
+        ScrollTrigger.create({ trigger: s, start: "top 84%", once: true, onEnter: reveal });
       });
       // refresh after fonts/layout settle
       ScrollTrigger.refresh();

@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { HeroStage } from "@/components/hero/HeroStage";
-import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger, usePointerFine, useReducedMotion } from "@/lib/perf";
 import { TypeMask } from "@/components/visuals/TypeMask";
@@ -104,10 +102,6 @@ export function HomeOcean({
   return (
     <>
       <IntroCurtain />
-      <HeroStage meet="reflect" />
-      <StoryHeadline />
-      {/* tall transparent runway: gives scroll distance for the 3 hero acts */}
-      <div className={styles.storyTrack} />
 
       <div className={styles.content}>
         <RevealGroup>
