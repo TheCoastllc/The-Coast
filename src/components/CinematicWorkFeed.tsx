@@ -37,12 +37,13 @@ function sectionVars(wk: WkVariant, p: { color?: string; textColor?: string }) {
       ['--section-ink' as never]: '#0a121c',
     } as React.CSSProperties
   }
-  // accent: ocean canvas + a soft per-client colour glow on the media side, and a
-  // brightened-to-readable client colour for the small accents (number, chips).
+  // accent: ocean canvas TINTED with each client's colour (a deep, on-brand wash
+  // - visible on every section, even dark clients) + a stronger colour bloom on the
+  // media side, and a brightened-to-readable client colour for the small accents.
   return {
-    ['--section-bg' as never]: `radial-gradient(ellipse 58% 54% at 82% 50%, color-mix(in srgb, ${client} 30%, transparent) 0%, transparent 70%), ${OCEAN_BG}`,
+    ['--section-bg' as never]: `radial-gradient(ellipse 78% 70% at 82% 46%, color-mix(in srgb, ${client} 52%, transparent) 0%, transparent 72%), color-mix(in srgb, ${client} 24%, #08141f)`,
     ['--section-fg' as never]: '#F0EAD6',
-    ['--section-accent' as never]: `color-mix(in srgb, ${client} 58%, #e9eef4)`,
+    ['--section-accent' as never]: `color-mix(in srgb, ${client} 60%, #eaeef4)`,
     ['--section-ink' as never]: '#0a121c',
   } as React.CSSProperties
 }
