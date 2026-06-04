@@ -119,6 +119,37 @@ export function HomeOcean({
           ))}
 
           <section className="section">
+            <div className={`${styles.waveTeaser} glass`} data-glow="gold">
+              <p className={styles.thesisLabel}>The Coast Brand Index</p>
+              <h2 className={styles.waveTitle}>How strong is your wave?</h2>
+              <p className={styles.waveCopy}>
+                Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
+              </p>
+              <div className={styles.waveTeaserViz}>
+                <div
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    maxWidth: 300,
+                    margin: "0 auto",
+                    aspectRatio: "464 / 688",
+                    borderRadius: 18,
+                    overflow: "hidden",
+                    border: "1px solid var(--color-border)",
+                    boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  <VideoWave rounded={false} />
+                </div>
+              </div>
+              <Link href="/cbi" className={styles.cta} data-cursor-label="Measure">
+                Take the test
+                <span className={styles.ctaArrow}>→</span>
+              </Link>
+            </div>
+          </section>
+
+          <section className="section">
             <div className={styles.imageBand}>
               <ParallaxImage src={EDITORIAL[1].src} alt={EDITORIAL[1].alt} mode="grain-graded" amount={14} />
               <div className={styles.imageBandCaption}>
@@ -186,37 +217,6 @@ export function HomeOcean({
               rating={displayRating}
               leaveReviewUrl={leaveReviewUrl ?? FALLBACK_LEAVE_URL}
             />
-          </section>
-
-          <section className="section">
-            <div className={`${styles.waveTeaser} glass`} data-glow="gold">
-              <p className={styles.thesisLabel}>The Coast Brand Index</p>
-              <h2 className={styles.waveTitle}>How strong is your wave?</h2>
-              <p className={styles.waveCopy}>
-                Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
-              </p>
-              <div className={styles.waveTeaserViz}>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    maxWidth: 300,
-                    margin: "0 auto",
-                    aspectRatio: "464 / 688",
-                    borderRadius: 18,
-                    overflow: "hidden",
-                    border: "1px solid var(--color-border)",
-                    boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
-                  }}
-                >
-                  <VideoWave rounded={false} />
-                </div>
-              </div>
-              <Link href="/cbi" className={styles.cta} data-cursor-label="Measure">
-                Take the test
-                <span className={styles.ctaArrow}>→</span>
-              </Link>
-            </div>
           </section>
 
           <section className={`section ${styles.closing}`}>
