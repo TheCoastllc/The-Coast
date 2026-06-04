@@ -80,7 +80,7 @@ export function ResultsScreen() {
         </div>
 
         {/* Wordmark */}
-        <p className="text-center text-white/10 text-xs tracking-[0.4em] uppercase mt-16">
+        <p className="text-center text-white/45 text-xs tracking-[0.4em] uppercase mt-16">
           The Coast
         </p>
       </div>

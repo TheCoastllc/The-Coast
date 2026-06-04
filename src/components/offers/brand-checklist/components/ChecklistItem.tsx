@@ -32,7 +32,7 @@ export function ChecklistItem({
       )}
     >
       {/* Number */}
-      <span className="text-white/15 text-xs tabular-nums font-mono mt-0.5 w-5 shrink-0">
+      <span className="text-white/40 text-xs tabular-nums font-mono mt-0.5 w-5 shrink-0">
         {String(number).padStart(2, '0')}
       </span>
 

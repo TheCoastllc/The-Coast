@@ -1,11 +1,13 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import { useReducedMotion } from "@/lib/perf";
 
 /**
  * The Coast brand wave clip (curling wave + figure, "Design the Future"). Fills
- * its container - the parent sets size/aspect. Muted autoplay loop so it plays
- * everywhere; poster shows instantly while it loads / if autoplay is blocked.
+ * its container - the parent sets size/aspect. Decorative (aria-hidden); muted
+ * autoplay loop, poster shows instantly while it loads / if autoplay is blocked /
+ * under reduced-motion (where it holds the still frame instead of playing).
  */
 export function VideoWave({
   className,
@@ -18,10 +20,12 @@ export function VideoWave({
   fit?: "cover" | "contain";
   rounded?: boolean;
 }) {
+  const reduced = useReducedMotion();
   return (
     <video
       className={className}
-      autoPlay
+      aria-hidden="true"
+      autoPlay={!reduced}
       loop
       muted
       playsInline

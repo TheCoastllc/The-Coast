@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     },
 
     description:
-        'Strategic brand design for entrepreneurs, artists, and growing businesses. Logo design, visual identity, brand strategy, and marketing assets.',
+        'How strong is your wave? The Coast Brand Index scores your brand across five pillars and twenty criteria and gives you a Wave Rating in under two minutes — free.',
 
     keywords: [
         'brand design studio',
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
         locale: 'en_US',
         url: SITE_URL,
         siteName: 'The Coast',
-        title: 'The Coast | Brand Design Studio',
+        title: 'How Strong Is Your Wave? — The Coast Brand Index',
         description:
-            'Strategic brand design for entrepreneurs, artists, and growing businesses. Logo design, visual identity, brand strategy, and marketing assets.',
+            'Score your brand across five pillars and twenty criteria and get your Wave Rating in under two minutes. Free, instant, built to show you exactly where to sharpen.',
         images: [
             {
                 url: '/preview.jpg',
@@ -53,9 +53,9 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         site: '@TheCoastHQ',
         creator: '@TheCoastHQ',
-        title: 'The Coast | Brand Design Studio',
+        title: 'How Strong Is Your Wave? — The Coast Brand Index',
         description:
-            'Strategic brand design for entrepreneurs, artists, and growing businesses.',
+            'Score your brand across five pillars and twenty criteria. Get your Wave Rating in under two minutes — free.',
         images: ['/preview.jpg'],
     },
 
