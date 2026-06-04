@@ -72,8 +72,13 @@
 .content {
   position: relative;
   z-index: 1;
-  background: var(--color-bg);
-  padding: clamp(5rem, 11vh, 8.5rem) 2rem 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-bg) 12%,
+    var(--color-bg) 100%
+  );
+  padding: 0 2rem;
 }
 
 .content :global(.section) {

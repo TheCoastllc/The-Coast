@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { useWebGLAllowed, useHeroMountTrigger } from "@/lib/perf";
+import { useWebGLAllowed } from "@/lib/perf";
 import { StoryHeroStatic } from "./StoryHeroStatic";
 import type { MeetMode } from "./StoryHero";
 import type { BoatMode } from "./Boat";
@@ -22,13 +22,14 @@ const StoryHero = dynamic(() => import("./StoryHero").then((m) => ({ default: m.
  */
 export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode; boat?: BoatMode }) {
   const webgl = useWebGLAllowed();
-  const trigger = useHeroMountTrigger(); // desktop: eager on idle. phone: on first touch/scroll.
   const [ready, setReady] = useState(false);
 
   return (
     <>
       <StoryHeroStatic />
-      {webgl && trigger && (
+      {/* Mount the WebGL hero eagerly (during the intro curtain) so the landing
+          shows the real water scene, not the CSS fallback. */}
+      {webgl && (
         <div
           style={{
             position: "fixed",
