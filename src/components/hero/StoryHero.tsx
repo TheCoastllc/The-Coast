@@ -28,12 +28,11 @@ const smoothstep = (e0: number, e1: number, x: number) => {
 type V3 = [number, number, number];
 type Key = { p: number; pos: V3; look: V3 };
 
-// camera: OPEN low on the horizon (dramatic landing - sun resting on the water) ->
-// stay near the waterline for the meeting -> pull back for the finale
+// camera: dot high above the headline -> lower to the horizon for the meeting -> pull back
 const CAM: Key[] = [
-  { p: 0.0, pos: [0, 1.5, 6.0], look: [0, 0.82, -22] },
-  { p: 0.45, pos: [0, 1.28, 6.2], look: [0, 0.55, -20] },
-  { p: 0.72, pos: [0, 1.0, 6.5], look: [0, 0.42, -16] },
+  { p: 0.0, pos: [0, 2.6, 6.0], look: [0, 2.4, -26] },
+  { p: 0.45, pos: [0, 1.9, 6.0], look: [0, 1.2, -24] },
+  { p: 0.72, pos: [0, 1.1, 6.5], look: [0, 0.45, -16] },
   { p: 1.0, pos: [0, 4.2, 11], look: [0, 0.7, -8] },
 ];
 
@@ -84,8 +83,8 @@ function StoryScene({
           uAccent: { value: new THREE.Color("#DB5227") },
           uFoam: { value: new THREE.Color("#7FD3C7") },
           uFoamAmt: { value: 1 },
-          uFog: { value: new THREE.Color("#0B1622") },
-          uFogDensity: { value: 0.03 },
+          uFog: { value: new THREE.Color("#0A0C12") },
+          uFogDensity: { value: 0.05 },
           uReflect: { value: 0 },
           uCaustics: { value: 0.5 },
         },
@@ -98,17 +97,17 @@ function StoryScene({
     const p = progress.current;
     const t = state.clock.elapsedTime;
 
-    // sea: dramatic waves from the very first frame, calming for the boat
+    // sea: lively waves from the start, calming for the boat
     seaMat.uniforms.uTime.value = t;
-    seaMat.uniforms.uAmp.value = 1.25 - 0.75 * smoothstep(0.58, 0.84, p);
-    // a sun-glade burning on the water from frame one (reflect mode)
-    seaMat.uniforms.uReflect.value = meet === "reflect" ? 0.5 + smoothstep(0.0, 0.5, p) * 0.45 : 0;
+    seaMat.uniforms.uAmp.value = 1.15 - 0.7 * smoothstep(0.58, 0.84, p);
+    // reflection streak only in reflect mode, ramping in with the full sun
+    seaMat.uniforms.uReflect.value = meet === "reflect" ? smoothstep(0.5, 0.68, p) * 0.95 : 0;
 
-    // sun: opens as a FULL warm sun already resting on the horizon (the dramatic
-    // landing) -> lifts and settles only slightly as the voyage begins
+    // sun: tiny dot anchored high above the headline -> grows + descends to the horizon
     if (sun.current) {
-      sun.current.scale.setScalar(lerp(0.98, 1.55, smoothstep(0.0, 0.7, p)));
-      sun.current.position.y = lerp(1.02, 0.5, smoothstep(0.0, 0.72, p));
+      sun.current.scale.setScalar(lerp(0.08, 1.5, smoothstep(0.04, 0.6, p)));
+      sun.current.position.y = lerp(6.5, 0.55, smoothstep(0.18, 0.72, p));
+      // always visible (incl. at the very top) - the dot must read above "The Coast"
       (sun.current.material as THREE.MeshBasicMaterial).opacity = 1;
     }
 
@@ -147,12 +146,12 @@ function StoryScene({
 
   return (
     <>
-      <fogExp2 attach="fog" args={["#0B1622", 0.023]} />
-      <ambientLight intensity={0.85} color="#8FB4DE" />
-      <directionalLight position={[4, 6, 3]} intensity={2.4} color="#FFF3E8" />
-      <pointLight position={[-3, 2, 3]} intensity={16} color="#DB5227" />
+      <fogExp2 attach="fog" args={["#0A0C12", 0.045]} />
+      <ambientLight intensity={0.6} color="#7FA8D8" />
+      <directionalLight position={[4, 6, 3]} intensity={2.2} color="#FFF3E8" />
+      <pointLight position={[-3, 2, 3]} intensity={14} color="#DB5227" />
       {/* warm rim from the sun, behind the boat - haloes the approaching hull */}
-      <pointLight position={[0, 1.5, -18]} intensity={12} color="#F4633A" distance={40} />
+      <pointLight position={[0, 1.5, -18]} intensity={8} color="#F4633A" distance={34} />
 
       <DriftClouds max={clouds} />
 
@@ -202,12 +201,12 @@ export function StoryHero({
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: -1 }} aria-hidden>
       <Canvas
-        gl={{ antialias: q.tier !== "low", powerPreference: "high-performance", alpha: false }}
-        camera={{ position: [0, 1.5, 6.0], fov: 52, near: 0.1, far: 140 }}
+        gl={{ antialias: q.tier !== "low", powerPreference: "high-performance" }}
+        camera={{ position: [0, 2.6, 6.0], fov: 52, near: 0.1, far: 140 }}
         dpr={q.dpr}
         frameloop={active ? "always" : "never"}
       >
-        <color attach="background" args={["#0B1622"]} />
+        <color attach="background" args={["#0A0C12"]} />
         <Suspense fallback={null}>
           <StoryScene progress={progress} meet={meet} segments={q.seaSegments} clouds={q.clouds} boatMode={boat} />
         </Suspense>
@@ -215,7 +214,7 @@ export function StoryHero({
         {active && postfx && q.postfx && (
           <EffectComposer>
             <Bloom intensity={depth ? 1.45 : 1.0} luminanceThreshold={depth ? 0.45 : 0.55} luminanceSmoothing={0.7} mipmapBlur />
-            <Vignette eskil={false} offset={0.42} darkness={0.5} />
+            <Vignette eskil={false} offset={0.3} darkness={0.8} />
           </EffectComposer>
         )}
       </Canvas>
