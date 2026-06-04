@@ -1,45 +1,45 @@
-import { WaveIcon } from './WaveIcon'
 import { cn } from '@/lib/utils'
 
 type WaveRowProps = {
   count: number
   total?: number
   color: string
+  /** max bar height in px (the meter scales to this) */
   size?: number
   gap?: number
-  dimClassName?: string
   className?: string
 }
 
 /**
- * Horizontal row of wave marks. `count` icons are tinted with `color`,
- * the rest fade to `dimClassName` (defaults to a subtle white wash).
- * Replaces the vertical `~` stack from the prototype.
+ * Wave-strength meter: a row of increasing-height bars (a rising swell / level
+ * meter). `count` bars light up in `color` with a soft glow, the rest stay a
+ * quiet wash. Replaces the repeated brand-logo glyphs - cleaner and premium.
  */
-export function WaveRow({
-  count,
-  total = 5,
-  color,
-  size = 28,
-  gap = 6,
-  dimClassName = 'text-white/25',
-  className,
-}: WaveRowProps) {
+export function WaveRow({ count, total = 5, color, size = 28, gap, className }: WaveRowProps) {
+  const maxH = size
+  const minH = Math.max(4, size * 0.36)
+  const barW = Math.max(2, Math.round(size * 0.15))
+  const space = gap ?? Math.max(3, Math.round(size * 0.2))
   return (
     <div
-      className={cn('inline-flex items-center', className)}
-      style={{ gap }}
+      className={cn('inline-flex items-end', className)}
+      style={{ gap: space, height: maxH }}
       aria-label={`Wave rating ${count} of ${total}`}
     >
       {Array.from({ length: total }, (_, i) => {
         const active = i < count
+        const h = total > 1 ? minH + (maxH - minH) * (i / (total - 1)) : maxH
         return (
-          <WaveIcon
+          <span
             key={i}
-            width={size}
-            height={size}
-            className={cn('transition-colors duration-500', !active && dimClassName)}
-            style={active ? { color } : undefined}
+            style={{
+              width: barW,
+              height: h,
+              borderRadius: barW,
+              background: active ? color : 'rgba(255,255,255,0.16)',
+              boxShadow: active ? `0 0 ${Math.round(size * 0.45)}px ${color}55` : 'none',
+              transition: 'background 0.5s ease, box-shadow 0.5s ease',
+            }}
           />
         )
       })}

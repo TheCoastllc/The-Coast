@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useCbi } from '../CbiContext'
 import { CBI_MAX_SCORE, questions } from '../data/questions'
 import { WAVE_SCALE } from '../data/waves'
-import { WaveIcon } from '../components/WaveIcon'
+import { WaveRow } from '../components/WaveRow'
 
 const STATS = [
   { n: '20', l: 'Criteria' },
@@ -76,27 +76,15 @@ export function ResultsScreen() {
           {form.brand}
         </motion.div>
 
-        {/* Dramatic wave reveal — stagger each icon in with scale + color */}
-        <div className="inline-flex items-center gap-2" aria-label={`Wave rating ${wave.w} of 5`}>
-          {Array.from({ length: 5 }, (_, i) => {
-            const active = i < wave.w
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.4, y: -8 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: T.waves + i * 0.18,
-                  ease: EASE,
-                }}
-                style={{ color: active ? wave.color : 'rgba(255,255,255,0.25)' }}
-              >
-                <WaveIcon width={44} height={44} />
-              </motion.div>
-            )
-          })}
-        </div>
+        {/* Wave-strength reveal */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.62, y: -6 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: T.waves, ease: EASE }}
+          className="inline-flex"
+        >
+          <WaveRow count={wave.w} total={5} color={wave.color} size={58} />
+        </motion.div>
 
         {/* Big score — count up after waves land */}
         <motion.div
@@ -202,22 +190,13 @@ export function ResultsScreen() {
                   background: isYou ? `${w.color}30` : 'transparent',
                 }}
               >
-                <div className="w-[112px] inline-flex items-center gap-[3px]">
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <WaveIcon
-                      key={i}
-                      width={14}
-                      height={14}
-                      style={{
-                        color:
-                          i < w.w
-                            ? isYou
-                              ? w.color
-                              : 'rgba(255,255,255,0.45)'
-                            : 'rgba(255,255,255,0.2)',
-                      }}
-                    />
-                  ))}
+                <div className="w-[112px]">
+                  <WaveRow
+                    count={w.w}
+                    total={5}
+                    color={isYou ? w.color : 'rgba(255,255,255,0.5)'}
+                    size={16}
+                  />
                 </div>
                 <div
                   className="flex-1 text-[13px]"
