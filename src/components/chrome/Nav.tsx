@@ -20,6 +20,16 @@ export function Nav() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
+  // Close on Escape while the menu is open (stay on the current page).
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.mark} data-cursor-label="Home" aria-label={COMPANY.short}>
@@ -41,6 +51,10 @@ export function Nav() {
         className={styles.menu}
         data-open={open}
         aria-label="Primary navigation"
+        onClick={(e) => {
+          // Click anywhere that isn't a nav link → close and stay on this page.
+          if (!(e.target as HTMLElement).closest("a")) setOpen(false);
+        }}
       >
         <ul className={styles.list}>
           {NAV.map((item, i) => (

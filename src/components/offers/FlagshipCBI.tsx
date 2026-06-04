@@ -9,10 +9,10 @@ import styles from "@/app/(frontend)/offers/offers-lab.module.css";
 /**
  * The CBI flagship hero, rebuilt clean: a single glass card, headline + stat row
  * on the left, and a creative wave readout on the right. The wave treatment is
- * variant-driven (?wave=rising|water|chart, default rising) so David can compare.
+ * variant-driven (?wave=swell|crest|curl, default swell) so David can compare.
  */
 export function FlagshipCBI() {
-  const variant = useVariant<WaveVariant>("wave", WAVE_VARIANTS, "rising");
+  const variant = useVariant<WaveVariant>("wave", WAVE_VARIANTS, "swell");
   const m = CBI.mock;
   return (
     <Reveal variant="scale-in">

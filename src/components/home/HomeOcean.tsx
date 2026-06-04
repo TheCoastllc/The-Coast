@@ -10,7 +10,7 @@ import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { IntroCurtain } from "./IntroCurtain";
-import { WaveVisual } from "@/components/offers/WaveVisual";
+import { WaveVisual, WAVE_VARIANTS } from "@/components/offers/WaveVisual";
 import { CBI } from "@/app/(frontend)/offers/content";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
@@ -100,6 +100,7 @@ export function HomeOcean({
   const baked = fine && !reduced;
   const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "wall");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
+  const waveVariant = useVariant("wave", WAVE_VARIANTS, "swell");
 
   return (
     <>
@@ -197,7 +198,7 @@ export function HomeOcean({
                 Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
               </p>
               <div className={styles.waveTeaserViz}>
-                <WaveVisual variant="rising" score={CBI.mock.score} waveName={CBI.mock.waveName} scale={CBI.waveScale} />
+                <WaveVisual variant={waveVariant} score={CBI.mock.score} waveName={CBI.mock.waveName} scale={CBI.waveScale} />
               </div>
               <Link href="/cbi" className={styles.cta} data-cursor-label="Measure">
                 Take the test
