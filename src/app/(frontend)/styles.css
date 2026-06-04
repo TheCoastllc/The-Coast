@@ -92,6 +92,7 @@
   --animate-grid: grid 15s linear infinite;
   --font-display: var(--font-coast);
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant), Georgia, serif;
 
   @keyframes accordion-down {
     from {

@@ -13,7 +13,7 @@ export function HeroScreen() {
   return (
     <div className="min-h-screen bg-[#06080C] overflow-auto font-sans text-white">
       <div className="flex items-center justify-between max-w-[900px] mx-auto px-8 py-6">
-        <span className="text-[11px] font-bold tracking-[5px] text-white/60 uppercase">
+        <span className="font-mono text-[11px] font-medium tracking-[5px] text-white/60 uppercase">
           The Coast
         </span>
         <button
@@ -29,7 +29,7 @@ export function HeroScreen() {
           <WaveRow count={5} color={BRAND_GOLD} size={36} gap={8} />
         </div>
 
-        <h1 className="text-[42px] font-light leading-[1.15] tracking-[-0.5px] mt-10">
+        <h1 className="font-serif text-[clamp(40px,7vw,60px)] font-light leading-[1.05] tracking-[-1px] mt-10">
           How Strong Is Your Wave?
         </h1>
 
@@ -44,7 +44,7 @@ export function HeroScreen() {
 
         <button
           onClick={go}
-          className="mt-12 px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
+          className="mt-12 px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-mono font-medium tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
         >
           Get Your Free Score
         </button>
@@ -54,7 +54,7 @@ export function HeroScreen() {
       <div className="max-w-[60px] mx-auto my-[72px] h-px bg-white/15" />
 
       <section className="max-w-[480px] mx-auto px-8 text-center">
-        <div className="text-[10px] tracking-[4px] text-white/55 uppercase font-semibold mb-7">
+        <div className="text-[10px] tracking-[4px] text-white/55 uppercase font-mono mb-7">
           The Wave Rating Scale
         </div>
 
@@ -88,7 +88,7 @@ export function HeroScreen() {
       <div className="max-w-[60px] mx-auto my-14 h-px bg-white/15" />
 
       <section className="max-w-[600px] mx-auto px-8 text-center">
-        <div className="text-[10px] tracking-[4px] text-white/55 uppercase font-semibold mb-9">
+        <div className="text-[10px] tracking-[4px] text-white/55 uppercase font-mono mb-9">
           How it works
         </div>
         <div className="flex flex-col sm:flex-row gap-8 justify-center">
@@ -107,7 +107,7 @@ export function HeroScreen() {
       <div className="text-center px-8 pt-16 pb-12">
         <button
           onClick={go}
-          className="px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
+          className="px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-mono font-medium tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
         >
           Get Your Free Score
         </button>
@@ -115,7 +115,7 @@ export function HeroScreen() {
       </div>
 
       <div className="text-center px-8 pt-8 pb-14 border-t border-white/10">
-        <div className="text-[9px] tracking-[4px] text-white/40 uppercase font-semibold">
+        <div className="text-[9px] tracking-[4px] text-white/40 uppercase font-mono">
           Proprietary methodology
         </div>
         <div className="text-[11px] text-white/40 mt-1.5">
