@@ -3,12 +3,53 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { CASE_STUDIES, CASE_STUDY_ORDER } from '@/lib/case-studies'
+import { useVariant } from '@/components/visuals/useVariant'
 import '@/styles/cinematic.css'
 
 const year = new Date().getFullYear()
 
+// Section colour treatments (preview via ?wk=). Each just sets the --section-*
+// custom properties the CSS reads, so the markup/styles stay variant-agnostic.
+//   accent (default) - the-coast ocean canvas + a per-client colour accent/glow
+//   ocean            - pure ocean navy + gold, identical across every section
+//   brand            - each client's full brand colour as the section background
+export const WK_VARIANTS = ['accent', 'ocean', 'brand'] as const
+type WkVariant = (typeof WK_VARIANTS)[number]
+
+const OCEAN_BG =
+  'radial-gradient(ellipse 96% 88% at 22% 4%, #0d2236 0%, #07131f 56%, #050e17 100%)'
+
+function sectionVars(wk: WkVariant, p: { color?: string; textColor?: string }) {
+  const client = p.color ?? '#C9A24B'
+  if (wk === 'brand') {
+    return {
+      ['--section-bg' as never]: p.color ?? '#161616',
+      ['--section-fg' as never]: p.textColor ?? '#f6f1e8',
+      ['--section-accent' as never]: p.textColor ?? '#f6f1e8',
+      ['--section-ink' as never]: p.color ?? '#0a121c',
+    } as React.CSSProperties
+  }
+  if (wk === 'ocean') {
+    return {
+      ['--section-bg' as never]: OCEAN_BG,
+      ['--section-fg' as never]: '#F0EAD6',
+      ['--section-accent' as never]: '#C9A24B',
+      ['--section-ink' as never]: '#0a121c',
+    } as React.CSSProperties
+  }
+  // accent: ocean canvas + a soft per-client colour glow on the media side, and a
+  // brightened-to-readable client colour for the small accents (number, chips).
+  return {
+    ['--section-bg' as never]: `radial-gradient(ellipse 58% 54% at 82% 50%, color-mix(in srgb, ${client} 30%, transparent) 0%, transparent 70%), ${OCEAN_BG}`,
+    ['--section-fg' as never]: '#F0EAD6',
+    ['--section-accent' as never]: `color-mix(in srgb, ${client} 58%, #e9eef4)`,
+    ['--section-ink' as never]: '#0a121c',
+  } as React.CSSProperties
+}
+
 export default function CinematicWorkFeed() {
   const rootRef = useRef<HTMLDivElement>(null)
+  const wk = useVariant('wk', WK_VARIANTS, 'accent')
 
   // Lazy-play hover videos on each section
   useEffect(() => {
@@ -69,7 +110,7 @@ export default function CinematicWorkFeed() {
   const placeholders = ordered.filter((p) => !p.ready)
 
   return (
-    <div ref={rootRef} className="cinematic">
+    <div ref={rootRef} className="cinematic" data-wk={wk}>
       {/* Hero */}
       <section className="cs-work-hero" data-reveal>
         <h1>
@@ -87,12 +128,7 @@ export default function CinematicWorkFeed() {
           <section
             key={p.id}
             className="cs-takeover-section"
-            style={
-              {
-                ['--section-bg' as never]: p.color ?? '#161616',
-                ['--section-fg' as never]: p.textColor ?? '#f6f1e8',
-              } as React.CSSProperties
-            }
+            style={sectionVars(wk, p)}
             data-reveal
             data-tile
           >
@@ -154,12 +190,7 @@ export default function CinematicWorkFeed() {
           <section
             key={p.id}
             className="cs-takeover-section placeholder"
-            style={
-              {
-                ['--section-bg' as never]: p.color ?? '#161616',
-                ['--section-fg' as never]: p.textColor ?? '#f6f1e8',
-              } as React.CSSProperties
-            }
+            style={sectionVars(wk, p)}
             data-reveal
           >
             <div className="text">
