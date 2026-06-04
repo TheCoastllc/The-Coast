@@ -29,7 +29,7 @@
   height: clamp(220px, 34vw, 460px);
   margin: calc(clamp(220px, 34vw, 460px) / -2) 0 0 calc(clamp(220px, 34vw, 460px) / -2);
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(244, 137, 74, 0.24) 0%, rgba(219, 82, 39, 0.08) 42%, transparent 66%);
+  background: radial-gradient(circle, rgba(248, 156, 96, 0.32) 0%, rgba(219, 82, 39, 0.12) 42%, transparent 68%);
   will-change: transform, opacity;
   animation: glowPulse 6s ease-in-out infinite;
 }
@@ -42,7 +42,7 @@
   margin: calc(clamp(56px, 8vw, 110px) / -2) 0 0 calc(clamp(56px, 8vw, 110px) / -2);
   border-radius: 999px;
   background: radial-gradient(circle at 50% 42%, #fff1dc 0%, #ffd49a 30%, #f59a52 60%, #e0642c 88%, #d2551f 100%);
-  box-shadow: 0 0 42px 7px rgba(244, 137, 74, 0.45), 0 0 120px 30px rgba(219, 82, 39, 0.2);
+  box-shadow: 0 0 52px 9px rgba(248, 156, 96, 0.5), 0 0 140px 38px rgba(219, 82, 39, 0.24);
 }
 
 /* ── Drifting clouds (slow, GPU) ── */
@@ -76,7 +76,9 @@
   background: linear-gradient(to bottom, #0c3151 0%, #0a2540 32%, #061a2c 72%, #03101c 100%);
 }
 
-/* ── Flowing waves: div layers (background image) translated on the GPU ── */
+/* ── Flowing waves: layered div crests (SVG bg) translated on the GPU.
+   Three bands graded far->near (light teal -> deep navy), each a different
+   wavelength + speed so they parallax into a dimensional, dramatic sea. ── */
 .waveLayer {
   position: absolute;
   left: 0;
@@ -88,19 +90,32 @@
   transform: translate3d(0, 0, 0);
   z-index: 2;
 }
+/* far swell - long, gentle, luminous teal at the horizon */
 .waveBack {
-  top: 59%;
-  height: 26%;
-  opacity: 0.5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120' preserveAspectRatio='none'%3E%3Cpath d='M0 54 q 90 -34 180 0 t 180 0 V120 H0 Z' fill='%232e6ca8'/%3E%3C/svg%3E");
-  animation: flow 30s linear infinite;
-}
-.waveFront {
-  top: 63%;
+  top: 57%;
   height: 30%;
-  opacity: 0.75;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120' preserveAspectRatio='none'%3E%3Cpath d='M0 50 q 90 -30 180 0 t 180 0 V120 H0 Z' fill='%23143c68'/%3E%3C/svg%3E");
-  animation: flow 19s linear infinite reverse;
+  opacity: 0.45;
+  background-size: 520px 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120' preserveAspectRatio='none'%3E%3Cpath d='M0 58 q 90 -30 180 0 t 180 0 V120 H0 Z' fill='%233f86bd'/%3E%3C/svg%3E");
+  animation: flow 42s linear infinite;
+}
+/* mid swell - the body of the sea, full teal */
+.waveMid {
+  top: 61%;
+  height: 30%;
+  opacity: 0.62;
+  background-size: 400px 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120' preserveAspectRatio='none'%3E%3Cpath d='M0 52 q 90 -42 180 0 t 180 0 V120 H0 Z' fill='%232e6ca8'/%3E%3C/svg%3E");
+  animation: flow 27s linear infinite reverse;
+}
+/* near crest - deep, taller, faster (the wave breaking toward you) */
+.waveFront {
+  top: 65%;
+  height: 32%;
+  opacity: 0.85;
+  background-size: 320px 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='120' viewBox='0 0 360 120' preserveAspectRatio='none'%3E%3Cpath d='M0 50 q 90 -38 180 0 t 180 0 V120 H0 Z' fill='%230d2c4d'/%3E%3C/svg%3E");
+  animation: flow 17s linear infinite reverse;
 }
 
 /* sun glimmer on the water */

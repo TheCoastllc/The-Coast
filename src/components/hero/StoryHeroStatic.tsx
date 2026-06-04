@@ -20,6 +20,7 @@ export function StoryHeroStatic() {
       <div className={styles.sea} />
 
       <div className={`${styles.waveLayer} ${styles.waveBack}`} />
+      <div className={`${styles.waveLayer} ${styles.waveMid}`} />
       <div className={`${styles.waveLayer} ${styles.waveFront}`} />
 
       <span className={styles.reflection} />
