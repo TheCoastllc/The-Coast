@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useWebGLAllowed } from "@/lib/perf";
+import { useWebGLAllowed, useHeroMountTrigger } from "@/lib/perf";
 import { StoryHeroStatic } from "./StoryHeroStatic";
 import type { MeetMode } from "./StoryHero";
 import type { BoatMode } from "./Boat";
@@ -22,14 +22,23 @@ const StoryHero = dynamic(() => import("./StoryHero").then((m) => ({ default: m.
  */
 export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode; boat?: BoatMode }) {
   const webgl = useWebGLAllowed();
+  // Mount on first interaction (incl. mousemove) - R3F renders reliably once the
+  // layout has settled; an eager mount during the intro paints blank.
+  const trigger = useHeroMountTrigger();
+  // Fallback: mount a few seconds in (after the intro lifts + layout settles) so a
+  // passive visitor still lands on the water hero without having to interact.
+  const [settled, setSettled] = useState(false);
   const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setSettled(true), 3200);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <>
       <StoryHeroStatic />
-      {/* Mount the WebGL hero eagerly (during the intro curtain) so the landing
-          shows the real water scene, not the CSS fallback. */}
-      {webgl && (
+      {webgl && (trigger || settled) && (
         <div
           style={{
             position: "fixed",
