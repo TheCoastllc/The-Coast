@@ -9,6 +9,7 @@ import { TypeMask } from "@/components/visuals/TypeMask";
 import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
+import { IntroCurtain } from "./IntroCurtain";
 import { WaveVisual } from "@/components/offers/WaveVisual";
 import { CBI } from "@/app/(frontend)/offers/content";
 import { RevealGroup } from "@/components/motion/RevealGroup";
@@ -102,6 +103,7 @@ export function HomeOcean({
 
   return (
     <>
+      <IntroCurtain />
       <HeroStage meet="reflect" />
       <StoryHeadline />
       {/* tall transparent runway: gives scroll distance for the 3 hero acts */}

@@ -5,14 +5,16 @@
   width: 100%;
 }
 
-/* ===== rising: water meter that fills to the score ===== */
+/* ===== rising: layered living water that fills to the score ===== */
 .risingPanel {
   position: relative;
   aspect-ratio: 16 / 10;
   border: 1px solid var(--color-border);
   border-radius: 12px;
   overflow: hidden;
-  background: linear-gradient(to bottom, #0a1422 0%, #06101c 100%);
+  background:
+    radial-gradient(130% 90% at 50% 125%, rgba(127, 211, 199, 0.1), transparent 62%),
+    linear-gradient(to bottom, #0a1727 0%, #060f1b 100%);
 }
 .risingFill {
   position: absolute;
@@ -20,39 +22,48 @@
   right: 0;
   bottom: 0;
   height: var(--fill);
-  background: linear-gradient(to top, rgba(4, 16, 31, 0.92) 0%, rgba(30, 90, 158, 0.55) 100%);
-  animation: riseUp 1.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  background: linear-gradient(to top, #03101f 0%, #0c2c4a 55%, #185389 92%, #2e6ca8 100%);
+  box-shadow: 0 -12px 38px rgba(46, 108, 168, 0.4), inset 0 20px 34px rgba(127, 211, 199, 0.12);
+  animation: riseUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+/* faint drifting caustic shimmer over the water body */
+.risingCaustic {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(108deg, transparent 0 48px, rgba(127, 211, 199, 0.05) 62px, transparent 76px);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+  animation: causticDrift 16s linear infinite;
 }
 .risingSurf {
   position: absolute;
   left: 0;
   width: 200%;
-  height: 30px;
+  height: 40px;
   background-repeat: repeat-x;
   background-size: 50% 100%;
   will-change: transform;
 }
-.risingSurfFront {
-  top: -15px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30' preserveAspectRatio='none'%3E%3Cpath d='M0 13 Q 30 3 60 13 T 120 13 V30 H0 Z' fill='%232E6CA8'/%3E%3Cpath d='M0 13 Q 30 3 60 13 T 120 13' fill='none' stroke='%237FD3C7' stroke-width='1.6'/%3E%3C/svg%3E");
-  animation: waveFlow 7s linear infinite;
+/* front crest: brightest, biggest swell, teal foam line + glow */
+.risingSurf1 {
+  top: -19px;
+  filter: drop-shadow(0 0 9px rgba(127, 211, 199, 0.45));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 40' preserveAspectRatio='none'%3E%3Cpath d='M0 16 Q 35 2 70 16 T 140 16 V40 H0 Z' fill='%232e6ca8'/%3E%3Cpath d='M0 16 Q 35 2 70 16 T 140 16' fill='none' stroke='%23a9eae0' stroke-width='1.8'/%3E%3C/svg%3E");
+  animation: waveFlow 6.5s linear infinite;
 }
-.risingSurfBack {
-  top: -11px;
+/* mid layer */
+.risingSurf2 {
+  top: -12px;
+  opacity: 0.7;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 40' preserveAspectRatio='none'%3E%3Cpath d='M0 20 Q 35 10 70 20 T 140 20 V40 H0 Z' fill='%231e5a9e'/%3E%3C/svg%3E");
+  animation: waveFlow 9.5s linear infinite reverse;
+}
+/* back layer: deepest, calmest */
+.risingSurf3 {
+  top: -7px;
   opacity: 0.5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30' preserveAspectRatio='none'%3E%3Cpath d='M0 14 Q 30 6 60 14 T 120 14 V30 H0 Z' fill='%231E5A9E'/%3E%3C/svg%3E");
-  animation: waveFlow 11s linear infinite reverse;
-}
-.risingScore {
-  position: absolute;
-  top: 0.9rem;
-  right: 1.1rem;
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1;
-  color: color-mix(in srgb, var(--color-white) 92%, transparent);
-  text-shadow: 0 0 30px rgba(127, 211, 199, 0.35);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 40' preserveAspectRatio='none'%3E%3Cpath d='M0 24 Q 35 17 70 24 T 140 24 V40 H0 Z' fill='%230c2c4a'/%3E%3C/svg%3E");
+  animation: waveFlow 13s linear infinite;
 }
 .risingScale {
   list-style: none;
@@ -105,6 +116,11 @@
 @keyframes waveFlow {
   to {
     transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes causticDrift {
+  to {
+    background-position: 240px 0;
   }
 }
 
@@ -167,8 +183,10 @@
 /* ===== reduced motion: hold a calm static frame ===== */
 @media (prefers-reduced-motion: reduce) {
   .risingFill,
-  .risingSurfFront,
-  .risingSurfBack,
+  .risingSurf1,
+  .risingSurf2,
+  .risingSurf3,
+  .risingCaustic,
   .chartBar,
   .chartCrest {
     animation: none;

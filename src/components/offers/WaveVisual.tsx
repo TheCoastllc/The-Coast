@@ -32,8 +32,10 @@ function RisingWave({ score }: { score: number }) {
   return (
     <div className={styles.risingPanel}>
       <div className={styles.risingFill} style={{ "--fill": `${pct}%` } as CSSProperties}>
-        <div className={`${styles.risingSurf} ${styles.risingSurfBack}`} aria-hidden />
-        <div className={`${styles.risingSurf} ${styles.risingSurfFront}`} aria-hidden />
+        <div className={styles.risingCaustic} aria-hidden />
+        <div className={`${styles.risingSurf} ${styles.risingSurf3}`} aria-hidden />
+        <div className={`${styles.risingSurf} ${styles.risingSurf2}`} aria-hidden />
+        <div className={`${styles.risingSurf} ${styles.risingSurf1}`} aria-hidden />
       </div>
     </div>
   );
