@@ -491,6 +491,11 @@
   text-shadow: var(--text-glow-teal, 0 0 30px rgba(127, 211, 199, 0.25));
   margin: 0.8rem 0 1rem;
 }
+.waveTeaserViz {
+  width: 100%;
+  max-width: 440px;
+  margin: 1.8rem auto 0.4rem;
+}
 .waveCopy {
   max-width: 540px;
   color: var(--color-white-dim);

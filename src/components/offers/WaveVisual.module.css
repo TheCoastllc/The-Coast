@@ -1,0 +1,179 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* ===== rising: water meter that fills to the score ===== */
+.risingPanel {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #0a1422 0%, #06101c 100%);
+}
+.risingFill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--fill);
+  background: linear-gradient(to top, rgba(4, 16, 31, 0.92) 0%, rgba(30, 90, 158, 0.55) 100%);
+  animation: riseUp 1.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.risingSurf {
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: 30px;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  will-change: transform;
+}
+.risingSurfFront {
+  top: -15px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30' preserveAspectRatio='none'%3E%3Cpath d='M0 13 Q 30 3 60 13 T 120 13 V30 H0 Z' fill='%232E6CA8'/%3E%3Cpath d='M0 13 Q 30 3 60 13 T 120 13' fill='none' stroke='%237FD3C7' stroke-width='1.6'/%3E%3C/svg%3E");
+  animation: waveFlow 7s linear infinite;
+}
+.risingSurfBack {
+  top: -11px;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 30' preserveAspectRatio='none'%3E%3Cpath d='M0 14 Q 30 6 60 14 T 120 14 V30 H0 Z' fill='%231E5A9E'/%3E%3C/svg%3E");
+  animation: waveFlow 11s linear infinite reverse;
+}
+.risingScore {
+  position: absolute;
+  top: 0.9rem;
+  right: 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-white) 92%, transparent);
+  text-shadow: 0 0 30px rgba(127, 211, 199, 0.35);
+}
+.risingScale {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+.risingTier {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+.risingDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-steel);
+}
+.risingTierOn {
+  color: var(--color-gold);
+}
+.risingTierOn .risingDot {
+  background: var(--color-gold);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 70%, transparent);
+}
+@media (max-width: 520px) {
+  .risingTier {
+    font-size: 0.46rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.2rem;
+  }
+}
+
+@keyframes riseUp {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--fill);
+  }
+}
+@keyframes waveFlow {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ===== water: WebGL panel (gated; rising is the fallback) ===== */
+.waterPanel {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #06101c;
+}
+.waterScore {
+  position: absolute;
+  top: 0.9rem;
+  right: 1.1rem;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--color-white) 92%, transparent);
+  text-shadow: 0 0 30px rgba(127, 211, 199, 0.4);
+  pointer-events: none;
+}
+
+/* ===== chart: refined instrument (bars rise + crest draws) ===== */
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.chartBar {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: barRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d);
+}
+.chartCrest {
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  animation: crestDraw 1.6s ease-out 0.3s forwards;
+}
+@keyframes barRise {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+@keyframes crestDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ===== reduced motion: hold a calm static frame ===== */
+@media (prefers-reduced-motion: reduce) {
+  .risingFill,
+  .risingSurfFront,
+  .risingSurfBack,
+  .chartBar,
+  .chartCrest {
+    animation: none;
+  }
+  .chartCrest {
+    stroke-dashoffset: 0;
+  }
+}

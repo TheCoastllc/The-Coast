@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger, usePointerFine, useReducedMotion } from "@/lib/perf";
 import { TypeMask } from "@/components/visuals/TypeMask";
-import { CursorReveal } from "@/components/visuals/CursorReveal";
-import { ImageTrail } from "@/components/visuals/ImageTrail";
+import { useVariant } from "@/components/visuals/useVariant";
+import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
+import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
+import { WaveVisual } from "@/components/offers/WaveVisual";
+import { CBI } from "@/app/(frontend)/offers/content";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { THESIS, SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
@@ -36,6 +38,8 @@ const FEATURED_CASES = Object.entries(CASE_STUDIES)
     category: c.category ?? "",
     year: c.year,
     image: c.moments![0].image,
+    tagline: c.tagline,
+    summary: c.summary,
   }));
 
 /* Google Reviews social proof. HomeOcean is a client component and
@@ -93,29 +97,8 @@ export function HomeOcean({
   const reduced = useReducedMotion();
   // saved effects are baked ON for desktop; touch + reduced-motion keep the plain content
   const baked = fine && !reduced;
-
-  const clientsContent = (
-    <>
-      <p className={styles.thesisLabel}>Trusted by</p>
-      <div className={styles.clientsWall}>
-        {CLIENTS.map((c) => {
-          const href = c.caseStudySlug ? `/work/${c.caseStudySlug}` : c.url ?? null;
-          const inner = (
-            <>
-              <span className={styles.clientWordmark}>{c.wordmark ?? c.name}</span>
-              {c.category && <span className={styles.clientCat}>{c.category}</span>}
-            </>
-          );
-          if (!href) return <span key={c.id} className={styles.clientLink}>{inner}</span>;
-          return href.startsWith("http") ? (
-            <a key={c.id} href={href} target="_blank" rel="noopener noreferrer" className={styles.clientLink} data-cursor-label="Visit">{inner}</a>
-          ) : (
-            <Link key={c.id} href={href} className={styles.clientLink} data-cursor-label="Case study">{inner}</Link>
-          );
-        })}
-      </div>
-    </>
-  );
+  const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "wall");
+  const workVariant = useVariant("work", WORK_VARIANTS, "rows");
 
   return (
     <>
@@ -162,46 +145,14 @@ export function HomeOcean({
             </Link>
           </section>
 
-          <section
-            className={`section ${styles.clientsSection}`}
-            style={baked ? { position: "relative" } : undefined}
-          >
-            {baked && (
-              <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden>
-                <ImageTrail contained images={FEATURED_CASES.map((w) => w.image)} />
-              </div>
-            )}
-            {baked ? (
-              <div style={{ position: "relative", zIndex: 1 }}>{clientsContent}</div>
-            ) : (
-              clientsContent
-            )}
+          <section className={`section ${styles.clientsSection}`}>
+            <p className={styles.thesisLabel}>Trusted by</p>
+            <TrustedBy clients={CLIENTS} variant={clientsVariant} />
           </section>
 
           <section className={`section ${styles.workShowcase}`}>
             <p className={styles.thesisLabel}>Selected work</p>
-            {baked ? (
-              <CursorReveal images={FEATURED_CASES.map((w) => ({ src: w.image, caption: w.client, href: `/work/${w.slug}` }))} />
-            ) : (
-              <div className={styles.workGrid}>
-                {FEATURED_CASES.map((w) => (
-                  <Link key={w.slug} href={`/work/${w.slug}`} className={styles.workCard} data-cursor-label="View">
-                    <div className={styles.workThumb}>
-                      <Image src={w.image} alt={w.client} fill sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" className="object-cover" />
-                    </div>
-                    <span className={styles.workScrim} aria-hidden="true" />
-                    <span className={styles.workCardArrow} aria-hidden="true">↗</span>
-                    <div className={styles.workCardMeta}>
-                      <span className={styles.workClient}>{w.client}</span>
-                      <span className={styles.workCat}>
-                        <span>{w.category}</span>
-                        {w.year && <span>{w.year}</span>}
-                      </span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
+            <SelectedWork cases={FEATURED_CASES} variant={workVariant} />
             <Link href="/work" className={styles.cta} data-cursor-label="Explore">
               All work
               <span className={styles.ctaArrow}>→</span>
@@ -243,6 +194,9 @@ export function HomeOcean({
               <p className={styles.waveCopy}>
                 Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
               </p>
+              <div className={styles.waveTeaserViz}>
+                <WaveVisual variant="rising" score={CBI.mock.score} waveName={CBI.mock.waveName} scale={CBI.waveScale} />
+              </div>
               <Link href="/cbi" className={styles.cta} data-cursor-label="Measure">
                 Take the test
                 <span className={styles.ctaArrow}>→</span>

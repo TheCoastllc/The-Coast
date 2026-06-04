@@ -55,6 +55,22 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
     url: 'https://dadaglobalfin.com',
   },
   {
+    id: 'omotunde-hospital',
+    name: 'Omotunde Hospital',
+    wordmark: 'Omotunde Hospital',
+    category: 'HEALTHCARE',
+    year: 2026,
+    caseStudySlug: 'omotunde-hospital',
+  },
+  {
+    id: 'iamd-health',
+    name: 'iAMD Health',
+    wordmark: 'iAMD Health',
+    category: 'HEALTHCARE',
+    year: 2026,
+    caseStudySlug: 'iamd-health',
+  },
+  {
     id: 'ogaticket',
     name: 'OgaTicket',
     wordmark: 'OgaTicket',
