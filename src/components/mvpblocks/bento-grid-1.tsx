@@ -71,7 +71,7 @@ const items = [
   {
     title: 'Brand Identity',
     description:
-      'Custom branding & logo design — your visual identity, refined and unforgettable. From mood boards to comprehensive brand guidelines, we engineer identities that demand attention.',
+      'Custom branding & logo design - your visual identity, refined and unforgettable. From mood boards to comprehensive brand guidelines, we engineer identities that demand attention.',
     icon: <PenTool className="size-6" strokeWidth={1.5} />,
     size: 'large' as const,
     href: '/services/brand-identity',
@@ -95,7 +95,7 @@ const items = [
   {
     title: 'Marketing Assets',
     description:
-      'Flyers, social graphics, pitch decks, and digital assets that convert — campaigns that capture attention and drive measurable results.',
+      'Flyers, social graphics, pitch decks, and digital assets that convert - campaigns that capture attention and drive measurable results.',
     icon: <Globe className="size-6" strokeWidth={1.5} />,
     size: 'medium' as const,
     href: '/services/social-graphics',

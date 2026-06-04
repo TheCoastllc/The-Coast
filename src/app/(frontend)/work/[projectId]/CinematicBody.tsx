@@ -18,7 +18,7 @@ interface Props {
 /**
  * Ocean rebuild of the old CinematicCaseStudy body. Reads the rich project
  * metadata (palette / moments / motion / stats / stack / live) from
- * case-studies.ts — the single source of truth — and renders it as glass-framed
+ * case-studies.ts - the single source of truth - and renders it as glass-framed
  * sections inside ChamberShell. The hero (title / tagline / index) is supplied
  * by ChamberShell in page.tsx, so this returns body sections only.
  */

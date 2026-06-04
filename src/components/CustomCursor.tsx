@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 /**
- * Studio cursor — appears ONLY when hovering interactive elements.
+ * Studio cursor - appears ONLY when hovering interactive elements.
  *
  * W9 refactor:
  * - Native cursor remains the default everywhere (per user direction).
@@ -29,7 +29,7 @@ export default function CustomCursor() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (window.innerWidth < 768) return
-    // Respect coarse pointers (touch screens) — no custom cursor on iPad with mouse + keyboard either
+    // Respect coarse pointers (touch screens) - no custom cursor on iPad with mouse + keyboard either
     if (window.matchMedia?.('(pointer: coarse)').matches) return
 
     const outer = outerRef.current
@@ -39,7 +39,7 @@ export default function CustomCursor() {
     const text = textRef.current
     if (!outer || !inner || !dot || !plus || !text) return
 
-    // Position trackers — always update, even when invisible, so the cursor
+    // Position trackers - always update, even when invisible, so the cursor
     // is in the right spot the instant it fades in.
     const handleMouseMove = (e: MouseEvent) => {
       gsap.to(inner, { x: e.clientX, y: e.clientY, duration: 0.08, ease: 'power2.out' })
@@ -106,9 +106,9 @@ export default function CustomCursor() {
 
     const handleMouseOut = (e: MouseEvent) => {
       const related = e.relatedTarget as HTMLElement | null
-      // Still inside the same hover target's subtree — ignore
+      // Still inside the same hover target's subtree - ignore
       if (related && currentHoverTarget?.contains(related)) return
-      // Crossed into another hover target — let mouseover handle it
+      // Crossed into another hover target - let mouseover handle it
       if (related && related.closest?.(HOVER_SELECTOR)) {
         currentHoverTarget = null
         return
@@ -135,7 +135,7 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer ring — morphs per interactive target */}
+      {/* Outer ring - morphs per interactive target */}
       <div
         ref={outerRef}
         aria-hidden="true"

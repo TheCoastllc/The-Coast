@@ -55,21 +55,33 @@ export function QuestionsScreen() {
           {q.question}
         </h2>
 
-        <div className="flex flex-col gap-1">
-          {q.options.map((opt) => {
+        <div className="flex flex-col gap-2.5">
+          {q.options.map((opt, i) => {
             const isSel = sel === opt.val
+            const letter = String.fromCharCode(65 + i)
             return (
               <button
                 key={opt.val}
                 onClick={() => pick(opt.val)}
+                aria-pressed={isSel}
                 className={cn(
-                  'w-full px-5 py-4 text-left text-sm font-normal leading-[1.5] transition-all border-l-2',
+                  'group flex w-full items-center gap-4 rounded-xl border px-4 py-4 text-left transition-all duration-200',
                   isSel
-                    ? 'bg-[#E6B24D]/15 border-[#E6B24D] text-white'
-                    : 'bg-transparent border-transparent text-white/70 hover:text-white/95',
+                    ? 'border-[#E6B24D] bg-[#E6B24D]/12 text-white shadow-[0_0_34px_-10px_rgba(230,178,77,0.6)]'
+                    : 'border-white/12 bg-white/[0.03] text-white/80 hover:-translate-y-px hover:border-white/35 hover:bg-white/[0.06] hover:text-white',
                 )}
               >
-                {opt.label}
+                <span
+                  className={cn(
+                    'grid h-8 w-8 shrink-0 place-items-center rounded-lg border font-mono text-[12px] transition-colors',
+                    isSel
+                      ? 'border-[#E6B24D] bg-[#E6B24D] text-[#06080C]'
+                      : 'border-white/20 text-white/55 group-hover:border-white/40 group-hover:text-white/85',
+                  )}
+                >
+                  {letter}
+                </span>
+                <span className="text-[15px] leading-snug">{opt.label}</span>
               </button>
             )
           })}

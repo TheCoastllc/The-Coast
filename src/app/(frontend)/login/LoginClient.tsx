@@ -87,7 +87,7 @@ function LoginForm() {
       }
 
       if (res.status >= 500) {
-        toast.error(`Server error (${res.status}). Our login service is having trouble — try again in a minute.`)
+        toast.error(`Server error (${res.status}). Our login service is having trouble - try again in a minute.`)
         return
       }
 

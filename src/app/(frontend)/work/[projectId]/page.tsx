@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ projectId
           url: projectHero,
           width: 1920,
           height: 1080,
-          alt: `${meta.client ?? meta.title} — ${meta.category ?? 'Case study'}`,
+          alt: `${meta.client ?? meta.title} - ${meta.category ?? 'Case study'}`,
           type: 'image/jpeg',
         },
       ]
@@ -66,8 +66,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
 
   if (!meta) notFound()
 
-  // Display name for the chamber title — strip the " — …" marketing suffix.
-  const displayName = meta.client ?? meta.title.split(' — ')[0]
+  // Display name for the chamber title - strip the " - …" marketing suffix.
+  const displayName = meta.client ?? meta.title.split(' - ')[0]
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -75,14 +75,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://coastglobal.org' },
       { '@type': 'ListItem', position: 2, name: 'Work', item: 'https://coastglobal.org/work' },
-      { '@type': 'ListItem', position: 3, name: meta.title.split(' — ')[0] },
+      { '@type': 'ListItem', position: 3, name: meta.title.split(' - ')[0] },
     ],
   }
 
   const creativeWorkSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-    name: meta.title.split(' — ')[0],
+    name: meta.title.split(' - ')[0],
     description: meta.description,
     url: `https://coastglobal.org/work/${projectId}`,
     creator: {
@@ -124,7 +124,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
   const renderBody = () => {
     if (!meta.ready) return <UnderConstructionPage />
     if (meta.style === 'cinematic') return <CinematicBody projectId={projectId} />
-    // Default / 'custom' style — hand-built bodies
+    // Default / 'custom' style - hand-built bodies
     if (projectId === 'zappedco') return <ZappedCoPage />
     return <UnderConstructionPage />
   }

@@ -6,12 +6,12 @@ export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
 
     title: {
-        default: 'The Coast Brand Lab — Interactive Brand Diagnostics',
+        default: 'The Coast Brand Lab - Interactive Brand Diagnostics',
         template: '%s | The Coast Brand Lab',
     },
 
     description:
-        'The Coast Brand Lab: three interactive brand diagnostic tools for founders and marketing teams. Run the brand quiz, score consistency across 25 checkpoints, and take the 3-second first-impressions test — all free, all instant.',
+        'The Coast Brand Lab: three interactive brand diagnostic tools for founders and marketing teams. Run the brand quiz, score consistency across 25 checkpoints, and take the 3-second first-impressions test - all free, all instant.',
 
     keywords: [
         'brand quiz',
@@ -32,15 +32,15 @@ export const metadata: Metadata = {
         locale: 'en_US',
         url: SITE_URL,
         siteName: 'The Coast',
-        title: 'The Coast Brand Lab — Interactive Brand Diagnostics',
+        title: 'The Coast Brand Lab - Interactive Brand Diagnostics',
         description:
-            'Three interactive brand diagnostic tools: quiz your brand strength, audit your consistency, and test your first impressions — all free.',
+            'Three interactive brand diagnostic tools: quiz your brand strength, audit your consistency, and test your first impressions - all free.',
         images: [
             {
                 url: '/preview.jpg',
                 width: 1600,
                 height: 900,
-                alt: 'The Coast — Free Brand Tools',
+                alt: 'The Coast - Free Brand Tools',
                 type: 'image/jpeg',
             },
         ],
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         site: '@TheCoastHQ',
         creator: '@TheCoastHQ',
-        title: 'The Coast Brand Lab — Interactive Brand Diagnostics',
+        title: 'The Coast Brand Lab - Interactive Brand Diagnostics',
         description:
             'Three interactive brand diagnostic tools from The Coast: quiz, consistency audit, and the 3-second test.',
         images: ['/preview.jpg'],

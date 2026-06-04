@@ -71,7 +71,7 @@ export default function NotFound() {
               </ShineButton>
             </div>
 
-            {/* Quick links — inline grid, same section */}
+            {/* Quick links - inline grid, same section */}
             <div className="mt-12 pt-8 border-t border-border/40">
               <span className="text-mono text-[10px] tracking-[0.2em] text-primary/50 block mb-5">
                 Quick Links

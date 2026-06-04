@@ -100,7 +100,7 @@ export const metadata: Metadata = {
         url: '/preview.jpg',
         width: 1600,
         height: 900,
-        alt: 'The Coast — Brand Design Studio',
+        alt: 'The Coast - Brand Design Studio',
         type: 'image/jpeg',
       },
     ],

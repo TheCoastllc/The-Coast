@@ -137,11 +137,11 @@ export default function ZappedCoPage() {
         <div className={styles.duo}>
           <Reveal variant="rise-blur">
             <span className={styles.mediaLabel}>Before</span>
-            <Media src="/portfolio/zappedco/before.jpg" alt="Zapped Co — before rebrand" tall />
+            <Media src="/portfolio/zappedco/before.jpg" alt="Zapped Co - before rebrand" tall />
           </Reveal>
           <Reveal variant="scale-in">
             <span className={styles.mediaLabel}>After</span>
-            <Media src="/portfolio/zappedco/final.jpg" alt="Zapped Co — after rebrand" tall />
+            <Media src="/portfolio/zappedco/final.jpg" alt="Zapped Co - after rebrand" tall />
           </Reveal>
         </div>
       </section>

@@ -16,7 +16,7 @@ export function SectionBoundary() {
 				{/* Full-bleed gradient hairline */}
 				<div className="pointer-events-none absolute left-1/2 top-0 h-px w-screen -translate-x-1/2 divider-x" />
 
-				{/* Centered gold dot — signature ornament */}
+				{/* Centered gold dot - signature ornament */}
 				<div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
 					<span className="block size-1 rounded-full bg-[var(--gold)] opacity-70" />
 				</div>
@@ -32,7 +32,7 @@ export function SectionBoundary() {
 export function BlueprintLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="relative overflow-x-clip surface-floor">
-			{/* Persistent vertical guide lines — spans entire page */}
+			{/* Persistent vertical guide lines - spans entire page */}
 			<div
 				aria-hidden="true"
 				className="pointer-events-none absolute inset-0 z-10 px-4"

@@ -6,11 +6,11 @@ import { ArrowUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 
 /**
- * TrustedLedger — Awwwards-tier client showcase.
+ * TrustedLedger - Awwwards-tier client showcase.
  *
  * Design intent (see plan Section B.3):
  * - Horizontal auto-marquee row, pauses on hover/focus, respects reduced motion.
- * - Each brand rendered as a typographic wordmark in the display font — no logo
+ * - Each brand rendered as a typographic wordmark in the display font - no logo
  *   PNG wrangling required (per user decision Q2). Cohesive with site typography.
  * - Per-card metadata: index fraction, wordmark, category tag, year.
  * - Hover: 1px lift, gold underline sweeps L→R under wordmark, arrow appears.
@@ -20,7 +20,7 @@ import { motion, useReducedMotion } from 'motion/react'
 export type LedgerBrand = {
   id: string
   name: string
-  /** Optional display override — used when name has special casing or punctuation. */
+  /** Optional display override - used when name has special casing or punctuation. */
   wordmark?: string
   /** Category descriptor, e.g. "BRANDING · WEB". Rendered in mono. */
   category?: string
@@ -28,7 +28,7 @@ export type LedgerBrand = {
   year?: number
   /** If set, the card links to /work/[slug]. */
   caseStudySlug?: string
-  /** Optional external URL — used when no case study exists. */
+  /** Optional external URL - used when no case study exists. */
   url?: string
 }
 
@@ -168,7 +168,7 @@ export function TrustedLedger({ brands }: { brands: LedgerBrand[] }) {
         </h2>
       </div>
 
-      {/* The Ledger — full-bleed marquee track */}
+      {/* The Ledger - full-bleed marquee track */}
       <div
         ref={trackRef}
         className="relative border-t border-[var(--hairline)] [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]"

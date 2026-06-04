@@ -86,7 +86,7 @@ export function ResultsScreen() {
           <WaveRow count={wave.w} total={5} color={wave.color} size={58} />
         </motion.div>
 
-        {/* Big score — count up after waves land */}
+        {/* Big score - count up after waves land */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -260,7 +260,7 @@ export function ResultsScreen() {
             This was a quick score
           </div>
           <p className="text-sm text-white/75 leading-[1.8] font-light mb-7">
-            The full Coast Brand Index evaluates 20 criteria on observable evidence — scored by our
+            The full Coast Brand Index evaluates 20 criteria on observable evidence - scored by our
             team, not self-reported.
           </p>
 
@@ -281,7 +281,7 @@ export function ResultsScreen() {
           >
             Get the Full Report
           </a>
-          <p className="text-[11px] text-white/45 mt-4">Personally scored by our team — not a bot.</p>
+          <p className="text-[11px] text-white/45 mt-4">Personally scored by our team - not a bot.</p>
         </div>
       </motion.section>
 

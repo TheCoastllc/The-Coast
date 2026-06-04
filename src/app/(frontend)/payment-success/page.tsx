@@ -17,7 +17,7 @@ export default function PaymentSuccessPage() {
           </div>
           <h1 className="text-heading text-4xl mb-4">Thank You!</h1>
           <p className="text-body text-muted-foreground text-lg mb-6 leading-relaxed">
-            We&apos;ve received your order — expect to hear from us within{' '}
+            We&apos;ve received your order - expect to hear from us within{' '}
             <span className="text-foreground font-medium">24 hours</span>.
           </p>
           <div className="p-4 rounded-lg bg-card border border-border mb-8">

@@ -13,7 +13,7 @@ export async function loginAction(formData: FormData) {
   const password = String(formData.get('password') || '')
   const rawNext = String(formData.get('next') || '/studio')
 
-  // Only allow internal /studio* paths as redirect targets — prevents an
+  // Only allow internal /studio* paths as redirect targets - prevents an
   // open-redirect via a crafted ?next=https://evil.example.
   const safeNext = rawNext.startsWith('/studio') ? rawNext : '/studio'
 

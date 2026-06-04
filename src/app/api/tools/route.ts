@@ -29,7 +29,7 @@ const toolSchema = z.object({
   role: z.string().max(200).optional().default(''),
   tool: z.enum(TOOL_IDS),
   answers: z.unknown().optional(),
-  // CBI-specific — the prototype collects name/brand/website on a dedicated intake,
+  // CBI-specific - the prototype collects name/brand/website on a dedicated intake,
   // which we map into the generic person fields (company=brand, role=website).
   brand: z.string().max(200).optional(),
   website: z.string().max(500).optional(),

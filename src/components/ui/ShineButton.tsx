@@ -84,7 +84,7 @@ export function ShineButton({
     </>
   ) : null
 
-  // Pure-CSS shine — group-hover drives the sweep so reversal is automatic
+  // Pure-CSS shine - group-hover drives the sweep so reversal is automatic
   const shine = variant === 'default' ? (
     <span
       aria-hidden="true"

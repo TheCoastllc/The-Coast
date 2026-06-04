@@ -28,7 +28,7 @@ const FoldingBoat = dynamic(
 /* Clients shown on the "Trusted by" wall (real roster; links to case studies or live sites). */
 const CLIENTS = TRUSTED_BRANDS_FALLBACK;
 
-/* Image-led "Selected work" cards — ready, cinematic case studies that have a cover frame. */
+/* Image-led "Selected work" cards - ready, cinematic case studies that have a cover frame. */
 const FEATURED_CASES = Object.entries(CASE_STUDIES)
   .filter(([, c]) => c.ready && c.style === "cinematic" && !!c.moments?.length)
   .slice(0, 6)

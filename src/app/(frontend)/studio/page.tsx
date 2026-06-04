@@ -1,5 +1,5 @@
 // Internal download hub for cinematic scroll videos + companion assets.
-// Lives at /studio — noindex, intended for The Coast team.
+// Lives at /studio - noindex, intended for The Coast team.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
 import { CASE_STUDIES, CASE_STUDY_ORDER, type CaseStudyMeta } from '@/lib/case-studies'
 
 export const metadata: Metadata = {
-  title: 'Studio — Asset Downloads | The Coast',
+  title: 'Studio - Asset Downloads | The Coast',
   description: 'Internal download hub for cinematic scroll videos and case study assets.',
   robots: { index: false, follow: false },
   alternates: { canonical: 'https://coastglobal.org/studio' },
@@ -27,7 +27,7 @@ function fileBytes(publicPath: string): number | null {
 }
 
 function formatBytes(b: number | null): string {
-  if (b == null) return '—'
+  if (b == null) return ' - '
   if (b < 1024) return `${b} B`
   if (b < 1024 * 1024) return `${(b / 1024).toFixed(0)} KB`
   return `${(b / 1024 / 1024).toFixed(1)} MB`
@@ -80,9 +80,9 @@ function buildAssets(id: string, meta: CaseStudyMeta): ProjectAssets {
     meta,
     files,
     mp4Href: mp4File?.href ?? null,
-    mp4Size: mp4File?.size ?? '—',
+    mp4Size: mp4File?.size ?? ' - ',
     webmHref: webmFile?.href ?? null,
-    webmSize: webmFile?.size ?? '—',
+    webmSize: webmFile?.size ?? ' - ',
     previewHref: webmFile?.href ?? mp4File?.href ?? null,
     coverHref: coverFile?.href ?? null,
   }
@@ -163,7 +163,7 @@ export default function StudioPage() {
           >
             Cinematic scroll videos and full asset bundles for every live
             Coast case study. Each project ships both <strong style={{color:'#E6B24D'}}>.mp4</strong>{' '}
-            (universal — Premiere, Final Cut, iMovie, social uploads) and{' '}
+            (universal - Premiere, Final Cut, iMovie, social uploads) and{' '}
             <strong style={{color:'#E6B24D'}}>.webm</strong> (smaller, web embeds).
             Use the per-file download buttons. {totalVideos} videos available.
           </p>

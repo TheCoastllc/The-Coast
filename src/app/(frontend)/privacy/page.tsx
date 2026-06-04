@@ -5,8 +5,8 @@ import { BlueprintLayout } from '@/components/blueprint-layout'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy & Data Practices — The Coast',
-  description: 'Privacy Policy for The Coast — how we collect, use, and protect your personal information.',
+  title: 'Privacy Policy & Data Practices - The Coast',
+  description: 'Privacy Policy for The Coast - how we collect, use, and protect your personal information.',
   alternates: { canonical: 'https://coastglobal.org/privacy' },
   robots: { index: true, follow: true },
   openGraph: {

@@ -70,7 +70,7 @@ export default function PortalLoginPage() {
         redirectTo: '/portal/set-password',
       })
       if (error) throw error
-      toast.success('Check your email — we\'ve sent you a password reset link.')
+      toast.success('Check your email - we\'ve sent you a password reset link.')
       setShowForgotPassword(false)
     } catch (error: unknown) {
       toast.error((error as Error).message || 'Failed to send reset email')

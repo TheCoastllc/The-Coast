@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 /**
- * WCAG 2.2 SC 2.4.1 — Bypass Blocks.
+ * WCAG 2.2 SC 2.4.1 - Bypass Blocks.
  * Keyboard-only users land on this link first and can tab past the nav
  * straight into <main id="content" tabIndex={-1}>.
  *

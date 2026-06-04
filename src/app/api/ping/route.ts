@@ -8,7 +8,7 @@ import configPromise from '@payload-config'
  * Called every 12 hours by the Vercel Cron job defined in vercel.json.
  * Prevents the Turso free-tier database from entering sleep mode.
  *
- * Protected by CRON_SECRET — Vercel sets the Authorization header automatically.
+ * Protected by CRON_SECRET - Vercel sets the Authorization header automatically.
  */
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization')
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 
   try {
     const payload = await getPayload({ config: configPromise })
-    // Minimal query — just checks the DB is reachable
+    // Minimal query - just checks the DB is reachable
     await payload.find({ collection: 'posts', limit: 1, depth: 0 })
     return Response.json({ ok: true, ts: new Date().toISOString() })
   } catch (err) {

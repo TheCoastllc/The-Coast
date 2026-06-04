@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       post.coverImage?.cloudinary?.secure_url ?? post.coverImage?.url ?? null
     const ogImages = coverImageUrl
       ? [{ url: coverImageUrl, alt: post.title }]
-      : [{ url: '/preview.jpg', width: 1600, height: 900, alt: 'The Coast — Brand Design Studio' }]
+      : [{ url: '/preview.jpg', width: 1600, height: 900, alt: 'The Coast - Brand Design Studio' }]
     const canonicalUrl = `https://coastglobal.org/blog/${slug}`
     const authorName = post.author?.fullName || 'The Coast'
 

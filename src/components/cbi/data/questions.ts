@@ -18,7 +18,7 @@ export const questions: readonly CbiQuestion[] = [
     id: 'identity',
     pillar: 'Identity',
     num: 1,
-    question: "Your brand's visual identity — logo, colors, type system.",
+    question: "Your brand's visual identity - logo, colors, type system.",
     options: [
       { label: 'No real logo or visual system in place', val: 0 },
       { label: 'Basic logo, no documented colors or fonts', val: 1 },
@@ -37,7 +37,7 @@ export const questions: readonly CbiQuestion[] = [
       { label: 'Outdated, slow, or free template', val: 1 },
       { label: "Decent but doesn't generate leads", val: 2 },
       { label: 'Professional with clear CTAs and trust elements', val: 3 },
-      { label: 'Conversion engine — strategic UX, fast, SEO-optimized', val: 4 },
+      { label: 'Conversion engine - strategic UX, fast, SEO-optimized', val: 4 },
     ],
   },
   {
@@ -48,9 +48,9 @@ export const questions: readonly CbiQuestion[] = [
     options: [
       { label: 'Essentially invisible to new customers', val: 0 },
       { label: 'Social accounts exist but inconsistent or dormant', val: 1 },
-      { label: 'Active on 1–2 platforms, no real strategy', val: 2 },
+      { label: 'Active on 1-2 platforms, no real strategy', val: 2 },
       { label: 'Multi-platform with original content and engagement', val: 3 },
-      { label: 'Recognized name — inbound leads, media, speaking', val: 4 },
+      { label: 'Recognized name - inbound leads, media, speaking', val: 4 },
     ],
   },
   {

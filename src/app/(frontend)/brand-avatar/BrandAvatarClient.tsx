@@ -8,7 +8,7 @@ import { ArrowRight, Check, Sparkles } from 'lucide-react'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 
 const sections = [
-  { id: 'head', label: 'Logo Design', description: 'Your visual identity — the face of your brand', price: 250, emoji: '🎨' },
+  { id: 'head', label: 'Logo Design', description: 'Your visual identity - the face of your brand', price: 250, emoji: '🎨' },
   { id: 'eyes', label: 'Social Media', description: 'The eyes your audience sees you through', price: 150, emoji: '👁️' },
   { id: 'mouth', label: 'Copywriting', description: 'The words that speak for your brand', price: 200, emoji: '💬' },
   { id: 'heart', label: 'Brand Strategy', description: 'The passion and purpose driving your brand', price: 350, emoji: '❤️' },

@@ -312,7 +312,7 @@ export function TransitionLink({ href, children, ...props }: TransitionLinkProps
     if (hrefString.startsWith('#')) return
     if (hrefString.startsWith('/#')) return
 
-    // Same-pathname navigations (query/hash changes only) — skip transition,
+    // Same-pathname navigations (query/hash changes only) - skip transition,
     // let Next's Link handle it. The overlay finishes by matching pathname,
     // which never changes when only the query updates.
     const targetPath = hrefString.split('?')[0].split('#')[0]

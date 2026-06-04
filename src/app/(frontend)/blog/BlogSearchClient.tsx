@@ -42,7 +42,7 @@ export default function BlogSearchClient({ categories, currentSearch, currentCat
         />
       </div>
 
-      {/* Category filters — sharp square pills */}
+      {/* Category filters - sharp square pills */}
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => updateParams({ category: undefined })}

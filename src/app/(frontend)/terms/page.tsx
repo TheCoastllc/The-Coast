@@ -5,8 +5,8 @@ import { BlueprintLayout } from '@/components/blueprint-layout'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service & Client Agreement — The Coast',
-  description: 'Terms of Service for The Coast — our service agreement, revision policy, and client responsibilities.',
+  title: 'Terms of Service & Client Agreement - The Coast',
+  description: 'Terms of Service for The Coast - our service agreement, revision policy, and client responsibilities.',
   alternates: { canonical: 'https://coastglobal.org/terms' },
   robots: { index: true, follow: true },
   openGraph: {

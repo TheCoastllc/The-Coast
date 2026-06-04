@@ -15,17 +15,17 @@ const conceptImages = [
     id: 'night',
     number: '01',
     src: '/vision/night.jpeg',
-    alt: 'Conceptual rendering of The Coast HQ at night — futuristic waterfront architecture with starry sky (visionary concept only, not an actual building).',
+    alt: 'Conceptual rendering of The Coast HQ at night - futuristic waterfront architecture with starry sky (visionary concept only, not an actual building).',
     title: 'Night View',
     tagline: 'A beacon against the dark.',
     description:
-      'A nighttime rendering of The Coast HQ rising against a coastal sky. Imagined as a signal — a place where creative minds gather and light stays on after the world has gone quiet.',
+      'A nighttime rendering of The Coast HQ rising against a coastal sky. Imagined as a signal - a place where creative minds gather and light stays on after the world has gone quiet.',
   },
   {
     id: 'day',
     number: '02',
     src: '/vision/day.png',
-    alt: 'Conceptual rendering of The Coast HQ by day — futuristic waterfront architecture with blue sky and palm trees (visionary concept only, not an actual building).',
+    alt: 'Conceptual rendering of The Coast HQ by day - futuristic waterfront architecture with blue sky and palm trees (visionary concept only, not an actual building).',
     title: 'Day View',
     tagline: 'Smooth sailing, made literal.',
     description:
@@ -35,11 +35,11 @@ const conceptImages = [
     id: 'blueprint',
     number: '03',
     src: '/vision/blueprint.jpeg',
-    alt: 'Blueprint rendering of The Coast HQ — architectural blueprint with dimension lines and palm trees (visionary concept only, not an actual building).',
+    alt: 'Blueprint rendering of The Coast HQ - architectural blueprint with dimension lines and palm trees (visionary concept only, not an actual building).',
     title: 'Blueprint',
     tagline: 'Structure behind the vision.',
     description:
-      'Every dimension line is intentional. The blueprint is the part of the dream we care about most — turning creative ambition into something buildable, measurable, and real.',
+      'Every dimension line is intentional. The blueprint is the part of the dream we care about most - turning creative ambition into something buildable, measurable, and real.',
   },
 ]
 
@@ -74,9 +74,9 @@ export default function VisionClient() {
             A Headquarters That Doesn&apos;t Exist Yet.
           </TextReveal>
           <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
-            Conceptual renderings of The Coast HQ — imagining the studio we&apos;re building toward.
+            Conceptual renderings of The Coast HQ - imagining the studio we&apos;re building toward.
             <span className="text-foreground"> Not real buildings. </span>
-            A place in our head, rendered so we — and you — can see it.
+            A place in our head, rendered so we - and you - can see it.
           </p>
 
           <FadeOnLoad delay={0.3} className="flex flex-wrap items-center gap-6 md:gap-8 mt-10 pt-8 border-t border-border">
@@ -150,7 +150,7 @@ export default function VisionClient() {
 
                         <div className="absolute top-4 left-4 flex items-center gap-2 text-mono text-[10px] uppercase tracking-[0.2em] text-primary/90 px-3 py-1.5 border border-primary/40 bg-background/60 backdrop-blur-sm">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          Concept — Not an Actual Building
+                          Concept - Not an Actual Building
                         </div>
 
                         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex items-end justify-between gap-4">
@@ -234,7 +234,7 @@ export default function VisionClient() {
             <FadeOnScroll>
               <span className="text-mono text-[10px] uppercase tracking-[0.2em] text-primary block mb-6">Behind the Concepts</span>
               <p className="text-heading text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight">
-                A dream, rendered. Not to impress — to commit.
+                A dream, rendered. Not to impress - to commit.
               </p>
               <div className="mt-8 border-l-2 border-primary pl-6">
                 <p className="text-body text-muted-foreground text-lg leading-relaxed">
@@ -252,7 +252,7 @@ export default function VisionClient() {
                 <strong className="text-foreground">That&apos;s the point.</strong>
               </p>
               <p>
-                Every brand we build starts the same way — imagined loud enough that it becomes real. We help
+                Every brand we build starts the same way - imagined loud enough that it becomes real. We help
                 entrepreneurs render their ambition before a single product ships. These images are ours; yours
                 come next.
               </p>

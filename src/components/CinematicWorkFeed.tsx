@@ -123,7 +123,7 @@ export default function CinematicWorkFeed() {
         </p>
       </section>
 
-      {/* Cinematic sections — ready projects */}
+      {/* Cinematic sections - ready projects */}
       <div>
         {ready.map((p, i) => (
           <section
@@ -186,7 +186,7 @@ export default function CinematicWorkFeed() {
           </section>
         ))}
 
-        {/* Placeholder sections — under-construction projects */}
+        {/* Placeholder sections - under-construction projects */}
         {placeholders.map((p, i) => (
           <section
             key={p.id}

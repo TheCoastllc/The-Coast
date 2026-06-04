@@ -20,11 +20,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/vision`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/privacy`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terms`, changeFrequency: 'yearly', priority: 0.3 },
-    // Note: /cbi is excluded — noindexed placeholder
-    // Note: /offers-tools/* are internal rewrite paths for offers.coastglobal.org — excluded
+    // Note: /cbi is excluded - noindexed placeholder
+    // Note: /offers-tools/* are internal rewrite paths for offers.coastglobal.org - excluded
   ]
 
-  // Blog category pages — auto-generated from BLOG_CATEGORIES in src/lib/blog-categories.ts
+  // Blog category pages - auto-generated from BLOG_CATEGORIES in src/lib/blog-categories.ts
   const categoryPages: MetadataRoute.Sitemap = Object.keys(BLOG_CATEGORIES).map((slug) => ({
     url: `${BASE_URL}/blog/category/${slug}`,
     changeFrequency: 'weekly' as const,
@@ -48,10 +48,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }))
   } catch {
-    // DB not available — blog posts omitted from sitemap
+    // DB not available - blog posts omitted from sitemap
   }
 
-  // Work / portfolio pages — sourced from CASE_STUDIES in src/lib/case-studies.ts.
+  // Work / portfolio pages - sourced from CASE_STUDIES in src/lib/case-studies.ts.
   // Set ready: true there to publish a case study; it auto-appears here.
   const workPages: MetadataRoute.Sitemap = Object.entries(CASE_STUDIES)
     .filter(([, meta]) => meta.ready)

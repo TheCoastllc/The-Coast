@@ -10,7 +10,7 @@ import { CardIcon } from '@/components/ui/CardIcon'
 import styles from './about.module.css'
 
 export const metadata: Metadata = {
-  title: 'About The Coast — Brand Design Studio for Visionaries',
+  title: 'About The Coast - Brand Design Studio for Visionaries',
   description:
     'The Coast was built to level the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
   alternates: { canonical: 'https://coastglobal.org/about' },

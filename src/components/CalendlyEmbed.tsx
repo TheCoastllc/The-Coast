@@ -7,7 +7,7 @@ interface CalendlyEmbedProps {
 }
 
 /**
- * Inline Calendly scheduler. Server component — zero JS shipped.
+ * Inline Calendly scheduler. Server component - zero JS shipped.
  * The iframe is lazy so it doesn't block hero/LCP on pages it's embedded in.
  * Falls back to a plain link when iframes are blocked or scripted out.
  */

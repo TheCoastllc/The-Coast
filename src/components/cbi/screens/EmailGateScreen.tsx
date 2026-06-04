@@ -6,7 +6,7 @@ import { useCbi } from '../CbiContext'
 export function EmailGateScreen() {
   const { state, dispatch } = useCbi()
   const { form, submitting, error } = state
-  // real email shape: chars @ chars . tld(2+) — rejects ".@.", "a@b.", etc.
+  // real email shape: chars @ chars . tld(2+) - rejects ".@.", "a@b.", etc.
   const ready = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())
 
   const submit = async () => {
@@ -32,7 +32,7 @@ export function EmailGateScreen() {
       }
       dispatch({ type: 'SUBMIT_DONE' })
     } catch {
-      dispatch({ type: 'SUBMIT_ERROR', error: 'Network error — please try again' })
+      dispatch({ type: 'SUBMIT_ERROR', error: 'Network error - please try again' })
     }
   }
 

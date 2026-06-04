@@ -6,7 +6,7 @@
  * (interacts with the surface tones, preserves the matte). Larger tile
  * (360px) reduces visible repetition on high-DPR displays.
  *
- * Fixed at z-index 30 — sits above content backgrounds but below the
+ * Fixed at z-index 30 - sits above content backgrounds but below the
  * preloader (z-index 9999) and overlays (z-index 9999).
  */
 export default function Noise() {

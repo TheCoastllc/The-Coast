@@ -9,7 +9,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'FAQ',
   description:
-    'Frequently asked questions about The Coast — our process, timelines, and ongoing support for branding and design projects.',
+    'Frequently asked questions about The Coast - our process, timelines, and ongoing support for branding and design projects.',
   alternates: { canonical: 'https://coastglobal.org/faq' },
   openGraph: {
     type: 'website',

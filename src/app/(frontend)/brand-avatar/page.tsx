@@ -3,13 +3,13 @@ import BrandAvatarClient from './BrandAvatarClient'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Brand Builder — Design Your Custom Brand Package',
+  title: 'Brand Builder - Design Your Custom Brand Package',
   description:
     'Build your custom brand package piece by piece. Select logo design, social media, copywriting, brand strategy, website design, marketing materials, and more.',
   alternates: { canonical: 'https://coastglobal.org/brand-avatar' },
   openGraph: {
     type: 'website',
-    title: 'Brand Builder — Build Your Brand Avatar | The Coast',
+    title: 'Brand Builder - Build Your Brand Avatar | The Coast',
     description:
       'Interactive brand builder tool. Select the services that make up your complete brand identity.',
     url: 'https://coastglobal.org/brand-avatar',
@@ -24,9 +24,9 @@ export default function BrandAvatarPage() {
         <h2>Design Your Custom Brand Package</h2>
         <p>
           The Brand Builder is an interactive configurator for assembling a complete brand
-          identity package, piece by piece. Select the services your business actually needs —
+          identity package, piece by piece. Select the services your business actually needs - 
           from logo design and visual identity, to social media kits, website design and
-          development, copywriting, brand strategy, packaging, and ongoing marketing support — and
+          development, copywriting, brand strategy, packaging, and ongoing marketing support - and
           the builder assembles a scope and indicative quote in real time. No two brands should be
           priced from the same template, and no founder should pay for deliverables they do not
           need.

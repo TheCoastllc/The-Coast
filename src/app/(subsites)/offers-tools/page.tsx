@@ -66,7 +66,7 @@ export default function OffersLandingPage() {
             <span className="text-white/40">in minutes</span>
           </h1>
           <p className="text-white/50 text-base md:text-lg leading-relaxed max-w-xl mx-auto">
-            Three free tools built by brand strategists to help you understand what your brand is really communicating — and where the gaps are costing you trust, attention, and revenue.
+            Three free tools built by brand strategists to help you understand what your brand is really communicating - and where the gaps are costing you trust, attention, and revenue.
           </p>
         </div>
       </section>
@@ -75,13 +75,13 @@ export default function OffersLandingPage() {
       <section className="pb-8 px-5">
         <div className="max-w-3xl mx-auto space-y-5 text-white/60 text-sm md:text-base leading-relaxed">
           <p>
-            Most founders never see their brand the way their customers do. You see the strategy, the intent, the story behind every decision. Your audience sees a logo, a color, a landing page, and a social feed — and forms a judgment about you in under three seconds. The Coast Brand Lab exists to close that gap. Each tool in this lab is designed to surface the specific, measurable ways your brand is either building trust or quietly leaking it.
+            Most founders never see their brand the way their customers do. You see the strategy, the intent, the story behind every decision. Your audience sees a logo, a color, a landing page, and a social feed - and forms a judgment about you in under three seconds. The Coast Brand Lab exists to close that gap. Each tool in this lab is designed to surface the specific, measurable ways your brand is either building trust or quietly leaking it.
           </p>
           <p>
-            The <strong className="text-white/80">Brand Quiz</strong> is a 10-question diagnostic that places you on a spectrum from invisible to established. The <strong className="text-white/80">Brand Consistency Checklist</strong> scores your presence across 25 checkpoints in five pillars — visual identity, written voice, digital presence, customer touchpoints, and trust signals. The <strong className="text-white/80">3-Second Test</strong> walks you through the five things a new visitor processes the moment they land on your brand, and shows you how to pass them.
+            The <strong className="text-white/80">Brand Quiz</strong> is a 10-question diagnostic that places you on a spectrum from invisible to established. The <strong className="text-white/80">Brand Consistency Checklist</strong> scores your presence across 25 checkpoints in five pillars - visual identity, written voice, digital presence, customer touchpoints, and trust signals. The <strong className="text-white/80">3-Second Test</strong> walks you through the five things a new visitor processes the moment they land on your brand, and shows you how to pass them.
           </p>
           <p>
-            Every tool is free. Nothing is gated. There is no email wall, no credit card, no follow-up funnel. The goal here is simple: give you a clear, honest picture of where your brand stands today so you can decide what to do next — whether that is a quick fix, a deeper audit from our team, or a full rebrand.
+            Every tool is free. Nothing is gated. There is no email wall, no credit card, no follow-up funnel. The goal here is simple: give you a clear, honest picture of where your brand stands today so you can decide what to do next - whether that is a quick fix, a deeper audit from our team, or a full rebrand.
           </p>
         </div>
       </section>

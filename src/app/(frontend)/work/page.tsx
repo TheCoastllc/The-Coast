@@ -3,7 +3,7 @@ import CinematicWorkFeed from '@/components/CinematicWorkFeed'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Our Work — Brand Transformations',
+  title: 'Our Work - Brand Transformations',
   description:
     'Brand transformations, creative projects, and the stories behind them - logo design, rebrands, and full visual identities from The Coast.',
   alternates: { canonical: 'https://coastglobal.org/work' },

@@ -24,7 +24,7 @@ export async function GET() {
     })
     posts = docs as any[]
   } catch {
-    // DB unavailable — serve without posts section
+    // DB unavailable - serve without posts section
   }
 
   const lastUpdated = posts[0]?.publishedAt
@@ -43,7 +43,7 @@ export async function GET() {
 
   const featuredWork = Object.entries(CASE_STUDIES)
     .filter(([, meta]) => meta.ready)
-    .map(([id, meta]) => `  - [${meta.title.split(' — ')[0]}](${BASE_URL}/work/${id}): ${meta.description}`)
+    .map(([id, meta]) => `  - [${meta.title.split(' - ')[0]}](${BASE_URL}/work/${id}): ${meta.description}`)
     .join('\n')
 
   const content = `# The Coast

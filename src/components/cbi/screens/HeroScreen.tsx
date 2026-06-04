@@ -36,7 +36,7 @@ export function HeroScreen() {
           </h1>
           <p className="text-[16px] text-white/75 font-light leading-[1.7] max-w-[460px] mx-auto md:mx-0 mt-6">
             Most brands have no idea how they actually perform. The Coast Brand Index scores
-            yours across five pillars and twenty criteria — and shows you exactly where to sharpen.
+            yours across five pillars and twenty criteria - and shows you exactly where to sharpen.
           </p>
           <div className="flex items-center gap-4 justify-center md:justify-start mt-7 font-mono text-[11px] tracking-[1.5px] uppercase text-white/50">
             <span>5 Pillars</span>
