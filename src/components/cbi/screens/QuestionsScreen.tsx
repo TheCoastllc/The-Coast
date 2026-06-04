@@ -42,16 +42,18 @@ export function QuestionsScreen() {
 
       <div
         key={qIdx}
-        className="max-w-[480px] mx-auto px-8 flex flex-col justify-center min-h-screen animate-fade-in"
+        className="max-w-[480px] mx-auto px-8 flex flex-col justify-center min-h-screen pt-24 pb-12 animate-fade-in"
       >
-        <div className="text-[10px] tracking-[4px] text-white/55 uppercase font-semibold mb-2">
+        <div className="font-mono text-[10px] tracking-[4px] text-white/55 uppercase mb-2">
           Pillar {q.num}
         </div>
-        <div className="text-[10px] tracking-[3px] text-[#E6B24D] uppercase font-semibold mb-9">
+        <div className="font-mono text-[10px] tracking-[3px] text-[#E6B24D] uppercase mb-9">
           {q.pillar}
         </div>
 
-        <h2 className="text-2xl font-light leading-[1.4] mb-10">{q.question}</h2>
+        <h2 className="font-serif text-[clamp(26px,3.6vw,38px)] font-light leading-[1.25] tracking-[-0.3px] mb-10">
+          {q.question}
+        </h2>
 
         <div className="flex flex-col gap-1">
           {q.options.map((opt) => {
@@ -76,7 +78,7 @@ export function QuestionsScreen() {
         {qIdx > 0 && (
           <button
             onClick={() => dispatch({ type: 'SET_QIDX', qIdx: qIdx - 1 })}
-            className="mt-8 text-[11px] text-white/50 hover:text-white/80 transition-colors tracking-[2px] uppercase self-start"
+            className="font-mono mt-8 text-[11px] text-white/50 hover:text-white/80 transition-colors tracking-[2px] uppercase self-start"
           >
             ← Back
           </button>

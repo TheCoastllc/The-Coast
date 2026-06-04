@@ -90,9 +90,10 @@
   --radius-sm: calc(var(--radius) - 4px);
 
   --animate-grid: grid 15s linear infinite;
-  --font-display: var(--font-coast);
+  --font-display: var(--font-anton);
   --font-sans: var(--font-inter);
   --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   @keyframes accordion-down {
     from {

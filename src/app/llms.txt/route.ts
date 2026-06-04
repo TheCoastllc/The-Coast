@@ -130,7 +130,6 @@ ${postLines}
 
 - What is your typical project timeline? Our engagements typically range from 2 to 6 weeks depending on scope. A standalone logo design takes 2 to 3 weeks. A full brand identity system runs 4 to 6 weeks.
 - Do you work with startups or established businesses? Both. We partner with solo founders, early-stage startups, small businesses, and growing companies across tech, healthcare, e-commerce, entertainment, food and beverage, and professional services.
-- What is your pricing structure? We offer project-based pricing determined by scope and value, with a custom proposal provided after a free discovery session.
 - Do you offer ongoing support after launch? Yes - our retainer packages provide continuous access to design, development, and strategic support with priority turnaround.
 
 ## Company Stats

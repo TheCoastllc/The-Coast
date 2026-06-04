@@ -6,7 +6,8 @@ import { useCbi } from '../CbiContext'
 export function EmailGateScreen() {
   const { state, dispatch } = useCbi()
   const { form, submitting, error } = state
-  const ready = form.email.includes('@') && form.email.includes('.')
+  // real email shape: chars @ chars . tld(2+) — rejects ".@.", "a@b.", etc.
+  const ready = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())
 
   const submit = async () => {
     if (!ready || submitting) return
@@ -43,11 +44,13 @@ export function EmailGateScreen() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-[420px] mx-auto px-8 flex flex-col items-center justify-center min-h-screen text-center"
       >
-        <div className="text-[10px] tracking-[4px] text-white/55 uppercase font-semibold mb-6">
+        <div className="font-mono text-[10px] tracking-[4px] text-[#E6B24D] uppercase mb-6">
           Step 3 of 3
         </div>
 
-        <h2 className="text-[28px] font-light leading-[1.2]">Your score is ready.</h2>
+        <h2 className="font-serif text-[clamp(30px,5vw,42px)] font-light leading-[1.05] tracking-[-0.5px]">
+          Your score is ready.
+        </h2>
         <p className="text-[13px] text-white/70 mt-4 mb-10">
           Enter your email to reveal your Wave Rating.
         </p>
@@ -65,7 +68,7 @@ export function EmailGateScreen() {
         <button
           onClick={submit}
           disabled={!ready || submitting}
-          className={`mt-10 px-12 py-4 border text-xs font-bold tracking-[3px] uppercase transition-colors min-w-[220px] ${
+          className={`mt-10 px-12 py-4 border text-xs font-mono font-medium tracking-[3px] uppercase transition-colors min-w-[220px] ${
             ready && !submitting
               ? 'border-[#E6B24D] text-[#E6B24D] cursor-pointer hover:bg-[#E6B24D] hover:text-[#06080C]'
               : 'border-white/15 text-white/30 cursor-default'

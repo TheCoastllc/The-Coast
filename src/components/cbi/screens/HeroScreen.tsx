@@ -12,7 +12,7 @@ export function HeroScreen() {
   return (
     <div
       className="min-h-screen overflow-auto font-sans text-white"
-      style={{ background: 'radial-gradient(125% 90% at 74% -8%, #12314f 0%, #08182a 46%, #05080f 100%)' }}
+      style={{ background: 'radial-gradient(125% 90% at 74% -8%, rgba(18,49,79,0.55) 0%, rgba(8,24,42,0.78) 46%, rgba(5,8,15,0.92) 100%)' }}
     >
       <div className="flex items-center justify-between max-w-[1180px] mx-auto px-8 py-6">
         <span className="font-mono text-[11px] font-medium tracking-[5px] text-white/60 uppercase">

@@ -13,27 +13,28 @@ const FIELDS: readonly Field[] = [
 export function IntakeScreen() {
   const { state, dispatch } = useCbi()
   const { form } = state
-  const ready =
-    form.name.trim().length > 0 && form.brand.trim().length > 0 && form.website.trim().length > 0
+  // website must look like a domain/URL (rejects "asdf"; accepts "brand.com", "https://brand.co/x")
+  const websiteOk = /^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(\/\S*)?$/i.test(form.website.trim())
+  const ready = form.name.trim().length > 0 && form.brand.trim().length > 0 && websiteOk
 
   return (
     <div className="min-h-screen bg-[#06080C] text-white font-sans overflow-auto">
       <div className="max-w-[420px] mx-auto px-8 flex flex-col justify-center min-h-screen">
         <button
           onClick={() => dispatch({ type: 'SET_PHASE', phase: 'hero' })}
-          className="text-[11px] text-white/50 hover:text-white/80 transition-colors tracking-[2px] uppercase self-start mb-12"
+          className="font-mono text-[11px] text-white/50 hover:text-white/80 transition-colors tracking-[2px] uppercase self-start mb-12"
         >
           ← Back
         </button>
 
-        <div className="text-[10px] tracking-[4px] text-[#E6B24D] uppercase font-semibold mb-8">
+        <div className="text-[10px] tracking-[4px] text-[#E6B24D] uppercase font-mono mb-8">
           Step 1 of 3
         </div>
 
         <div className="flex flex-col gap-7">
           {FIELDS.map((field) => (
             <div key={field.key}>
-              <label className="block text-[10px] tracking-[4px] text-white/65 uppercase font-semibold mb-2.5">
+              <label className="block text-[10px] tracking-[4px] text-white/65 uppercase font-mono mb-2.5">
                 {field.label}
               </label>
               <input
@@ -49,7 +50,7 @@ export function IntakeScreen() {
         <button
           onClick={() => ready && dispatch({ type: 'SET_PHASE', phase: 'questions' })}
           disabled={!ready}
-          className={`mt-12 w-full px-12 py-4 border text-xs font-bold tracking-[3px] uppercase transition-colors ${
+          className={`mt-12 w-full px-12 py-4 border text-xs font-mono font-medium tracking-[3px] uppercase transition-colors ${
             ready
               ? 'border-[#E6B24D] text-[#E6B24D] cursor-pointer hover:bg-[#E6B24D] hover:text-[#06080C]'
               : 'border-white/15 text-white/30 cursor-default'

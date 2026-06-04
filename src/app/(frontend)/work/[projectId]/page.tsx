@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ projectId
     : DEFAULT_OG_IMAGES
 
   return {
-    title: meta.title,
+    title: { absolute: meta.title },
     description: meta.description,
     alternates: { canonical: `https://coastglobal.org/work/${projectId}` },
     openGraph: {

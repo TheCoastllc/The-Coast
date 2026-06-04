@@ -63,7 +63,7 @@ export function ResultsScreen() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: T.label }}
-          className="text-[10px] tracking-[4px] text-white/55 uppercase font-semibold mb-2"
+          className="text-[10px] tracking-[4px] text-white/55 uppercase font-mono mb-2"
         >
           Coast Brand Index
         </motion.div>
@@ -91,7 +91,7 @@ export function ResultsScreen() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: T.score, ease: EASE }}
-          className="text-[96px] font-extralight leading-none tracking-[-5px] mt-10"
+          className="font-serif text-[clamp(84px,16vw,128px)] font-light leading-none tracking-[-3px] mt-8"
         >
           <CountUp target={total} delay={T.score + 0.1} duration={1.1} />
         </motion.div>
@@ -108,7 +108,7 @@ export function ResultsScreen() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: T.waveName, ease: EASE }}
-          className="text-[22px] font-semibold tracking-[3px] uppercase mt-6"
+          className="font-mono text-[22px] font-medium tracking-[3px] uppercase mt-6"
           style={{ color: wave.color }}
         >
           {wave.name}
@@ -142,7 +142,7 @@ export function ResultsScreen() {
                 transition={{ duration: 0.5, delay: T.rest + 0.1 + i * 0.08, ease: EASE }}
                 className="flex items-center gap-4 py-3.5 border-b border-white/10"
               >
-                <div className="w-[100px] shrink-0 text-[10px] tracking-[2px] text-white/60 uppercase font-semibold">
+                <div className="w-[100px] shrink-0 text-[10px] tracking-[2px] text-white/60 uppercase font-mono">
                   {p.name}
                 </div>
                 <div className="flex-1">
@@ -176,7 +176,7 @@ export function ResultsScreen() {
         className="max-w-[440px] mx-auto px-8 pb-10"
       >
         <div className="border-t border-white/15 pt-7">
-          <div className="text-[10px] tracking-[4px] text-white/60 uppercase font-semibold text-center mb-5">
+          <div className="text-[10px] tracking-[4px] text-white/60 uppercase font-mono text-center mb-5">
             Wave Rating Scale
           </div>
           {WAVE_SCALE.map((w) => {
@@ -237,7 +237,7 @@ export function ResultsScreen() {
         className="max-w-[440px] mx-auto px-8 pb-10"
       >
         <div className="border-t border-white/15 pt-7 text-center">
-          <div className="text-[10px] tracking-[4px] uppercase font-semibold text-[#D94F3D] mb-3">
+          <div className="text-[10px] tracking-[4px] uppercase font-mono text-[#D94F3D] mb-3">
             Biggest Opportunity
           </div>
           <div className="text-base font-semibold text-white/85 tracking-[0.3px]">
@@ -256,7 +256,7 @@ export function ResultsScreen() {
         className="max-w-[440px] mx-auto px-8 pb-12"
       >
         <div className="border-t border-white/15 pt-10 text-center">
-          <div className="text-[10px] tracking-[4px] text-white/60 uppercase font-semibold mb-5">
+          <div className="text-[10px] tracking-[4px] text-white/60 uppercase font-mono mb-5">
             This was a quick score
           </div>
           <p className="text-sm text-white/75 leading-[1.8] font-light mb-7">
@@ -268,7 +268,7 @@ export function ResultsScreen() {
             {STATS.map((s) => (
               <div key={s.l} className="text-center">
                 <div className="text-2xl font-light">{s.n}</div>
-                <div className="text-[9px] tracking-[4px] text-white/55 uppercase font-semibold mt-1">
+                <div className="text-[9px] tracking-[4px] text-white/55 uppercase font-mono mt-1">
                   {s.l}
                 </div>
               </div>
@@ -277,11 +277,11 @@ export function ResultsScreen() {
 
           <a
             href="https://coastglobal.org/get-started"
-            className="inline-block px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-bold tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
+            className="inline-block px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-mono font-medium tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
           >
             Get the Full Report
           </a>
-          <p className="text-[11px] text-white/45 mt-4">Starting at $97</p>
+          <p className="text-[11px] text-white/45 mt-4">Personally scored by our team — not a bot.</p>
         </div>
       </motion.section>
 
@@ -294,7 +294,7 @@ export function ResultsScreen() {
         <div className="text-base text-white/65 font-light tracking-[1px]">
           Build a bigger wave.
         </div>
-        <div className="text-[10px] tracking-[4px] text-white/40 uppercase font-semibold mt-4">
+        <div className="text-[10px] tracking-[4px] text-white/40 uppercase font-mono mt-4">
           The Coast
         </div>
       </motion.div>

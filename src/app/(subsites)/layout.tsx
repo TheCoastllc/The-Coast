@@ -1,8 +1,10 @@
 import React from 'react'
 import '../(frontend)/styles.css'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
-import Noise from '@/components/Noise'
-import CustomCursor from '@/components/CustomCursor'
+import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
+import { HUD } from '@/components/chrome/HUD'
+import { CompassRose } from '@/components/chrome/CompassRose'
+import { Cursor } from '@/components/chrome/Cursor'
 
 // Same faces as the main site so /cbi (and other subsites) match the brand:
 // these define --font-inter / --font-cormorant / --font-jetbrains, which the
@@ -19,10 +21,14 @@ export default function SubsitesLayout(props: { children: React.ReactNode }) {
             lang="en"
             className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable}`}
         >
-            <body>
-                <Noise />
+            <body className="ocean">
+                <SeaBackdrop />
                 {children}
-                <CustomCursor />
+                <HUD />
+                <CompassRose />
+                <div className="vignette" />
+                <div className="grain" />
+                <Cursor />
             </body>
         </html>
     )
