@@ -2,6 +2,8 @@
 
 /* CBI flagship */
 .flagship {
+  display: block; /* the card is an <a>; without this it stays inline and the
+                     .glass ::before/::after pseudos fragment into stray boxes */
   position: relative;
   overflow: hidden;
   padding: clamp(2.4rem, 5vw, 4.2rem);
