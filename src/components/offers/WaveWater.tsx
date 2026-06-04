@@ -1,7 +1,8 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
+import { CanvasTexture } from "three";
 import { WaterShader } from "@/components/hero/water";
 
 export type WaveWaterProps = {
@@ -26,28 +27,29 @@ export type WaveWaterProps = {
   sunColor?: string;
 };
 
-/** A glowing sun built from layered discs (bright core + soft halos) - no
- *  post-processing needed, reads as a luminous sun over the water. */
+/** A glowing sun: one plane with a smooth radial-gradient texture (bright core ->
+ *  warm halo -> transparent). No rings, no post-processing - a clean luminous sun. */
 function Sun({ y = 1.4, scale = 0.85, color = "#F4633A" }: { y?: number; scale?: number; color?: string }) {
+  const tex = useMemo(() => {
+    const s = 256;
+    const c = document.createElement("canvas");
+    c.width = c.height = s;
+    const ctx = c.getContext("2d")!;
+    const g = ctx.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    g.addColorStop(0.0, "rgba(255,238,206,1)");
+    g.addColorStop(0.12, "rgba(255,224,176,1)");
+    g.addColorStop(0.2, color);
+    g.addColorStop(0.42, "rgba(244,99,58,0.32)");
+    g.addColorStop(1.0, "rgba(244,99,58,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, s, s);
+    return new CanvasTexture(c);
+  }, [color]);
   return (
-    <group position={[0, y, -20]}>
-      <mesh scale={scale * 5.2}>
-        <circleGeometry args={[5, 40]} />
-        <meshBasicMaterial color={color} transparent opacity={0.06} toneMapped={false} fog={false} depthWrite={false} />
-      </mesh>
-      <mesh scale={scale * 3}>
-        <circleGeometry args={[5, 48]} />
-        <meshBasicMaterial color={color} transparent opacity={0.12} toneMapped={false} fog={false} depthWrite={false} />
-      </mesh>
-      <mesh scale={scale * 1.7}>
-        <circleGeometry args={[5, 56]} />
-        <meshBasicMaterial color={color} transparent opacity={0.2} toneMapped={false} fog={false} depthWrite={false} />
-      </mesh>
-      <mesh scale={scale}>
-        <circleGeometry args={[5, 64]} />
-        <meshBasicMaterial color="#FFE0B0" transparent toneMapped={false} fog={false} />
-      </mesh>
-    </group>
+    <mesh position={[0, y, -20]} scale={scale * 11}>
+      <planeGeometry args={[5, 5]} />
+      <meshBasicMaterial map={tex} transparent toneMapped={false} fog={false} depthWrite={false} />
+    </mesh>
   );
 }
 
