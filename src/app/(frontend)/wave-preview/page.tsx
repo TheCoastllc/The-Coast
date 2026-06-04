@@ -1,24 +1,17 @@
 import type { Metadata } from "next";
-import { WaveVisual, type WaveVariant } from "@/components/offers/WaveVisual";
-import { CBI } from "@/app/(frontend)/offers/content";
+import { WavePreview3D } from "@/components/offers/WavePreview3D";
 
 export const metadata: Metadata = {
   title: "Wave options — pick one",
   robots: { index: false, follow: false },
 };
 
-const OPTIONS: { v: WaveVariant; label: string; desc: string }[] = [
-  { v: "swell", label: "Swell", desc: "Layered rolling ocean swell — calm and steady." },
-  { v: "crest", label: "Crest", desc: "A single swell rising to a glowing, foam-tipped peak." },
-  { v: "curl", label: "Curl", desc: "A breaking wave curling over into a barrel, with spray." },
-];
-
 /**
- * Side-by-side comparison of the three CBI wave graphics so the choice is one
- * glance, not a URL-param hunt. Pick one and it gets set everywhere. noindex.
+ * Side-by-side comparison of real 3D water treatments (the same shader as the
+ * homepage hero) so the choice is one glance. Pick one and it gets set on the CBI
+ * everywhere. noindex.
  */
 export default function WavePreviewPage() {
-  const m = CBI.mock;
   return (
     <main
       style={{
@@ -59,56 +52,16 @@ export default function WavePreviewPage() {
           fontSize: "1.05rem",
           lineHeight: 1.6,
           color: "var(--color-cream-dim, #cdc7bb)",
-          maxWidth: 640,
+          maxWidth: 660,
           margin: "0 0 3.2rem",
         }}
       >
-        Three options for the &ldquo;How strong is your wave?&rdquo; graphic, all
-        on one screen. Tell me which one — swell, crest, or curl — and I&rsquo;ll set
-        it on the home page, /offers, and the test flow.
+        Three real 3D water treatments &mdash; the same shader as the homepage hero,
+        running live. They animate continuously (this isn&rsquo;t a still). Tell me which
+        mood &mdash; calm, dramatic, or sunset &mdash; and I&rsquo;ll set it on the CBI everywhere.
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "2.4rem",
-        }}
-      >
-        {OPTIONS.map((o, i) => (
-          <section key={o.v} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "0.7rem" }}>
-              <span style={{ fontFamily: "var(--font-mono)", color: "var(--color-gold)", fontSize: 13, letterSpacing: "0.18em" }}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h2
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 300,
-                  fontSize: "2rem",
-                  letterSpacing: "-0.01em",
-                  margin: 0,
-                  color: "var(--color-cream)",
-                }}
-              >
-                {o.label}
-              </h2>
-            </div>
-            <WaveVisual variant={o.v} score={m.score} waveName={m.waveName} scale={CBI.waveScale} />
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "0.95rem",
-                lineHeight: 1.55,
-                color: "var(--color-cream-dim, #cdc7bb)",
-                margin: 0,
-              }}
-            >
-              {o.desc}
-            </p>
-          </section>
-        ))}
-      </div>
+      <WavePreview3D />
     </main>
   );
 }
