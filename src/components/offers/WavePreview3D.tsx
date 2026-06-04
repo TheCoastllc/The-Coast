@@ -12,20 +12,20 @@ const TREATMENTS: { key: string; label: string; desc: string; props: WaveWaterPr
   {
     key: "calm",
     label: "Calm",
-    desc: "Serene, glassy 3D water with gentle ripples — quiet and premium.",
-    props: { amp: 0.42, freq: 0.5, fogDensity: 0.08, caustics: 0.4, camY: 1.5 },
+    desc: "A high sun over gentle, glassy 3D water — quiet and premium.",
+    props: { amp: 0.5, freq: 0.5, reflect: 0.4, sunY: 2.2, sunScale: 0.62, camY: 1.45 },
   },
   {
     key: "dramatic",
     label: "Dramatic",
     desc: "Big rolling 3D swells with foam, shot low — the homepage hero's energy.",
-    props: { amp: 1.0, freq: 0.55, foamAmt: 0.85, caustics: 0.6, fogDensity: 0.05, camY: 0.9 },
+    props: { amp: 1.15, freq: 0.58, foamAmt: 0.95, caustics: 0.7, fogDensity: 0.02, reflect: 0.7, sunY: 1.15, sunScale: 0.85, camY: 0.75 },
   },
   {
     key: "sunset",
     label: "Sunset glade",
-    desc: "A warm sun-reflection burning a glade straight down the water.",
-    props: { amp: 0.6, freq: 0.5, reflect: 0.95, accent: "#F4633A", crest: "#2E6CA8", camY: 1.2 },
+    desc: "A big warm sun burning a reflection straight down the water.",
+    props: { amp: 0.72, freq: 0.5, reflect: 1.0, fogDensity: 0.025, sunY: 1.0, sunScale: 1.05, sunColor: "#F4633A", camY: 1.05 },
   },
 ];
 
