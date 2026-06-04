@@ -31,21 +31,28 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = window.setTimeout(() => setSettled(true), 3200);
+    const t = window.setTimeout(() => setSettled(true), 3600);
     return () => clearTimeout(t);
   }, []);
 
+  const showWebgl = webgl && (trigger || settled);
+
   return (
     <>
-      <StoryHeroStatic />
-      {webgl && (trigger || settled) && (
+      {/* instant CSS base - crossfades AWAY once the WebGL water actually paints,
+          so the dramatic animated hero is what the visitor lands on. */}
+      <div style={{ opacity: ready ? 0 : 1, transition: "opacity 1.2s ease" }} aria-hidden>
+        <StoryHeroStatic />
+      </div>
+
+      {showWebgl && (
         <div
           style={{
             position: "fixed",
             inset: 0,
             zIndex: -1,
             opacity: ready ? 1 : 0,
-            transition: "opacity 0.7s ease",
+            transition: "opacity 1.2s ease",
             pointerEvents: "none",
           }}
           aria-hidden
