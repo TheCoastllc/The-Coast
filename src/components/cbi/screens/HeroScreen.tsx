@@ -3,52 +3,71 @@
 import { useCbi } from '../CbiContext'
 import { WAVE_SCALE } from '../data/waves'
 import { WaveRow } from '../components/WaveRow'
-
-const BRAND_GOLD = '#E6B24D'
+import { VideoWave } from '@/components/VideoWave'
 
 export function HeroScreen() {
   const { dispatch } = useCbi()
   const go = () => dispatch({ type: 'SET_PHASE', phase: 'intake' })
 
   return (
-    <div className="min-h-screen bg-[#06080C] overflow-auto font-sans text-white">
-      <div className="flex items-center justify-between max-w-[900px] mx-auto px-8 py-6">
+    <div
+      className="min-h-screen overflow-auto font-sans text-white"
+      style={{ background: 'radial-gradient(125% 90% at 74% -8%, #12314f 0%, #08182a 46%, #05080f 100%)' }}
+    >
+      <div className="flex items-center justify-between max-w-[1180px] mx-auto px-8 py-6">
         <span className="font-mono text-[11px] font-medium tracking-[5px] text-white/60 uppercase">
           The Coast
         </span>
         <button
           onClick={go}
-          className="text-[11px] font-bold tracking-[2px] uppercase text-[#E6B24D] hover:text-[#E6B24D]/80 transition-colors"
+          className="font-mono text-[11px] font-medium tracking-[2px] uppercase text-[#E6B24D] hover:text-[#E6B24D]/80 transition-colors"
         >
           Get Your Score
         </button>
       </div>
 
-      <section className="max-w-[560px] mx-auto px-8 pt-20 text-center">
-        <div className="flex justify-center">
-          <WaveRow count={5} color={BRAND_GOLD} size={36} gap={8} />
+      <section className="max-w-[1180px] mx-auto px-8 pt-8 md:pt-14 pb-10 grid md:grid-cols-[1.05fr_0.9fr] gap-12 md:gap-16 items-center">
+        <div className="text-center md:text-left">
+          <span className="font-mono text-[11px] tracking-[4px] uppercase text-[#E6B24D]">
+            The Coast Brand Index
+          </span>
+          <h1 className="font-serif text-[clamp(46px,6vw,78px)] font-light leading-[0.98] tracking-[-1.5px] mt-5">
+            How Strong Is Your Wave?
+          </h1>
+          <p className="text-[16px] text-white/75 font-light leading-[1.7] max-w-[460px] mx-auto md:mx-0 mt-6">
+            Most brands have no idea how they actually perform. The Coast Brand Index scores
+            yours across five pillars and twenty criteria — and shows you exactly where to sharpen.
+          </p>
+          <div className="flex items-center gap-4 justify-center md:justify-start mt-7 font-mono text-[11px] tracking-[1.5px] uppercase text-white/50">
+            <span>5 Pillars</span>
+            <span className="text-white/20">/</span>
+            <span>20 Criteria</span>
+            <span className="text-white/20">/</span>
+            <span>2 Minutes</span>
+          </div>
+          <div className="mt-9 flex flex-col sm:flex-row items-center md:items-start gap-4 justify-center md:justify-start">
+            <button
+              onClick={go}
+              className="px-10 py-4 bg-[#E6B24D] text-[#06080C] text-xs font-mono font-semibold tracking-[3px] uppercase rounded-full transition-transform hover:-translate-y-0.5"
+            >
+              Get Your Free Score
+            </button>
+            <span className="text-[11px] text-white/45">Free · arrives by email</span>
+          </div>
         </div>
 
-        <h1 className="font-serif text-[clamp(40px,7vw,60px)] font-light leading-[1.05] tracking-[-1px] mt-10">
-          How Strong Is Your Wave?
-        </h1>
-
-        <p className="text-[15px] text-white/75 font-light leading-[1.8] max-w-[440px] mx-auto mt-6">
-          Most small businesses have no idea how their brand actually performs. We built a system
-          to measure it.
-        </p>
-
-        <p className="text-[13px] text-white/55 mt-3 tracking-[0.5px]">
-          5 pillars · 20 criteria · 100 points · One number.
-        </p>
-
-        <button
-          onClick={go}
-          className="mt-12 px-12 py-4 border border-[#E6B24D] text-[#E6B24D] text-xs font-mono font-medium tracking-[3px] uppercase transition-colors hover:bg-[#E6B24D] hover:text-[#06080C]"
-        >
-          Get Your Free Score
-        </button>
-        <p className="text-[11px] text-white/45 mt-4">Takes 2 minutes</p>
+        <div className="relative mx-auto w-full max-w-[400px]">
+          <div
+            className="absolute -inset-8 -z-10 blur-3xl opacity-50"
+            style={{ background: 'radial-gradient(circle at 50% 35%, rgba(230,178,77,0.28), transparent 70%)' }}
+          />
+          <div
+            className="relative overflow-hidden rounded-[22px] border border-white/10"
+            style={{ aspectRatio: '464 / 688', boxShadow: '0 50px 130px rgba(0,0,0,0.6)' }}
+          >
+            <VideoWave rounded={false} />
+          </div>
+        </div>
       </section>
 
       <div className="max-w-[60px] mx-auto my-[72px] h-px bg-white/15" />

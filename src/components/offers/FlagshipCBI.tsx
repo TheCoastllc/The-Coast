@@ -2,8 +2,7 @@
 
 import { Reveal } from "@/components/motion/Reveal";
 import { CBI } from "@/app/(frontend)/offers/content";
-import { useVariant } from "@/components/visuals/useVariant";
-import { WaveVisual, WAVE_VARIANTS, type WaveVariant } from "./WaveVisual";
+import { VideoWave } from "@/components/VideoWave";
 import styles from "@/app/(frontend)/offers/offers-lab.module.css";
 
 /**
@@ -12,7 +11,6 @@ import styles from "@/app/(frontend)/offers/offers-lab.module.css";
  * variant-driven (?wave=swell|crest|curl, default swell) so David can compare.
  */
 export function FlagshipCBI() {
-  const variant = useVariant<WaveVariant>("wave", WAVE_VARIANTS, "swell");
   const m = CBI.mock;
   return (
     <Reveal variant="scale-in">
@@ -58,7 +56,20 @@ export function FlagshipCBI() {
               <span className={styles.scoreWave}>Wave · {m.waveName}</span>
             </div>
             <p className={styles.scoreLine}>{m.line}</p>
-            <WaveVisual variant={variant} score={m.score} waveName={m.waveName} scale={CBI.waveScale} />
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                maxWidth: 300,
+                aspectRatio: "464 / 688",
+                borderRadius: 16,
+                overflow: "hidden",
+                border: "1px solid var(--color-border)",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
+              }}
+            >
+              <VideoWave rounded={false} />
+            </div>
           </div>
         </div>
       </a>
