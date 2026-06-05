@@ -109,13 +109,17 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
       </section>
     );
   }
-  // glass - a magnifying lens passing over the headline
+  // glass - a magnifying lens over the headline (label floats above; title magnified)
+  const glTitle = () => (
+    <h2 className={`${styles.title} no-marble`}>{renderTitle(beat.title, KEYWORDS[i] ?? "")}</h2>
+  );
   return (
     <section className={styles.beat} data-i={i}>
-      <div className={styles.magPage}>{content}</div>
+      <p className={`${styles.label} ${styles.glLabel}`}>{beat.label}</p>
+      <div className={styles.magPage}>{glTitle()}</div>
       <div className={styles.glLens} aria-hidden>
         <div className={styles.glGlass}>
-          <div className={styles.magZoom}>{mk()}</div>
+          <div className={styles.magZoom}>{glTitle()}</div>
           <div className={styles.glSheen} />
         </div>
       </div>

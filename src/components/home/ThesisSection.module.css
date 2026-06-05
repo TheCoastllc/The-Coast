@@ -387,13 +387,24 @@
   margin-bottom: 1rem;
 }
 .glass .title {
+  width: min(36rem, 88vw);
+  margin: 0 auto;
+  text-align: center;
   font-size: clamp(2.1rem, 4.8vw, 3.8rem);
-  line-height: 1.12;
-  margin-bottom: 1.1rem;
+  line-height: 1.14;
 }
 .glass .title em {
   color: var(--color-gold);
   font-style: italic;
+}
+/* the label floats above the lens, on the page */
+.glLabel {
+  position: absolute;
+  top: 16%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  margin: 0;
 }
 .glass .body {
   font-size: clamp(0.86rem, 1.05vw, 1rem);
