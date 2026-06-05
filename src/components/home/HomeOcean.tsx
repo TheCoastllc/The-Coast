@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
@@ -175,6 +176,16 @@ export function HomeOcean({
           <section className={`section ${styles.clientsSection}`}>
             <p className={styles.thesisLabel}>Trusted by</p>
             <TrustedBy clients={CLIENTS} variant={clientsVariant} />
+            <div className={styles.partnerStrip}>
+              <span className={styles.partnerStripLabel}>Preferred Services Partner</span>
+              <Image
+                src="/claude-partner-badge.png"
+                alt="The Coast - Preferred Services Partner in the Claude Partner Network"
+                width={800}
+                height={253}
+                className={styles.partnerStripBadge}
+              />
+            </div>
           </section>
 
           <section className={`section ${styles.workShowcase}`}>

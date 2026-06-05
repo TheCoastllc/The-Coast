@@ -50,13 +50,14 @@ function CompassRose() {
 }
 
 function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; i: number }) {
-  const content = (
+  const mk = () => (
     <div className={styles.content}>
       <p className={styles.label}>{beat.label}</p>
       <h2 className={`${styles.title} no-marble`}>{renderTitle(beat.title, KEYWORDS[i] ?? "")}</h2>
       <p className={styles.body}>{beat.body}</p>
     </div>
   );
+  const content = mk();
 
   if (variant === "lighthouse") {
     return (
@@ -108,15 +109,14 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
       </section>
     );
   }
-  // glass
+  // glass - a magnifying lens passing over the headline
   return (
     <section className={styles.beat} data-i={i}>
-      <div className={styles.glGhost} aria-hidden>{beat.title}</div>
-      <div className={styles.glLens}>
+      <div className={styles.magPage}>{content}</div>
+      <div className={styles.glLens} aria-hidden>
         <div className={styles.glGlass}>
-          <div className={styles.glReticle} aria-hidden />
-          <div className={styles.glSheen} aria-hidden />
-          {content}
+          <div className={styles.magZoom}>{mk()}</div>
+          <div className={styles.glSheen} />
         </div>
       </div>
     </section>

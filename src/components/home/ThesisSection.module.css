@@ -375,109 +375,117 @@
     radial-gradient(30% 20% at 74% 66%, rgba(212, 182, 122, 0.06), transparent 70%),
     radial-gradient(22% 15% at 60% 22%, rgba(150, 200, 220, 0.05), transparent 70%);
 }
-.glGhost {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 300;
-  font-size: clamp(3rem, 9vw, 7rem);
-  line-height: 1.08;
-  color: rgba(180, 205, 225, 0.06);
-  filter: blur(16px);
-  padding: 0 8vw;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* the lens - a luminous crystal with a delicate gold rim */
-.glLens {
-  position: relative;
-  z-index: 3;
-  width: min(62vh, 80vw);
-  height: min(62vh, 80vw);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 1px rgba(236, 208, 142, 0.55),
-    0 0 0 7px rgba(236, 208, 142, 0.05),
-    0 0 70px 8px rgba(214, 176, 108, 0.14),
-    0 40px 90px rgba(0, 0, 0, 0.5);
-}
-.glLens::before {
-  content: "";
-  position: absolute;
-  inset: 9px;
-  border-radius: 50%;
-  border: 1px solid rgba(236, 208, 142, 0.16);
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* optical crystal */
-.glGlass {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 11%;
-  overflow: hidden;
-  background:
-    radial-gradient(130% 130% at 32% 24%, rgba(200, 225, 245, 0.16), transparent 40%),
-    radial-gradient(circle at 50% 56%, rgba(60, 120, 150, 0.16), transparent 52%),
-    radial-gradient(circle at 50% 50%, rgba(10, 26, 38, 0.2), rgba(5, 14, 22, 0.62) 80%);
-  box-shadow:
-    inset 0 0 60px rgba(0, 0, 0, 0.45),
-    inset 0 2px 2px rgba(255, 255, 255, 0.14);
-  -webkit-backdrop-filter: blur(3px) brightness(1.06) saturate(1.05);
-  backdrop-filter: blur(3px) brightness(1.06) saturate(1.05);
-}
-
-/* elegant caustic light streak across the crystal */
-.glSheen {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  pointer-events: none;
-  background:
-    linear-gradient(122deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.04) 18%, transparent 40%),
-    radial-gradient(36% 22% at 70% 80%, rgba(190, 215, 235, 0.1), transparent 72%);
-}
-.glReticle {
-  display: none;
-}
+/* shared content - the page and the magnified copy break identically so they align */
 .glass .content {
   position: relative;
-  z-index: 4;
-  max-width: 22ch;
+  width: min(36rem, 88vw);
+  max-width: none;
+  text-align: center;
 }
 .glass .label {
   color: rgba(236, 208, 142, 0.85);
   margin-bottom: 1rem;
 }
 .glass .title {
-  font-size: clamp(1.7rem, 3.4vw, 2.7rem);
+  font-size: clamp(2.1rem, 4.8vw, 3.8rem);
   line-height: 1.12;
   margin-bottom: 1.1rem;
-  color: #f3f7fb;
-  text-shadow: 0 0 34px rgba(150, 195, 225, 0.28);
 }
 .glass .title em {
   color: var(--color-gold);
   font-style: italic;
-  text-shadow: 0 0 30px rgba(214, 176, 108, 0.55);
 }
 .glass .body {
-  font-size: clamp(0.8rem, 0.95vw, 0.92rem);
-  line-height: 1.5;
-  max-width: 26ch;
-  color: rgba(214, 226, 238, 0.66);
+  font-size: clamp(0.86rem, 1.05vw, 1rem);
+  line-height: 1.55;
+  max-width: 28ch;
+  margin: 0 auto;
+}
+
+/* the page - the headline unmagnified and out of focus */
+.magPage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  filter: blur(2.4px);
+}
+.magPage .label { color: rgba(176, 200, 222, 0.26); }
+.magPage .title { color: rgba(176, 200, 222, 0.3); }
+.magPage .title em { color: rgba(214, 176, 108, 0.42); }
+.magPage .body { color: rgba(176, 200, 222, 0.2); }
+
+/* the lens - delicate gold-rimmed crystal */
+.glLens {
+  position: relative;
+  z-index: 3;
+  width: min(48vh, 80vw);
+  height: min(48vh, 80vw);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(236, 208, 142, 0.6),
+    0 0 0 7px rgba(236, 208, 142, 0.05),
+    0 0 70px 8px rgba(214, 176, 108, 0.16),
+    0 40px 90px rgba(0, 0, 0, 0.5);
+}
+.glLens::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(236, 208, 142, 0.18);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* the glass body - clips the magnified copy to the circle */
+.glGlass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(130% 130% at 32% 24%, rgba(200, 225, 245, 0.16), transparent 44%),
+    radial-gradient(circle at 50% 50%, rgba(14, 32, 46, 0.86), rgba(7, 18, 28, 0.94) 82%);
+  box-shadow:
+    inset 0 0 54px rgba(0, 0, 0, 0.5),
+    inset 0 2px 2px rgba(255, 255, 255, 0.14);
+}
+
+/* the magnified, focused copy - aligned to the page, scaled up, clipped to the lens */
+.magZoom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(36rem, 88vw);
+  transform: translate(-50%, -50%) scale(1.44);
+  z-index: 2;
+}
+.magZoom .label { color: rgba(236, 208, 142, 0.92); }
+.magZoom .title {
+  color: #f4f8fc;
+  text-shadow: 0 0 30px rgba(150, 195, 225, 0.3);
+}
+.magZoom .title em {
+  color: var(--color-gold);
+  text-shadow: 0 0 30px rgba(214, 176, 108, 0.55);
+}
+.magZoom .body { color: rgba(214, 226, 238, 0.72); }
+
+/* caustic sheen across the glass surface */
+.glSheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(122deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 18%, transparent 40%),
+    radial-gradient(36% 22% at 70% 80%, rgba(190, 215, 235, 0.1), transparent 72%);
 }
 
 /* ===================== responsive ===================== */
