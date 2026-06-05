@@ -1,0 +1,341 @@
+/* ============================================================
+   Thesis as a moment - framed inside a real object.
+   Five treatments via ?thesis=lighthouse|bottle|chart|billboard|glass
+   ============================================================ */
+
+.wrap {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+}
+
+.beat {
+  position: relative;
+  min-height: 96vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 9vh 6vw;
+}
+
+.content {
+  position: relative;
+  z-index: 4;
+  max-width: 56ch;
+}
+.label {
+  font-family: var(--font-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  font-size: 0.72rem;
+  color: var(--color-gold);
+  margin: 0 0 1.5rem;
+}
+.title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  margin: 0 0 1.8rem;
+  font-size: clamp(2.6rem, 6vw, 5.4rem);
+  color: #eef3f7;
+}
+.title em {
+  font-style: normal;
+  color: var(--color-gold);
+}
+.body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  line-height: 1.72;
+  max-width: 42ch;
+  color: rgba(220, 230, 240, 0.68);
+  margin: 0;
+}
+
+/* ===================== 1 · LIGHTHOUSE BEAM ===================== */
+.lighthouse .beat {
+  background:
+    radial-gradient(120% 90% at 80% 36%, rgba(22, 52, 80, 0.5), transparent 58%),
+    radial-gradient(150% 130% at 8% 104%, #08161f, #03090f 72%);
+}
+.lhTower {
+  position: absolute;
+  left: 3.5%;
+  bottom: 5%;
+  height: 44vh;
+  width: auto;
+  z-index: 3;
+  filter: drop-shadow(0 12px 36px rgba(0, 0, 0, 0.7));
+}
+.lhBeam {
+  position: absolute;
+  left: 8%;
+  top: 14%;
+  width: 90%;
+  height: 60%;
+  z-index: 2;
+  background: linear-gradient(
+    94deg,
+    rgba(255, 232, 176, 0.5) 0%,
+    rgba(255, 226, 160, 0.13) 42%,
+    transparent 72%
+  );
+  clip-path: polygon(0 46%, 100% 0%, 100% 88%, 0 58%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+.lighthouse .content {
+  text-align: center;
+  text-shadow: 0 2px 34px rgba(0, 0, 0, 0.55);
+}
+.lighthouse .title {
+  color: #fdf3da;
+}
+
+/* ===================== 2 · MESSAGE IN A BOTTLE ===================== */
+.bottle .beat {
+  background:
+    radial-gradient(120% 80% at 50% 122%, rgba(196, 160, 92, 0.18), transparent 56%),
+    linear-gradient(180deg, #07202c 0%, #0a2a39 55%, #0b2230 100%);
+}
+.boScene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 2.5rem);
+  max-width: 1080px;
+  width: 100%;
+}
+.boGlass {
+  flex: 0 0 auto;
+  height: 54vh;
+  width: auto;
+  transform: rotate(-13deg);
+  filter: drop-shadow(0 26px 54px rgba(0, 0, 0, 0.5));
+}
+.boScroll {
+  position: relative;
+  flex: 1 1 auto;
+  background: linear-gradient(168deg, #f4e8ca 0%, #e8d5ad 58%, #ddc79a 100%);
+  border-radius: 5px;
+  padding: clamp(2rem, 4vw, 3.4rem) clamp(2rem, 4vw, 3.6rem);
+  box-shadow:
+    inset 0 0 70px rgba(120, 90, 40, 0.22),
+    0 32px 64px rgba(0, 0, 0, 0.45);
+  transform: rotate(-1.6deg);
+}
+.boScroll::before,
+.boScroll::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 16px;
+  background: linear-gradient(90deg, rgba(120, 88, 40, 0.4), transparent);
+  border-radius: 4px;
+}
+.boScroll::before { left: -7px; }
+.boScroll::after { right: -7px; transform: scaleX(-1); }
+.bottle .content { max-width: none; }
+.bottle .label { color: #8a5a22; }
+.bottle .title {
+  color: #2a1d0c;
+  font-style: italic;
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+}
+.bottle .title em { color: #a3681f; font-style: italic; }
+.bottle .body { color: rgba(58, 42, 18, 0.78); }
+
+/* ===================== 3 · SEA CHART ===================== */
+.chart .beat {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 38px, rgba(120, 92, 44, 0.07) 38px 39px),
+    repeating-linear-gradient(90deg, transparent 0 38px, rgba(120, 92, 44, 0.07) 38px 39px),
+    radial-gradient(130% 120% at 68% 28%, #efe1c2, #d7bf94 76%, #c9af82);
+}
+.chRose {
+  position: absolute;
+  right: 5%;
+  bottom: 7%;
+  width: 22vh;
+  height: 22vh;
+  opacity: 0.82;
+  z-index: 2;
+}
+.chRoute {
+  position: absolute;
+  left: 7%;
+  top: 28%;
+  width: 58%;
+  height: 0;
+  border-top: 2px dashed rgba(122, 58, 30, 0.62);
+  transform: rotate(13deg);
+  z-index: 2;
+}
+.chRoute::before,
+.chRoute::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2px solid #7a3a1e;
+  background: rgba(122, 58, 30, 0.18);
+}
+.chRoute::before { left: -6px; }
+.chRoute::after {
+  right: -6px;
+  border-radius: 0;
+  border: none;
+  background:
+    linear-gradient(45deg, transparent 44%, #a11f1f 44% 56%, transparent 56%),
+    linear-gradient(-45deg, transparent 44%, #a11f1f 44% 56%, transparent 56%);
+}
+.chart .content { text-align: center; }
+.chart .label { color: #7a3a1e; }
+.chart .title { color: #2c2110; }
+.chart .title em { color: #a11f1f; }
+.chart .body { color: rgba(58, 44, 20, 0.82); }
+
+/* ===================== 4 · BILLBOARD ===================== */
+.billboard .beat {
+  background: linear-gradient(
+    180deg,
+    #0b1733 0%,
+    #1b2a4a 36%,
+    #6b4a52 68%,
+    #b07a55 82%,
+    #181020 100%
+  );
+}
+.bbBoard {
+  position: relative;
+  z-index: 3;
+  width: min(78%, 960px);
+  margin-bottom: 17vh;
+  padding: clamp(2.6rem, 5vw, 4.6rem) clamp(2.2rem, 5vw, 4.6rem);
+  background: linear-gradient(165deg, #0c1622, #0a1119);
+  border: 3px solid var(--color-gold);
+  border-radius: 4px;
+  box-shadow:
+    0 44px 96px rgba(0, 0, 0, 0.6),
+    inset 0 0 90px rgba(0, 0, 0, 0.55);
+}
+.bbBoard::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(200, 144, 48, 0.42);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.bbSpot {
+  position: absolute;
+  left: 50%;
+  bottom: -16%;
+  width: 74%;
+  height: 64%;
+  transform: translateX(-50%);
+  background: radial-gradient(60% 84% at 50% 100%, rgba(255, 228, 170, 0.32), transparent 70%);
+  filter: blur(9px);
+  pointer-events: none;
+}
+.bbLeg {
+  position: absolute;
+  bottom: 0;
+  width: 13px;
+  height: 28vh;
+  background: linear-gradient(180deg, #0e1726, #060b12);
+  z-index: 1;
+}
+.bbLeg[data-side="l"] { left: 35%; }
+.bbLeg[data-side="r"] { right: 35%; }
+.billboard .content { text-align: center; }
+.billboard .title { font-weight: 400; }
+
+/* ===================== 5 · LOOKING GLASS ===================== */
+.glass .beat {
+  background: radial-gradient(120% 120% at 50% 50%, #0a1620, #04090f 76%);
+}
+.glGhost {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 1.06;
+  color: rgba(150, 180, 200, 0.1);
+  filter: blur(8px);
+  padding: 0 8vw;
+  z-index: 1;
+  pointer-events: none;
+}
+.glLens {
+  position: relative;
+  z-index: 3;
+  width: min(64vh, 80vw);
+  height: min(64vh, 80vw);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 9%;
+  background: radial-gradient(circle at 38% 30%, rgba(120, 160, 190, 0.18), rgba(8, 20, 30, 0.68) 72%);
+  box-shadow:
+    0 0 0 2px rgba(200, 150, 60, 0.25),
+    0 0 0 13px #0c1822,
+    0 0 0 16px var(--color-gold),
+    0 0 0 23px #14202c,
+    inset 0 0 80px rgba(0, 0, 0, 0.72),
+    0 44px 96px rgba(0, 0, 0, 0.6);
+}
+.glLens::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+}
+.glReticle {
+  position: absolute;
+  inset: 7%;
+  border-radius: 50%;
+  z-index: 1;
+  background:
+    linear-gradient(to right, transparent calc(50% - 0.5px), rgba(200, 150, 60, 0.28) calc(50% - 0.5px), rgba(200, 150, 60, 0.28) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(50% - 0.5px), rgba(200, 150, 60, 0.28) calc(50% - 0.5px), rgba(200, 150, 60, 0.28) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+  pointer-events: none;
+}
+.glass .content {
+  z-index: 4;
+  max-width: 24ch;
+}
+.glass .title {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+}
+
+/* ===================== responsive ===================== */
+@media (max-width: 768px) {
+  .beat { min-height: 88vh; padding: 8vh 7vw; }
+  .boScene { flex-direction: column; gap: 1.5rem; }
+  .boGlass { height: 26vh; }
+  .lhTower { height: 30vh; opacity: 0.85; }
+  .bbBoard { width: 90%; margin-bottom: 14vh; }
+  .glLens { width: min(82vw, 56vh); height: min(82vw, 56vh); }
+  .chRose { width: 16vh; height: 16vh; }
+}

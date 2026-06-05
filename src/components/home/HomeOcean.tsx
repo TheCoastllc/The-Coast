@@ -10,6 +10,7 @@ import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { IntroCurtain } from "./IntroCurtain";
+import { ThesisSection } from "./ThesisSection";
 import { VideoWave } from "@/components/VideoWave";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
@@ -110,13 +111,7 @@ export function HomeOcean({
 
       <div className={styles.content}>
         <RevealGroup>
-          {THESIS.map((t) => (
-            <section key={t.label} className={`section ${styles.thesis}`}>
-              <p className={styles.thesisLabel}>{t.label}</p>
-              <h2 className={styles.thesisTitle}>{t.title}</h2>
-              <p className={styles.thesisBody}>{t.body}</p>
-            </section>
-          ))}
+          <ThesisSection items={THESIS} />
 
           <section className="section">
             <div className={`${styles.waveTeaser} glass`} data-glow="gold">
