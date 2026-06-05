@@ -128,7 +128,7 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
  * Five treatments via ?thesis= (lighthouse | bottle | chart | billboard | glass).
  */
 export function ThesisSection({ items }: { items: readonly Beat[] }) {
-  const v = useVariant("thesis", THESIS_VARIANTS, "lighthouse");
+  const v = useVariant("thesis", THESIS_VARIANTS, "glass");
   return (
     <div className={`${styles.wrap} ${styles[v]}`} data-thesis={v}>
       {items.map((t, i) => (

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { NAV } from "@/lib/nav";
 import { Mark } from "./Mark";
 import styles from "./Footer.module.css";
@@ -94,6 +95,16 @@ export function Footer() {
             </Link>
           ))}
         </nav>
+      </div>
+
+      <div className={styles.partner}>
+        <Image
+          src="/claude-partner-badge.png"
+          alt="The Coast - Preferred Services Partner in the Claude Partner Network"
+          width={800}
+          height={253}
+          className={styles.partnerBadge}
+        />
       </div>
 
       <div className={styles.meta}>
