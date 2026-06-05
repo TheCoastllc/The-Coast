@@ -94,12 +94,17 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
   if (variant === "billboard") {
     return (
       <section className={styles.beat} data-i={i}>
-        <div className={styles.bbBoard}>
-          <span className={styles.bbSpot} aria-hidden />
-          {content}
+        <div className={styles.bbCity} aria-hidden>
+          <span className={styles.bbAd} data-ad="l" />
+          <span className={styles.bbAd} data-ad="r" />
+          <span className={styles.bbAd} data-ad="b" />
+          <span className={styles.bbTicker} />
         </div>
-        <span className={styles.bbLeg} data-side="l" aria-hidden />
-        <span className={styles.bbLeg} data-side="r" aria-hidden />
+        <div className={styles.bbScreen}>
+          <span className={styles.bbBrand} aria-hidden>THE COAST</span>
+          <div className={styles.bbScreenInner}>{content}</div>
+        </div>
+        <div className={styles.bbReflect} aria-hidden />
       </section>
     );
   }
@@ -108,8 +113,11 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
     <section className={styles.beat} data-i={i}>
       <div className={styles.glGhost} aria-hidden>{beat.title}</div>
       <div className={styles.glLens}>
-        <div className={styles.glReticle} aria-hidden />
-        {content}
+        <div className={styles.glGlass}>
+          <div className={styles.glReticle} aria-hidden />
+          <div className={styles.glSheen} aria-hidden />
+          {content}
+        </div>
       </div>
     </section>
   );
