@@ -375,139 +375,131 @@
     radial-gradient(30% 20% at 74% 66%, rgba(212, 182, 122, 0.06), transparent 70%),
     radial-gradient(22% 15% at 60% 22%, rgba(150, 200, 220, 0.05), transparent 70%);
 }
-/* the lens - delicate gold-rimmed crystal (resting state is fully readable) */
-.glLens {
-  position: relative;
-  z-index: 3;
-  width: min(62vh, 84vw);
-  height: min(62vh, 84vw);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 1px rgba(236, 208, 142, 0.6),
-    0 0 0 7px rgba(236, 208, 142, 0.05),
-    0 0 70px 8px rgba(214, 176, 108, 0.16),
-    0 40px 90px rgba(0, 0, 0, 0.5);
-}
-.glLens::before {
-  content: "";
+/* offscreen holder for the SVG water-displacement filter */
+.svgDefs {
   position: absolute;
-  inset: 9px;
-  border-radius: 50%;
-  border: 1px solid rgba(236, 208, 142, 0.18);
-  z-index: 4;
+  width: 0;
+  height: 0;
+  overflow: hidden;
   pointer-events: none;
 }
 
-/* the glass body - holds the readable headline, clipped to the circle */
-.glGlass {
+/* the beat is the interactive surface; these vars track the cursor */
+.glassBeat {
+  --mx: 50%;
+  --my: 50%;
+  --lr: 122px;
+  --z: 1.62;
   position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-    radial-gradient(130% 130% at 32% 24%, rgba(200, 225, 245, 0.16), transparent 44%),
-    radial-gradient(circle at 50% 56%, rgba(46, 104, 134, 0.14), transparent 56%),
-    radial-gradient(circle at 50% 50%, rgba(12, 28, 40, 0.5), rgba(6, 16, 24, 0.7) 82%);
-  box-shadow:
-    inset 0 0 54px rgba(0, 0, 0, 0.5),
-    inset 0 2px 2px rgba(255, 255, 255, 0.14);
 }
 
-/* wrapper scaled during the magnify-settle entrance */
-.glZoomWrap {
+/* the readable headline - resting state, always legible */
+.base {
   position: relative;
-  z-index: 2;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 13%;
+  z-index: 1;
 }
-
-/* readable headline inside the lens */
 .glass .content {
-  position: relative;
-  width: min(20rem, 70vw);
+  width: min(40rem, 88vw);
   max-width: none;
   text-align: center;
 }
 .glass .label {
   color: rgba(236, 208, 142, 0.9);
-  margin-bottom: 0.9rem;
+  margin-bottom: 1.1rem;
 }
 .glass .title {
-  font-size: clamp(1.5rem, 3vw, 2.45rem);
-  line-height: 1.16;
-  margin-bottom: 1rem;
-  color: #f4f8fc;
-  text-shadow: 0 0 30px rgba(150, 195, 225, 0.28);
+  font-size: clamp(2.1rem, 5vw, 4rem);
+  line-height: 1.12;
+  margin-bottom: 1.4rem;
+  color: #eef4fa;
+  text-shadow: 0 0 30px rgba(150, 195, 225, 0.22);
 }
 .glass .title em {
   color: var(--color-gold);
   font-style: italic;
-  text-shadow: 0 0 26px rgba(214, 176, 108, 0.5);
+  text-shadow: 0 0 26px rgba(214, 176, 108, 0.45);
 }
 .glass .body {
-  font-size: clamp(0.78rem, 0.92vw, 0.9rem);
-  line-height: 1.5;
-  max-width: 24ch;
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  line-height: 1.6;
+  max-width: 40ch;
   margin: 0 auto;
-  color: rgba(214, 226, 238, 0.66);
+  color: rgba(214, 226, 238, 0.62);
 }
 
-/* caustic sheen across the glass surface */
-.glSheen {
+/* the magnified, water-refracted copy, clipped to a circle under the cursor */
+.zoomLayer {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  z-index: 3;
+  z-index: 2;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  clip-path: circle(var(--lr) at var(--mx) var(--my));
+}
+.glassBeat[data-lens="on"] .zoomLayer {
+  opacity: 1;
+}
+.zoomInner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(var(--z));
+  transform-origin: var(--mx) var(--my);
+  filter: url(#waterLens);
+  will-change: transform;
+}
+.zoomInner .label {
+  color: rgba(244, 220, 158, 0.95);
+}
+.zoomInner .title {
+  color: #f7fbff;
+  text-shadow: 0 0 26px rgba(170, 205, 235, 0.4);
+}
+.zoomInner .title em {
+  color: var(--color-gold);
+  text-shadow: 0 0 26px rgba(214, 176, 108, 0.6);
+}
+.zoomInner .body {
+  color: rgba(224, 234, 244, 0.8);
+}
+
+/* the gold-rimmed water lens that rides the cursor */
+.lensRim {
+  position: absolute;
+  z-index: 3;
+  top: var(--my);
+  left: var(--mx);
+  width: calc(var(--lr) * 2);
+  height: calc(var(--lr) * 2);
+  margin-top: calc(var(--lr) * -1);
+  margin-left: calc(var(--lr) * -1);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
   background:
-    linear-gradient(122deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 18%, transparent 40%),
-    radial-gradient(36% 22% at 70% 80%, rgba(190, 215, 235, 0.1), transparent 72%);
+    radial-gradient(130% 130% at 34% 28%, rgba(200, 225, 245, 0.14), transparent 46%),
+    radial-gradient(42% 26% at 70% 78%, rgba(190, 215, 235, 0.1), transparent 72%);
+  box-shadow:
+    0 0 0 1px rgba(236, 208, 142, 0.6),
+    0 0 0 6px rgba(236, 208, 142, 0.05),
+    0 0 46px 6px rgba(214, 176, 108, 0.18),
+    0 18px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.16),
+    inset 0 0 38px rgba(0, 0, 0, 0.34);
 }
-
-/* ---- scroll-driven motion. Resting state (no-JS / reduced-motion) stays readable. ---- */
-@media (prefers-reduced-motion: no-preference) {
-  /* .armed = JS mounted: hold the lens hidden until it scrolls into view */
-  .armed .glLens { opacity: 0; }
-  .armed .glSheen { opacity: 0; }
-
-  /* the lens glides in */
-  .armed .inView .glLens {
-    animation: lensIn 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  /* the headline arrives magnified + soft, then settles to readable */
-  .armed .inView .glZoomWrap {
-    animation: magSettle 1.4s 0.12s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-  /* caustics fade in, then drift across the glass forever */
-  .armed .inView .glSheen {
-    animation:
-      causticIn 1.2s 0.5s ease forwards,
-      causticDrift 11s 0.6s ease-in-out infinite alternate;
-  }
+.lensRim::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(236, 208, 142, 0.16);
 }
-
-@keyframes lensIn {
-  0% { opacity: 0; transform: translateY(54px) scale(0.9); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes magSettle {
-  0% { transform: scale(1.32); filter: blur(3.5px); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: scale(1); filter: blur(0); opacity: 1; }
-}
-@keyframes causticIn {
-  to { opacity: 1; }
-}
-@keyframes causticDrift {
-  from { transform: translate(-3.5%, -2.5%) rotate(0deg); }
-  to { transform: translate(3.5%, 2.5%) rotate(3.5deg); }
+.glassBeat[data-lens="on"] .lensRim {
+  opacity: 1;
 }
 
 /* ===================== responsive ===================== */
@@ -518,6 +510,6 @@
   .lhTower { height: 30vh; opacity: 0.85; }
   .bbScreen { width: 92%; min-height: 42vh; margin-bottom: 10vh; }
   .bbAd, .bbTicker { display: none; }
-  .glLens { width: min(82vw, 56vh); height: min(82vw, 56vh); }
+  .glassBeat { --lr: 90px; --z: 1.5; }
   .chRose { width: 16vh; height: 16vh; }
 }

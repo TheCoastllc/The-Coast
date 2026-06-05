@@ -22,6 +22,16 @@ function renderTitle(title: string, k: string) {
   );
 }
 
+function BeatContent({ beat, i }: { beat: Beat; i: number }) {
+  return (
+    <div className={styles.content}>
+      <p className={styles.label}>{beat.label}</p>
+      <h2 className={`${styles.title} no-marble`}>{renderTitle(beat.title, KEYWORDS[i] ?? "")}</h2>
+      <p className={styles.body}>{beat.body}</p>
+    </div>
+  );
+}
+
 /* ── recognizable object decorations ── */
 function Lighthouse() {
   return (
@@ -50,15 +60,89 @@ function CompassRose() {
   );
 }
 
-function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; i: number }) {
-  const mk = () => (
-    <div className={styles.content}>
-      <p className={styles.label}>{beat.label}</p>
-      <h2 className={`${styles.title} no-marble`}>{renderTitle(beat.title, KEYWORDS[i] ?? "")}</h2>
-      <p className={styles.body}>{beat.body}</p>
-    </div>
+/**
+ * Glass treatment: a gold-rimmed water lens that follows the cursor over a
+ * fully readable headline, magnifying and refracting the text beneath it.
+ * Resting state (no pointer / touch / no-JS) is just the readable headline.
+ */
+function GlassLensBeat({ beat, i }: { beat: Beat; i: number }) {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof window === "undefined") return;
+    // Only a fine pointer gets the loupe; touch keeps the plain readable headline.
+    if (window.matchMedia?.("(hover: none)").matches) return;
+
+    let raf = 0;
+    let cx = 0;
+    let cy = 0;
+    let tx = 0;
+    let ty = 0;
+
+    const center = (): [number, number] => {
+      const r = el.getBoundingClientRect();
+      return [r.width / 2, r.height / 2];
+    };
+    const set = (x: number, y: number) => {
+      el.style.setProperty("--mx", `${x}px`);
+      el.style.setProperty("--my", `${y}px`);
+    };
+
+    [cx, cy] = center();
+    [tx, ty] = [cx, cy];
+    set(cx, cy);
+
+    const tick = () => {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      set(cx, cy);
+      // keep following while the lens is active or still easing toward the target
+      raf =
+        el.dataset.lens === "on" || Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4
+          ? requestAnimationFrame(tick)
+          : 0;
+    };
+    const kick = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect();
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (el.dataset.lens !== "on") el.dataset.lens = "on";
+      kick();
+    };
+    const onLeave = () => {
+      el.dataset.lens = "off";
+    };
+
+    el.addEventListener("mousemove", onMove);
+    el.addEventListener("mouseleave", onLeave);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
+  return (
+    <section ref={ref} className={`${styles.beat} ${styles.glassBeat}`} data-i={i} data-lens="off">
+      <div className={styles.base}>
+        <BeatContent beat={beat} i={i} />
+      </div>
+      <div className={styles.zoomLayer} aria-hidden>
+        <div className={styles.zoomInner}>
+          <BeatContent beat={beat} i={i} />
+        </div>
+      </div>
+      <span className={styles.lensRim} aria-hidden />
+    </section>
   );
-  const content = mk();
+}
+
+function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; i: number }) {
+  const content = <BeatContent beat={beat} i={i} />;
 
   if (variant === "lighthouse") {
     return (
@@ -110,17 +194,8 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
       </section>
     );
   }
-  // glass - readable crystal lens at rest; glides in + magnify-settles + caustics drift on scroll
-  return (
-    <section className={styles.beat} data-i={i}>
-      <div className={styles.glLens}>
-        <div className={styles.glGlass}>
-          <div className={styles.glZoomWrap}>{content}</div>
-          <div className={styles.glSheen} aria-hidden />
-        </div>
-      </div>
-    </section>
-  );
+  // glass - interactive water-lens magnifier
+  return <GlassLensBeat beat={beat} i={i} />;
 }
 
 /**
@@ -129,28 +204,24 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
  */
 export function ThesisSection({ items }: { items: readonly Beat[] }) {
   const v = useVariant("thesis", THESIS_VARIANTS, "glass");
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  // Arm the scroll choreography and flag each beat as it enters the viewport.
-  // No-JS / reduced-motion never arms, so the resting state stays readable.
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    el.classList.add(styles.armed);
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) e.target.classList.add(styles.inView);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    el.querySelectorAll("section").forEach((b) => io.observe(b));
-    return () => io.disconnect();
-  }, []);
 
   return (
-    <div ref={wrapRef} className={`${styles.wrap} ${styles[v]}`} data-thesis={v}>
+    <div className={`${styles.wrap} ${styles[v]}`} data-thesis={v}>
+      {v === "glass" && (
+        <svg className={styles.svgDefs} aria-hidden width="0" height="0">
+          <filter id="waterLens" x="-25%" y="-25%" width="150%" height="150%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.011 0.015" numOctaves="2" seed="7" result="noise">
+              <animate
+                attributeName="baseFrequency"
+                dur="16s"
+                values="0.011 0.015;0.015 0.011;0.011 0.015"
+                repeatCount="indefinite"
+              />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </svg>
+      )}
       {items.map((t, i) => (
         <ThesisBeat key={t.label} variant={v} beat={t} i={i} />
       ))}
