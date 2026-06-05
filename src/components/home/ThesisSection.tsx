@@ -53,7 +53,7 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
   const content = (
     <div className={styles.content}>
       <p className={styles.label}>{beat.label}</p>
-      <h2 className={styles.title}>{renderTitle(beat.title, KEYWORDS[i] ?? "")}</h2>
+      <h2 className={`${styles.title} no-marble`}>{renderTitle(beat.title, KEYWORDS[i] ?? "")}</h2>
       <p className={styles.body}>{beat.body}</p>
     </div>
   );
