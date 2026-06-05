@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useVariant } from "@/components/visuals/useVariant";
 import styles from "./ThesisSection.module.css";
 
@@ -109,18 +110,13 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
       </section>
     );
   }
-  // glass - a magnifying lens over the headline (label floats above; title magnified)
-  const glTitle = () => (
-    <h2 className={`${styles.title} no-marble`}>{renderTitle(beat.title, KEYWORDS[i] ?? "")}</h2>
-  );
+  // glass - readable crystal lens at rest; glides in + magnify-settles + caustics drift on scroll
   return (
     <section className={styles.beat} data-i={i}>
-      <p className={`${styles.label} ${styles.glLabel}`}>{beat.label}</p>
-      <div className={styles.magPage}>{glTitle()}</div>
-      <div className={styles.glLens} aria-hidden>
+      <div className={styles.glLens}>
         <div className={styles.glGlass}>
-          <div className={styles.magZoom}>{glTitle()}</div>
-          <div className={styles.glSheen} />
+          <div className={styles.glZoomWrap}>{content}</div>
+          <div className={styles.glSheen} aria-hidden />
         </div>
       </div>
     </section>
@@ -133,8 +129,28 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
  */
 export function ThesisSection({ items }: { items: readonly Beat[] }) {
   const v = useVariant("thesis", THESIS_VARIANTS, "glass");
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  // Arm the scroll choreography and flag each beat as it enters the viewport.
+  // No-JS / reduced-motion never arms, so the resting state stays readable.
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    el.classList.add(styles.armed);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) e.target.classList.add(styles.inView);
+        }
+      },
+      { threshold: 0.4 }
+    );
+    el.querySelectorAll("section").forEach((b) => io.observe(b));
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className={`${styles.wrap} ${styles[v]}`} data-thesis={v}>
+    <div ref={wrapRef} className={`${styles.wrap} ${styles[v]}`} data-thesis={v}>
       {items.map((t, i) => (
         <ThesisBeat key={t.label} variant={v} beat={t} i={i} />
       ))}
