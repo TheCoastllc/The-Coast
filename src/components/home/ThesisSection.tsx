@@ -210,15 +210,15 @@ export function ThesisSection({ items }: { items: readonly Beat[] }) {
       {v === "glass" && (
         <svg className={styles.svgDefs} aria-hidden width="0" height="0">
           <filter id="waterLens" x="-25%" y="-25%" width="150%" height="150%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.011 0.015" numOctaves="2" seed="7" result="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise">
               <animate
                 attributeName="baseFrequency"
-                dur="16s"
-                values="0.011 0.015;0.015 0.011;0.011 0.015"
+                dur="18s"
+                values="0.009 0.013;0.013 0.009;0.009 0.013"
                 repeatCount="indefinite"
               />
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" />
           </filter>
         </svg>
       )}
