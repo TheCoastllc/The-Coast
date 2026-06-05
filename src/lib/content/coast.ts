@@ -42,7 +42,7 @@ export const THESIS = [
   {
     label: "The fix",
     title: "Professional branding, made accessible.",
-    body: "Agencies charge $10,000 a month and up, then move slowly. We deliver agency-grade identity, websites, and strategy on a timeline founders can actually afford - without diluting the craft.",
+    body: "Agencies charge five figures a month and up, then move slowly. We deliver agency-grade identity, websites, and strategy on a timeline founders can actually afford - without diluting the craft.",
   },
   {
     label: "The promise",
@@ -131,7 +131,7 @@ export const PROCESS = [
 // Engagement / pricing philosophy.
 export const ENGAGEMENT = {
   lead: "Agency-grade work without the agency retainer.",
-  body: "Traditional studios start at $10,000 a month and move slowly. We work in focused, fixed-scope sprints, so you know the cost up front and ship in weeks, not quarters.",
+  body: "Traditional studios start at five figures a month and move slowly. We work in focused, fixed-scope sprints, so you know the cost up front and ship in weeks, not quarters.",
   models: [
     { name: "Identity Sprint", detail: "Logo, system, and guidelines.", time: "2-3 weeks" },
     { name: "Brand + Web", detail: "Full identity plus a launch-ready site.", time: "4-6 weeks" },
