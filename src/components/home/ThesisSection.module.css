@@ -430,7 +430,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 12%;
+  padding: 9%;
   overflow: hidden;
   background: radial-gradient(circle at 36% 30%, rgba(150, 190, 215, 0.22), rgba(10, 22, 32, 0.55) 46%, rgba(4, 12, 20, 0.92) 78%);
   box-shadow:
@@ -494,13 +494,16 @@
 .glass .content {
   position: relative;
   z-index: 4;
-  max-width: 22ch;
+  max-width: 24ch;
 }
 .glass .label {
   color: rgba(220, 190, 110, 0.85);
+  margin-bottom: 0.9rem;
 }
 .glass .title {
-  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  font-size: clamp(1.6rem, 3.3vw, 2.6rem);
+  line-height: 1.1;
+  margin-bottom: 1.1rem;
   color: #f4f7fa;
   text-shadow: 0 0 30px rgba(120, 170, 210, 0.3);
 }
@@ -509,7 +512,10 @@
   text-shadow: 0 0 28px rgba(200, 150, 60, 0.6);
 }
 .glass .body {
-  color: rgba(210, 224, 236, 0.7);
+  font-size: clamp(0.8rem, 0.95vw, 0.92rem);
+  line-height: 1.5;
+  max-width: 26ch;
+  color: rgba(210, 224, 236, 0.68);
 }
 
 /* ===================== responsive ===================== */
