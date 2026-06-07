@@ -172,12 +172,12 @@ export const STUDIO = {
     name: "David Coast",
     role: "Founder & Creative Director",
     image: "/founder.jpg",
-    quote:
-      "I started The Coast so the size of your budget would stop deciding the size of your brand.",
+    tag: "A true story",
+    headline: "A homeless dream, born in the back seat of a car.",
     story: [
-      "I spent years watching brilliant founders lose to lesser products - not because their work was weak, but because their brand never gave anyone a reason to stop, trust, and remember. The best studios could fix that. Almost none of them were built for the people who needed it most.",
-      "So I built The Coast: agency-grade identity, websites, and strategy, delivered on a timeline and a budget a founder can actually live with - without thinning the craft. The same caliber of design that big budgets buy, put in the hands of the visionaries behind small brands.",
-      "Every project runs on one belief - strategy first, craft always. We don't just make things that look good; we build the system that makes you unmistakable and lets you scale. That is the work, and that is the whole point. We turn visions into empires.",
+      "David Coast lost his corporate job in America and made the call most people only talk about - he bet on himself. One suitcase, a laptop, and a guitar. A one-way drive to Miami with no plan B.",
+      "For months, his car was home. He worked out of Starbucks by day, showered at Planet Fitness, and built - late into every night - the studio that would become The Coast.",
+      "He knew exactly what it felt like to be overlooked. So he built a studio for the people the world overlooks - the founders, the artists, the dreamers with everything to prove and no budget to prove it. Today, The Coast turns their visions into empires.",
     ],
   },
 };

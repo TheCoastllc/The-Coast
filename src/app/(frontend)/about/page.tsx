@@ -114,7 +114,8 @@ export default function AboutPage() {
               />
             </Reveal>
             <div className={styles.founderStory}>
-              <blockquote className={styles.founderQuote}>{STUDIO.founder.quote}</blockquote>
+              <p className={styles.founderTag}>{STUDIO.founder.tag}</p>
+              <h2 className={styles.founderHeadline}>{STUDIO.founder.headline}</h2>
               {STUDIO.founder.story.map((p, i) => (
                 <p key={i} className={styles.founderBody}>
                   {p}
