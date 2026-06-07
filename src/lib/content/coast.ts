@@ -170,8 +170,15 @@ export const STUDIO = {
   ],
   founder: {
     name: "David Coast",
-    role: "Founder",
-    body: "Designer and operator. Founded The Coast to give the visionaries behind small brands the same caliber of design that big budgets buy.",
+    role: "Founder & Creative Director",
+    image: "/founder.jpg",
+    quote:
+      "I started The Coast so the size of your budget would stop deciding the size of your brand.",
+    story: [
+      "I spent years watching brilliant founders lose to lesser products - not because their work was weak, but because their brand never gave anyone a reason to stop, trust, and remember. The best studios could fix that. Almost none of them were built for the people who needed it most.",
+      "So I built The Coast: agency-grade identity, websites, and strategy, delivered on a timeline and a budget a founder can actually live with - without thinning the craft. The same caliber of design that big budgets buy, put in the hands of the visionaries behind small brands.",
+      "Every project runs on one belief - strategy first, craft always. We don't just make things that look good; we build the system that makes you unmistakable and lets you scale. That is the work, and that is the whole point. We turn visions into empires.",
+    ],
   },
 };
 

@@ -106,9 +106,25 @@ export default function AboutPage() {
         <section className="section">
           <p className="sectionLabel">Founder</p>
           <div className={styles.founder}>
-            <h2 className={styles.founderName}>{STUDIO.founder.name}</h2>
-            <p className={styles.founderRole}>{STUDIO.founder.role}</p>
-            <p className={styles.founderBody}>{STUDIO.founder.body}</p>
+            <Reveal variant="mask-wipe">
+              <figure
+                className={styles.founderPortrait}
+                role="img"
+                aria-label={`${STUDIO.founder.name}, ${STUDIO.founder.role} of The Coast`}
+              />
+            </Reveal>
+            <div className={styles.founderStory}>
+              <blockquote className={styles.founderQuote}>{STUDIO.founder.quote}</blockquote>
+              {STUDIO.founder.story.map((p, i) => (
+                <p key={i} className={styles.founderBody}>
+                  {p}
+                </p>
+              ))}
+              <div className={styles.founderSign}>
+                <span className={styles.founderName}>{STUDIO.founder.name}</span>
+                <span className={styles.founderRole}>{STUDIO.founder.role}</span>
+              </div>
+            </div>
           </div>
         </section>
 
