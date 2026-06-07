@@ -78,6 +78,16 @@
   color: var(--color-white-dim);
 }
 
+.founderTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin: 0 0 2rem;
+}
+
 .founder {
   margin-top: 2rem;
   display: grid;

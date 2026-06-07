@@ -3,9 +3,8 @@ import Link from 'next/link'
 import { ChamberShell } from '@/components/ui/ChamberShell'
 import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
-import { ParallaxImage } from '@/components/motion/ParallaxImage'
 import { PaletteStack } from '@/components/ui/PaletteStack'
-import { STUDIO, STATS, COMPANY, PALETTE, EDITORIAL } from '@/lib/content/coast'
+import { STUDIO, STATS, COMPANY, PALETTE } from '@/lib/content/coast'
 import { CardIcon } from '@/components/ui/CardIcon'
 import styles from './about.module.css'
 
@@ -93,18 +92,7 @@ export default function AboutPage() {
         </section>
 
         <section className="section">
-          <Reveal variant="mask-wipe">
-            <div className={styles.imageBand}>
-              <ParallaxImage src={EDITORIAL[5].src} alt={EDITORIAL[5].alt} mode="grain-color" amount={14} />
-              <div className={styles.imageBandCaption}>
-                <p className={styles.imageBandText}>{EDITORIAL[5].caption}</p>
-              </div>
-            </div>
-          </Reveal>
-        </section>
-
-        <section className="section">
-          <p className="sectionLabel">Founder</p>
+          <h2 className={styles.founderTitle}>Founder</h2>
           <div className={styles.founder}>
             <Reveal variant="mask-wipe">
               <figure
