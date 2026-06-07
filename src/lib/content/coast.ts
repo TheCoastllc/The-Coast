@@ -170,7 +170,7 @@ export const STUDIO = {
   ],
   founder: {
     name: "David Coast",
-    role: "Founder & Creative Director",
+    role: "Founder & CEO",
     image: "/founder.jpg",
     tag: "A true story",
     headline: "A homeless dream, born in the back seat of a car.",
@@ -180,6 +180,17 @@ export const STUDIO = {
       "He knew exactly what it felt like to be overlooked. So he built a studio for the people the world overlooks - the founders, the artists, the dreamers with everything to prove and no budget to prove it. Today, The Coast turns their visions into empires.",
     ],
   },
+  team: [
+    { name: "Ikeji Joshua", role: "Technical Lead, SEO & Development", image: "/team/ikeji-joshua.jpg" },
+    { name: "Abubakar Sani", role: "Creative & Brand Design", image: "/team/abubakar-sani.jpg" },
+    { name: "Josh Eruemegbe", role: "Executive Assistant & Social Media", image: "/team/josh-eruemegbe.jpg" },
+    { name: "Dare", role: "AI Engineer", image: "/team/dare.jpg" },
+    { name: "Ebenezer Tijani", role: "AI Engineer", image: "/team/ebenezer-tijani.jpg" },
+    { name: "Rejoice Obosi", role: "Product Lead, UI / UX", image: "/team/rejoice-obosi.jpg" },
+    { name: "Subham Kumar", role: "Digital Marketing Lead", image: "/team/subham-kumar.jpg" },
+    { name: "Sammiat Ahmed", role: "Social Media Intern", image: "/team/sammiat-ahmed.jpg" },
+    { name: "Ebun", role: "Social Media Intern", image: "/team/ebun.jpg" },
+  ],
 };
 
 export const CONTACT = {

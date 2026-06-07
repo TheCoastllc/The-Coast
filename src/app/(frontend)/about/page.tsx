@@ -46,7 +46,7 @@ const personSchema = {
   '@type': 'Person',
   '@id': 'https://coastglobal.org/about#david-coast',
   name: 'David Coast',
-  jobTitle: 'Founder & Creative Director',
+  jobTitle: 'Founder & CEO',
   url: 'https://coastglobal.org/about',
   worksFor: { '@id': 'https://coastglobal.org/#organization' },
 }
@@ -114,6 +114,26 @@ export default function AboutPage() {
                 <span className={styles.founderRole}>{STUDIO.founder.role}</span>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <h2 className={styles.founderTitle}>Team</h2>
+          <div className={styles.teamGrid}>
+            {STUDIO.team.map((m, i) => (
+              <Reveal key={m.name} variant={variantForIndex(i)}>
+                <article className={styles.teamCard}>
+                  <div
+                    className={styles.teamPhoto}
+                    style={{ backgroundImage: `url(${m.image})` }}
+                    role="img"
+                    aria-label={`${m.name}, ${m.role}`}
+                  />
+                  <h3 className={styles.teamName}>{m.name}</h3>
+                  <p className={styles.teamRole}>{m.role}</p>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </section>
 
