@@ -182,7 +182,7 @@ export const STUDIO = {
   },
   team: [
     { name: "Ikeji", role: "Technical Lead, SEO & Development", image: "/team/ikeji.jpg" },
-    { name: "Abubakar", role: "Creative & Brand Design", image: "/team/abubakar.jpg" },
+    { name: "ABK", role: "Creative & Brand Design", image: "/team/abk.jpg" },
     { name: "Josh", role: "Executive Assistant & Social Media", image: "/team/josh.jpg" },
     { name: "Dare", role: "AI Engineer", image: "/team/dare.jpg" },
     { name: "Ebenezer", role: "AI Engineer", image: "/team/ebenezer.jpg" },
@@ -190,6 +190,7 @@ export const STUDIO = {
     { name: "Subham", role: "Digital Marketing Lead", image: "/team/subham.jpg" },
     { name: "Sammiat", role: "Social Media Intern", image: "/team/sammiat.jpg" },
     { name: "Ebun", role: "Social Media Intern", image: "/team/ebun.jpg" },
+    { name: "Grace", role: "", image: "/team/grace.jpg" },
   ],
 };
 

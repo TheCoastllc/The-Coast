@@ -130,7 +130,7 @@ export default function AboutPage() {
                     aria-label={`${m.name}, ${m.role}`}
                   />
                   <h3 className={styles.teamName}>{m.name}</h3>
-                  <p className={styles.teamRole}>{m.role}</p>
+                  {m.role && <p className={styles.teamRole}>{m.role}</p>}
                 </article>
               </Reveal>
             ))}
