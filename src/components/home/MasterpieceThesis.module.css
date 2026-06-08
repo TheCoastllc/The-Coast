@@ -238,9 +238,9 @@
   inset: 12% auto 12% 5%;
   width: min(47%, 600px);
   border-radius: 20px;
-  background: rgba(8, 17, 26, 0.34);
+  background: linear-gradient(158deg, rgba(11, 22, 32, 0.46), rgba(6, 13, 21, 0.6));
   box-shadow:
-    0 50px 110px rgba(0, 0, 0, 0.5),
+    0 50px 110px rgba(0, 0, 0, 0.52),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 .card .content {
