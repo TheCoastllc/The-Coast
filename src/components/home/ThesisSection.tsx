@@ -146,17 +146,29 @@ function GlassLensBeat({ beat, i }: { beat: Beat; i: number }) {
 /* Billboard: three selectable looks via ?bb=square|jumbotron|street. */
 function BillboardBeat({ beat, i }: { beat: Beat; i: number }) {
   const bb = useVariant("bb", BB_VARIANTS, "square");
+
+  // luxury - the statement composited onto a real billboard photo, sheared to its plane
+  if (bb === "luxury") {
+    return (
+      <section className={`${styles.beat} ${styles.bbLuxury}`} data-i={i} data-bb="luxury">
+        <div className={styles.bbPlate}>
+          <div className={styles.bbScreenFill} aria-hidden />
+          <div className={styles.bbSign}>
+            <span className={styles.bbSignBrand}>THE COAST</span>
+            <h2 className={`${styles.bbSignTitle} no-marble`}>
+              {renderTitle(beat.title, KEYWORDS[i] ?? "")}
+            </h2>
+            <span className={styles.bbSignUrl}>coastglobal.org</span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const cls =
-    bb === "jumbotron"
-      ? styles.bbJumbotron
-      : bb === "street"
-        ? styles.bbStreet
-        : bb === "luxury"
-          ? styles.bbLuxury
-          : styles.bbSquare;
+    bb === "jumbotron" ? styles.bbJumbotron : bb === "street" ? styles.bbStreet : styles.bbSquare;
   return (
     <section className={`${styles.beat} ${cls}`} data-i={i} data-bb={bb}>
-      <div className={styles.bbPhoto} aria-hidden />
       <div className={styles.bbCity} aria-hidden>
         <span className={styles.bbSkyline} />
         <span className={styles.bbAd} data-ad="l" />
@@ -172,7 +184,6 @@ function BillboardBeat({ beat, i }: { beat: Beat; i: number }) {
           <div className={styles.bbScreenInner}>
             <BeatContent beat={beat} i={i} />
           </div>
-          <span className={styles.bbCaption} aria-hidden>coastglobal.org</span>
         </div>
       </div>
       <div className={styles.bbReflect} aria-hidden />

@@ -467,97 +467,73 @@
   display: none;
 }
 
-/* ---- LUXURY: minimal fashion billboard set into a real dusk city, for depth ----
-   Background photo: Unsplash (license-clean, commercial OK). public/img/city-dusk.jpg */
-.bbPhoto {
-  display: none;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url("/img/city-dusk.jpg") center 40% / cover no-repeat;
-}
-.bbLuxury .bbPhoto {
-  display: block;
-}
-.bbLuxury .bbPhoto::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(120% 90% at 50% 42%, transparent 28%, rgba(3, 5, 10, 0.5) 100%),
-    linear-gradient(180deg, rgba(4, 6, 12, 0.42) 0%, rgba(4, 6, 12, 0.6) 55%, rgba(2, 3, 8, 0.9) 100%);
-}
+/* ---- LUXURY: the statement composited ONTO a real billboard photo, sheared to its plane.
+   Plate: Unsplash (license-clean, commercial OK). public/img/billboard-plate.jpg ---- */
 .billboard .bbLuxury {
-  background: #04060c;
-}
-
-/* the minimal luxury panel */
-.bbLuxury .bbScreen {
-  width: min(42%, 560px);
-  min-height: 60vh;
-  margin-bottom: 0;
-  border-radius: 2px;
+  background: linear-gradient(180deg, #0a1622, #05080f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
-  background: linear-gradient(180deg, #0a0b10, #060708);
-  box-shadow:
-    0 70px 150px rgba(0, 0, 0, 0.72),
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-.bbLuxury .bbScreenInner {
-  min-height: 60vh;
-  background: none;
-  padding: clamp(2.6rem, 5vw, 4.4rem);
-  overflow: visible;
+.bbPlate {
+  position: relative;
+  width: min(100%, calc(90vh * 1.5));
+  aspect-ratio: 3 / 2;
+  background: url("/img/billboard-plate.jpg") center / cover no-repeat;
+  overflow: hidden;
 }
-.bbLuxury .bbScreenInner::before,
-.bbLuxury .bbScreenInner::after {
-  display: none;
+/* clean dark surface clipped to the screen's 4 corners */
+.bbScreenFill {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(14% 39%, 83% 10.5%, 83% 62%, 14% 87%);
+  background:
+    radial-gradient(120% 120% at 38% 28%, rgba(30, 34, 44, 0.55), transparent 60%),
+    linear-gradient(135deg, #0e0f14 0%, #07080b 55%, #030405 100%);
 }
-.bbLuxury .bbBrand {
-  top: 9%;
-  font-size: 0.7rem;
-  letter-spacing: 0.55em;
-  color: rgba(238, 238, 240, 0.9);
-  text-shadow: none;
+/* the message, sheared onto the screen plane */
+.bbSign {
+  position: absolute;
+  left: 14%;
+  top: 10.5%;
+  width: 69%;
+  height: 76.5%;
+  transform: skewY(-21deg);
+  transform-origin: left top;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1em;
+  text-align: center;
+  padding: 4% 6%;
 }
-.bbLuxury .label,
-.bbLuxury .body {
-  display: none;
+.bbSignBrand {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.5rem, 1vw, 0.78rem);
+  letter-spacing: 0.5em;
+  color: rgba(240, 240, 242, 0.85);
 }
-.bbLuxury .title {
+.bbSignTitle {
   font-family: var(--font-serif), Georgia, serif;
   font-weight: 300;
-  font-size: clamp(1.9rem, 3.6vw, 3rem);
-  line-height: 1.18;
+  font-size: clamp(1.1rem, 2.5vw, 2.1rem);
+  line-height: 1.2;
   letter-spacing: -0.005em;
-  color: #f3f3f5;
-  text-shadow: none;
+  color: #f2f2f4;
+  margin: 0;
 }
-.bbLuxury .title em {
+.bbSignTitle em {
   color: var(--color-gold);
   font-style: italic;
-  text-shadow: none;
 }
-.bbCaption {
-  display: none;
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
+.bbSignUrl {
   font-family: var(--font-mono), monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.4em;
+  font-size: clamp(0.42rem, 0.85vw, 0.64rem);
+  letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: rgba(222, 222, 226, 0.55);
-  white-space: nowrap;
-}
-.bbLuxury .bbCaption {
-  display: block;
-}
-.bbLuxury .bbReflect {
-  display: none;
+  color: rgba(224, 224, 228, 0.6);
 }
 
 /* ===================== 5 · LOOKING GLASS (refined crystal lens) ===================== */
@@ -714,7 +690,7 @@
   .bbSquare .bbAd, .bbSquare .bbTicker, .bbSquare .bbSkyline { display: none; }
   .bbJumbotron .bbScreen { width: 94%; min-height: 46vh; }
   .bbStreet .bbScreen { transform: none; width: 94%; }
-  .bbLuxury .bbScreen { width: 86%; min-height: 56vh; }
+  .bbLuxury .bbPlate { width: 96%; }
   .glassBeat { --lr: 90px; --z: 1.5; }
   .chRose { width: 16vh; height: 16vh; }
 }
