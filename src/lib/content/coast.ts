@@ -141,7 +141,7 @@ export const ENGAGEMENT = {
 
 export const STUDIO = {
   intro:
-    "The Coast is a brand design studio founded by David Coast. We make professional branding affordable and accessible for small businesses, entrepreneurs, startups, and artists.",
+    "The best brand should win - not the biggest budget. The Coast is a design studio built to make that true: agency-grade identity, websites, and strategy for the founders, artists, and challengers the industry overlooks.",
   beliefs: [
     {
       n: "01",
@@ -173,11 +173,11 @@ export const STUDIO = {
     role: "Founder & CEO",
     image: "/founder.jpg",
     tag: "A true story",
-    headline: "A homeless dream, born in the back seat of a car.",
+    headline: "A dream born in the backseat of a car.",
     story: [
-      "David Coast lost his corporate job in America and made the call most people only talk about - he bet on himself. One suitcase, a laptop, and a guitar. A one-way drive to Miami with no plan B.",
-      "For months, his car was home. He worked out of Starbucks by day, showered at Planet Fitness, and built - late into every night - the studio that would become The Coast.",
-      "He knew exactly what it felt like to be overlooked. So he built a studio for the people the world overlooks - the founders, the artists, the dreamers with everything to prove and no budget to prove it. Today, The Coast turns their visions into empires.",
+      "David Coast walked away from a steady corporate paycheck to back one conviction - the best brand should win, not the biggest budget. He drove to Miami with one suitcase, a laptop, and a guitar, and the first version of The Coast took shape in the backseat of that car. No safety net. No plan B.",
+      "He ran the business before he had an office for it - building late into every night, out-working every room he walked into, earning The Coast one client at a time. Nobody funded it into existence. He willed it into being.",
+      "Now he builds for the people the world overlooks - the founders, the artists, the dreamers with everything to prove and no budget to prove it. He bet on himself. Now he bets on you. That is how visions become empires.",
     ],
   },
   team: [
