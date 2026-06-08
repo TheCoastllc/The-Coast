@@ -496,16 +496,16 @@
 .bbSign {
   position: absolute;
   left: 13%;
-  top: 16%;
+  top: 38%;
   width: 71.5%;
-  height: 68%;
+  height: 50%;
   transform: skewY(-20.5deg);
   transform-origin: left top;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.2em;
+  gap: 1.5em;
   text-align: center;
   padding: 3% 5%;
 }
@@ -518,7 +518,7 @@
 .bbSignTitle {
   font-family: var(--font-serif), Georgia, serif;
   font-weight: 300;
-  font-size: clamp(1.4rem, 3.3vw, 2.9rem);
+  font-size: clamp(1.5rem, 3.5vw, 3.1rem);
   line-height: 1.18;
   letter-spacing: -0.005em;
   color: #f2f2f4;
