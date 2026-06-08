@@ -11,11 +11,11 @@ import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { IntroCurtain } from "./IntroCurtain";
-import { ThesisSection } from "./ThesisSection";
+import { MasterpieceThesis } from "./MasterpieceThesis";
 import { VideoWave } from "@/components/VideoWave";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
-import { THESIS, SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
+import { SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { TRUSTED_BRANDS_FALLBACK } from "@/lib/trusted-brands-fallback";
 import { ReviewsMarquee } from "./ReviewsMarquee";
@@ -112,7 +112,7 @@ export function HomeOcean({
 
       <div className={styles.content}>
         <RevealGroup>
-          <ThesisSection items={THESIS} />
+          <MasterpieceThesis />
 
           <section className="section">
             <div className={`${styles.waveTeaser} glass`} data-glow="gold">

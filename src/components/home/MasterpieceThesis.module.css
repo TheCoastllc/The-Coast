@@ -1,0 +1,451 @@
+/* ============================================================
+   MasterpieceThesis - 7 cinematic treatments + live toggle
+   Plates: Unsplash (license-clean). public/img/ocean-aerial.jpg,
+   ocean-dark.jpg, billboard-plate.jpg
+   ============================================================ */
+
+.wrap {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #04080e;
+  color: #eef3f7;
+}
+.stage {
+  position: absolute;
+  inset: 0;
+}
+.photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.grade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.glass {
+  position: absolute;
+  z-index: 2;
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
+  backdrop-filter: blur(22px) saturate(1.1);
+  background: rgba(10, 18, 26, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.index {
+  position: absolute;
+  top: 5vh;
+  right: 6vw;
+  z-index: 5;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---- shared content block ---- */
+.content {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 6vw;
+}
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 1.5rem;
+}
+.headline {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.6rem, 6.5vw, 5.6rem);
+  margin: 0 0 1.8rem;
+  max-width: 17ch;
+}
+.lead {
+  color: #fff;
+}
+.key {
+  color: var(--color-gold);
+  font-style: italic;
+}
+.body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.7;
+  max-width: 40ch;
+  color: rgba(230, 238, 246, 0.8);
+  margin: 0 0 2.2rem;
+}
+.actions {
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  transition: background 0.35s var(--ease-out), color 0.35s, transform 0.35s;
+}
+.cta:hover {
+  background: var(--color-gold);
+  color: #08121c;
+  transform: translateY(-2px);
+}
+.ctaArrow {
+  transition: transform 0.35s;
+}
+.cta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+.ghost {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 238, 246, 0.7);
+  padding: 0.85rem 0.3rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+.ghost:hover {
+  color: #fff;
+  border-color: var(--color-gold);
+}
+.dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2.6rem;
+}
+.dots span {
+  width: 30px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+}
+.dotOn {
+  background: var(--color-gold) !important;
+}
+
+/* =========================================================
+   1 - GLASS SPLIT  (frosted left, headline crosses the seam)
+   ========================================================= */
+.split .photo {
+  background-image: url("/img/ocean-dark.jpg");
+}
+.split .grade {
+  background: linear-gradient(100deg, rgba(4, 10, 16, 0.55), rgba(4, 10, 16, 0.1) 58%, transparent);
+}
+.split .glass {
+  inset: 0 auto 0 0;
+  width: 53%;
+  border-width: 0 1px 0 0;
+}
+.split .content {
+  max-width: 1280px;
+}
+.split .headline {
+  max-width: 15ch;
+}
+.split .lead {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* =========================================================
+   2 - EDITORIAL GIANT  (oversized gradient headline, no glass)
+   ========================================================= */
+.giant .photo {
+  background-image: url("/img/ocean-aerial.jpg");
+  background-position: center 35%;
+}
+.giant .grade {
+  background: linear-gradient(180deg, rgba(2, 8, 14, 0.45), rgba(2, 8, 14, 0.15) 38%, rgba(2, 8, 14, 0.82));
+}
+.giant .glass {
+  display: none;
+}
+.giant .content {
+  align-self: flex-end;
+  padding-bottom: 12vh;
+}
+.giant .eyebrow {
+  color: rgba(255, 235, 200, 0.9);
+}
+.giant .headline {
+  font-size: clamp(3.4rem, 11vw, 9.5rem);
+  max-width: 13ch;
+  line-height: 0.98;
+}
+.giant .lead {
+  background: linear-gradient(118deg, #ffffff 28%, #f4d290 62%, var(--color-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================================================
+   3 - FROSTED CARD  (content inside a floating glass card)
+   ========================================================= */
+.card .photo {
+  background-image: url("/img/ocean-aerial.jpg");
+}
+.card .grade {
+  background: radial-gradient(130% 110% at 72% 36%, transparent 20%, rgba(2, 8, 14, 0.55));
+}
+.card .glass {
+  inset: 13% auto 13% 5%;
+  width: min(48%, 660px);
+  border-radius: 20px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+}
+.card .content {
+  max-width: none;
+  width: min(48%, 660px);
+  margin: 0;
+  padding: 0 0 0 5%;
+}
+.card .headline {
+  font-size: clamp(2.2rem, 4.4vw, 4rem);
+  max-width: 12ch;
+}
+.card .body {
+  max-width: 34ch;
+}
+
+/* =========================================================
+   4 - BILLBOARD  (statement composited onto a real billboard)
+   ========================================================= */
+.billboard {
+  background: linear-gradient(180deg, #0a1622, #05080f);
+  justify-content: center;
+}
+.billboard .stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bbPlate {
+  position: relative;
+  width: min(100%, calc(92vh * 1.5));
+  aspect-ratio: 3 / 2;
+  background: url("/img/billboard-plate.jpg") center / cover no-repeat;
+  overflow: hidden;
+}
+.bbScreenFill {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(13% 37%, 84% 8%, 84.5% 64.5%, 13% 88.5%);
+  background:
+    radial-gradient(120% 120% at 38% 28%, rgba(30, 34, 44, 0.5), transparent 60%),
+    linear-gradient(135deg, #0e0f14 0%, #07080b 55%, #030405 100%);
+}
+.bbSign {
+  position: absolute;
+  left: 13%;
+  top: 38%;
+  width: 71.5%;
+  height: 50%;
+  transform: skewY(-20.5deg);
+  transform-origin: left top;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  text-align: center;
+  padding: 3% 5%;
+}
+.bbSignBrand {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.56rem, 1.1vw, 0.86rem);
+  letter-spacing: 0.5em;
+  color: rgba(240, 240, 242, 0.85);
+}
+.bbSignTitle {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3.5vw, 3.1rem);
+  line-height: 1.18;
+  color: #f2f2f4;
+  margin: 0;
+}
+.bbSignTitle em {
+  color: var(--color-gold);
+  font-style: italic;
+}
+.bbSignUrl {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.42rem, 0.85vw, 0.64rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(224, 224, 228, 0.6);
+}
+
+/* =========================================================
+   5 - SPOTLIGHT  (teal-graded, bold left, accent glow right)
+   ========================================================= */
+.spotlight .photo {
+  background-image: url("/img/ocean-dark.jpg");
+  background-position: 70% center;
+}
+.spotlight .grade {
+  background:
+    radial-gradient(80% 90% at 18% 50%, rgba(18, 60, 78, 0.82), transparent 70%),
+    linear-gradient(110deg, rgba(8, 26, 36, 0.92) 30%, rgba(8, 26, 36, 0.2) 70%);
+}
+.spotlight .glass {
+  display: none;
+}
+.spotlight .eyebrow {
+  color: rgba(150, 220, 230, 0.9);
+}
+.spotlight .headline {
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  max-width: 13ch;
+}
+.spotlight .key {
+  color: #fff;
+}
+
+/* =========================================================
+   6 - OCEAN  (clean aerial ocean + low glass bar, minimal)
+   ========================================================= */
+.ocean .photo {
+  background-image: url("/img/ocean-aerial.jpg");
+  background-position: center 30%;
+}
+.ocean .grade {
+  background:
+    linear-gradient(180deg, rgba(2, 18, 26, 0.45) 0%, transparent 32%, rgba(2, 14, 22, 0.72) 100%);
+}
+.ocean .glass {
+  inset: auto 0 0 0;
+  height: 42%;
+  border-width: 1px 0 0 0;
+  background: rgba(6, 22, 32, 0.26);
+}
+.ocean .content {
+  align-self: flex-end;
+  padding-bottom: 9vh;
+}
+.ocean .headline {
+  font-size: clamp(2.6rem, 6vw, 5.2rem);
+}
+
+/* =========================================================
+   7 - DARK WATER  (moody churn, statement on the dark right)
+   ========================================================= */
+.water .photo {
+  background-image: url("/img/ocean-dark.jpg");
+  background-position: 20% center;
+}
+.water .grade {
+  background:
+    radial-gradient(90% 100% at 78% 50%, rgba(2, 6, 10, 0.5), transparent 60%),
+    linear-gradient(270deg, rgba(2, 6, 10, 0.85) 28%, transparent 62%);
+}
+.water .glass {
+  display: none;
+}
+.water .content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+.water .headline {
+  max-width: 14ch;
+}
+.water .body {
+  margin-left: auto;
+}
+.water .actions {
+  justify-content: flex-end;
+}
+
+/* =========================================================
+   the live toggle
+   ========================================================= */
+.toggle {
+  position: absolute;
+  bottom: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.45rem;
+  border-radius: 100px;
+  background: rgba(8, 14, 22, 0.62);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 94vw;
+  overflow-x: auto;
+}
+.toggleBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 100px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  color: rgba(230, 238, 246, 0.6);
+  transition: background 0.3s, color 0.3s;
+}
+.toggleBtn:hover {
+  color: #fff;
+}
+.toggleActive {
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+.toggleNum {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+}
+.toggleName {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .split .glass { width: 100%; }
+  .card .glass, .card .content { inset: auto; width: 90%; }
+  .card .content { padding-left: 7vw; }
+  .toggleName { display: none; }
+  .headline { font-size: clamp(2.2rem, 8vw, 3.4rem); }
+}
