@@ -467,6 +467,99 @@
   display: none;
 }
 
+/* ---- LUXURY: minimal fashion billboard set into a real dusk city, for depth ----
+   Background photo: Unsplash (license-clean, commercial OK). public/img/city-dusk.jpg */
+.bbPhoto {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("/img/city-dusk.jpg") center 40% / cover no-repeat;
+}
+.bbLuxury .bbPhoto {
+  display: block;
+}
+.bbLuxury .bbPhoto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 42%, transparent 28%, rgba(3, 5, 10, 0.5) 100%),
+    linear-gradient(180deg, rgba(4, 6, 12, 0.42) 0%, rgba(4, 6, 12, 0.6) 55%, rgba(2, 3, 8, 0.9) 100%);
+}
+.billboard .bbLuxury {
+  background: #04060c;
+}
+
+/* the minimal luxury panel */
+.bbLuxury .bbScreen {
+  width: min(42%, 560px);
+  min-height: 60vh;
+  margin-bottom: 0;
+  border-radius: 2px;
+  padding: 0;
+  background: linear-gradient(180deg, #0a0b10, #060708);
+  box-shadow:
+    0 70px 150px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.bbLuxury .bbScreenInner {
+  min-height: 60vh;
+  background: none;
+  padding: clamp(2.6rem, 5vw, 4.4rem);
+  overflow: visible;
+}
+.bbLuxury .bbScreenInner::before,
+.bbLuxury .bbScreenInner::after {
+  display: none;
+}
+.bbLuxury .bbBrand {
+  top: 9%;
+  font-size: 0.7rem;
+  letter-spacing: 0.55em;
+  color: rgba(238, 238, 240, 0.9);
+  text-shadow: none;
+}
+.bbLuxury .label,
+.bbLuxury .body {
+  display: none;
+}
+.bbLuxury .title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+  color: #f3f3f5;
+  text-shadow: none;
+}
+.bbLuxury .title em {
+  color: var(--color-gold);
+  font-style: italic;
+  text-shadow: none;
+}
+.bbCaption {
+  display: none;
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(222, 222, 226, 0.55);
+  white-space: nowrap;
+}
+.bbLuxury .bbCaption {
+  display: block;
+}
+.bbLuxury .bbReflect {
+  display: none;
+}
+
 /* ===================== 5 · LOOKING GLASS (refined crystal lens) ===================== */
 .glass .beat {
   background:
@@ -621,6 +714,7 @@
   .bbSquare .bbAd, .bbSquare .bbTicker, .bbSquare .bbSkyline { display: none; }
   .bbJumbotron .bbScreen { width: 94%; min-height: 46vh; }
   .bbStreet .bbScreen { transform: none; width: 94%; }
+  .bbLuxury .bbScreen { width: 86%; min-height: 56vh; }
   .glassBeat { --lr: 90px; --z: 1.5; }
   .chRose { width: 16vh; height: 16vh; }
 }

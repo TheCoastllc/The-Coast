@@ -10,7 +10,7 @@ export type ThesisVariant = (typeof THESIS_VARIANTS)[number];
 type Beat = { label: string; title: string; body: string };
 const KEYWORDS = ["invisibility", "accessible", "empires"] as const;
 
-export const BB_VARIANTS = ["square", "jumbotron", "street"] as const;
+export const BB_VARIANTS = ["square", "jumbotron", "street", "luxury"] as const;
 
 function renderTitle(title: string, k: string) {
   const i = title.toLowerCase().indexOf(k.toLowerCase());
@@ -147,9 +147,16 @@ function GlassLensBeat({ beat, i }: { beat: Beat; i: number }) {
 function BillboardBeat({ beat, i }: { beat: Beat; i: number }) {
   const bb = useVariant("bb", BB_VARIANTS, "square");
   const cls =
-    bb === "jumbotron" ? styles.bbJumbotron : bb === "street" ? styles.bbStreet : styles.bbSquare;
+    bb === "jumbotron"
+      ? styles.bbJumbotron
+      : bb === "street"
+        ? styles.bbStreet
+        : bb === "luxury"
+          ? styles.bbLuxury
+          : styles.bbSquare;
   return (
     <section className={`${styles.beat} ${cls}`} data-i={i} data-bb={bb}>
+      <div className={styles.bbPhoto} aria-hidden />
       <div className={styles.bbCity} aria-hidden>
         <span className={styles.bbSkyline} />
         <span className={styles.bbAd} data-ad="l" />
@@ -165,6 +172,7 @@ function BillboardBeat({ beat, i }: { beat: Beat; i: number }) {
           <div className={styles.bbScreenInner}>
             <BeatContent beat={beat} i={i} />
           </div>
+          <span className={styles.bbCaption} aria-hidden>coastglobal.org</span>
         </div>
       </div>
       <div className={styles.bbReflect} aria-hidden />
