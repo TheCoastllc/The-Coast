@@ -83,6 +83,10 @@
   color: var(--color-gold);
   font-style: italic;
 }
+.headline em {
+  color: var(--color-gold);
+  font-style: italic;
+}
 .body {
   font-family: var(--font-sans), system-ui, sans-serif;
   font-size: clamp(1rem, 1.25vw, 1.15rem);
@@ -141,16 +145,25 @@
 }
 .dots {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 2.6rem;
+  gap: 0.55rem;
+  margin-top: 2.4rem;
 }
-.dots span {
+.dots button {
   width: 30px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.25);
+  height: 3px;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.28);
+  cursor: pointer;
+  transition: background 0.3s, width 0.3s;
+}
+.dots button:hover {
+  background: rgba(255, 255, 255, 0.55);
 }
 .dotOn {
   background: var(--color-gold) !important;
+  width: 44px !important;
 }
 
 /* =========================================================
@@ -214,28 +227,68 @@
    ========================================================= */
 .card .photo {
   background-image: url("/img/ocean-aerial.jpg");
+  transform-origin: 62% 42%;
 }
 .card .grade {
-  background: radial-gradient(130% 110% at 72% 36%, transparent 20%, rgba(2, 8, 14, 0.55));
+  background:
+    radial-gradient(130% 110% at 72% 36%, transparent 18%, rgba(2, 8, 14, 0.5)),
+    linear-gradient(100deg, rgba(2, 10, 16, 0.35), transparent 52%);
 }
 .card .glass {
-  inset: 13% auto 13% 5%;
-  width: min(48%, 660px);
+  inset: 12% auto 12% 5%;
+  width: min(47%, 600px);
   border-radius: 20px;
-  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45);
+  background: rgba(8, 17, 26, 0.34);
+  box-shadow:
+    0 50px 110px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 .card .content {
+  position: absolute;
+  inset: 12% auto 12% 5%;
+  width: min(47%, 600px);
   max-width: none;
-  width: min(48%, 660px);
   margin: 0;
-  padding: 0 0 0 5%;
+  padding: clamp(2.2rem, 3vw, 3.4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .card .headline {
-  font-size: clamp(2.2rem, 4.4vw, 4rem);
-  max-width: 12ch;
+  font-size: clamp(1.8rem, 3.3vw, 3rem);
+  max-width: none;
+  margin-bottom: 1.4rem;
 }
 .card .body {
-  max-width: 34ch;
+  max-width: none;
+  margin-bottom: 2rem;
+}
+.card .index {
+  color: rgba(255, 255, 255, 0.6);
+}
+/* per-statement crossfade as the card cycles */
+.card .eyebrow {
+  animation: mtIn 0.6s var(--ease-out) both;
+}
+.card .headline {
+  animation: mtIn 0.7s 0.05s var(--ease-out) both;
+}
+.card .body {
+  animation: mtIn 0.7s 0.1s var(--ease-out) both;
+}
+@keyframes mtIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+/* slow cinematic drift on the ocean */
+@media (prefers-reduced-motion: no-preference) {
+  .card .photo {
+    animation: mtKen 30s ease-in-out infinite alternate;
+  }
+}
+@keyframes mtKen {
+  from { transform: scale(1.03); }
+  to { transform: scale(1.12); }
 }
 
 /* =========================================================
