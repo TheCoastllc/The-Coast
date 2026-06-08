@@ -10,6 +10,8 @@ export type ThesisVariant = (typeof THESIS_VARIANTS)[number];
 type Beat = { label: string; title: string; body: string };
 const KEYWORDS = ["invisibility", "accessible", "empires"] as const;
 
+export const BB_VARIANTS = ["square", "jumbotron", "street"] as const;
+
 function renderTitle(title: string, k: string) {
   const i = title.toLowerCase().indexOf(k.toLowerCase());
   if (i < 0) return title;
@@ -141,6 +143,35 @@ function GlassLensBeat({ beat, i }: { beat: Beat; i: number }) {
   );
 }
 
+/* Billboard: three selectable looks via ?bb=square|jumbotron|street. */
+function BillboardBeat({ beat, i }: { beat: Beat; i: number }) {
+  const bb = useVariant("bb", BB_VARIANTS, "square");
+  const cls =
+    bb === "jumbotron" ? styles.bbJumbotron : bb === "street" ? styles.bbStreet : styles.bbSquare;
+  return (
+    <section className={`${styles.beat} ${cls}`} data-i={i} data-bb={bb}>
+      <div className={styles.bbCity} aria-hidden>
+        <span className={styles.bbSkyline} />
+        <span className={styles.bbAd} data-ad="l" />
+        <span className={styles.bbAd} data-ad="r" />
+        <span className={styles.bbAd} data-ad="t" />
+        <span className={styles.bbAd} data-ad="b" />
+        <span className={styles.bbAd} data-ad="br" />
+        <span className={styles.bbTicker} />
+      </div>
+      <div className={styles.bbStage}>
+        <div className={styles.bbScreen}>
+          <span className={styles.bbBrand} aria-hidden>THE COAST</span>
+          <div className={styles.bbScreenInner}>
+            <BeatContent beat={beat} i={i} />
+          </div>
+        </div>
+      </div>
+      <div className={styles.bbReflect} aria-hidden />
+    </section>
+  );
+}
+
 function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; i: number }) {
   const content = <BeatContent beat={beat} i={i} />;
 
@@ -178,21 +209,7 @@ function ThesisBeat({ variant, beat, i }: { variant: ThesisVariant; beat: Beat; 
     );
   }
   if (variant === "billboard") {
-    return (
-      <section className={styles.beat} data-i={i}>
-        <div className={styles.bbCity} aria-hidden>
-          <span className={styles.bbAd} data-ad="l" />
-          <span className={styles.bbAd} data-ad="r" />
-          <span className={styles.bbAd} data-ad="b" />
-          <span className={styles.bbTicker} />
-        </div>
-        <div className={styles.bbScreen}>
-          <span className={styles.bbBrand} aria-hidden>THE COAST</span>
-          <div className={styles.bbScreenInner}>{content}</div>
-        </div>
-        <div className={styles.bbReflect} aria-hidden />
-      </section>
-    );
+    return <BillboardBeat beat={beat} i={i} />;
   }
   // glass - interactive water-lens magnifier
   return <GlassLensBeat beat={beat} i={i} />;

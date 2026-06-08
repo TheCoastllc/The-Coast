@@ -200,17 +200,17 @@
 .chart .title em { color: #a11f1f; }
 .chart .body { color: rgba(58, 44, 20, 0.82); }
 
-/* ===================== 4 · BILLBOARD (Times Square LED) ===================== */
+/* ===================== 4 · BILLBOARD - 3 looks via ?bb=square|jumbotron|street ===================== */
 .billboard .beat {
   background:
     radial-gradient(100% 72% at 50% 16%, rgba(66, 46, 102, 0.42), transparent 60%),
     radial-gradient(70% 52% at 81% 36%, rgba(196, 64, 90, 0.2), transparent 62%),
     radial-gradient(70% 52% at 17% 42%, rgba(44, 98, 182, 0.22), transparent 62%),
     linear-gradient(180deg, #05060c 0%, #080a14 56%, #03040a 100%);
-  perspective: 1500px;
+  perspective: 1600px;
 }
 
-/* the Times Square wall of light - secondary glowing screens around the hero */
+/* city layer - panels/ticker/skyline are hidden by default; each look opts in */
 .bbCity {
   position: absolute;
   inset: 0;
@@ -222,6 +222,7 @@
   position: absolute;
   border-radius: 12px;
   filter: blur(1.5px);
+  display: none;
 }
 .bbAd[data-ad="l"] {
   left: -5%;
@@ -241,6 +242,14 @@
   box-shadow: 0 0 90px 14px rgba(214, 62, 116, 0.24);
   transform: rotateY(-26deg);
 }
+.bbAd[data-ad="t"] {
+  left: 31%;
+  top: -5%;
+  width: 24%;
+  height: 13%;
+  background: linear-gradient(160deg, rgba(120, 200, 160, 0.5), rgba(20, 60, 46, 0.3));
+  box-shadow: 0 0 70px 10px rgba(120, 200, 160, 0.2);
+}
 .bbAd[data-ad="b"] {
   left: 9%;
   bottom: 7%;
@@ -248,6 +257,15 @@
   height: 17%;
   background: linear-gradient(160deg, rgba(244, 184, 64, 0.55), rgba(120, 80, 22, 0.3));
   box-shadow: 0 0 70px 12px rgba(244, 184, 64, 0.22);
+}
+.bbAd[data-ad="br"] {
+  right: 6%;
+  bottom: 9%;
+  width: 16%;
+  height: 24%;
+  background: linear-gradient(200deg, rgba(170, 120, 230, 0.5), rgba(60, 30, 90, 0.3));
+  box-shadow: 0 0 80px 12px rgba(170, 120, 230, 0.2);
+  transform: rotateY(-18deg);
 }
 .bbTicker {
   position: absolute;
@@ -258,12 +276,35 @@
   background: repeating-linear-gradient(180deg, rgba(120, 210, 168, 0.55) 0 6px, transparent 6px 13px);
   filter: blur(1.5px);
   opacity: 0.5;
+  display: none;
+}
+.bbSkyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16vh;
+  display: none;
+  background:
+    radial-gradient(2px 2px at 12% 46%, rgba(255, 220, 150, 0.7), transparent),
+    radial-gradient(2px 2px at 20% 64%, rgba(180, 210, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 34% 54%, rgba(255, 220, 150, 0.5), transparent),
+    radial-gradient(2px 2px at 70% 58%, rgba(180, 210, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 84% 48%, rgba(255, 220, 150, 0.6), transparent),
+    radial-gradient(2px 2px at 92% 66%, rgba(180, 210, 255, 0.5), transparent),
+    linear-gradient(180deg, transparent, rgba(2, 4, 8, 0.66));
 }
 
 /* the hero LED screen */
-.bbScreen {
+.bbStage {
   position: relative;
   z-index: 3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.bbScreen {
+  position: relative;
   width: min(62%, 860px);
   min-height: 48vh;
   margin-bottom: 8vh;
@@ -356,6 +397,74 @@
   filter: blur(12px);
   z-index: 1;
   pointer-events: none;
+}
+
+/* ---- SQUARE: dense Times Square wall of light (default) ---- */
+.bbSquare .bbAd,
+.bbSquare .bbTicker,
+.bbSquare .bbSkyline {
+  display: block;
+}
+.bbSquare .bbScreen {
+  width: min(52%, 700px);
+}
+
+/* ---- JUMBOTRON: one massive clean LED screen ---- */
+.bbJumbotron .bbScreen {
+  width: min(84%, 1200px);
+  min-height: 62vh;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.09),
+    0 48px 120px rgba(0, 0, 0, 0.72),
+    0 0 220px 56px rgba(200, 150, 60, 0.26),
+    0 0 380px 110px rgba(80, 120, 200, 0.15);
+}
+.bbJumbotron .bbScreenInner {
+  min-height: calc(62vh - 20px);
+}
+.bbJumbotron .title {
+  font-size: clamp(2.8rem, 6.4vw, 5.4rem);
+}
+.bbJumbotron .bbReflect {
+  width: min(84%, 1200px);
+  height: 28vh;
+}
+
+/* ---- STREET: 3D billboard mounted above the street ---- */
+.billboard .bbStreet {
+  background:
+    radial-gradient(80% 60% at 50% 6%, rgba(86, 64, 128, 0.42), transparent 62%),
+    radial-gradient(60% 40% at 78% 30%, rgba(210, 110, 80, 0.16), transparent 60%),
+    linear-gradient(180deg, #0a0c1c 0%, #14122c 38%, #34203a 70%, #0a0810 100%);
+}
+.bbStreet .bbSkyline {
+  display: block;
+  height: 28vh;
+}
+.bbStreet .bbStage {
+  perspective: 1300px;
+  perspective-origin: 30% 50%;
+}
+.bbStreet .bbScreen {
+  width: min(58%, 800px);
+  margin-bottom: 6vh;
+  transform: rotateY(22deg) rotateX(4deg);
+  transform-origin: right center;
+}
+.bbStreet .bbScreen::after {
+  content: "";
+  position: absolute;
+  right: 12%;
+  bottom: -20vh;
+  width: 16px;
+  height: 20vh;
+  background: linear-gradient(180deg, #14172a, #06070d);
+  border-radius: 2px;
+  z-index: -1;
+}
+.bbStreet .bbReflect {
+  display: none;
 }
 
 /* ===================== 5 · LOOKING GLASS (refined crystal lens) ===================== */
@@ -509,7 +618,9 @@
   .boGlass { height: 26vh; }
   .lhTower { height: 30vh; opacity: 0.85; }
   .bbScreen { width: 92%; min-height: 42vh; margin-bottom: 10vh; }
-  .bbAd, .bbTicker { display: none; }
+  .bbSquare .bbAd, .bbSquare .bbTicker, .bbSquare .bbSkyline { display: none; }
+  .bbJumbotron .bbScreen { width: 94%; min-height: 46vh; }
+  .bbStreet .bbScreen { transform: none; width: 94%; }
   .glassBeat { --lr: 90px; --z: 1.5; }
   .chRose { width: 16vh; height: 16vh; }
 }
