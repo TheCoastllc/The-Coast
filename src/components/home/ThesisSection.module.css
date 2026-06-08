@@ -487,39 +487,39 @@
 .bbScreenFill {
   position: absolute;
   inset: 0;
-  clip-path: polygon(14% 39%, 83% 10.5%, 83% 62%, 14% 87%);
+  clip-path: polygon(13% 37%, 84% 8%, 84.5% 64.5%, 13% 88.5%);
   background:
-    radial-gradient(120% 120% at 38% 28%, rgba(30, 34, 44, 0.55), transparent 60%),
+    radial-gradient(120% 120% at 38% 28%, rgba(30, 34, 44, 0.5), transparent 60%),
     linear-gradient(135deg, #0e0f14 0%, #07080b 55%, #030405 100%);
 }
 /* the message, sheared onto the screen plane */
 .bbSign {
   position: absolute;
-  left: 14%;
-  top: 10.5%;
-  width: 69%;
-  height: 76.5%;
-  transform: skewY(-21deg);
+  left: 13%;
+  top: 16%;
+  width: 71.5%;
+  height: 68%;
+  transform: skewY(-20.5deg);
   transform-origin: left top;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.1em;
+  gap: 1.2em;
   text-align: center;
-  padding: 4% 6%;
+  padding: 3% 5%;
 }
 .bbSignBrand {
   font-family: var(--font-mono), monospace;
-  font-size: clamp(0.5rem, 1vw, 0.78rem);
+  font-size: clamp(0.56rem, 1.1vw, 0.86rem);
   letter-spacing: 0.5em;
   color: rgba(240, 240, 242, 0.85);
 }
 .bbSignTitle {
   font-family: var(--font-serif), Georgia, serif;
   font-weight: 300;
-  font-size: clamp(1.1rem, 2.5vw, 2.1rem);
-  line-height: 1.2;
+  font-size: clamp(1.4rem, 3.3vw, 2.9rem);
+  line-height: 1.18;
   letter-spacing: -0.005em;
   color: #f2f2f4;
   margin: 0;
