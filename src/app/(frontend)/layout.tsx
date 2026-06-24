@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import './styles.css'
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
+import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
+import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import QueryProvider from '@/components/QueryProvider'
 import { Nav } from '@/components/chrome/Nav'
 import { ScrollThread } from '@/components/chrome/ScrollThread'
@@ -25,6 +28,9 @@ const anton = Anton({
   weight: ['400'],
   variable: '--font-anton',
   display: 'swap',
+  // Not rendered on the homepage (ocean scope uses Cormorant for --font-display);
+  // only /studio + /offers use Anton. Don't preload it on every page's critical path.
+  preload: false,
 })
 
 const inter = Inter({
@@ -54,6 +60,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: 'cover',
   maximumScale: 5,
+  // Matches the dark ocean UI (html.dark / body.ocean) for mobile browser chrome.
+  themeColor: '#0a1420',
 }
 
 export const metadata: Metadata = {
@@ -82,6 +90,12 @@ export const metadata: Metadata = {
   authors: [{ name: 'The Coast', url: SITE_URL }],
   creator: 'The Coast',
   publisher: 'The Coast',
+
+  appleWebApp: {
+    capable: true,
+    title: 'The Coast',
+    statusBarStyle: 'black-translucent',
+  },
 
   verification: {
     google: 'Ys1u-yhF9J4iqt83Yyt475eed4mAOEEJw0cF68iWWkA',
@@ -138,6 +152,42 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable} relative`}>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
+        {/* Google Analytics 4 with Consent Mode v2.
+            gtag loads on every page (no cookies until consent), defaults all
+            storage to 'denied', and restores a prior 'granted' choice. config
+            sends the initial page_view; RouteAnalytics sends a page_view on each
+            subsequent App Router client navigation. The CookieBanner flips
+            analytics_storage via gtag('consent','update'). */}
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied',
+              wait_for_update: 500
+            });
+            try {
+              if (localStorage.getItem('coast-cookie-consent') === 'granted') {
+                gtag('consent', 'update', { analytics_storage: 'granted' });
+              }
+            } catch (e) {}
+            gtag('config', '${GA_MEASUREMENT_ID}', { anonymize_ip: true });
+          `}
+        </Script>
+        <Script
+          id="ga-base"
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <Suspense fallback={null}>
+          <RouteAnalytics />
+        </Suspense>
+
         <SeaBackdrop />
         <QueryProvider>
           <PageTransitionProvider>

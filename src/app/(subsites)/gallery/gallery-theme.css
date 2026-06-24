@@ -1,0 +1,13 @@
+/* Gallery route only: suppress the dark ocean film overlays so the gallery
+   owns its own canvas (the light theme would otherwise get dark-vignetted
+   corners + grain). The gallery paints its own background via GalleryExperience. */
+.grain,
+.vignette {
+  display: none !important;
+}
+
+/* Hide the ocean HUD + compass instruments on the gallery for a clean,
+   editorial canvas (they only carry the data-ocean-chrome marker here). */
+[data-ocean-chrome] {
+  display: none !important;
+}

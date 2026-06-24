@@ -1,0 +1,179 @@
+/* ============================================================
+   GlassStatement - full-bleed ocean plate + centered frosted card.
+   Same glass material as the thesis; used as the closing moment.
+   ============================================================ */
+
+.wrap {
+  position: relative;
+  width: 100vw;
+  max-width: none !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #04080e;
+  color: #eef3f7;
+}
+.wrap::after {
+  display: none !important;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+}
+.photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-image: url("/img/ocean-aerial-wide.jpg");
+  background-image: image-set(
+    url("/img/ocean-aerial-wide.avif") type("image/avif"),
+    url("/img/ocean-aerial-wide.webp") type("image/webp"),
+    url("/img/ocean-aerial-wide.jpg") type("image/jpeg")
+  );
+  z-index: 0;
+  transform-origin: 54% 46%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .photo {
+    animation: gsKen 34s ease-in-out infinite alternate;
+  }
+}
+@keyframes gsKen {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.14); }
+}
+
+.grade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    /* soft dark pool centered behind the card so the frosted glass lifts off the bright water */
+    radial-gradient(54% 60% at 50% 50%, rgba(2, 8, 14, 0.5) 0%, rgba(2, 8, 14, 0.2) 48%, transparent 72%),
+    /* gentle edge vignette */
+    radial-gradient(150% 130% at 50% 40%, transparent 38%, rgba(2, 8, 14, 0.42)),
+    linear-gradient(180deg, rgba(2, 12, 18, 0.22), transparent 46%, rgba(2, 12, 18, 0.4));
+}
+
+.index {
+  position: absolute;
+  top: 5vh;
+  right: 6vw;
+  z-index: 5;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.4em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.card {
+  position: relative;
+  z-index: 4;
+  margin: 0 auto;
+  width: min(92vw, 660px);
+  padding: clamp(2.6rem, 4.5vw, 4.2rem) clamp(2rem, 4vw, 3.6rem);
+  border-radius: 22px;
+  text-align: center;
+  background: linear-gradient(158deg, rgba(10, 20, 30, 0.5), rgba(4, 11, 19, 0.66));
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
+  backdrop-filter: blur(28px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 60px 130px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 1.5rem;
+}
+.headline {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  color: #f3f7fb;
+  margin: 0 auto 1.5rem;
+  max-width: 18ch;
+}
+.headline em {
+  color: var(--color-gold);
+  font-style: italic;
+}
+.body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  line-height: 1.7;
+  color: rgba(230, 238, 246, 0.82);
+  max-width: 46ch;
+  margin: 0 auto 2.2rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  transition: background 0.35s var(--ease-out), color 0.35s, transform 0.35s;
+}
+.cta:hover {
+  background: var(--color-gold);
+  color: #08121c;
+  transform: translateY(-2px);
+}
+.ctaArrow {
+  transition: transform 0.35s;
+}
+.cta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+.ghost {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230, 238, 246, 0.7);
+  padding: 0.85rem 0.3rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+.ghost:hover {
+  color: #fff;
+  border-color: var(--color-gold);
+}
+
+@media (max-width: 640px) {
+  .headline {
+    font-size: clamp(1.9rem, 8.5vw, 2.8rem);
+  }
+}

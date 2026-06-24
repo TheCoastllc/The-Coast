@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, ArrowLeft, Check } from 'lucide-react'
 import styles from './getStarted.module.css'
+import { SmsConsent } from '@/components/SmsConsent'
 
 const industries = [
   'Healthcare', 'E-commerce', 'Tech/SaaS', 'Food & Beverage', 'Fashion',
@@ -49,6 +50,8 @@ export default function GetStartedClient() {
   const [phone, setPhone] = useState('')
   const [selectedServices, setSelectedServices] = useState<Set<string>>(new Set())
   const [budget, setBudget] = useState('')
+  const [smsTransactional, setSmsTransactional] = useState(false)
+  const [smsMarketing, setSmsMarketing] = useState(false)
 
   const toggleService = (id: string) => {
     setSelectedServices((prev) => {
@@ -63,7 +66,7 @@ export default function GetStartedClient() {
     if (step < 3) {
       setStep(step + 1)
     } else {
-      const prefill = { name, businessName, industry, email, phone, services: Array.from(selectedServices), budget }
+      const prefill = { name, businessName, industry, email, phone, services: Array.from(selectedServices), budget, smsTransactional, smsMarketing }
       localStorage.setItem('inquiry_prefill', JSON.stringify(prefill))
       router.push('/intake')
     }
@@ -117,6 +120,11 @@ export default function GetStartedClient() {
                 <label className={styles.label}>Phone (Optional)</label>
                 <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1 (555) 000-0000" className={styles.input} />
               </div>
+              <SmsConsent
+                transactional={smsTransactional}
+                marketing={smsMarketing}
+                onChange={(f, v) => (f === 'transactional' ? setSmsTransactional(v) : setSmsMarketing(v))}
+              />
               <div className={styles.field}>
                 <label className={styles.label}>Industry *</label>
                 <div className={styles.chips}>

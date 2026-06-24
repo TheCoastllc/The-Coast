@@ -1,16 +1,18 @@
 import type { Metadata } from 'next'
 import { ChamberShell } from '@/components/ui/ChamberShell'
-import { Reveal } from '@/components/motion/Reveal'
-import { variantForIndex } from '@/components/motion/revealVariants'
-import { COMPANY, CONTACT, CONTACT_STEPS } from '@/lib/content/coast'
-import { DEFAULT_OG_IMAGES } from '@/lib/seo'
-import styles from './contact.module.css'
+import { ContactGlass } from '@/components/contact/ContactGlass'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Contact The Coast',
   description:
     'Get in touch with The Coast. Reach our brand studio by email, phone, or form - we respond to every inquiry within 24 hours on business days.',
   alternates: { canonical: 'https://coastglobal.org/contact' },
+  twitter: buildTwitter({
+    title: 'Contact The Coast | Brand Design Studio',
+    description:
+      'Questions, partnerships, press, or projects - reach The Coast team directly. We reply within 24 hours.',
+  }),
   openGraph: {
     type: 'website',
     title: 'Contact The Coast | Brand Design Studio',
@@ -44,6 +46,9 @@ export default function ContactPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }} />
+      {/* Warm the Calendly connection so the scheduler loads fast (kills the buffering). */}
+      <link rel="preconnect" href="https://calendly.com" crossOrigin="" />
+      <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="" />
 
       <ChamberShell
         index="05"
@@ -51,54 +56,7 @@ export default function ContactPage() {
         chamber="Start"
         preface="Tell us what you are building. We reply fast and move fast."
       >
-        <section className="section">
-          <div className={styles.grid}>
-            <a href={`mailto:${COMPANY.email}`} className={styles.primary} data-cursor-label="Email">
-              <span className={styles.primaryLabel}>Email</span>
-              <span className={styles.primaryValue}>{COMPANY.email}</span>
-              <span className={styles.primaryArrow}>→</span>
-            </a>
-
-            <div className={styles.details}>
-              <a href={`tel:${COMPANY.phone.replace(/[^\d+]/g, '')}`} className={styles.detailRow} data-cursor-label="Call">
-                <span className={styles.detailLabel}>Phone</span>
-                <span className={styles.detailValue}>{COMPANY.phone}</span>
-              </a>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Studio</span>
-                <span className={styles.detailValue}>{COMPANY.name}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Location</span>
-                <span className={styles.detailValue}>{COMPANY.city}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Web</span>
-                <span className={styles.detailValue}>{COMPANY.domain}</span>
-              </div>
-            </div>
-          </div>
-
-          <a href={`mailto:${COMPANY.email}`} className={styles.cta} data-cursor-label="Book">
-            {CONTACT.cta}
-            <span className={styles.ctaArrow}>→</span>
-          </a>
-        </section>
-
-        <section className="section">
-          <p className="sectionLabel">What happens next</p>
-          <div className={styles.steps}>
-            {CONTACT_STEPS.map((s, i) => (
-              <Reveal key={s.n} variant={variantForIndex(i)}>
-                <div className={styles.step}>
-                  <span className={styles.stepNum}>{s.n}</span>
-                  <h4 className={styles.stepTitle}>{s.title}</h4>
-                  <p className={styles.stepBody}>{s.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        <ContactGlass />
       </ChamberShell>
     </>
   )

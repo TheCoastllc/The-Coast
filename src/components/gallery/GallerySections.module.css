@@ -1,0 +1,55 @@
+/* ============================================================
+   Sticky jump-nav + section anchors. Theme-driven via --g-* tokens.
+   ============================================================ */
+
+/* sits just under the sticky header bar (~2.5rem tall) */
+.nav {
+  position: sticky;
+  top: 2.5rem;
+  z-index: 15;
+  margin-bottom: clamp(1.4rem, 3vw, 2.4rem);
+  padding: 0.55rem clamp(0.9rem, 4vw, 2.6rem);
+  background: color-mix(in srgb, var(--g-bg) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(14px) saturate(1.1);
+  border-bottom: 1px solid var(--g-line);
+}
+.navList {
+  max-width: 1640px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.navList::-webkit-scrollbar {
+  display: none;
+}
+.navChip {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--g-fg-dim);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--g-line);
+  transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out),
+    background 0.3s var(--ease-out);
+}
+.navChip:hover,
+.navChip:focus-visible {
+  color: var(--g-bg);
+  background: var(--g-fg);
+  border-color: var(--g-fg);
+  outline: none;
+}
+
+/* anchor offset so the sticky bar + nav don't cover the section heading */
+.section {
+  scroll-margin-top: 5.8rem;
+}

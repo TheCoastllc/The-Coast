@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
+    gallery: Gallery;
     clients: Client;
     projects: Project;
     'project-files': ProjectFile;
@@ -89,6 +90,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    gallery: GallerySelect<false> | GallerySelect<true>;
     clients: ClientsSelect<false> | ClientsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     'project-files': ProjectFilesSelect<false> | ProjectFilesSelect<true>;
@@ -112,12 +114,14 @@ export interface Config {
     'terms-of-service': TermsOfService;
     faq: Faq;
     'trusted-by': TrustedBy;
+    'gallery-settings': GallerySetting;
   };
   globalsSelect: {
     'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
     'terms-of-service': TermsOfServiceSelect<false> | TermsOfServiceSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     'trusted-by': TrustedBySelect<false> | TrustedBySelect<true>;
+    'gallery-settings': GallerySettingsSelect<false> | GallerySettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -333,6 +337,72 @@ export interface Post {
   createdAt: string;
 }
 /**
+ * Artwork and creatives shown on the gallery subdomain. Drag/order with the "Order" field.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery".
+ */
+export interface Gallery {
+  id: number;
+  title: string;
+  /**
+   * Auto-generated from the title.
+   */
+  slug?: string | null;
+  /**
+   * The artwork. Upload to the Media library - Cloudinary stores and serves it.
+   */
+  image: number | Media;
+  /**
+   * Optional. Shown in the lightbox and on hover.
+   */
+  caption?: string | null;
+  /**
+   * Optional legacy tag. Sections (below) drive grouping.
+   */
+  category?: ('artwork' | 'illustration' | 'photography' | 'brand' | 'product' | 'other') | null;
+  /**
+   * Section/collection this piece belongs to (set from its Drive subfolder name). Groups the gallery into labeled blocks.
+   */
+  section?: string | null;
+  /**
+   * Optional tags for future filtering.
+   */
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional. Shows a "Shop this" button in the lightbox.
+   */
+  shopUrl?: string | null;
+  /**
+   * Optional. Shows a "View on Pinterest" button in the lightbox.
+   */
+  pinUrl?: string | null;
+  featured?: boolean | null;
+  /**
+   * Lower numbers appear first. Ties break by newest.
+   */
+  order?: number | null;
+  /**
+   * Only admins can publish or unpublish.
+   */
+  status?: ('draft' | 'published') | null;
+  /**
+   * Auto-set when first published.
+   */
+  publishedAt?: string | null;
+  /**
+   * Google Drive source file id - used to avoid re-importing on auto-sync.
+   */
+  driveFileId?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "clients".
  */
@@ -460,6 +530,11 @@ export interface IntakeSubmission {
   budget?: string | null;
   timeline?: string | null;
   additionalVision?: string | null;
+  smsConsentTransactional?: boolean | null;
+  smsConsentMarketing?: boolean | null;
+  smsConsentAt?: string | null;
+  smsConsentText?: string | null;
+  consentSource?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -490,6 +565,11 @@ export interface EventIntakeSubmission {
   timeline?: string | null;
   eventDescription: string;
   additionalNotes?: string | null;
+  smsConsentTransactional?: boolean | null;
+  smsConsentMarketing?: boolean | null;
+  smsConsentAt?: string | null;
+  smsConsentText?: string | null;
+  consentSource?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -571,6 +651,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'gallery';
+        value: number | Gallery;
       } | null)
     | ({
         relationTo: 'clients';
@@ -737,6 +821,33 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery_select".
+ */
+export interface GallerySelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  image?: T;
+  caption?: T;
+  category?: T;
+  section?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  shopUrl?: T;
+  pinUrl?: T;
+  featured?: T;
+  order?: T;
+  status?: T;
+  publishedAt?: T;
+  driveFileId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "clients_select".
  */
 export interface ClientsSelect<T extends boolean = true> {
@@ -830,6 +941,11 @@ export interface IntakeSubmissionsSelect<T extends boolean = true> {
   budget?: T;
   timeline?: T;
   additionalVision?: T;
+  smsConsentTransactional?: T;
+  smsConsentMarketing?: T;
+  smsConsentAt?: T;
+  smsConsentText?: T;
+  consentSource?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -851,6 +967,11 @@ export interface EventIntakeSubmissionsSelect<T extends boolean = true> {
   timeline?: T;
   eventDescription?: T;
   additionalNotes?: T;
+  smsConsentTransactional?: T;
+  smsConsentMarketing?: T;
+  smsConsentAt?: T;
+  smsConsentText?: T;
+  consentSource?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1059,6 +1180,25 @@ export interface TrustedBy {
   createdAt?: string | null;
 }
 /**
+ * The Pinterest and Shopify links shown on gallery.coastglobal.org.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-settings".
+ */
+export interface GallerySetting {
+  id: number;
+  /**
+   * Full URL to the Pinterest profile/board.
+   */
+  pinterestUrl?: string | null;
+  /**
+   * Full URL to the Shopify store. Leave blank to hide the Shop link.
+   */
+  shopifyUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "privacy-policy_select".
  */
@@ -1116,6 +1256,17 @@ export interface TrustedBySelect<T extends boolean = true> {
         published?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-settings_select".
+ */
+export interface GallerySettingsSelect<T extends boolean = true> {
+  pinterestUrl?: T;
+  shopifyUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

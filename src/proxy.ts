@@ -5,6 +5,7 @@ import { STUDIO_COOKIE_NAME, verifyToken } from '@/lib/studio-auth'
 const SUBDOMAIN_MAP: Record<string, string> = {
   cbi: '/cbi',
   offers: '/offers-tools',
+  gallery: '/gallery',
 }
 
 const PAYLOAD_COOKIE = 'payload-token'
@@ -55,7 +56,11 @@ export async function proxy(request: NextRequest) {
   if (subdomain) {
     const basePath = SUBDOMAIN_MAP[subdomain]
 
-    if (pathname.startsWith(basePath)) {
+    // Already under the subsite base, or a static asset that lives at the root
+    // (e.g. /img/x.jpg, /portfolio/y.png, /vision/z.jpeg) - serve as-is. Without
+    // the asset guard the rewrite turns /img/x.jpg into /gallery/img/x.jpg -> 404,
+    // which breaks every /public image (incl. next/image sources) on the subdomain.
+    if (pathname.startsWith(basePath) || /\.[a-zA-Z0-9]+$/.test(pathname)) {
       return NextResponse.next()
     }
 

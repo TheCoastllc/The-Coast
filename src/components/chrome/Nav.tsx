@@ -57,22 +57,35 @@ export function Nav() {
         }}
       >
         <ul className={styles.list}>
-          {NAV.map((item, i) => (
-            <li key={item.path}>
-              <Link
-                href={item.path}
-                className={styles.link}
-                data-active={pathname === item.path}
-                data-cursor-label="Enter"
-              >
+          {NAV.map((item, i) => {
+            const inner = (
+              <>
                 <span className={styles.linkIndex}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className={styles.linkChamber}>{item.chamber}</span>
                 <span className={styles.linkLabel}>{item.label}</span>
-              </Link>
-            </li>
-          ))}
+              </>
+            );
+            return (
+              <li key={item.path}>
+                {item.external ? (
+                  <a href={item.path} className={styles.link} data-cursor-label="Enter">
+                    {inner}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.path}
+                    className={styles.link}
+                    data-active={pathname === item.path}
+                    data-cursor-label="Enter"
+                  >
+                    {inner}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </header>

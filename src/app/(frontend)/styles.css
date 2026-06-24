@@ -305,7 +305,6 @@
     font-family: var(--font-sans);
     scrollbar-width: none;
     -ms-overflow-style: none;
-    cursor: none;
   }
 
   body::-webkit-scrollbar {
@@ -317,7 +316,6 @@
     scroll-padding-top: 5rem;
     overflow-x: hidden;
     background: #000000;
-    cursor: none;
   }
 
   html::-webkit-scrollbar {
@@ -347,12 +345,17 @@
     color: hsl(var(--white));
   }
 
-  a,
-  button,
-  [role="button"],
-  input,
-  textarea,
-  select {
+  /* Hide the native cursor ONLY once the custom compass has mounted (Cursor.tsx
+     adds .cursor-ready to <html>). Before that - or if JS never runs - the native
+     cursor stays visible, so the pointer is never lost. */
+  html.cursor-ready,
+  html.cursor-ready body,
+  html.cursor-ready a,
+  html.cursor-ready button,
+  html.cursor-ready [role="button"],
+  html.cursor-ready input,
+  html.cursor-ready textarea,
+  html.cursor-ready select {
     cursor: none;
   }
 }

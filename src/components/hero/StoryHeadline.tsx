@@ -17,8 +17,8 @@ const smoothstep = (e0: number, e1: number, x: number) => {
  * the boat meets the sun. Reads the same progress formula as StoryHero.
  */
 export function StoryHeadline() {
-  const aRef = useRef<HTMLHeadingElement>(null);
-  const bRef = useRef<HTMLHeadingElement>(null);
+  const aRef = useRef<HTMLParagraphElement>(null);
+  const bRef = useRef<HTMLParagraphElement>(null);
   const cRef = useRef<HTMLParagraphElement>(null);
   const cueRef = useRef<HTMLSpanElement>(null);
 
@@ -83,12 +83,16 @@ export function StoryHeadline() {
   return (
     <div className={styles.wrap} aria-hidden>
       <div className={styles.stack}>
-        <h1 ref={aRef} className={`${styles.phrase} no-marble`}>
+        {/* Decorative, scroll-scrubbed morph phrases (the whole wrap is
+            aria-hidden). These are NOT the page heading - the real, crawlable
+            <h1> lives in HomeOcean so the homepage has exactly one keyword-
+            bearing h1. */}
+        <p ref={aRef} className={`${styles.phrase} no-marble`}>
           The Coast
-        </h1>
-        <h1 ref={bRef} className={`${styles.phrase} ${styles.phraseB} no-marble`}>
+        </p>
+        <p ref={bRef} className={`${styles.phrase} ${styles.phraseB} no-marble`}>
           Design The Future
-        </h1>
+        </p>
         <p ref={cRef} className={`${styles.phrase} ${styles.phraseC}`}>
           {COMPANY.promise}.
         </p>

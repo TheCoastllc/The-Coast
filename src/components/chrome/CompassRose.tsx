@@ -61,7 +61,7 @@ export function CompassRose() {
   }, []);
 
   return (
-    <div className={styles.wrap} aria-hidden>
+    <div className={styles.wrap} aria-hidden data-ocean-chrome>
       <svg className={styles.rose} viewBox="-50 -50 100 100">
         <circle cx="0" cy="0" r="46" className={styles.ringOuter} />
         <circle cx="0" cy="0" r="37" className={styles.ringInner} />

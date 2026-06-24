@@ -6,54 +6,23 @@ import Link from 'next/link'
 import { X } from 'lucide-react'
 
 const STORAGE_KEY = 'coast-cookie-consent'
-const GA_ID = 'G-ZWSD7VN3DD'
-const GTM_ID = 'GTM-WN8BS4GB'
 const OPEN_EVENT = 'coast:open-cookie-settings'
 
 type Consent = 'granted' | 'denied' | null
 
-function injectGa() {
+/**
+ * Flip GA4 Consent Mode v2 analytics_storage. gtag is bootstrapped in the root
+ * layout with all storage defaulted to 'denied', so this only needs to grant or
+ * re-deny analytics. No cookies are set until 'granted'; in the denied state GA
+ * still sends cookieless modeling pings. (Ad signals stay denied - GA4 only.)
+ */
+function applyConsent(granted: boolean) {
   if (typeof window === 'undefined') return
-  if (document.getElementById('ga-script')) return
-
-  const w = window as unknown as {
-    dataLayer: IArguments[]
-    gtag: (...args: unknown[]) => void
-  }
-  w.dataLayer = w.dataLayer || []
-  w.gtag = function gtag() {
-    // eslint-disable-next-line prefer-rest-params
-    w.dataLayer.push(arguments as unknown as IArguments)
-  }
-  w.gtag('js', new Date())
-  w.gtag('config', GA_ID, { anonymize_ip: true })
-
-  const s = document.createElement('script')
-  s.id = 'ga-script'
-  s.async = true
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
-  document.head.appendChild(s)
-}
-
-function injectGtm() {
-  if (typeof window === 'undefined') return
-  if (document.getElementById('gtm-script')) return
-
-  const w = window as unknown as { dataLayer: Record<string, unknown>[] }
-  w.dataLayer = w.dataLayer || []
-  w.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
-
-  const s = document.createElement('script')
-  s.id = 'gtm-script'
-  s.async = true
-  s.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`
-  document.head.appendChild(s)
-
-  if (!document.getElementById('gtm-noscript')) {
-    const n = document.createElement('noscript')
-    n.id = 'gtm-noscript'
-    n.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
-    document.body.insertBefore(n, document.body.firstChild)
+  const w = window as unknown as { gtag?: (...args: unknown[]) => void }
+  if (typeof w.gtag === 'function') {
+    w.gtag('consent', 'update', {
+      analytics_storage: granted ? 'granted' : 'denied',
+    })
   }
 }
 
@@ -69,10 +38,7 @@ export function CookieBanner() {
     } catch {}
     setConsent(initial)
     setHydrated(true)
-    if (initial === 'granted') {
-      injectGa()
-      injectGtm()
-    }
+    if (initial) applyConsent(initial === 'granted')
 
     const reopen = () => setConsent(null)
     window.addEventListener(OPEN_EVENT, reopen)
@@ -86,6 +52,7 @@ export function CookieBanner() {
     try {
       localStorage.setItem(STORAGE_KEY, value)
     } catch {}
+    applyConsent(value === 'granted')
     if (value === 'denied') {
       try {
         document.cookie.split(';').forEach((c) => {
@@ -96,9 +63,6 @@ export function CookieBanner() {
           }
         })
       } catch {}
-    } else if (value === 'granted') {
-      injectGa()
-      injectGtm()
     }
     setConsent(value)
   }

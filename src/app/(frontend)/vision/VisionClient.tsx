@@ -24,7 +24,7 @@ const conceptImages = [
   {
     id: 'day',
     number: '02',
-    src: '/vision/day.png',
+    src: '/vision/day.jpg',
     alt: 'Conceptual rendering of The Coast HQ by day - futuristic waterfront architecture with blue sky and palm trees (visionary concept only, not an actual building).',
     title: 'Day View',
     tagline: 'Smooth sailing, made literal.',

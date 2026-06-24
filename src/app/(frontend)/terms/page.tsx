@@ -5,7 +5,7 @@ import { BlueprintLayout } from '@/components/blueprint-layout'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service & Client Agreement - The Coast',
+  title: 'Terms of Service & Client Agreement',
   description: 'Terms of Service for The Coast - our service agreement, revision policy, and client responsibilities.',
   alternates: { canonical: 'https://coastglobal.org/terms' },
   robots: { index: true, follow: true },
@@ -56,6 +56,15 @@ export default async function TermsPage() {
               </p>
             </div>
           )}
+
+          <div className="mt-12 rounded-lg border border-border p-5">
+            <p className="text-mono text-xs uppercase tracking-[0.2em] text-primary/80 mb-2">SMS / Text Messaging</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              If you opt in to our SMS program, you agree to receive automated text messages from The Coast LLC as
+              described in our Privacy Policy. Message frequency varies. Message and data rates may apply. Reply STOP
+              to opt out, HELP for help. Consent to receive marketing texts is not a condition of any purchase.
+            </p>
+          </div>
         </div>
       </div>
     </BlueprintLayout>

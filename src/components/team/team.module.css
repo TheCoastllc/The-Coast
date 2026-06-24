@@ -1,0 +1,159 @@
+/* ============================================================
+   Team section - "The Reveal": an editorial roster whose portraits
+   follow the cursor on hover. Touch / no-hover falls back to the grid.
+   Tokens: --color-gold, --color-white, --color-accent, --font-display
+   (Cormorant in ocean scope), --font-mono (JetBrains).
+   ============================================================ */
+
+/* =========================================================
+   THE REVEAL  (editorial list + cursor-following portrait)
+   ========================================================= */
+.revealWrap {
+  position: relative;
+  margin-top: 1.5rem;
+}
+.revealList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.revealRow {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr auto;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: clamp(1rem, 2.4vw, 1.9rem) 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: padding-left 0.45s var(--ease-out), opacity 0.4s;
+}
+/* dim the rest while one row is active */
+.revealWrap[data-hovering="true"] .revealRow { opacity: 0.34; }
+.revealWrap[data-hovering="true"] .revealRow[data-active="true"] {
+  opacity: 1;
+  padding-left: 1.6rem;
+}
+.revealIndex {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  color: var(--color-gold);
+  padding-top: 0.5rem;
+}
+.revealName {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 5vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+}
+.revealRow[data-active="true"] .revealName {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.revealRole {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  text-align: right;
+  align-self: center;
+}
+
+/* the floating portrait that tracks the cursor */
+.revealPreview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: clamp(200px, 18vw, 280px);
+  aspect-ratio: 4 / 5;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(var(--rx, 50vw), var(--ry, 50vh)) translate(-50%, -50%);
+  transition: opacity 0.4s var(--ease-out);
+  will-change: transform;
+}
+.revealPreview[data-show="true"] {
+  opacity: 1;
+}
+.revealPreviewInner {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(236, 208, 142, 0.28);
+  transform: scale(0.9);
+  transition: transform 0.5s var(--ease-out);
+}
+.revealPreview[data-show="true"] .revealPreviewInner {
+  transform: scale(1);
+}
+.revealPreviewImg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.08);
+  transition: opacity 0.45s var(--ease-out), transform 0.6s var(--ease-out);
+  clip-path: inset(0 0 100% 0);
+}
+.revealPreviewImg[data-on="true"] {
+  opacity: 1;
+  transform: scale(1);
+  clip-path: inset(0 0 0 0);
+}
+.revealHint {
+  margin-top: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(230, 238, 246, 0.4);
+}
+
+/* =========================================================
+   GRID  (touch / no-hover fallback for The Reveal)
+   ========================================================= */
+.grid {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.2rem, 2.6vw, 2.2rem);
+}
+.gridPhoto {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #0c2e33;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+}
+.gridName {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+  color: var(--color-white);
+  margin: 1rem 0 0.25rem;
+}
+.gridRole {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ── responsive ── */
+@media (max-width: 820px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .revealRow { grid-template-columns: 2.4rem 1fr; }
+  .revealRole { display: none; }
+}
+@media (max-width: 480px) {
+  .grid { gap: 1rem; }
+}

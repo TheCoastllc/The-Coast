@@ -1,0 +1,137 @@
+/* ============================================================
+   Cinematic, view-only lightbox. Dark glass scrim, centered image,
+   prev/next, caption + optional Shop/Pinterest CTAs. z above chrome.
+   ============================================================ */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay, 200);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2.5vw, 1.8rem);
+  padding: clamp(1rem, 4vw, 3rem) clamp(1rem, 7vw, 5rem);
+  background: rgba(5, 8, 13, 0.86);
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
+  backdrop-filter: blur(28px) saturate(1.2);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scrim { animation: lbFade 0.35s var(--ease-out, ease-out) both; }
+  .stage { animation: lbRise 0.45s var(--ease-out, ease-out) both; }
+}
+@keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lbRise { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+.img {
+  width: auto;
+  height: auto;
+  max-width: min(92vw, 1400px);
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.6);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* caption */
+.caption {
+  text-align: center;
+  max-width: 60ch;
+}
+.capTitle {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  line-height: 1.2;
+  color: #f3f7fb;
+  margin: 0 0 0.5rem;
+}
+.capText {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(230, 238, 246, 0.74);
+  margin: 0 0 1.1rem;
+}
+.capActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: center;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out), color 0.35s var(--ease-out);
+}
+.pillPrimary { background: var(--color-gold); color: #0a0c12; border: 1px solid var(--color-gold); }
+.pillPrimary:hover { transform: translateY(-2px); box-shadow: var(--glow-gold); }
+.pillGhost {
+  background: rgba(13, 28, 46, 0.45);
+  color: var(--color-white);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
+.pillGhost:hover { transform: translateY(-2px); border-color: var(--color-gold); color: var(--color-gold); }
+.pillArrow { width: 11px; height: 11px; }
+
+/* controls */
+.ctrl {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: rgba(10, 20, 30, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--color-white);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+.ctrl:hover { color: var(--color-gold); border-color: var(--color-gold); background: rgba(10, 20, 30, 0.75); }
+.ctrl svg { width: 20px; height: 20px; }
+.prev { left: clamp(0.4rem, 2vw, 1.4rem); top: 50%; transform: translateY(-50%); }
+.next { right: clamp(0.4rem, 2vw, 1.4rem); top: 50%; transform: translateY(-50%); }
+.close { top: clamp(1rem, 3vw, 2rem); right: clamp(1rem, 5vw, 3rem); position: fixed; }
+.counter {
+  position: fixed;
+  top: clamp(1rem, 3vw, 2rem);
+  left: clamp(1rem, 5vw, 3rem);
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: rgba(237, 239, 242, 0.7);
+}
+
+@media (max-width: 640px) {
+  .prev, .next {
+    top: auto;
+    bottom: clamp(0.6rem, 3vw, 1.2rem);
+    transform: none;
+  }
+  .prev { left: 28%; }
+  .next { right: 28%; }
+  .img { max-height: 64vh; }
+}

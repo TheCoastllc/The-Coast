@@ -201,6 +201,33 @@ export const CONTACT = {
   note: "Tell us what you are building. We reply fast.",
 };
 
+// Marketing consent disclosure shown at every point we collect a visitor's
+// email or phone (TCPA / A2P 10DLC: consent + opt-out at point of collection).
+export const CONSENT = {
+  marketing:
+    "By submitting your contact information, you consent to receive marketing communications including SMS/text messages from The Coast LLC. You may opt out at any time by replying STOP to any message or contacting Hello@coastglobal.org",
+  // Carrier-standard SMS opt-in, shown wherever a phone number is collected (A2P 10DLC).
+  sms:
+    "By providing your phone number, you consent to receive SMS messages from The Coast. Message frequency varies. Reply STOP to unsubscribe, HELP for help. Message & data rates may apply.",
+  // Express-consent checkbox labels (Twilio toll-free A2P / CTIA). Both render as
+  // UNCHECKED checkboxes at the point of phone collection - see SmsConsent.tsx.
+  smsTransactional:
+    "I agree to receive automated, recurring text messages from The Coast LLC at the phone number provided about my project (updates, scheduling, and replies). Message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help.",
+  smsMarketing:
+    "I also agree to receive marketing and promotional text messages from The Coast LLC (offers, news, and updates). Consent is not a condition of any purchase. Message and data rates may apply. Reply STOP to opt out.",
+  // Bump when wording changes; stored with each submission for the consent audit trail.
+  version: "2026-06-16",
+} as const;
+
+/** The exact wording a user was shown + agreed to, recorded with each submission (audit trail). */
+export function buildSmsConsentText(transactional: boolean, marketing: boolean): string {
+  return [
+    `version ${CONSENT.version}`,
+    `transactional=${transactional ? "opted-in" : "no"}: ${CONSENT.smsTransactional}`,
+    `marketing=${marketing ? "opted-in" : "no"}: ${CONSENT.smsMarketing}`,
+  ].join(" | ");
+}
+
 // What happens after you reach out.
 export const CONTACT_STEPS = [
   { n: "01", title: "Reach out", body: "Send a note or book a call. Tell us what you are building." },
@@ -223,13 +250,13 @@ export const PALETTE: Swatch[] = [
 // for owned/licensed assets before launch. Captions are brand mood lines.
 export type EditorialImage = { src: string; alt: string; caption: string };
 export const EDITORIAL: EditorialImage[] = [
-  { src: "/img/editorial/01.jpg", alt: "Editorial study", caption: "Identity, made unmistakable." },
-  { src: "/img/editorial/02.jpg", alt: "Editorial study", caption: "Bold by design." },
-  { src: "/img/editorial/03.jpg", alt: "Editorial study", caption: "Seen, trusted, remembered." },
-  { src: "/img/editorial/04.jpg", alt: "Editorial study", caption: "Vision without compromise." },
-  { src: "/img/editorial/05.jpg", alt: "Editorial study", caption: "Form with intent." },
-  { src: "/img/editorial/06.jpg", alt: "Editorial study", caption: "Future-facing." },
-  { src: "/img/editorial/07.jpg", alt: "Editorial study", caption: "Crafted to be chosen." },
-  { src: "/img/editorial/08.jpg", alt: "Editorial study", caption: "The brand as a signal." },
-  { src: "/img/editorial/09.jpg", alt: "Editorial study", caption: "Design the future." },
+  { src: "/img/editorial/01.jpg", alt: "Editorial brand identity study by The Coast - an identity made unmistakable", caption: "Identity, made unmistakable." },
+  { src: "/img/editorial/02.jpg", alt: "Bold editorial brand design study by The Coast", caption: "Bold by design." },
+  { src: "/img/editorial/03.jpg", alt: "Editorial brand study by The Coast - a brand seen, trusted, and remembered", caption: "Seen, trusted, remembered." },
+  { src: "/img/editorial/04.jpg", alt: "Editorial brand vision study by The Coast", caption: "Vision without compromise." },
+  { src: "/img/editorial/05.jpg", alt: "Editorial study in brand form and intent by The Coast", caption: "Form with intent." },
+  { src: "/img/editorial/06.jpg", alt: "Future-facing editorial brand study by The Coast", caption: "Future-facing." },
+  { src: "/img/editorial/07.jpg", alt: "Editorial brand study by The Coast, crafted to be chosen", caption: "Crafted to be chosen." },
+  { src: "/img/editorial/08.jpg", alt: "Editorial brand study by The Coast - the brand as a signal", caption: "The brand as a signal." },
+  { src: "/img/editorial/09.jpg", alt: "Editorial brand study by The Coast - design the future", caption: "Design the future." },
 ];

@@ -4,17 +4,23 @@ import { Plate } from '@/components/visuals/Plate'
 import { FillText } from '@/components/visuals/FillText'
 import { WaveSwell } from '@/components/visuals/waves/WaveSwell'
 import { EDITORIAL } from '@/lib/content/coast'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './visuals.module.css'
 
 export const metadata: Metadata = {
-  title: 'Visuals',
+  title: 'Brand Visual Language Archive',
   description: "A working archive of The Coast's visual language - brand plates, collected and catalogued.",
   alternates: { canonical: 'https://coastglobal.org/visuals' },
+  twitter: buildTwitter({
+    title: 'Visuals | The Coast',
+    description: "The studio's visual language, collected and catalogued.",
+  }),
   openGraph: {
     type: 'website',
     title: 'Visuals | The Coast',
     description: "The studio's visual language, collected and catalogued.",
     url: 'https://coastglobal.org/visuals',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 

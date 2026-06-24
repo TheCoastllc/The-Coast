@@ -1,0 +1,140 @@
+/* ============================================================
+   Gallery header - Beardbrand-flavored: sticky hairline bar + an editorial
+   hero with a bold UPPERCASE Anton title and a highlighted-italic statement.
+   Theme-driven via --g-* tokens (set by GalleryExperience).
+   ============================================================ */
+
+/* ---- sticky bar ---- */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem clamp(1.1rem, 4vw, 2.6rem);
+  background: color-mix(in srgb, var(--g-bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom: 1px solid var(--g-line);
+}
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--g-fg);
+  transition: color 0.3s var(--ease-out);
+}
+.mark:hover { color: var(--g-gold); }
+.markDiamond {
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: var(--g-gold);
+}
+.barLinks {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+.barLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--g-fg-dim);
+  transition: color 0.3s var(--ease-out);
+}
+.barLink:hover { color: var(--g-gold); }
+.arrow { width: 10px; height: 10px; opacity: 0.85; }
+
+/* ---- editorial hero ---- */
+.hero {
+  max-width: 1640px;
+  margin: 0 auto;
+  padding: clamp(3.2rem, 8vw, 6.5rem) clamp(1.2rem, 5vw, 3rem) clamp(2rem, 4vw, 3.2rem);
+}
+.eyebrow {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--g-gold);
+  margin: 0 0 1.2rem;
+}
+.title {
+  font-family: var(--font-anton), Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  font-size: clamp(3rem, 11vw, 9rem);
+  color: var(--g-fg);
+  margin: 0 0 1.6rem;
+}
+/* Beardbrand-style highlighted italic statement */
+.statement {
+  margin: 0 0 1.6rem;
+  font-size: clamp(1.3rem, 3.4vw, 2.5rem);
+}
+.statement em {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--g-hi-fg);
+  background: var(--g-hi-bg);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0.06em 0.34em;
+}
+.lead {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  line-height: 1.65;
+  color: var(--g-fg-dim);
+  max-width: 58ch;
+  margin: 0 0 2.1rem;
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transition: transform 0.4s var(--ease-out), background 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out), color 0.4s var(--ease-out);
+}
+.ctaPrimary {
+  background: var(--g-fg);
+  color: var(--g-bg);
+  border: 1px solid var(--g-fg);
+}
+.ctaPrimary:hover { transform: translateY(-2px); }
+.ctaGhost {
+  background: transparent;
+  color: var(--g-fg);
+  border: 1px solid var(--g-line);
+}
+.ctaGhost:hover { transform: translateY(-2px); border-color: var(--g-fg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cta:hover { transform: none; }
+}

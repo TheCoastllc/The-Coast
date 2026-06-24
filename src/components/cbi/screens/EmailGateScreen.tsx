@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react'
 import { useCbi } from '../CbiContext'
+import { ConsentNotice } from '@/components/ConsentNotice'
 
 export function EmailGateScreen() {
   const { state, dispatch } = useCbi()
@@ -89,6 +90,7 @@ export function EmailGateScreen() {
         <p className="text-[10px] text-white/45 mt-8 tracking-[0.5px]">
           Your report arrives in your inbox too.
         </p>
+        <ConsentNotice className="mt-4 mx-auto max-w-[340px] text-center" />
       </motion.div>
     </div>
   )

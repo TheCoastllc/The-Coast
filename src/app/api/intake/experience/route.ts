@@ -22,6 +22,11 @@ export async function POST(request: Request) {
       timeline: body.timeline,
       eventDescription: body.eventDescription,
       additionalNotes: body.additionalNotes,
+      smsConsentTransactional: !!body.smsConsentTransactional,
+      smsConsentMarketing: !!body.smsConsentMarketing,
+      smsConsentText: body.smsConsentText ?? null,
+      smsConsentAt: new Date().toISOString(),
+      consentSource: body.consentSource ?? null,
     },
     overrideAccess: true,
   })

@@ -60,6 +60,9 @@ export function Footer() {
               {n.label}
             </Link>
           ))}
+          <Link href="/get-started" className={styles.link} data-cursor="active">
+            Start a Project
+          </Link>
           <a
             href="mailto:hello@coastglobal.org"
             className={styles.link}

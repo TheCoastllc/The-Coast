@@ -21,7 +21,6 @@ export function Mark({ size = 30, className, alt = "The Coast" }: { size?: numbe
       alt={alt}
       width={w}
       height={size}
-      sizes={`${w}px`}
       priority
       className={`${styles.mark} ${className ?? ""}`}
       onError={() => setOk(false)}

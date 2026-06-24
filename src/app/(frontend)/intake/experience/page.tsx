@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
 import styles from '../intake.module.css'
+import { SmsConsent } from '@/components/SmsConsent'
+import { buildSmsConsentText } from '@/lib/content/coast'
 
 const EVENT_TYPES = [
   'Corporate Event', 'Product Launch', 'Concert / Show', 'Wedding',
@@ -47,6 +49,8 @@ export default function ExperienceIntakePage() {
   const [timeline, setTimeline] = useState('')
   const [eventDescription, setEventDescription] = useState('')
   const [additionalNotes, setAdditionalNotes] = useState('')
+  const [smsTransactional, setSmsTransactional] = useState(false)
+  const [smsMarketing, setSmsMarketing] = useState(false)
 
   const handleSubmit = async () => {
     setIsSubmitting(true)
@@ -68,6 +72,10 @@ export default function ExperienceIntakePage() {
           timeline,
           eventDescription,
           additionalNotes: additionalNotes || null,
+          smsConsentTransactional: smsTransactional,
+          smsConsentMarketing: smsMarketing,
+          smsConsentText: buildSmsConsentText(smsTransactional, smsMarketing),
+          consentSource: '/intake/experience',
         }),
       })
       if (!res.ok) throw new Error('Submission failed')
@@ -238,6 +246,14 @@ export default function ExperienceIntakePage() {
             </button>
           )}
         </div>
+        {step === steps.length - 1 && (
+          <SmsConsent
+            transactional={smsTransactional}
+            marketing={smsMarketing}
+            onChange={(f, v) => (f === 'transactional' ? setSmsTransactional(v) : setSmsMarketing(v))}
+            className="mt-6 mx-auto max-w-xl"
+          />
+        )}
       </div>
     </div>
   )

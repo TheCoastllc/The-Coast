@@ -1,0 +1,65 @@
+/* ============================================================
+   Bottom scroll strip - one horizontal line of near-duplicate images,
+   intentionally smaller than the main wall. Theme-driven via --g-* tokens.
+   ============================================================ */
+
+.wrap {
+  max-width: 1640px;
+  margin: clamp(0.4rem, 2vw, 1.2rem) auto 0;
+  padding: 0 clamp(0.9rem, 4vw, 2.6rem) clamp(3rem, 7vw, 6rem);
+}
+
+.rail {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.75rem;
+}
+.rail::-webkit-scrollbar {
+  height: 6px;
+}
+.rail::-webkit-scrollbar-track {
+  background: transparent;
+}
+.rail::-webkit-scrollbar-thumb {
+  background: var(--g-line);
+  border-radius: 999px;
+}
+
+.cell {
+  flex: 0 0 auto;
+  height: clamp(135px, 20vw, 215px);
+  /* width derives from the inline aspect-ratio */
+  position: relative;
+  padding: 0;
+  border: 1px solid var(--g-cell-border);
+  background: var(--g-cell-bg);
+  cursor: pointer;
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition: transform 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+.cell:hover,
+.cell:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--g-fg);
+  outline: none;
+}
+
+.img {
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell:hover {
+    transform: none;
+  }
+}
+@media (hover: none) {
+  .cell:hover {
+    transform: none;
+  }
+}

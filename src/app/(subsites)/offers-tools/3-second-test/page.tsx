@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: 'The 3-Second Brand Test',
   description:
     'How customers judge your brand before you say a word. Learn the five critical elements and run the self-test. Free.',
+  alternates: { canonical: 'https://offers.coastglobal.org/3-second-test' },
 }
 
 export default function ThreeSecondTestPage() {

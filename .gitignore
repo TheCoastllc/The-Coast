@@ -65,3 +65,14 @@ node_modules/
 public/sitemap.xml
 public/sitemap-*.xml
 next-sitemap.config.*
+
+# one-off dev / verification scripts (not part of the app)
+scripts/*-screenshots.ts
+scripts/*-shot.ts
+scripts/*-check.ts
+scripts/push-schema-to-prod.ts
+scripts/add-drive-column.ts
+scripts/setup-drive-sync.sh
+
+# archived pre-baseline migrations (kept locally for reference)
+db-migrations-archive-pre-2026-06/

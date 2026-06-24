@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ArrowRight, Loader2 } from 'lucide-react'
+import { ConsentNotice } from '@/components/ConsentNotice'
 
 type EmailCaptureProps = {
   tool: 'brand-quiz' | 'brand-checklist' | '3-second-test'
@@ -117,6 +118,7 @@ export function EmailCapture({
         </div>
       </div>
       <p className="text-white/20 text-[11px] mb-6">No spam. No pressure. Unsubscribe anytime.</p>
+      <ConsentNotice className="mb-6 max-w-prose" />
     </div>
   )
 }

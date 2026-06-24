@@ -1,24 +1,32 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { TeamReveal } from '@/components/team/TeamReveal'
 import { ChamberShell } from '@/components/ui/ChamberShell'
 import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
 import { PaletteStack } from '@/components/ui/PaletteStack'
 import { STUDIO, STATS, COMPANY, PALETTE } from '@/lib/content/coast'
 import { CardIcon } from '@/components/ui/CardIcon'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './about.module.css'
 
 export const metadata: Metadata = {
-  title: 'About The Coast - Brand Design Studio for Visionaries',
+  title: 'About The Coast - Brand Studio for Visionaries',
   description:
-    'The Coast was built to level the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
+    'The Coast levels the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
   alternates: { canonical: 'https://coastglobal.org/about' },
+  twitter: buildTwitter({
+    title: 'About The Coast | Brand Design Studio',
+    description:
+      'Founded by David Coast, we turn visions into empires. Professional branding for entrepreneurs, artists, and growing businesses.',
+  }),
   openGraph: {
     type: 'website',
     title: 'About The Coast | Brand Design Studio',
     description:
       'Founded by David Coast, we turn visions into empires. Professional branding for entrepreneurs, artists, and growing businesses.',
     url: 'https://coastglobal.org/about',
+    images: DEFAULT_OG_IMAGES,
   },
 }
 
@@ -119,22 +127,7 @@ export default function AboutPage() {
 
         <section className="section">
           <h2 className={styles.founderTitle}>Team</h2>
-          <div className={styles.teamGrid}>
-            {STUDIO.team.map((m, i) => (
-              <Reveal key={m.name} variant={variantForIndex(i)}>
-                <article className={styles.teamCard}>
-                  <div
-                    className={styles.teamPhoto}
-                    style={{ backgroundImage: `url(${m.image})` }}
-                    role="img"
-                    aria-label={`${m.name}, ${m.role}`}
-                  />
-                  <h3 className={styles.teamName}>{m.name}</h3>
-                  {m.role && <p className={styles.teamRole}>{m.role}</p>}
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <TeamReveal members={STUDIO.team} />
         </section>
 
         <section className="section">

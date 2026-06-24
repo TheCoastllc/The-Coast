@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: 'Brand Consistency Checklist',
   description:
     '25-item interactive brand consistency checklist across 5 pillars. Score your brand in real time. Free.',
+  alternates: { canonical: 'https://offers.coastglobal.org/brand-checklist' },
 }
 
 export default function BrandChecklistPage() {

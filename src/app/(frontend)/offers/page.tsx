@@ -1,12 +1,17 @@
 import type { Metadata } from 'next'
-import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import { OffersBrandLab } from './OffersLab'
 
 export const metadata: Metadata = {
-  title: 'The Brand Lab - Free Brand Diagnostics & The Coast Brand Index',
+  title: 'Brand Lab - Free Brand Diagnostics',
   description:
-    'The Coast Brand Lab: measure your Wave Rating with The Coast Brand Index, then run three free diagnostics - the brand quiz, the consistency checklist, and the 3-second test.',
+    'Measure your Wave Rating with The Coast Brand Index, then run three free diagnostics: the brand quiz, the consistency checklist, and the 3-second test.',
   alternates: { canonical: 'https://coastglobal.org/offers' },
+  twitter: buildTwitter({
+    title: 'The Brand Lab - Free Brand Diagnostics | The Coast',
+    description:
+      'Measure your Wave Rating with The Coast Brand Index and run three free tools to diagnose your brand strength, consistency, and first impressions.',
+  }),
   openGraph: {
     type: 'website',
     title: 'The Brand Lab - Free Brand Diagnostics | The Coast',

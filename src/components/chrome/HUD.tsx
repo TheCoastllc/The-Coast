@@ -19,13 +19,13 @@ export function HUD() {
 
   return (
     <>
-      <div className={styles.top}>
+      <div className={styles.top} data-ocean-chrome>
         <span className={`${styles.label} ${styles.gold}`}>
           C / {num} &nbsp;&middot;&nbsp; {section.chamber}
         </span>
       </div>
 
-      <div className={styles.bottom}>
+      <div className={styles.bottom} data-ocean-chrome>
         <span className={styles.label}>Worldwide</span>
         <span className={styles.label}>coastglobal.org &nbsp;/&nbsp; 2026</span>
       </div>

@@ -1,0 +1,5 @@
+{
+  "crons": [
+    { "path": "/api/sync-gallery-from-drive", "schedule": "0 7 * * *" }
+  ]
+}

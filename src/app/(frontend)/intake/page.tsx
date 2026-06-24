@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
 import styles from './intake.module.css'
+import { SmsConsent } from '@/components/SmsConsent'
+import { buildSmsConsentText } from '@/lib/content/coast'
 
 const STORAGE_KEY = 'intake_form_progress'
 
@@ -25,6 +27,7 @@ type FormData = {
   businessDescription: string; idealCustomer: string; servicesInterested: string[]
   brandVibes: string[]; colorPreferences: string[]; colorsToAvoid: string
   brandsAdmired: string; budget: string; timeline: string; additionalVision: string
+  smsTransactional: boolean; smsMarketing: boolean
 }
 
 const initial: FormData = {
@@ -32,6 +35,7 @@ const initial: FormData = {
   businessDescription: '', idealCustomer: '', servicesInterested: [],
   brandVibes: [], colorPreferences: [], colorsToAvoid: '',
   brandsAdmired: '', budget: '', timeline: '', additionalVision: '',
+  smsTransactional: false, smsMarketing: false,
 }
 
 const steps = ['About You', 'Your Business', 'Services', 'Brand Vision', 'Practical Details']
@@ -54,7 +58,7 @@ export default function IntakePage() {
     if (prefill) {
       try {
         const data = JSON.parse(prefill)
-        setForm((prev) => ({ ...prev, fullName: data.name || prev.fullName, businessName: data.businessName || prev.businessName, email: data.email || prev.email, phone: data.phone || prev.phone, servicesInterested: data.services || prev.servicesInterested, budget: data.budget || prev.budget }))
+        setForm((prev) => ({ ...prev, fullName: data.name || prev.fullName, businessName: data.businessName || prev.businessName, email: data.email || prev.email, phone: data.phone || prev.phone, servicesInterested: data.services || prev.servicesInterested, budget: data.budget || prev.budget, smsTransactional: data.smsTransactional ?? prev.smsTransactional, smsMarketing: data.smsMarketing ?? prev.smsMarketing }))
       } catch { }
     }
   }, [])
@@ -69,7 +73,7 @@ export default function IntakePage() {
     try {
       const res = await fetch('/api/intake', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fullName: form.fullName, email: form.email, phone: form.phone || null, businessName: form.businessName, website: form.website || null, businessDescription: form.businessDescription, idealCustomer: form.idealCustomer, servicesInterested: form.servicesInterested, brandVibes: form.brandVibes, colorPreferences: form.colorPreferences, colorsToAvoid: form.colorsToAvoid || null, brandsAdmired: form.brandsAdmired || null, budget: form.budget, timeline: form.timeline, additionalVision: form.additionalVision || null }),
+        body: JSON.stringify({ fullName: form.fullName, email: form.email, phone: form.phone || null, businessName: form.businessName, website: form.website || null, businessDescription: form.businessDescription, idealCustomer: form.idealCustomer, servicesInterested: form.servicesInterested, brandVibes: form.brandVibes, colorPreferences: form.colorPreferences, colorsToAvoid: form.colorsToAvoid || null, brandsAdmired: form.brandsAdmired || null, budget: form.budget, timeline: form.timeline, additionalVision: form.additionalVision || null, smsConsentTransactional: form.smsTransactional, smsConsentMarketing: form.smsMarketing, smsConsentText: buildSmsConsentText(form.smsTransactional, form.smsMarketing), consentSource: '/intake' }),
       })
       if (!res.ok) throw new Error('Submission failed')
       localStorage.removeItem(STORAGE_KEY)
@@ -221,6 +225,14 @@ export default function IntakePage() {
             <button type="button" onClick={handleSubmit} disabled={isSubmitting || !form.fullName || !form.email || !form.businessName} className={styles.next}>{isSubmitting ? 'Submitting...' : 'Submit Intake Form'}<Sparkles className="h-4 w-4" /></button>
           )}
         </div>
+        {step === steps.length - 1 && (
+          <SmsConsent
+            transactional={form.smsTransactional}
+            marketing={form.smsMarketing}
+            onChange={(f, v) => setForm((p) => ({ ...p, [f === 'transactional' ? 'smsTransactional' : 'smsMarketing']: v }))}
+            className="mt-6 mx-auto max-w-xl"
+          />
+        )}
       </div>
     </div>
   )

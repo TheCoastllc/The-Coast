@@ -15,13 +15,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/about`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/blog`, changeFrequency: 'daily', priority: 0.8 },
     { url: `${BASE_URL}/work`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/contact`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/offers`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/faq`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/brand-avatar`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/vision`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE_URL}/visuals`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/privacy`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terms`, changeFrequency: 'yearly', priority: 0.3 },
-    // Note: /cbi is excluded - noindexed placeholder
-    // Note: /offers-tools/* are internal rewrite paths for offers.coastglobal.org - excluded
+    // /cbi lives on cbi.coastglobal.org, /offers-tools/* on offers.coastglobal.org,
+    // and /gallery on gallery.coastglobal.org. The apex-host duplicates set a
+    // cross-host canonical to those subdomains (see cbi/layout.tsx,
+    // offers-tools/layout.tsx, gallery/layout.tsx), so they are intentionally
+    // excluded from this (apex) sitemap.
   ]
 
   // Blog category pages - auto-generated from BLOG_CATEGORIES in src/lib/blog-categories.ts

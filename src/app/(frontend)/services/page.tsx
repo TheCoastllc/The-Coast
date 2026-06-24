@@ -4,14 +4,19 @@ import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
 import { SERVICES, PROCESS, ENGAGEMENT } from '@/lib/content/coast'
 import { CardIcon } from '@/components/ui/CardIcon'
-import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './services.module.css'
 
 export const metadata: Metadata = {
   title: 'Brand Design Services',
   description:
-    'Custom logo design, visual identity, brand guidelines, marketing collateral, social graphics, pitch decks, video, digital marketing, and social media management.',
+    'Custom logo design, visual identity, brand guidelines, marketing collateral, social graphics, pitch decks, video, and digital marketing.',
   alternates: { canonical: 'https://coastglobal.org/services' },
+  twitter: buildTwitter({
+    title: 'Brand Design Services | The Coast',
+    description:
+      'From logo design to full brand transformations - everything your business needs to stand out.',
+  }),
   openGraph: {
     type: 'website',
     title: 'Brand Design Services | The Coast',

@@ -25,6 +25,11 @@ export function Cursor() {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(hover: none)").matches) return;
 
+    // Hide the native cursor only now that the custom one is live. Until this
+    // class lands (slow JS, hydration, or a script error) the native cursor
+    // stays visible, so the pointer can never go missing.
+    document.documentElement.classList.add("cursor-ready");
+
     let mx = window.innerWidth / 2;
     let my = window.innerHeight / 2;
     let sx = mx;
@@ -92,8 +97,8 @@ export function Cursor() {
     const onUp = () => compassRef.current?.setAttribute("data-press", "false");
 
     const tick = () => {
-      sx += (mx - sx) * 0.2;
-      sy += (my - sy) * 0.2;
+      sx += (mx - sx) * 0.3;
+      sy += (my - sy) * 0.3;
       if (compassRef.current) {
         compassRef.current.style.transform = `translate3d(${sx}px, ${sy}px, 0) translate(-50%, -50%)`;
       }
@@ -147,6 +152,7 @@ export function Cursor() {
       window.removeEventListener("mouseup", onUp);
       document.removeEventListener("visibilitychange", onVis);
       cancelAnimationFrame(raf);
+      document.documentElement.classList.remove("cursor-ready");
     };
   }, []);
 

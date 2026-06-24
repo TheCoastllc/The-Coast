@@ -1,13 +1,18 @@
 import type { Metadata } from 'next'
 import GetStartedClient from './GetStartedClient'
 import { ChamberShell } from '@/components/ui/ChamberShell'
-import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Start Your Brand Project - Free Consultation with The Coast',
+  title: 'Start Your Brand Project - Free Quote',
   description:
     'Start your brand project with The Coast. Tell us about your business and the services you need - we will respond within 24 hours.',
   alternates: { canonical: 'https://coastglobal.org/get-started' },
+  twitter: buildTwitter({
+    title: 'Start Your Brand Project | The Coast',
+    description:
+      'Tell us about yourself, your services needed, and your budget. Get a custom quote from The Coast.',
+  }),
   openGraph: {
     type: 'website',
     title: 'Start Your Brand Project | The Coast',

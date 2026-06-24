@@ -13,9 +13,10 @@ const BrandQuiz = dynamic(
 )
 
 export const metadata: Metadata = {
-  title: "Brand Quiz \u2014 What's Your Brand Actually Saying?",
+  title: "Brand Quiz - What's Your Brand Actually Saying?",
   description:
     '10-question brand diagnostic quiz. Find out if your brand is invisible, inconsistent, or established. 60 seconds. Free.',
+  alternates: { canonical: 'https://offers.coastglobal.org/brand-quiz' },
 }
 
 export default function BrandQuizPage() {

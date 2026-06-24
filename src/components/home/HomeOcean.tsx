@@ -5,17 +5,18 @@ import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
-import { useDesktopOnlyWebGL, useHeroMountTrigger, usePointerFine, useReducedMotion } from "@/lib/perf";
-import { TypeMask } from "@/components/visuals/TypeMask";
+import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
 import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
+import { GalleryPreview, type GalleryPreviewItem } from "./GalleryPreview";
 import { IntroCurtain } from "./IntroCurtain";
 import { MasterpieceThesis } from "./MasterpieceThesis";
+import { GlassStatement } from "./GlassStatement";
 import { VideoWave } from "@/components/VideoWave";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
-import { SERVICES, STATS, COMPANY, EDITORIAL } from "@/lib/content/coast";
+import { SERVICES, STATS, EDITORIAL } from "@/lib/content/coast";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { TRUSTED_BRANDS_FALLBACK } from "@/lib/trusted-brands-fallback";
 import { ReviewsMarquee } from "./ReviewsMarquee";
@@ -83,11 +84,14 @@ export function HomeOcean({
   reviews,
   reviewStats,
   leaveReviewUrl,
+  galleryPreview = [],
 }: {
   /** Real Google reviews fetched server-side; falls back to representative samples. */
   reviews?: DisplayReview[];
   reviewStats?: { average: number; count: number };
   leaveReviewUrl?: string;
+  /** A few live gallery images for the homepage teaser. */
+  galleryPreview?: GalleryPreviewItem[];
 } = {}) {
   const displayReviews: DisplayReview[] =
     reviews && reviews.length >= 1 ? reviews : [...REVIEWS];
@@ -95,15 +99,31 @@ export function HomeOcean({
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
-  const fine = usePointerFine();
-  const reduced = useReducedMotion();
-  // saved effects are baked ON for desktop; touch + reduced-motion keep the plain content
-  const baked = fine && !reduced;
   const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "wall");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
 
   return (
     <>
+      {/* The page's true, crawlable h1. Visually hidden via an inline style (not
+          a utility class, so it never depends on CSS generation) so it never
+          disturbs the cinematic hero, while still carrying the ranking keyword
+          and giving the homepage exactly one keyword-bearing heading - the morph
+          phrases in StoryHeadline are aria-hidden decoration. */}
+      <h1
+        style={{
+          position: 'absolute',
+          width: 1,
+          height: 1,
+          padding: 0,
+          margin: -1,
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: 0,
+        }}
+      >
+        The Coast - Brand Design Studio for Entrepreneurs, Artists, and Growing Businesses
+      </h1>
       <IntroCurtain />
       <HeroStage meet="reflect" />
       <StoryHeadline />
@@ -115,33 +135,28 @@ export function HomeOcean({
           <MasterpieceThesis />
 
           <section className="section">
-            <div className={`${styles.waveTeaser} glass`} data-glow="gold">
-              <p className={styles.thesisLabel}>The Coast Brand Index</p>
-              <h2 className={styles.waveTitle}>How strong is your wave?</h2>
-              <p className={styles.waveCopy}>
-                Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
-              </p>
-              <div className={styles.waveTeaserViz}>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    maxWidth: 300,
-                    margin: "0 auto",
-                    aspectRatio: "464 / 688",
-                    borderRadius: 18,
-                    overflow: "hidden",
-                    border: "1px solid var(--color-border)",
-                    boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
-                  }}
-                >
-                  <VideoWave rounded={false} />
-                </div>
+            <div className={styles.waveBand}>
+              <div className={styles.waveViz}>
+                <VideoWave rounded={false} />
               </div>
-              <Link href="/cbi" className={styles.cta} data-cursor-label="Measure">
-                Take the test
-                <span className={styles.ctaArrow}>→</span>
-              </Link>
+              <div className={styles.waveInfo}>
+                <p className={styles.waveLabel}>The Coast Brand Index</p>
+                <h2 className={styles.waveTitle}>
+                  How strong is your <em>wave?</em>
+                </h2>
+                <p className={styles.waveCopy}>
+                  Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
+                </p>
+                <div className={styles.waveMeta}>
+                  <span>Five pillars</span>
+                  <span>Two minutes</span>
+                  <span>Instant score</span>
+                </div>
+                <Link href="/cbi" className={styles.waveCta} data-cursor-label="Measure">
+                  Take the test
+                  <span className={styles.ctaArrow}>→</span>
+                </Link>
+              </div>
             </div>
           </section>
 
@@ -197,6 +212,21 @@ export function HomeOcean({
             </Link>
           </section>
 
+          {galleryPreview.length > 0 && (
+            <section className="section">
+              <p className={styles.thesisLabel}>Gallery</p>
+              <GalleryPreview items={galleryPreview} />
+              <a
+                href="https://gallery.coastglobal.org"
+                className={styles.cta}
+                data-cursor-label="Explore"
+              >
+                Explore the gallery
+                <span className={styles.ctaArrow}>→</span>
+              </a>
+            </section>
+          )}
+
           <section className="section">
             <div className={styles.imageBand}>
               <ParallaxImage src={EDITORIAL[3].src} alt={EDITORIAL[3].alt} mode="grain-graded" amount={14} />
@@ -225,17 +255,20 @@ export function HomeOcean({
             />
           </section>
 
-          <section className={`section ${styles.closing}`}>
-            {baked ? (
-              <TypeMask words={[COMPANY.promise]} image={EDITORIAL[1].src} size="headline" />
-            ) : (
-              <h2 className={styles.closingTitle}>{COMPANY.promise}.</h2>
-            )}
-            <Link href="/contact" className={styles.cta} data-cursor-label="Start">
-              Start a project
-              <span className={styles.ctaArrow}>→</span>
-            </Link>
-          </section>
+          <GlassStatement
+            eyebrow="Ready when you are"
+            title={
+              <>
+                Bring us a drop, we&rsquo;ll deliver the <em>ocean</em>.
+              </>
+            }
+            body="Tell us where you are and where you want to be. We design the brand that carries you the rest of the way."
+            ctaLabel="Start a project"
+            ctaHref="/contact"
+            ghostLabel="See the work"
+            ghostHref="/work"
+            index="C / 09"
+          />
         </RevealGroup>
       </div>
 

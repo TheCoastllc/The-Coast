@@ -2,15 +2,20 @@ import type { Metadata } from 'next'
 import { getPayloadClient } from '@/lib/payload-client'
 import { ChamberShell } from '@/components/ui/ChamberShell'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
-import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'FAQ',
+  title: 'Branding & Design FAQ',
   description:
     'Frequently asked questions about The Coast - our process, timelines, and ongoing support for branding and design projects.',
   alternates: { canonical: 'https://coastglobal.org/faq' },
+  twitter: buildTwitter({
+    title: 'Branding & Design FAQ | The Coast',
+    description:
+      'Answers to common questions about our branding and design services.',
+  }),
   openGraph: {
     type: 'website',
     title: 'FAQ | The Coast',

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CASE_STUDIES, CASE_STUDY_ORDER } from '@/lib/case-studies'
 import { useVariant } from '@/components/visuals/useVariant'
 import '@/styles/cinematic.css'
@@ -165,12 +166,12 @@ export default function CinematicWorkFeed() {
             </div>
             <Link href={`/work/${p.id}`} className="media" aria-label={`Open ${p.client} case study`}>
               <div className="t-mockup">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   className="t-still"
                   src={`/portfolio/${p.id}/cover.jpg`}
                   alt={`${p.client} preview`}
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 760px) 90vw, 760px"
                 />
                 <video
                   className="t-video"

@@ -30,5 +30,11 @@ export const IntakeSubmissions: CollectionConfig = {
     { name: 'budget', type: 'text' },
     { name: 'timeline', type: 'text' },
     { name: 'additionalVision', type: 'textarea' },
+    // SMS express-consent audit trail (Twilio toll-free A2P / CTIA).
+    { name: 'smsConsentTransactional', type: 'checkbox', defaultValue: false },
+    { name: 'smsConsentMarketing', type: 'checkbox', defaultValue: false },
+    { name: 'smsConsentAt', type: 'date', admin: { date: { pickerAppearance: 'dayAndTime' }, readOnly: true } },
+    { name: 'smsConsentText', type: 'textarea', admin: { readOnly: true } },
+    { name: 'consentSource', type: 'text', admin: { readOnly: true } },
   ],
 }

@@ -1,0 +1,90 @@
+/* ============================================================
+   Theme wrapper for the gallery. Holds the --g-* design tokens for the
+   two previewable looks (light "Beardbrand" + dark "ocean"), paints the
+   full-bleed canvas, and renders the Light/Dark preview toggle.
+   ============================================================ */
+
+.root {
+  position: relative;
+  min-height: 100vh;
+  color: var(--g-fg);
+
+  /* dark defaults (also the dark theme values) */
+  --g-bg: #0a0c12;
+  --g-bg-soft: #06080c;
+  --g-fg: #f3f7fb;
+  --g-fg-dim: rgba(230, 238, 246, 0.66);
+  --g-line: rgba(255, 255, 255, 0.1);
+  --g-gold: #e6b24d;
+  --g-hi-bg: #e6b24d;
+  --g-hi-fg: #0a0c12;
+  --g-cell-border: rgba(255, 255, 255, 0.08);
+  --g-cell-bg: #06080c;
+}
+
+.root[data-theme='light'] {
+  --g-bg: #f4f1e9;
+  --g-bg-soft: #ece7da;
+  --g-fg: #17130d;
+  --g-fg-dim: rgba(23, 19, 13, 0.6);
+  --g-line: rgba(23, 19, 13, 0.16);
+  --g-gold: #9c7022;
+  --g-hi-bg: #17130d;
+  --g-hi-fg: #f4f1e9;
+  --g-cell-border: rgba(23, 19, 13, 0.14);
+  --g-cell-bg: #ece7da;
+}
+
+/* full-bleed background, behind everything (covers the ocean SeaBackdrop) */
+.canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--g-bg);
+  transition: background 0.5s var(--ease-out);
+}
+
+/* Light/Dark preview toggle - a floating pill (remove once David picks). */
+.toggle {
+  position: fixed;
+  z-index: 60;
+  bottom: clamp(1rem, 3vw, 1.6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--g-bg) 78%, transparent);
+  border: 1px solid var(--g-line);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+.toggleLabel {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--g-fg-dim);
+  padding: 0 0.55rem 0 0.7rem;
+}
+.toggleBtn {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--g-fg-dim);
+  padding: 0.42rem 0.95rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.3s var(--ease-out), background 0.3s var(--ease-out);
+}
+.toggleBtn:hover { color: var(--g-fg); }
+.toggleBtn[data-on='true'] {
+  color: var(--g-bg);
+  background: var(--g-fg);
+}

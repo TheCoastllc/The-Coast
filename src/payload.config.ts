@@ -14,8 +14,10 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
+import { Gallery } from './collections/Gallery'
 import { PrivacyPolicy } from './globals/PrivacyPolicy'
 import { TermsOfService } from './globals/TermsOfService'
+import { GallerySettings } from './globals/GallerySettings'
 import { Clients } from './collections/Clients'
 import { Projects } from './collections/Projects'
 import { ProjectFiles } from './collections/ProjectFiles'
@@ -62,6 +64,7 @@ export default buildConfig({
     Users,
     Media,
     Posts,
+    Gallery,
     Clients,
     Projects,
     ProjectFiles,
@@ -72,7 +75,7 @@ export default buildConfig({
     ContactSubmissions,
     ToolSubmissions,
   ],
-  globals: [PrivacyPolicy, TermsOfService, FAQGlobal, TrustedBy],
+  globals: [PrivacyPolicy, TermsOfService, FAQGlobal, TrustedBy, GallerySettings],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
@@ -93,7 +96,10 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: sqliteAdapter({
-    push: true,
+    // Dev syncs schema via push. On Vercel, migrations are the source of truth
+    // (applied at build by `payload migrate`), so push stays off there - which
+    // also avoids re-recording dev-push markers. VERCEL is set by the platform.
+    push: process.env.VERCEL ? false : process.env.NODE_ENV !== 'production',
     client: {
       url: process.env.DATABASE_URL || '',
       authToken: process.env.DATABASE_AUTH_TOKEN || '',

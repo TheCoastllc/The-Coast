@@ -226,22 +226,31 @@
    3 - FROSTED CARD  (content inside a floating glass card)
    ========================================================= */
 .card .photo {
-  background-image: url("/img/ocean-aerial.jpg");
-  transform-origin: 62% 42%;
+  background-image: url("/img/ocean-aerial-wide.jpg");
+  background-image: image-set(
+    url("/img/ocean-aerial-wide.avif") type("image/avif"),
+    url("/img/ocean-aerial-wide.webp") type("image/webp"),
+    url("/img/ocean-aerial-wide.jpg") type("image/jpeg")
+  );
+  transform-origin: 38% 46%;
 }
 .card .grade {
   background:
-    radial-gradient(130% 110% at 72% 36%, transparent 18%, rgba(2, 8, 14, 0.5)),
-    linear-gradient(100deg, rgba(2, 10, 16, 0.35), transparent 52%);
+    radial-gradient(86% 96% at 24% 48%, rgba(2, 10, 16, 0.48), transparent 62%),
+    linear-gradient(100deg, rgba(2, 10, 16, 0.4) 6%, transparent 50%);
 }
 .card .glass {
   inset: 12% auto 12% 5%;
   width: min(47%, 600px);
-  border-radius: 20px;
-  background: linear-gradient(158deg, rgba(11, 22, 32, 0.46), rgba(6, 13, 21, 0.6));
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(158deg, rgba(10, 20, 30, 0.5), rgba(4, 11, 19, 0.66));
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
+  backdrop-filter: blur(28px) saturate(1.2);
   box-shadow:
-    0 50px 110px rgba(0, 0, 0, 0.52),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    0 60px 130px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 .card .content {
   position: absolute;

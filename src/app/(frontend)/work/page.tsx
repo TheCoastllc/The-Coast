@@ -1,12 +1,16 @@
 import type { Metadata } from 'next'
 import CinematicWorkFeed from '@/components/CinematicWorkFeed'
-import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Our Work - Brand Transformations',
   description:
     'Brand transformations, creative projects, and the stories behind them - logo design, rebrands, and full visual identities from The Coast.',
   alternates: { canonical: 'https://coastglobal.org/work' },
+  twitter: buildTwitter({
+    title: 'Our Work | Brand Transformations | The Coast',
+    description: 'Brand transformations, creative projects, and the stories behind them.',
+  }),
   openGraph: {
     type: 'website',
     title: 'Our Work | Brand Transformations | The Coast',

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { HomeOcean } from '@/components/home/HomeOcean'
 import { fetchReviews, getReviewStats, LEAVE_REVIEW_URL } from '@/lib/google-reviews'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { getPayloadClient } from '@/lib/payload-client'
+import type { GalleryPreviewItem } from '@/components/home/GalleryPreview'
 
 export const revalidate = 3600
 
@@ -55,13 +57,12 @@ const organizationSchema = {
     email: 'hello@coastglobal.org',
     availableLanguage: 'English',
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5.0',
-    reviewCount: 7,
-    bestRating: '5',
-    worstRating: '1',
-  },
+  // NOTE: No aggregateRating here. Google's structured-data policy forbids
+  // self-serving ratings (reviews about the business, collected on its own site)
+  // on Organization/LocalBusiness - they are ineligible for star rich results and
+  // can trigger a manual action. Real Google reviews still render on-page via
+  // ReviewsMarquee. To re-add a rating legitimately, mark up individual Review
+  // items sourced from a third party (e.g. Google) and attach them here.
   sameAs: [
     'https://www.instagram.com/coastglobal',
     'https://www.facebook.com/coastglobal',
@@ -99,10 +100,44 @@ const professionalServiceSchema = {
   ],
 }
 
+// A POOL of live published gallery images for the homepage teaser - the client
+// shuffles a random 8 of these on each load so it rotates. Excludes the
+// "Design the Future" near-duplicate set; empty array on failure (section hides).
+async function fetchGalleryPreview(): Promise<GalleryPreviewItem[]> {
+  try {
+    const payload = await getPayloadClient()
+    const res = await payload.find({
+      collection: 'gallery',
+      where: { status: { equals: 'published' } },
+      sort: ['order', '-publishedAt'],
+      depth: 1,
+      limit: 60,
+    })
+    const items: GalleryPreviewItem[] = []
+    for (const doc of res.docs as any[]) {
+      if ((doc.section ?? '').trim().toLowerCase() === 'design the future') continue
+      const img = doc?.image
+      const cl = img?.cloudinary
+      const src: string | undefined = cl?.secure_url ?? img?.url
+      if (!src) continue
+      items.push({
+        id: doc.id,
+        src,
+        width: cl?.width ?? img?.width ?? 4,
+        height: cl?.height ?? img?.height ?? 5,
+      })
+      if (items.length >= 24) break
+    }
+    return items
+  } catch {
+    return []
+  }
+}
+
 export default async function HomePage() {
   // Real Google reviews (Featurable proxy, 5h cached). Empty on failure -> HomeOcean
   // falls back to representative samples so the section never renders broken.
-  const raw = await fetchReviews()
+  const [raw, galleryPreview] = await Promise.all([fetchReviews(), fetchGalleryPreview()])
   const stats = getReviewStats(raw)
   const reviews = raw
     .filter((r) => r.comment && r.comment.trim().length > 0)
@@ -121,7 +156,7 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }} />
-      <HomeOcean reviews={reviews} reviewStats={reviewStats} leaveReviewUrl={LEAVE_REVIEW_URL} />
+      <HomeOcean reviews={reviews} reviewStats={reviewStats} leaveReviewUrl={LEAVE_REVIEW_URL} galleryPreview={galleryPreview} />
     </>
   )
 }
