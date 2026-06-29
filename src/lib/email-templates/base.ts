@@ -24,7 +24,7 @@ export const BRAND = {
   socials: {
     instagram: 'https://www.instagram.com/coastglobal',
     linkedin: 'https://www.linkedin.com/company/thecoastcompanylimited',
-    twitter: 'https://twitter.com/TCoast13363',
+    twitter: 'https://x.com/TheCoastHQ',
   },
 } as const
 
