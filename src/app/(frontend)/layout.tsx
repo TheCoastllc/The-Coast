@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    'At The Coast®, we’ve built an end-to-end ecosystem for the visionaries behind the brands. Whether we’re crafting your brand guidelines, managing your digital marketing, or producing cinematic digital experiences, we’re here to help you scale. We turn visions into empires.',
+    'The Coast is an end-to-end brand studio: brand identity, digital marketing, and cinematic content that helps founders scale and turn visions into empires.',
 
   keywords: [
     'brand design studio',

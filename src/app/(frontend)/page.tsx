@@ -10,7 +10,7 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: { absolute: 'The Coast | Brand Design Studio' },
   description:
-    'The Coast is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses. Logo design, brand strategy, and more.',
+    'The Coast is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses. Logo design and brand strategy.',
   alternates: { canonical: 'https://coastglobal.org' },
   openGraph: {
     type: 'website',

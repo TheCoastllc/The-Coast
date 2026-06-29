@@ -130,7 +130,7 @@ export function HomeOcean({
       {/* tall transparent runway: gives scroll distance for the 3 hero acts */}
       <div className={styles.storyTrack} />
 
-      <div className={styles.content}>
+      <main className={styles.content}>
         <RevealGroup>
           <MasterpieceThesis />
 
@@ -270,7 +270,7 @@ export function HomeOcean({
             index="C / 09"
           />
         </RevealGroup>
-      </div>
+      </main>
 
       {/* the folding finale - flat paper scrubs into a boat (desktop, after interaction) */}
       {webgl && interacted && <FoldingBoat />}

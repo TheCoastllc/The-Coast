@@ -74,7 +74,7 @@ export function GalleryPreview({ items }: { items: GalleryPreviewItem[] }) {
             key={item.id}
             className={styles.img}
             src={item.src}
-            alt="The Coast gallery artwork"
+            alt={`The Coast gallery artwork ${i + 1}`}
             fill
             sizes={SIZES}
             loading="lazy"

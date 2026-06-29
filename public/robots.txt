@@ -34,11 +34,11 @@ Allow: /
 
 # Bytespider
 User-agent: Bytespider
-Disallow: /
+Allow: /
 
 # CCBot
 User-agent: CCBot
-Disallow: /
+Allow: /
 
 # anthropic-ai (Claude's real-time web search / citation crawler — allow for GEO visibility)
 User-agent: anthropic-ai
