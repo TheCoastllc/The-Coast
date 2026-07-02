@@ -66,9 +66,23 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
     return () => io.disconnect()
   }, [])
 
+  // SKAI-style first screen: the sticky sand nav stays hidden while the framed
+  // hero is on screen, then slides down for the rest of the scroll.
+  const [navVisible, setNavVisible] = useState(false)
+  useEffect(() => {
+    const hero = document.querySelector('.hero')
+    if (!hero) return
+    const io = new IntersectionObserver(
+      ([entry]) => setNavVisible(!entry.isIntersecting),
+      { rootMargin: '-80px 0px 0px 0px' },
+    )
+    io.observe(hero)
+    return () => io.disconnect()
+  }, [])
+
   return (
     <>
-      <nav className="fnav" aria-label="Primary">
+      <nav className="fnav" aria-label="Primary" data-visible={navVisible || undefined}>
         <div className="nav-in">
           <span className="nav-lockup">
             <Image
@@ -88,11 +102,11 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
       </nav>
 
       <header className="hero">
-        {/* real shoreline backdrop - cream sky (text zone) -> coral horizon glow ->
-            teal sea -> cream sand that melts into the page ground */}
+        {/* dusk shoreline, full viewport - rose sky is the headline zone, deep
+            teal sea grounds the CTA (SKAI-style framed hero) */}
         <Image
           className="hero-photo"
-          src="/ai/beach-hero.jpg"
+          src="/ai/beach-dusk.jpg"
           alt=""
           aria-hidden
           fill
@@ -100,18 +114,27 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           sizes="100vw"
           quality={82}
         />
-        <div className="hero-scrim" aria-hidden="true" />
+        <div className="hero-frame" aria-hidden="true" />
+        <div className="hero-chrome">
+          <a className="chrome-pill" href="mailto:hello@coastglobal.org">
+            Contact us
+          </a>
+          <span className="chrome-brand">
+            <Image src="/logolight.png" alt="" aria-hidden width={364} height={280} />
+            <span>The Coast</span>
+          </span>
+          <CtaLink location="nav" className="chrome-pill chrome-cta">
+            Book a Strategy Session
+          </CtaLink>
+        </div>
         <div className="drop" aria-hidden="true" />
-        <div className="hero-in">
+        <div className="hero-center">
           <span className="eyebrow mono">AI Consulting &amp; Implementation</span>
           <h1>
             Put AI to work
             <br />
             in your <span className="accent">business.</span>
           </h1>
-          <p className="sub">
-            {'From "we should use AI" to real, working systems. The Coast designs, builds, and deploys AI for founders and growth-stage teams.'}
-          </p>
           <div className="cta-row">
             <CtaLink location="hero" className="btn btn-cta btn-big">
               Book Your AI Strategy Session
@@ -121,6 +144,18 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             We take on {CAPACITY.buildsPerMonth} builds per month. {CAPACITY.spotsRemaining} spots
             remaining for {CAPACITY.month}.
           </div>
+        </div>
+        <div className="scroll-cue mono" aria-hidden="true">
+          Scroll for more
+          <span className="scroll-tick" />
+        </div>
+      </header>
+
+      <section className="intro">
+        <div className="wrap center">
+          <p className="sub">
+            {'From "we should use AI" to real, working systems. The Coast designs, builds, and deploys AI for founders and growth-stage teams.'}
+          </p>
           <div className="proof-strip">
             {proof && (
               <div className="proof-item">
@@ -152,7 +187,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             />
           </div>
         </div>
-      </header>
+      </section>
 
       <section id="problems">
         <div className="wrap center">

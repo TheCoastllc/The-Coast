@@ -97,14 +97,20 @@ body.funnel .mono {
 }
 
 /* ---------- NAV ---------- */
+/* fixed nav - hidden on the SKAI first screen, slides in once the hero scrolls past */
 body.funnel .fnav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
-  background: rgba(250, 248, 242, 0.86);
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: rgba(250, 248, 242, 0.9);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
+  transform: translateY(-100%);
+  transition: transform 0.45s var(--ease-out);
 }
+body.funnel .fnav[data-visible] { transform: none; }
 body.funnel .nav-in {
   display: flex;
   align-items: center;
@@ -182,51 +188,114 @@ body.funnel .btn-big { animation: ctaPulse 2.8s var(--ease-out) infinite; }
 
 /* ---------- HERO ---------- */
 body.funnel .hero {
-  background: var(--sand-light);
+  height: 100svh;
+  min-height: 640px;
   color: var(--ink);
   position: relative;
   overflow: hidden;
+  background: var(--sand-light);
 }
-/* the real shoreline - fills the hero; its cream sky and sand edges blend into
-   the page ground so only the horizon reads as imagery */
+/* dusk shoreline fills the viewport - rose sky up top is the statement zone,
+   deep teal sea grounds the CTA */
 body.funnel .hero-photo {
   object-fit: cover;
-  object-position: 50% 72%;
+  object-position: 50% 50%;
   z-index: 0;
 }
-/* sand-light scrim keeps the headline zone clean and quiets the sea band under
-   the subhead/CTA; fades out so the horizon + sand show at full strength */
-body.funnel .hero-scrim {
+/* SKAI-style inset hairline frame */
+body.funnel .hero-frame {
+  position: absolute;
+  inset: clamp(14px, 2.5vw, 40px);
+  border: 1px solid rgba(250, 244, 232, 0.55);
+  border-radius: 26px;
+  z-index: 2;
+  pointer-events: none;
+}
+/* chrome inside the frame's top edge: contact / stacked brand / book */
+body.funnel .hero-chrome {
+  position: absolute;
+  top: calc(clamp(14px, 2.5vw, 40px) + 16px);
+  left: calc(clamp(14px, 2.5vw, 40px) + 18px);
+  right: calc(clamp(14px, 2.5vw, 40px) + 18px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 4;
+}
+body.funnel .chrome-pill {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #faf4e8;
+  text-decoration: none;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(250, 244, 232, 0.5);
+  background: rgba(28, 31, 35, 0.16);
+  backdrop-filter: blur(8px);
+  transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), filter 0.3s var(--ease-out);
+}
+body.funnel .chrome-pill:hover { background: rgba(28, 31, 35, 0.3); transform: translateY(-1px); }
+body.funnel .chrome-pill:focus-visible { outline: 3px solid var(--teal-l); outline-offset: 3px; }
+body.funnel .chrome-cta {
+  background: linear-gradient(180deg, #fba98c 0%, var(--coral) 52%, var(--coral-dark) 100%);
+  border-color: var(--coral-dark);
+  color: var(--char);
+  font-weight: 600;
+  box-shadow: 0 8px 22px -8px rgba(28, 31, 35, 0.45);
+}
+body.funnel .chrome-cta:hover {
+  background: linear-gradient(180deg, #fba98c 0%, var(--coral) 52%, var(--coral-dark) 100%);
+  filter: brightness(1.06);
+}
+body.funnel .chrome-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  pointer-events: none;
+}
+body.funnel .chrome-brand img { width: 30px; height: auto; }
+body.funnel .chrome-brand span {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #faf4e8;
+  text-shadow: 0 1px 10px rgba(28, 31, 35, 0.35);
+}
+/* centered statement */
+body.funnel .hero-center {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(242, 239, 231, 0.94) 0%,
-    rgba(242, 239, 231, 0.86) 30%,
-    rgba(242, 239, 231, 0.62) 52%,
-    rgba(242, 239, 231, 0.18) 72%,
-    rgba(242, 239, 231, 0) 88%
-  );
-}
-body.funnel .hero-in {
-  padding: 96px 24px 170px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  max-width: 920px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
+  padding: 0 clamp(28px, 6vw, 80px);
 }
-body.funnel .hero .eyebrow { color: var(--bronze-text); margin-bottom: 26px; }
+body.funnel .hero .eyebrow {
+  color: rgba(36, 58, 68, 0.62);
+  margin-bottom: 30px;
+  text-shadow: none;
+}
 body.funnel .hero h1 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3rem, 6.6vw, 5.2rem);
+  font-size: clamp(3rem, 8.2vw, 7rem);
   line-height: 1.04;
-  letter-spacing: -0.02em;
-  color: var(--ocean);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(36, 58, 68, 0.74);
 }
 /* the money word - coral shimmer (the brand accent doing its job) */
 body.funnel .hero h1 .accent {
@@ -244,8 +313,13 @@ body.funnel .hero h1 .accent {
 @media (prefers-reduced-motion: reduce) {
   body.funnel .hero h1 .accent { color: var(--coral-dark); background: none; }
 }
-body.funnel .hero p.sub {
-  margin: 28px auto 0;
+/* intro - the displaced hero support content, first section below the fold */
+body.funnel .intro {
+  padding: 76px 0 88px;
+  background: var(--sand-light);
+}
+body.funnel .intro .sub {
+  margin: 0 auto;
   max-width: 660px;
   font-weight: 400;
   font-size: 1.16rem;
@@ -279,6 +353,39 @@ body.funnel .scarcity::before {
   0% { box-shadow: 0 0 0 0 rgba(247, 148, 122, 0.55); }
   70% { box-shadow: 0 0 0 9px rgba(247, 148, 122, 0); }
   100% { box-shadow: 0 0 0 0 rgba(247, 148, 122, 0); }
+}
+
+/* on the dusk photo the scarcity line runs cream with a soft shadow */
+body.funnel .hero .scarcity {
+  color: #ffe9d6;
+  text-shadow: 0 1px 12px rgba(28, 31, 35, 0.45);
+}
+
+/* SKAI scroll cue */
+body.funnel .scroll-cue {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(clamp(14px, 2.5vw, 40px) + 22px);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: rgba(250, 244, 232, 0.85);
+  text-shadow: 0 1px 10px rgba(28, 31, 35, 0.4);
+}
+body.funnel .scroll-tick {
+  width: 1px;
+  height: 34px;
+  background: currentColor;
+  animation: tickDrift 2.4s var(--ease-out) infinite;
+}
+@keyframes tickDrift {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  55% { transform: translateY(8px); opacity: 0.55; }
 }
 
 /* proof strip - ocean numbers, bronze star */
@@ -756,13 +863,21 @@ body.funnel .ffooter a:hover { color: var(--coral); }
 body.funnel .ffooter a:focus-visible { outline: 3px solid var(--teal-l); outline-offset: 2px; }
 body.funnel .ffooter .fine { margin-top: 14px; font-size: 0.75rem; color: #9aa5b1; }
 
-/* shoreline scale-down on small screens */
+/* shoreline + chrome scale-down on small screens */
 @media (max-width: 640px) {
-  body.funnel .hero-in { padding-bottom: 120px; }
+  body.funnel .hero-frame { border-radius: 18px; }
+  body.funnel .chrome-brand img { width: 24px; }
   body.funnel .sol::before,
   body.funnel .final::before { height: 48px; }
   body.funnel .sol { padding-top: 118px; }
   body.funnel .final { padding-top: 128px; }
+}
+@media (max-width: 560px) {
+  /* phone chrome reduces to the essential: the coral CTA (brand returns via the
+     nav on scroll); contact + center brand yield */
+  body.funnel .hero-chrome { justify-content: flex-end; }
+  body.funnel .hero-chrome .chrome-pill:not(.chrome-cta) { display: none; }
+  body.funnel .chrome-brand { display: none; }
 }
 
 /* scroll reveal */
