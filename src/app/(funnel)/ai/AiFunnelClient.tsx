@@ -135,7 +135,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               width={520}
               height={164}
               unoptimized
-              priority
+              loading="lazy"
             />
           </div>
         </div>

@@ -700,7 +700,7 @@ body.funnel .ffooter p { margin: 0; }
 body.funnel .ffooter a { color: #b7c0ca; text-decoration: none; transition: color 0.25s var(--ease-out); }
 body.funnel .ffooter a:hover { color: #e6b24d; }
 body.funnel .ffooter a:focus-visible { outline: 3px solid #7fd3c7; outline-offset: 2px; }
-body.funnel .ffooter .fine { margin-top: 14px; font-size: 0.75rem; opacity: 0.7; }
+body.funnel .ffooter .fine { margin-top: 14px; font-size: 0.75rem; color: #9aa5b1; }
 
 /* scroll reveal */
 body.funnel .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
