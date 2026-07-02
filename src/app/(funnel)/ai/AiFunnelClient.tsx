@@ -304,6 +304,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           <div className="steps">
             <div className="step reveal">
               <span className="num">STEP 01</span>
+              <span className="svc">AI Consultation</span>
               <p className="h">The Strategy Session</p>
               <p>
                 A focused working session where we map the three highest-impact places AI can work in
@@ -313,6 +314,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             </div>
             <div className="step reveal">
               <span className="num">STEP 02</span>
+              <span className="svc">AI Blueprint</span>
               <p className="h">The Blueprint</p>
               <p>
                 A deep diagnostic and a documented roadmap you can act on, with clear priorities and
@@ -321,6 +323,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             </div>
             <div className="step reveal">
               <span className="num">STEP 03</span>
+              <span className="svc">AI Implementation</span>
               <p className="h">The Build</p>
               <p>
                 We design, build, and deploy the systems, then make sure they hold up under real
@@ -378,22 +381,21 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           <h2 className="reveal">{"Start where you are. Scale when you're ready."}</h2>
           <div className="tiers">
             <div className="tier reveal">
-              <p className="t-name">AI Blueprint</p>
+              <p className="t-name">AI Consultation + Blueprint</p>
               <p className="t-price">
                 $1,500<small> starting</small>
               </p>
               <ul>
+                <li>A focused strategy session that maps your highest-leverage AI moves</li>
                 <li>Deep AI diagnostic of your business</li>
-                <li>Documented, prioritized roadmap</li>
-                <li>Clear scope and recommendations</li>
-                <li>Credits toward your build</li>
+                <li>Documented, prioritized roadmap with clear scope</li>
+                <li>Every dollar credits toward your build</li>
               </ul>
               <CtaLink location="pricing_blueprint" className="btn btn-cta">
                 Book a Strategy Session
               </CtaLink>
             </div>
-            <div className="tier feat reveal">
-              <span className="pop">MOST POPULAR</span>
+            <div className="tier reveal">
               <p className="t-name">AI Strategy &amp; Advisory</p>
               <p className="t-price">
                 $2,500<small>/month</small>
@@ -408,26 +410,41 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 Book a Strategy Session
               </CtaLink>
             </div>
-            <div className="tier reveal">
-              <p className="t-name">Done-For-You Implementation</p>
+            <div className="tier feat reveal">
+              <span className="pop">MOST POPULAR</span>
+              <p className="t-name">AI Implementation</p>
               <p className="t-price">
                 $5,000<small>+ per build</small>
               </p>
               <ul>
                 <li>We design, build, and deploy</li>
                 <li>AI systems in real production</li>
-                <li>Team training and handoff</li>
+                <li>Team training and clean handoff</li>
+                <li>30 days of post-launch support included</li>
                 <li>Built to hold up, not to demo</li>
               </ul>
               <CtaLink location="pricing_build" className="btn btn-cta">
                 Book a Strategy Session
               </CtaLink>
             </div>
+            <div className="tier reveal">
+              <p className="t-name">AI Custom Solutions</p>
+              <p className="t-price t-price-custom">Custom quote</p>
+              <ul>
+                <li>For operations that need what does not exist yet</li>
+                <li>Bespoke systems designed around your stack</li>
+                <li>Integrations, data, and workflows built to spec</li>
+                <li>Scoped and priced around outcomes</li>
+              </ul>
+              <CtaLink location="pricing_custom" className="btn btn-cta">
+                Book a Strategy Session
+              </CtaLink>
+            </div>
           </div>
           <p className="audit-note reveal">
-            Every engagement starts with <b>a Strategy Session.</b> We only take on work we know we
-            can deliver, so the first conversation is about fit, scope, and what your build actually
-            looks like.
+            Every engagement starts with <b>a Strategy Session.</b> Blueprint dollars credit toward
+            your build. We only take on work we know we can deliver, so the first conversation is
+            about fit, scope, and what your build actually looks like.
           </p>
         </div>
       </section>

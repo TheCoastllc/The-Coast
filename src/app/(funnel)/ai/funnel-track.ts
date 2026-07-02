@@ -20,6 +20,7 @@ export type CtaLocation =
   | 'pricing_blueprint'
   | 'pricing_advisory'
   | 'pricing_build'
+  | 'pricing_custom'
   | 'final'
 
 /** Calendly link with the current page's utm_* params forwarded. */
