@@ -43,7 +43,7 @@ body.funnel {
   --bronze-text: #8f6e23;
   --ink: #243A44;
   --ink-soft: #46545c;
-  --steel: #66757e;
+  --steel: #59686f;
 
   /* site-compatible token names (imported components e.g. TrustedBy) */
   --color-bg: var(--sand-light);
