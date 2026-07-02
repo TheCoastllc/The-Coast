@@ -1,8 +1,10 @@
-/* AI funnel (/ai) - THE COAST ocean design system.
-   Reskinned from the original landing brief palette to match coastglobal.org
-   exactly: tokens mirror body.ocean in src/app/(frontend)/styles.css, so
-   imported site components (TrustedBy) resolve their variables natively.
-   Layout/structure is the funnel's own; only branding matches the main site. */
+/* AI funnel (/ai) - THE COAST ocean design system, conversion-amped.
+   Tokens mirror body.ocean in src/app/(frontend)/styles.css so imported site
+   components (TrustedBy) resolve natively. This pass adds the site's depth
+   devices (aurora radials, grain, vignette, glass cards, gold glow) and applies
+   conversion color psychology: the gold CTA is the single most saturated,
+   highest-contrast element (isolation effect); scarcity runs WARM amber
+   (urgency); teal stays the calm/trust accent. */
 
 html.funnel-root {
   scroll-behavior: smooth;
@@ -23,17 +25,19 @@ body.funnel {
   --color-bg-alt: #12161d;
   --color-bg-deep: #06080c;
   --color-gold: #e6b24d;
+  --color-gold-bright: #f5d78a;
   --color-gold-dim: #a8792e;
   --color-gold-glow: rgba(230, 178, 77, 0.42);
+  --color-amber: #ffd27a;
   --color-teal: #7fd3c7;
   --color-teal-dim: #4e9e94;
-  --color-white: #edeff2;
-  --color-white-dim: #aab2bc;
-  --color-cream: #edeff2;
-  --color-cream-dim: #aab2bc;
-  --color-steel: #76828e;
-  --color-mono: #76828e;
-  --color-border: rgba(237, 239, 242, 0.1);
+  --color-white: #f4f6f8;
+  --color-white-dim: #b7c0ca;
+  --color-cream: #f4f6f8;
+  --color-cream-dim: #b7c0ca;
+  --color-steel: #87929e;
+  --color-mono: #87929e;
+  --color-border: rgba(237, 239, 242, 0.12);
   --glow-gold: 0 0 10px rgba(230, 178, 77, 0.42), 0 0 26px rgba(230, 178, 77, 0.18);
   --glow-teal: 0 0 10px rgba(127, 211, 199, 0.35), 0 0 24px rgba(127, 211, 199, 0.16);
   --text-glow-teal: 0 0 16px rgba(127, 211, 199, 0.45);
@@ -54,6 +58,24 @@ body.funnel img { max-width: 100%; display: block; }
 body.funnel a { color: inherit; }
 body.funnel ::selection { background: rgba(201, 162, 75, 0.3); color: var(--color-white); }
 
+/* site-signature texture: grain + vignette (fixed, under the sticky nav) */
+body.funnel .fgrain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+body.funnel .fvignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse at center, transparent 36%, rgba(4, 6, 10, 0.55) 100%);
+}
+
 body.funnel .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 body.funnel .mono {
   font-family: var(--font-mono);
@@ -67,8 +89,8 @@ body.funnel .fnav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(10, 12, 18, 0.88);
-  backdrop-filter: blur(10px);
+  background: rgba(8, 10, 15, 0.86);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
 }
 body.funnel .nav-in {
@@ -87,22 +109,46 @@ body.funnel .btn {
   font-family: var(--font-mono);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.3s var(--ease-out);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.3s var(--ease-out), filter 0.3s var(--ease-out);
 }
 body.funnel .btn:focus-visible { outline: 3px solid var(--color-teal); outline-offset: 3px; }
+
+/* THE action color - a lit gold beacon, nothing else competes with it */
 body.funnel .btn-gold {
-  background: var(--color-gold);
-  color: #0a0c12;
-  border: 1px solid var(--color-gold);
-  padding: 12px 24px;
+  background: linear-gradient(180deg, #f2c96e 0%, var(--color-gold) 55%, #d9a139 100%);
+  color: #07090d;
+  border: 1px solid rgba(245, 215, 138, 0.9);
+  padding: 13px 26px;
   font-size: 0.66rem;
-  font-weight: 500;
+  font-weight: 600;
+  box-shadow:
+    0 0 0 1px rgba(230, 178, 77, 0.25),
+    0 10px 30px -10px rgba(230, 178, 77, 0.55);
 }
 body.funnel .btn-gold:hover {
-  box-shadow: 0 0 26px -6px color-mix(in srgb, var(--color-gold) 70%, transparent);
-  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow:
+    0 0 0 1px rgba(245, 215, 138, 0.5),
+    0 0 34px -4px rgba(230, 178, 77, 0.65),
+    0 14px 40px -12px rgba(230, 178, 77, 0.7);
+  transform: translateY(-2px);
 }
-body.funnel .btn-big { padding: 17px 38px; font-size: 0.74rem; }
+body.funnel .btn-big { padding: 19px 46px; font-size: 0.8rem; }
+body.funnel .btn-big::after { content: "→"; margin-left: 0.7rem; }
+/* soft beacon pulse on the two big CTAs (hero + final); killed by reduced-motion */
+@keyframes ctaPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 rgba(230, 178, 77, 0.4),
+      0 10px 34px -10px rgba(230, 178, 77, 0.6);
+  }
+  55% {
+    box-shadow:
+      0 0 0 12px rgba(230, 178, 77, 0),
+      0 10px 34px -10px rgba(230, 178, 77, 0.6);
+  }
+}
+body.funnel .btn-big { animation: ctaPulse 2.8s var(--ease-out) infinite; }
 
 /* keep the sticky nav on one line down to 360px */
 @media (max-width: 480px) {
@@ -113,14 +159,17 @@ body.funnel .btn-big { padding: 17px 38px; font-size: 0.74rem; }
 
 /* ---------- HERO ---------- */
 body.funnel .hero {
-  background: linear-gradient(180deg, var(--color-bg-deep) 0%, var(--color-bg) 100%);
+  background:
+    radial-gradient(950px 520px at 50% -12%, rgba(127, 211, 199, 0.16), transparent 62%),
+    radial-gradient(760px 460px at 50% 112%, rgba(230, 178, 77, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--color-bg-deep) 0%, var(--color-bg) 100%);
   color: var(--color-white);
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--color-border);
 }
 body.funnel .hero-in {
-  padding: 92px 24px 84px;
+  padding: 96px 24px 84px;
   text-align: center;
   max-width: 920px;
   margin: 0 auto;
@@ -132,33 +181,69 @@ body.funnel .hero h1 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(2.9rem, 6.4vw, 4.9rem);
-  line-height: 1.06;
+  font-size: clamp(3rem, 6.6vw, 5.2rem);
+  line-height: 1.04;
   letter-spacing: -0.02em;
-  color: var(--color-white);
-  text-shadow: var(--text-glow-teal);
+  color: #ffffff;
+  text-shadow: 0 0 22px rgba(127, 211, 199, 0.35), 0 0 60px rgba(127, 211, 199, 0.14);
 }
-body.funnel .hero h1 .accent { color: var(--color-gold); text-shadow: var(--text-glow-gold); }
+/* the money word - live gold shimmer (site's gold-shimmer device) */
+body.funnel .hero h1 .accent {
+  background: linear-gradient(100deg, var(--color-gold) 15%, var(--color-gold-bright) 42%, var(--color-gold) 72%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 20px rgba(230, 178, 77, 0.4));
+  animation: goldShimmer 4.5s ease-in-out infinite;
+}
+@keyframes goldShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.funnel .hero h1 .accent { color: var(--color-gold); background: none; filter: none; }
+}
 body.funnel .hero p.sub {
-  margin: 26px auto 0;
-  max-width: 640px;
+  margin: 28px auto 0;
+  max-width: 660px;
   font-weight: 300;
-  font-size: 1.12rem;
+  font-size: 1.16rem;
   color: var(--color-white-dim);
 }
-body.funnel .cta-row { margin-top: 38px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-body.funnel .hero .scarcity {
-  margin-top: 20px;
-  color: var(--color-teal);
+body.funnel .cta-row { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* scarcity runs WARM (urgency) with a live-pulse dot */
+body.funnel .scarcity {
+  margin-top: 22px;
+  color: var(--color-amber);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+body.funnel .scarcity::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-amber);
+  margin-right: 0.6rem;
+  vertical-align: 1px;
+  box-shadow: 0 0 0 0 rgba(255, 210, 122, 0.55);
+  animation: liveDot 2s ease-out infinite;
+}
+@keyframes liveDot {
+  0% { box-shadow: 0 0 0 0 rgba(255, 210, 122, 0.55); }
+  70% { box-shadow: 0 0 0 9px rgba(255, 210, 122, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 210, 122, 0); }
+}
 
-/* proof strip - real numbers under the hero CTA */
+/* proof strip - bigger, whiter, undeniable */
 body.funnel .proof-strip {
-  margin-top: 44px;
+  margin-top: 46px;
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -166,21 +251,24 @@ body.funnel .proof-strip {
   flex-wrap: wrap;
 }
 body.funnel .proof-item {
-  padding: 0 2.4rem;
+  padding: 0 2.6rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   align-items: center;
 }
 body.funnel .proof-item + .proof-item { border-left: 1px solid var(--color-border); }
 body.funnel .proof-value {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 1.7rem;
+  font-size: 2rem;
   line-height: 1;
-  color: var(--color-white);
+  color: #ffffff;
 }
-body.funnel .proof-value .star { color: var(--color-gold); }
+body.funnel .proof-value .star {
+  color: var(--color-gold);
+  filter: drop-shadow(0 0 10px rgba(230, 178, 77, 0.55));
+}
 body.funnel .proof-label {
   font-family: var(--font-mono);
   font-size: 0.58rem;
@@ -190,13 +278,13 @@ body.funnel .proof-label {
 }
 @media (max-width: 640px) {
   body.funnel .proof-item { padding: 0 1.1rem; }
-  body.funnel .proof-value { font-size: 1.35rem; }
+  body.funnel .proof-value { font-size: 1.45rem; }
 }
 
 /* partner badge - homepage partnerStrip pattern */
 body.funnel .badge-strip {
-  margin-top: 52px;
-  padding-top: 40px;
+  margin-top: 54px;
+  padding-top: 42px;
   border-top: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
@@ -214,12 +302,12 @@ body.funnel .badge-strip img {
   width: 264px;
   height: auto;
   border-radius: 8px;
-  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.45));
   transition: transform 0.4s var(--ease-out);
 }
 body.funnel .badge-strip img:hover { transform: translateY(-2px); }
 
-/* falling drop (teal = site token) */
+/* falling drop */
 body.funnel .drop {
   position: absolute;
   top: -40px;
@@ -241,7 +329,7 @@ body.funnel .drop {
 }
 
 /* ---------- SECTIONS ---------- */
-body.funnel section { padding: 88px 0; }
+body.funnel section { padding: 92px 0; position: relative; }
 body.funnel .eyebrow {
   display: block;
   font-family: var(--font-mono);
@@ -250,87 +338,115 @@ body.funnel .eyebrow {
   text-transform: uppercase;
   color: var(--color-gold);
   margin-bottom: 14px;
+  text-shadow: 0 0 14px rgba(230, 178, 77, 0.3);
 }
 body.funnel h2 {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-size: clamp(2.1rem, 4.4vw, 3.1rem);
   letter-spacing: -0.02em;
-  color: var(--color-white);
-  line-height: 1.12;
-  text-shadow: var(--text-glow-teal);
+  color: #ffffff;
+  line-height: 1.1;
+  text-shadow: 0 0 18px rgba(127, 211, 199, 0.32);
 }
 body.funnel .center { text-align: center; }
 body.funnel .lead {
-  max-width: 620px;
+  max-width: 640px;
   margin: 16px auto 0;
   color: var(--color-white-dim);
   font-weight: 300;
-  font-size: 1.02rem;
+  font-size: 1.06rem;
 }
 
-/* cards (ocean card pattern) */
+/* glass cards (site .glass pattern) - teal-lit by default */
 body.funnel .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 @media (max-width: 840px) { body.funnel .cards { grid-template-columns: 1fr; } }
 body.funnel .card {
-  background: color-mix(in srgb, var(--color-white) 3%, transparent);
-  border: 1px solid var(--color-border);
+  --gc: var(--color-teal);
+  background: linear-gradient(160deg, rgba(16, 26, 40, 0.78), rgba(9, 14, 22, 0.85));
+  border: 1px solid color-mix(in srgb, var(--gc) 26%, transparent);
   border-radius: 14px;
   padding: 34px 28px;
   text-align: left;
-  transition: transform 0.25s var(--ease-out), border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  box-shadow: inset 0 0 22px rgba(127, 211, 199, 0.05);
+  transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
 body.funnel .card:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--color-gold) 40%, transparent);
-  box-shadow: 0 0 26px -10px color-mix(in srgb, var(--color-gold) 45%, transparent);
+  border-color: color-mix(in srgb, var(--gc) 70%, transparent);
+  box-shadow:
+    0 0 16px color-mix(in srgb, var(--gc) 28%, transparent),
+    0 0 34px color-mix(in srgb, var(--gc) 14%, transparent),
+    inset 0 0 22px rgba(127, 211, 199, 0.07);
 }
 body.funnel .card .q {
   margin: 0;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
-  font-size: 1.28rem;
-  color: var(--color-white);
+  font-size: 1.3rem;
+  color: #ffffff;
   line-height: 1.4;
 }
-body.funnel .card p { margin: 14px 0 0; color: var(--color-white-dim); font-size: 0.94rem; font-weight: 300; }
+body.funnel .card p { margin: 14px 0 0; color: var(--color-white-dim); font-size: 0.95rem; font-weight: 300; }
 
-/* personas ("who this is for") */
+/* personas - gold-lit glass (value framing) */
+body.funnel #who .card { --gc: var(--color-gold); box-shadow: inset 0 0 22px rgba(230, 178, 77, 0.05); }
 body.funnel .persona-name {
   margin: 0;
   font-weight: 600;
-  font-size: 1.02rem;
+  font-size: 1.04rem;
   color: var(--color-gold);
   letter-spacing: 0.01em;
+  text-shadow: 0 0 12px rgba(230, 178, 77, 0.35);
 }
 
-/* trusted-by row (wraps the site's TrustedBy component) */
-body.funnel .trusted { padding: 56px 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+/* trusted-by row */
+body.funnel .trusted {
+  padding: 58px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(180deg, rgba(18, 22, 29, 0.5), transparent);
+}
 body.funnel .trusted .eyebrow { margin-bottom: 26px; }
 
-/* solutions (alt surface) */
+/* solutions (alt surface with a teal aurora) */
 body.funnel .sol {
-  background: var(--color-bg-alt);
+  background:
+    radial-gradient(820px 420px at 50% -6%, rgba(127, 211, 199, 0.1), transparent 60%),
+    linear-gradient(180deg, #0d1119 0%, var(--color-bg-alt) 45%, #0d1119 100%);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
-body.funnel .sol .cards .card { background: color-mix(in srgb, var(--color-white) 4%, transparent); }
-body.funnel .sol .card .h { margin: 0; font-weight: 600; font-size: 1.12rem; color: var(--color-white); line-height: 1.3; }
+body.funnel .sol .cards .card { background: linear-gradient(160deg, rgba(20, 30, 44, 0.8), rgba(11, 16, 24, 0.88)); }
+body.funnel .sol .card .h { margin: 0; font-weight: 600; font-size: 1.14rem; color: #ffffff; line-height: 1.3; }
 body.funnel .sol .card p { color: var(--color-white-dim); }
-body.funnel .sol .card .tag { display: inline-block; margin-bottom: 14px; color: var(--color-teal); }
+body.funnel .sol .card .tag {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--color-teal);
+  text-shadow: 0 0 12px rgba(127, 211, 199, 0.4);
+}
 
 /* steps */
 body.funnel .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 @media (max-width: 840px) { body.funnel .steps { grid-template-columns: 1fr; } }
 body.funnel .step {
-  background: color-mix(in srgb, var(--color-white) 3%, transparent);
-  border: 1px solid var(--color-border);
+  --gc: var(--color-gold);
+  background: linear-gradient(160deg, rgba(16, 26, 40, 0.78), rgba(9, 14, 22, 0.85));
+  border: 1px solid color-mix(in srgb, var(--gc) 24%, transparent);
   border-radius: 14px;
   padding: 34px 28px;
   position: relative;
   text-align: left;
+  box-shadow: inset 0 0 22px rgba(230, 178, 77, 0.04);
+  transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+body.funnel .step:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--gc) 65%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gc) 24%, transparent), inset 0 0 22px rgba(230, 178, 77, 0.06);
 }
 body.funnel .step .num {
   font-family: var(--font-mono);
@@ -339,61 +455,77 @@ body.funnel .step .num {
   text-transform: uppercase;
   color: var(--color-gold);
   font-weight: 500;
+  text-shadow: 0 0 12px rgba(230, 178, 77, 0.4);
 }
-body.funnel .step .h { margin: 12px 0 0; font-weight: 600; font-size: 1.12rem; color: var(--color-white); }
-body.funnel .step p { margin: 10px 0 0; color: var(--color-white-dim); font-size: 0.94rem; font-weight: 300; }
+body.funnel .step .h { margin: 12px 0 0; font-weight: 600; font-size: 1.14rem; color: #ffffff; }
+body.funnel .step p { margin: 10px 0 0; color: var(--color-white-dim); font-size: 0.95rem; font-weight: 300; }
 
-/* pricing */
-body.funnel .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+/* pricing - the money section gets a gold aurora; the featured tier OWNS it */
+body.funnel #pricing {
+  background: radial-gradient(920px 480px at 50% 18%, rgba(230, 178, 77, 0.09), transparent 62%);
+}
+body.funnel .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; align-items: stretch; }
 @media (max-width: 900px) { body.funnel .tiers { grid-template-columns: 1fr; } }
 body.funnel .tier {
-  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  background: linear-gradient(165deg, rgba(15, 22, 33, 0.82), rgba(9, 13, 20, 0.9));
   border: 1px solid var(--color-border);
   border-radius: 18px;
   padding: 38px 30px;
   display: flex;
   flex-direction: column;
   text-align: left;
-  transition: border-color 0.25s var(--ease-out);
+  transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-body.funnel .tier:hover { border-color: color-mix(in srgb, var(--color-gold) 35%, transparent); }
+body.funnel .tier:hover {
+  border-color: color-mix(in srgb, var(--color-gold) 45%, transparent);
+  box-shadow: 0 0 24px -8px rgba(230, 178, 77, 0.3);
+}
 body.funnel .tier.feat {
   border: 1px solid var(--color-gold);
   position: relative;
-  background: color-mix(in srgb, var(--color-gold) 7%, transparent);
-  box-shadow: 0 0 34px -14px var(--color-gold-glow);
+  background:
+    radial-gradient(360px 220px at 50% 0%, rgba(230, 178, 77, 0.16), transparent 70%),
+    linear-gradient(170deg, rgba(230, 178, 77, 0.1), rgba(230, 178, 77, 0.03) 50%, rgba(9, 13, 20, 0.9));
+  box-shadow:
+    0 0 44px -10px rgba(230, 178, 77, 0.45),
+    inset 0 0 30px rgba(230, 178, 77, 0.05);
+  transform: scale(1.035);
 }
+@media (max-width: 900px) { body.funnel .tier.feat { transform: none; } }
+body.funnel .tier.feat:hover { box-shadow: 0 0 54px -8px rgba(230, 178, 77, 0.55), inset 0 0 30px rgba(230, 178, 77, 0.06); }
 body.funnel .tier.feat .pop {
   position: absolute;
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--color-gold);
-  color: #0a0c12;
+  background: linear-gradient(180deg, #f2c96e, var(--color-gold));
+  color: #07090d;
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.18em;
   padding: 7px 16px;
   border-radius: 999px;
   white-space: nowrap;
+  box-shadow: 0 0 18px -2px rgba(230, 178, 77, 0.6);
 }
-body.funnel .tier .t-name { margin: 0; font-weight: 600; color: var(--color-white); font-size: 1.05rem; }
+body.funnel .tier .t-name { margin: 0; font-weight: 600; color: #ffffff; font-size: 1.05rem; }
 body.funnel .tier .t-price {
   margin: 10px 0 0;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 2.3rem;
-  color: var(--color-white);
+  font-size: 2.55rem;
+  color: #ffffff;
   letter-spacing: -0.02em;
   line-height: 1;
 }
+body.funnel .tier.feat .t-price { text-shadow: 0 0 22px rgba(230, 178, 77, 0.35); }
 body.funnel .tier .t-price small { font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; color: var(--color-white-dim); letter-spacing: 0; }
 body.funnel .tier ul { list-style: none; margin: 24px 0 30px; padding: 0; flex: 1; }
 body.funnel .tier li {
   padding: 8px 0 8px 28px;
   position: relative;
-  font-size: 0.92rem;
+  font-size: 0.93rem;
   color: var(--color-white-dim);
   font-weight: 300;
 }
@@ -406,6 +538,7 @@ body.funnel .tier li::before {
   height: 14px;
   border-radius: 50%;
   background: var(--color-gold);
+  box-shadow: 0 0 8px rgba(230, 178, 77, 0.45);
 }
 body.funnel .tier li::after {
   content: "";
@@ -414,16 +547,22 @@ body.funnel .tier li::after {
   top: 16px;
   width: 6px;
   height: 3px;
-  border-left: 2px solid #0a0c12;
-  border-bottom: 2px solid #0a0c12;
+  border-left: 2px solid #07090d;
+  border-bottom: 2px solid #07090d;
   transform: rotate(-45deg);
 }
 body.funnel .tier .btn { text-align: center; }
-body.funnel .audit-note { margin-top: 26px; text-align: center; color: var(--color-white-dim); font-size: 0.92rem; }
-body.funnel .audit-note b { color: var(--color-white); font-weight: 600; }
+body.funnel .audit-note { margin-top: 28px; text-align: center; color: var(--color-white-dim); font-size: 0.93rem; }
+body.funnel .audit-note b { color: #ffffff; font-weight: 600; }
 
-/* trust ("why the coast") */
-body.funnel .trust { background: var(--color-bg-alt); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+/* trust ("why the coast") - warm gold wash behind the founder */
+body.funnel .trust {
+  background:
+    radial-gradient(780px 400px at 24% 34%, rgba(230, 178, 77, 0.07), transparent 62%),
+    linear-gradient(180deg, #0d1119 0%, var(--color-bg-alt) 50%, #0d1119 100%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
 body.funnel .trust-grid {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -433,30 +572,33 @@ body.funnel .trust-grid {
 }
 @media (max-width: 840px) { body.funnel .trust-grid { grid-template-columns: 1fr; gap: 36px; } }
 body.funnel .trust-badge {
-  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  background: linear-gradient(160deg, rgba(16, 26, 40, 0.78), rgba(9, 14, 22, 0.85));
   border: 1px solid var(--color-border);
   border-radius: 18px;
   padding: 40px;
   text-align: center;
+  transition: border-color 0.3s var(--ease-out);
 }
+body.funnel .trust-badge:hover { border-color: color-mix(in srgb, var(--color-teal) 45%, transparent); }
 body.funnel .trust-badge img {
   width: 300px;
   height: auto;
   margin: 0 auto 18px;
   border-radius: 8px;
-  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.45));
 }
 body.funnel .trust-badge .line { margin: 0; font-size: 0.92rem; color: var(--color-white-dim); }
 body.funnel .founder-wrap { display: flex; gap: 28px; align-items: center; }
 @media (max-width: 640px) { body.funnel .founder-wrap { flex-direction: column; align-items: flex-start; } }
 body.funnel .founder-photo {
   position: relative;
-  flex: 0 0 168px;
-  width: 168px;
+  flex: 0 0 172px;
+  width: 172px;
   aspect-ratio: 4 / 5;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+  box-shadow: 0 0 26px -8px rgba(230, 178, 77, 0.35), 0 18px 40px -18px rgba(0, 0, 0, 0.6);
 }
 body.funnel .founder-photo img { object-fit: cover; }
 body.funnel .quote { border-left: 3px solid var(--color-gold); padding-left: 26px; }
@@ -465,8 +607,8 @@ body.funnel .quote .q {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
-  font-size: 1.42rem;
-  color: var(--color-white);
+  font-size: 1.46rem;
+  color: #ffffff;
   line-height: 1.5;
 }
 body.funnel .quote .who {
@@ -481,19 +623,23 @@ body.funnel .quote .who {
 /* faq */
 body.funnel .faq-list { max-width: 760px; margin: 44px auto 0; text-align: left; }
 body.funnel details {
-  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  background: linear-gradient(160deg, rgba(15, 23, 35, 0.75), rgba(9, 13, 20, 0.85));
   border: 1px solid var(--color-border);
   border-radius: 14px;
   margin-bottom: 14px;
   overflow: hidden;
-  transition: border-color 0.25s var(--ease-out);
+  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-body.funnel details:hover { border-color: color-mix(in srgb, var(--color-gold) 30%, transparent); }
+body.funnel details:hover {
+  border-color: color-mix(in srgb, var(--color-gold) 40%, transparent);
+  box-shadow: 0 0 20px -8px rgba(230, 178, 77, 0.25);
+}
+body.funnel details[open] { border-color: color-mix(in srgb, var(--color-gold) 55%, transparent); }
 body.funnel summary {
   cursor: pointer;
   padding: 22px 26px;
   font-weight: 500;
-  color: var(--color-white);
+  color: #ffffff;
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -510,31 +656,37 @@ body.funnel summary::after {
   font-weight: 400;
   transition: transform 0.2s ease;
   flex: none;
+  text-shadow: 0 0 10px rgba(230, 178, 77, 0.4);
 }
 body.funnel details[open] summary::after { transform: rotate(45deg); }
 body.funnel details .a { padding: 0 26px 24px; color: var(--color-white-dim); font-weight: 300; font-size: 0.94rem; }
 
-/* final cta */
+/* final cta - full aurora, biggest headline, beacon CTA */
 body.funnel .final {
-  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-deep) 100%);
+  background:
+    radial-gradient(880px 460px at 50% 0%, rgba(127, 211, 199, 0.12), transparent 60%),
+    radial-gradient(720px 420px at 50% 100%, rgba(230, 178, 77, 0.14), transparent 62%),
+    linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-deep) 100%);
   color: var(--color-white);
   text-align: center;
   position: relative;
   overflow: hidden;
   border-top: 1px solid var(--color-border);
+  padding: 110px 0;
 }
+body.funnel .final h2 { font-size: clamp(2.6rem, 5.4vw, 3.9rem); }
 body.funnel .final .tagline {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: var(--color-cream-dim);
   margin: 14px 0 0;
 }
-body.funnel .final .cta-row { margin-top: 36px; }
+body.funnel .final .cta-row { margin-top: 38px; }
 body.funnel .final .scarcity {
-  margin: 18px 0 0;
-  color: var(--color-teal);
+  margin: 20px 0 0;
+  color: var(--color-amber);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.14em;

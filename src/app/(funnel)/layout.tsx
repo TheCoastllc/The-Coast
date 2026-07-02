@@ -102,6 +102,10 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
 
         {children}
 
+        {/* site-signature texture: fixed grain + vignette (pure CSS, pointer-events none) */}
+        <div className="fvignette" aria-hidden="true" />
+        <div className="fgrain" aria-hidden="true" />
+
         <CookieBanner />
       </body>
     </html>
