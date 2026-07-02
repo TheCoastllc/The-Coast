@@ -182,28 +182,36 @@ body.funnel .btn-big { animation: ctaPulse 2.8s var(--ease-out) infinite; }
 
 /* ---------- HERO ---------- */
 body.funnel .hero {
-  background:
-    radial-gradient(900px 500px at 50% -12%, rgba(247, 148, 122, 0.16), transparent 60%),
-    radial-gradient(760px 440px at 50% 112%, rgba(58, 167, 181, 0.1), transparent 60%),
-    linear-gradient(180deg, var(--sand-bright) 0%, var(--sand-light) 100%);
+  background: var(--sand-light);
   color: var(--ink);
   position: relative;
   overflow: hidden;
 }
-/* layered dunes at the hero's shoreline - back dunes darker, front dune merges
-   into the next section's sand so the horizon reads as depth, not a border */
-body.funnel .hero::after {
-  content: "";
+/* the real shoreline - fills the hero; its cream sky and sand edges blend into
+   the page ground so only the horizon reads as imagery */
+body.funnel .hero-photo {
+  object-fit: cover;
+  object-position: 50% 72%;
+  z-index: 0;
+}
+/* sand-light scrim keeps the headline zone clean and quiets the sea band under
+   the subhead/CTA; fades out so the horizon + sand show at full strength */
+body.funnel .hero-scrim {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 140px;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 150' preserveAspectRatio='none'><path d='M0,86 C240,36 520,108 780,74 C1040,42 1260,96 1440,64 L1440,150 L0,150 Z' fill='%23ddd3b8' opacity='.55'/><path d='M0,104 C300,62 600,126 880,92 C1160,60 1330,112 1440,92 L1440,150 L0,150 Z' fill='%23e7dfc9' opacity='.8'/><path d='M0,124 C360,94 720,142 1040,116 C1240,100 1360,122 1440,112 L1440,150 L0,150 Z' fill='%23F2EFE7'/></svg>") bottom / 100% 100% no-repeat;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 239, 231, 0.94) 0%,
+    rgba(242, 239, 231, 0.86) 30%,
+    rgba(242, 239, 231, 0.62) 52%,
+    rgba(242, 239, 231, 0.18) 72%,
+    rgba(242, 239, 231, 0) 88%
+  );
 }
 body.funnel .hero-in {
-  padding: 96px 24px 150px;
+  padding: 96px 24px 170px;
   text-align: center;
   max-width: 920px;
   margin: 0 auto;
@@ -506,9 +514,7 @@ body.funnel .step p { margin: 10px 0 0; color: var(--ink-soft); font-size: 0.95r
 
 /* pricing - warm coral aura; featured tier framed in COASTAL TEAL (the original design) */
 body.funnel #pricing {
-  background:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='420'><g fill='none' stroke='%23243A44' stroke-opacity='.045' stroke-width='1.2'><path d='M-20,80 C120,40 260,120 420,84 C560,52 660,110 720,90'/><path d='M-20,190 C140,150 300,230 460,194 C600,162 680,220 720,200'/><path d='M-20,300 C120,260 280,340 440,304 C580,272 680,330 720,310'/></g></svg>") repeat,
-    radial-gradient(920px 480px at 50% 18%, rgba(247, 148, 122, 0.1), transparent 62%);
+  background: radial-gradient(920px 480px at 50% 18%, rgba(247, 148, 122, 0.1), transparent 62%);
 }
 body.funnel .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; align-items: stretch; }
 @media (max-width: 900px) { body.funnel .tiers { grid-template-columns: 1fr; } }
@@ -601,7 +607,6 @@ body.funnel .audit-note b { color: var(--ocean); font-weight: 600; }
 /* trust ("why the coast") - sand beige with a teal wash */
 body.funnel .trust {
   background:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='420'><g fill='none' stroke='%23243A44' stroke-opacity='.05' stroke-width='1.2'><path d='M-20,80 C120,40 260,120 420,84 C560,52 660,110 720,90'/><path d='M-20,190 C140,150 300,230 460,194 C600,162 680,220 720,200'/><path d='M-20,300 C120,260 280,340 440,304 C580,272 680,330 720,310'/></g></svg>") repeat,
     radial-gradient(780px 400px at 24% 34%, rgba(58, 167, 181, 0.09), transparent 62%),
     var(--sand);
   border-top: 1px solid var(--color-border);
@@ -753,8 +758,7 @@ body.funnel .ffooter .fine { margin-top: 14px; font-size: 0.75rem; color: #9aa5b
 
 /* shoreline scale-down on small screens */
 @media (max-width: 640px) {
-  body.funnel .hero::after { height: 84px; }
-  body.funnel .hero-in { padding-bottom: 104px; }
+  body.funnel .hero-in { padding-bottom: 120px; }
   body.funnel .sol::before,
   body.funnel .final::before { height: 48px; }
   body.funnel .sol { padding-top: 118px; }

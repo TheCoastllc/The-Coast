@@ -88,6 +88,19 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
       </nav>
 
       <header className="hero">
+        {/* real shoreline backdrop - cream sky (text zone) -> coral horizon glow ->
+            teal sea -> cream sand that melts into the page ground */}
+        <Image
+          className="hero-photo"
+          src="/ai/beach-hero.jpg"
+          alt=""
+          aria-hidden
+          fill
+          priority
+          sizes="100vw"
+          quality={82}
+        />
+        <div className="hero-scrim" aria-hidden="true" />
         <div className="drop" aria-hidden="true" />
         <div className="hero-in">
           <span className="eyebrow mono">AI Consulting &amp; Implementation</span>
