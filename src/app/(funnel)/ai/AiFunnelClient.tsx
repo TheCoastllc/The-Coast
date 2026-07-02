@@ -70,14 +70,17 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
     <>
       <nav className="fnav" aria-label="Primary">
         <div className="nav-in">
-          <Image
-            className="nav-logo"
-            src="/coast-logo.png"
-            alt="The Coast"
-            width={1145}
-            height={412}
-            priority
-          />
+          <span className="nav-lockup">
+            <Image
+              className="nav-logo"
+              src="/logolight.png"
+              alt="The Coast"
+              width={364}
+              height={280}
+              priority
+            />
+            <span className="nav-word">The Coast</span>
+          </span>
           <CtaLink location="nav" className="btn btn-gold">
             Book a Strategy Session
           </CtaLink>
