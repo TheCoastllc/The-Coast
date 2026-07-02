@@ -622,9 +622,8 @@ body.funnel .step p { margin: 10px 0 0; color: var(--cream-dim); font-size: 0.95
 body.funnel #pricing {
   background: radial-gradient(960px 500px at 50% 16%, rgba(201, 162, 75, 0.12), transparent 62%);
 }
-body.funnel .tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 56px; align-items: stretch; }
-@media (max-width: 1100px) { body.funnel .tiers { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 640px) { body.funnel .tiers { grid-template-columns: 1fr; } }
+body.funnel .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; align-items: stretch; }
+@media (max-width: 900px) { body.funnel .tiers { grid-template-columns: 1fr; } }
 body.funnel .tier {
   background: linear-gradient(165deg, rgba(46, 37, 24, 0.66), rgba(24, 19, 12, 0.92));
   border: 1px solid var(--color-border);
@@ -715,6 +714,73 @@ body.funnel .tier li::after {
   transform: rotate(-45deg);
 }
 body.funnel .tier .btn { text-align: center; }
+
+/* custom solutions - the bespoke band beneath the three tiers */
+body.funnel .tier-custom {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 30px 34px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, rgba(201, 162, 75, 0.14), rgba(24, 19, 12, 0.92) 45%);
+  border: 1px solid rgba(201, 162, 75, 0.4);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+body.funnel .tier-custom:hover {
+  border-color: rgba(201, 162, 75, 0.65);
+  box-shadow: var(--glow-bronze), var(--shadow-card);
+}
+body.funnel .tier-custom-head { flex: 0 0 auto; }
+body.funnel .tier-custom .t-name { margin: 0; font-weight: 600; color: var(--cream); font-size: 1.02rem; }
+body.funnel .tier-custom .t-price { margin: 8px 0 0; }
+body.funnel .tier-custom ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 26px;
+}
+body.funnel .tier-custom li {
+  padding: 6px 0 6px 26px;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+  font-weight: 300;
+}
+body.funnel .tier-custom li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bronze);
+  box-shadow: 0 0 8px rgba(201, 162, 75, 0.4);
+}
+body.funnel .tier-custom li::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 14px;
+  width: 6px;
+  height: 3px;
+  border-left: 2px solid var(--char);
+  border-bottom: 2px solid var(--char);
+  transform: rotate(-45deg);
+}
+body.funnel .tier-custom .btn { flex: 0 0 auto; text-align: center; white-space: nowrap; }
+@media (max-width: 900px) {
+  body.funnel .tier-custom { flex-direction: column; align-items: flex-start; gap: 20px; }
+  body.funnel .tier-custom ul { grid-template-columns: 1fr; width: 100%; }
+  body.funnel .tier-custom .btn { align-self: stretch; white-space: normal; }
+}
+
 body.funnel .audit-note { margin-top: 28px; text-align: center; color: var(--cream-dim); font-size: 0.93rem; }
 body.funnel .audit-note b { color: var(--cream); font-weight: 600; }
 

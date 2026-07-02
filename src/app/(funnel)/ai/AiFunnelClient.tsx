@@ -427,19 +427,21 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 Book a Strategy Session
               </CtaLink>
             </div>
-            <div className="tier reveal">
+          </div>
+          <div className="tier-custom reveal">
+            <div className="tier-custom-head">
               <p className="t-name">AI Custom Solutions</p>
               <p className="t-price t-price-custom">Custom quote</p>
-              <ul>
-                <li>For operations that need what does not exist yet</li>
-                <li>Bespoke systems designed around your stack</li>
-                <li>Integrations, data, and workflows built to spec</li>
-                <li>Scoped and priced around outcomes</li>
-              </ul>
-              <CtaLink location="pricing_custom" className="btn btn-cta">
-                Book a Strategy Session
-              </CtaLink>
             </div>
+            <ul>
+              <li>For operations that need what does not exist yet</li>
+              <li>Bespoke systems designed around your stack</li>
+              <li>Integrations, data, and workflows built to spec</li>
+              <li>Scoped and priced around outcomes</li>
+            </ul>
+            <CtaLink location="pricing_custom" className="btn btn-cta">
+              Book a Strategy Session
+            </CtaLink>
           </div>
           <p className="audit-note reveal">
             Every engagement starts with <b>a Strategy Session.</b> Blueprint dollars credit toward
