@@ -1,23 +1,8 @@
-/* AI funnel (/ai) - translated faithfully from Coast_AI_Landing_Page.html.
-   This stylesheet only loads on the (funnel) root layout's document, and every
-   selector is scoped under body.funnel as cheap insurance anyway. Design tokens
-   are the brief's "do not deviate" set - they intentionally differ from the
-   main site's ocean theme. */
-
-:root {
-  --f-ocean: #243A44;
-  --f-ocean-deep: #1C2A31;
-  --f-char: #1C1F23;
-  --f-sand: #E7E3D8;
-  --f-sand-light: #F2EFE7;
-  --f-teal: #3AA7B5;
-  --f-teal-light: #7FD3C7;
-  --f-coral: #F7947A;
-  --f-coral-dark: #E5734F;
-  --f-bronze: #C9A24B;
-  --f-ink: #2B3B42;
-  --f-ink-soft: #5A6B72;
-}
+/* AI funnel (/ai) - THE COAST ocean design system.
+   Reskinned from the original landing brief palette to match coastglobal.org
+   exactly: tokens mirror body.ocean in src/app/(frontend)/styles.css, so
+   imported site components (TrustedBy) resolve their variables natively.
+   Layout/structure is the funnel's own; only branding matches the main site. */
 
 html.funnel-root {
   scroll-behavior: smooth;
@@ -33,33 +18,58 @@ html.funnel-root {
 }
 
 body.funnel {
+  /* ocean tokens (values from (frontend)/styles.css body.ocean) */
+  --color-bg: #0a0c12;
+  --color-bg-alt: #12161d;
+  --color-bg-deep: #06080c;
+  --color-gold: #e6b24d;
+  --color-gold-dim: #a8792e;
+  --color-gold-glow: rgba(230, 178, 77, 0.42);
+  --color-teal: #7fd3c7;
+  --color-teal-dim: #4e9e94;
+  --color-white: #edeff2;
+  --color-white-dim: #aab2bc;
+  --color-cream: #edeff2;
+  --color-cream-dim: #aab2bc;
+  --color-steel: #76828e;
+  --color-mono: #76828e;
+  --color-border: rgba(237, 239, 242, 0.1);
+  --glow-gold: 0 0 10px rgba(230, 178, 77, 0.42), 0 0 26px rgba(230, 178, 77, 0.18);
+  --glow-teal: 0 0 10px rgba(127, 211, 199, 0.35), 0 0 24px rgba(127, 211, 199, 0.16);
+  --text-glow-teal: 0 0 16px rgba(127, 211, 199, 0.45);
+  --text-glow-gold: 0 0 18px rgba(230, 178, 77, 0.45);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-inter), 'Helvetica Neue', sans-serif;
+  --font-mono: var(--font-jetbrains), Menlo, monospace;
+
   margin: 0;
-  font-family: var(--font-poppins), sans-serif;
-  color: var(--f-ink);
-  background: var(--f-sand-light);
+  font-family: var(--font-body);
+  color: var(--color-white-dim);
+  background: var(--color-bg);
   line-height: 1.6;
 }
 body.funnel * { box-sizing: border-box; }
 body.funnel img { max-width: 100%; display: block; }
 body.funnel a { color: inherit; }
+body.funnel ::selection { background: rgba(201, 162, 75, 0.3); color: var(--color-white); }
 
 body.funnel .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 body.funnel .mono {
-  font-family: var(--font-jetbrains-f), monospace;
+  font-family: var(--font-mono);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-size: 0.72rem;
 }
-body.funnel .serif-it { font-family: var(--font-lora), serif; font-style: italic; }
 
 /* ---------- NAV ---------- */
 body.funnel .fnav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(36, 58, 68, 0.92);
+  background: rgba(10, 12, 18, 0.88);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(231, 227, 216, 0.08);
+  border-bottom: 1px solid var(--color-border);
 }
 body.funnel .nav-in {
   display: flex;
@@ -69,73 +79,159 @@ body.funnel .nav-in {
   max-width: 1100px;
   margin: 0 auto;
 }
-body.funnel .nav-logo { height: 34px; width: auto; }
+body.funnel .nav-logo { height: 30px; width: auto; }
 body.funnel .btn {
   display: inline-block;
-  font-weight: 700;
   text-decoration: none;
   border-radius: 999px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  font-family: var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.3s var(--ease-out);
 }
-body.funnel .btn:focus-visible { outline: 3px solid var(--f-teal-light); outline-offset: 3px; }
-body.funnel .btn-coral { background: var(--f-coral); color: var(--f-char); padding: 12px 26px; font-size: 0.9rem; }
-body.funnel .btn-coral:hover {
-  background: var(--f-coral-dark);
+body.funnel .btn:focus-visible { outline: 3px solid var(--color-teal); outline-offset: 3px; }
+body.funnel .btn-gold {
+  background: var(--color-gold);
+  color: #0a0c12;
+  border: 1px solid var(--color-gold);
+  padding: 12px 24px;
+  font-size: 0.66rem;
+  font-weight: 500;
+}
+body.funnel .btn-gold:hover {
+  box-shadow: 0 0 26px -6px color-mix(in srgb, var(--color-gold) 70%, transparent);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(247, 148, 122, 0.35);
 }
-body.funnel .btn-big { padding: 18px 42px; font-size: 1.05rem; }
+body.funnel .btn-big { padding: 17px 38px; font-size: 0.74rem; }
 
 /* keep the sticky nav on one line down to 360px */
 @media (max-width: 480px) {
   body.funnel .nav-in { padding: 10px 14px; }
-  body.funnel .nav-logo { height: 26px; }
-  body.funnel .fnav .btn-coral { padding: 10px 16px; font-size: 0.78rem; white-space: nowrap; }
+  body.funnel .nav-logo { height: 24px; }
+  body.funnel .fnav .btn-gold { padding: 10px 14px; font-size: 0.58rem; white-space: nowrap; }
 }
 
 /* ---------- HERO ---------- */
-body.funnel .hero { background: var(--f-ocean); color: #fff; position: relative; overflow: hidden; }
+body.funnel .hero {
+  background: linear-gradient(180deg, var(--color-bg-deep) 0%, var(--color-bg) 100%);
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+}
 body.funnel .hero-in {
-  padding: 84px 24px 140px;
+  padding: 92px 24px 84px;
   text-align: center;
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
 }
-body.funnel .hero .eyebrow { color: var(--f-teal-light); margin-bottom: 22px; }
+body.funnel .hero .eyebrow { color: var(--color-gold); margin-bottom: 26px; }
 body.funnel .hero h1 {
   margin: 0;
-  font-size: clamp(2.4rem, 5.5vw, 4rem);
-  font-weight: 800;
-  line-height: 1.12;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.9rem, 6.4vw, 4.9rem);
+  line-height: 1.06;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--color-white);
+  text-shadow: var(--text-glow-teal);
 }
-body.funnel .hero h1 .accent { color: var(--f-coral); }
+body.funnel .hero h1 .accent { color: var(--color-gold); text-shadow: var(--text-glow-gold); }
 body.funnel .hero p.sub {
   margin: 26px auto 0;
   max-width: 640px;
   font-weight: 300;
-  font-size: 1.15rem;
-  color: var(--f-sand);
+  font-size: 1.12rem;
+  color: var(--color-white-dim);
 }
 body.funnel .cta-row { margin-top: 38px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-body.funnel .hero .scarcity { margin-top: 18px; color: var(--f-teal-light); font-size: 0.9rem; font-weight: 500; }
-body.funnel .badge-strip { margin-top: 46px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-body.funnel .badge-strip img { width: 250px; height: auto; border-radius: 8px; }
-body.funnel .badge-strip span { font-size: 0.78rem; color: var(--f-sand); opacity: 0.85; }
+body.funnel .hero .scarcity {
+  margin-top: 20px;
+  color: var(--color-teal);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* proof strip - real numbers under the hero CTA */
+body.funnel .proof-strip {
+  margin-top: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0;
+  flex-wrap: wrap;
+}
+body.funnel .proof-item {
+  padding: 0 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: center;
+}
+body.funnel .proof-item + .proof-item { border-left: 1px solid var(--color-border); }
+body.funnel .proof-value {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--color-white);
+}
+body.funnel .proof-value .star { color: var(--color-gold); }
+body.funnel .proof-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+}
+@media (max-width: 640px) {
+  body.funnel .proof-item { padding: 0 1.1rem; }
+  body.funnel .proof-value { font-size: 1.35rem; }
+}
+
+/* partner badge - homepage partnerStrip pattern */
+body.funnel .badge-strip {
+  margin-top: 52px;
+  padding-top: 40px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+body.funnel .badge-strip span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-cream-dim);
+}
+body.funnel .badge-strip img {
+  width: 264px;
+  height: auto;
+  border-radius: 8px;
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.4));
+  transition: transform 0.4s var(--ease-out);
+}
+body.funnel .badge-strip img:hover { transform: translateY(-2px); }
+
+/* falling drop (teal = site token) */
 body.funnel .drop {
   position: absolute;
   top: -40px;
   left: 50%;
   width: 10px;
   height: 10px;
-  background: var(--f-teal-light);
+  background: var(--color-teal);
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   opacity: 0;
   animation: dropfall 2.4s ease-in 0.4s forwards;
+  box-shadow: var(--glow-teal);
 }
 @keyframes dropfall {
   0% { top: -40px; opacity: 0; }
@@ -143,122 +239,162 @@ body.funnel .drop {
   80% { top: 52px; opacity: 0.9; }
   100% { top: 60px; opacity: 0; }
 }
-body.funnel .wave-bottom { position: absolute; bottom: -1px; left: 0; width: 100%; line-height: 0; }
-body.funnel .wave-bottom svg { width: 100%; height: 70px; display: block; }
 
 /* ---------- SECTIONS ---------- */
 body.funnel section { padding: 88px 0; }
-body.funnel .eyebrow { display: block; color: var(--f-bronze); margin-bottom: 14px; }
+body.funnel .eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 14px;
+}
 body.funnel h2 {
   margin: 0;
-  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--f-ocean);
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  line-height: 1.12;
+  text-shadow: var(--text-glow-teal);
 }
 body.funnel .center { text-align: center; }
 body.funnel .lead {
   max-width: 620px;
   margin: 16px auto 0;
-  color: var(--f-ink-soft);
+  color: var(--color-white-dim);
   font-weight: 300;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
 }
 
-/* problems */
+/* cards (ocean card pattern) */
 body.funnel .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 @media (max-width: 840px) { body.funnel .cards { grid-template-columns: 1fr; } }
 body.funnel .card {
-  background: #fff;
-  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
   padding: 34px 28px;
-  box-shadow: 0 2px 20px rgba(36, 58, 68, 0.07);
-  border-top: 4px solid var(--f-coral);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  text-align: left;
+  transition: transform 0.25s var(--ease-out), border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
 }
-body.funnel .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(36, 58, 68, 0.12); }
+body.funnel .card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-gold) 40%, transparent);
+  box-shadow: 0 0 26px -10px color-mix(in srgb, var(--color-gold) 45%, transparent);
+}
 body.funnel .card .q {
   margin: 0;
-  font-family: var(--font-lora), serif;
+  font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.18rem;
-  color: var(--f-ocean);
-  line-height: 1.45;
+  font-weight: 500;
+  font-size: 1.28rem;
+  color: var(--color-white);
+  line-height: 1.4;
 }
-body.funnel .card p { margin: 14px 0 0; color: var(--f-ink-soft); font-size: 0.94rem; font-weight: 300; }
+body.funnel .card p { margin: 14px 0 0; color: var(--color-white-dim); font-size: 0.94rem; font-weight: 300; }
 
-/* solutions (dark) */
-body.funnel .sol { background: var(--f-ocean); color: #fff; position: relative; }
-body.funnel .sol h2 { color: #fff; }
-body.funnel .sol .eyebrow { color: var(--f-teal-light); }
-body.funnel .sol .cards .card { background: var(--f-ocean-deep); border-top: 4px solid var(--f-teal); box-shadow: none; }
-body.funnel .sol .card .h { margin: 0; font-weight: 700; font-size: 1.2rem; color: #fff; line-height: 1.3; }
-body.funnel .sol .card p { color: var(--f-sand); opacity: 0.85; }
-body.funnel .sol .card .tag { display: inline-block; margin-bottom: 14px; color: var(--f-teal-light); }
+/* personas ("who this is for") */
+body.funnel .persona-name {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--color-gold);
+  letter-spacing: 0.01em;
+}
+
+/* trusted-by row (wraps the site's TrustedBy component) */
+body.funnel .trusted { padding: 56px 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+body.funnel .trusted .eyebrow { margin-bottom: 26px; }
+
+/* solutions (alt surface) */
+body.funnel .sol {
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+body.funnel .sol .cards .card { background: color-mix(in srgb, var(--color-white) 4%, transparent); }
+body.funnel .sol .card .h { margin: 0; font-weight: 600; font-size: 1.12rem; color: var(--color-white); line-height: 1.3; }
+body.funnel .sol .card p { color: var(--color-white-dim); }
+body.funnel .sol .card .tag { display: inline-block; margin-bottom: 14px; color: var(--color-teal); }
 
 /* steps */
 body.funnel .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 @media (max-width: 840px) { body.funnel .steps { grid-template-columns: 1fr; } }
 body.funnel .step {
-  background: #fff;
-  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
   padding: 34px 28px;
-  box-shadow: 0 2px 20px rgba(36, 58, 68, 0.07);
   position: relative;
+  text-align: left;
 }
 body.funnel .step .num {
-  font-family: var(--font-jetbrains-f), monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.2em;
-  color: var(--f-bronze);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
   font-weight: 500;
 }
-body.funnel .step .h { margin: 10px 0 0; font-weight: 700; font-size: 1.15rem; color: var(--f-ocean); }
-body.funnel .step p { margin: 10px 0 0; color: var(--f-ink-soft); font-size: 0.94rem; font-weight: 300; }
+body.funnel .step .h { margin: 12px 0 0; font-weight: 600; font-size: 1.12rem; color: var(--color-white); }
+body.funnel .step p { margin: 10px 0 0; color: var(--color-white-dim); font-size: 0.94rem; font-weight: 300; }
 
 /* pricing */
 body.funnel .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 @media (max-width: 900px) { body.funnel .tiers { grid-template-columns: 1fr; } }
 body.funnel .tier {
-  background: #fff;
+  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  border: 1px solid var(--color-border);
   border-radius: 18px;
   padding: 38px 30px;
-  box-shadow: 0 2px 20px rgba(36, 58, 68, 0.07);
   display: flex;
   flex-direction: column;
   text-align: left;
+  transition: border-color 0.25s var(--ease-out);
 }
-body.funnel .tier.feat { border: 2px solid var(--f-teal); position: relative; }
+body.funnel .tier:hover { border-color: color-mix(in srgb, var(--color-gold) 35%, transparent); }
+body.funnel .tier.feat {
+  border: 1px solid var(--color-gold);
+  position: relative;
+  background: color-mix(in srgb, var(--color-gold) 7%, transparent);
+  box-shadow: 0 0 34px -14px var(--color-gold-glow);
+}
 body.funnel .tier.feat .pop {
   position: absolute;
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--f-teal);
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 6px 16px;
+  background: var(--color-gold);
+  color: #0a0c12;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  padding: 7px 16px;
   border-radius: 999px;
   white-space: nowrap;
 }
-body.funnel .tier .t-name { margin: 0; font-weight: 700; color: var(--f-ocean); font-size: 1.1rem; }
+body.funnel .tier .t-name { margin: 0; font-weight: 600; color: var(--color-white); font-size: 1.05rem; }
 body.funnel .tier .t-price {
-  margin: 8px 0 0;
-  font-size: 1.9rem;
-  font-weight: 800;
-  color: var(--f-ocean);
+  margin: 10px 0 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 2.3rem;
+  color: var(--color-white);
   letter-spacing: -0.02em;
+  line-height: 1;
 }
-body.funnel .tier .t-price small { font-size: 0.85rem; font-weight: 500; color: var(--f-ink-soft); }
-body.funnel .tier ul { list-style: none; margin: 22px 0 30px; padding: 0; flex: 1; }
+body.funnel .tier .t-price small { font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; color: var(--color-white-dim); letter-spacing: 0; }
+body.funnel .tier ul { list-style: none; margin: 24px 0 30px; padding: 0; flex: 1; }
 body.funnel .tier li {
   padding: 8px 0 8px 28px;
   position: relative;
   font-size: 0.92rem;
-  color: var(--f-ink-soft);
+  color: var(--color-white-dim);
   font-weight: 300;
 }
 body.funnel .tier li::before {
@@ -269,7 +405,7 @@ body.funnel .tier li::before {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--f-teal-light);
+  background: var(--color-gold);
 }
 body.funnel .tier li::after {
   content: "";
@@ -278,111 +414,150 @@ body.funnel .tier li::after {
   top: 16px;
   width: 6px;
   height: 3px;
-  border-left: 2px solid var(--f-ocean);
-  border-bottom: 2px solid var(--f-ocean);
+  border-left: 2px solid #0a0c12;
+  border-bottom: 2px solid #0a0c12;
   transform: rotate(-45deg);
 }
 body.funnel .tier .btn { text-align: center; }
-body.funnel .audit-note { margin-top: 26px; text-align: center; color: var(--f-ink-soft); font-size: 0.92rem; }
-body.funnel .audit-note b { color: var(--f-ocean); }
+body.funnel .audit-note { margin-top: 26px; text-align: center; color: var(--color-white-dim); font-size: 0.92rem; }
+body.funnel .audit-note b { color: var(--color-white); font-weight: 600; }
 
-/* trust */
-body.funnel .trust { background: var(--f-sand); }
+/* trust ("why the coast") */
+body.funnel .trust { background: var(--color-bg-alt); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 body.funnel .trust-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 52px;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 44px;
 }
 @media (max-width: 840px) { body.funnel .trust-grid { grid-template-columns: 1fr; gap: 36px; } }
 body.funnel .trust-badge {
-  background: #fff;
+  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  border: 1px solid var(--color-border);
   border-radius: 18px;
   padding: 40px;
-  box-shadow: 0 2px 20px rgba(36, 58, 68, 0.08);
   text-align: center;
 }
-body.funnel .trust-badge img { width: 300px; height: auto; margin: 0 auto 18px; border-radius: 8px; }
-body.funnel .trust-badge .line { margin: 0; font-size: 0.92rem; color: var(--f-ink-soft); }
-body.funnel .quote { border-left: 4px solid var(--f-bronze); padding-left: 26px; }
+body.funnel .trust-badge img {
+  width: 300px;
+  height: auto;
+  margin: 0 auto 18px;
+  border-radius: 8px;
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.4));
+}
+body.funnel .trust-badge .line { margin: 0; font-size: 0.92rem; color: var(--color-white-dim); }
+body.funnel .founder-wrap { display: flex; gap: 28px; align-items: center; }
+@media (max-width: 640px) { body.funnel .founder-wrap { flex-direction: column; align-items: flex-start; } }
+body.funnel .founder-photo {
+  position: relative;
+  flex: 0 0 168px;
+  width: 168px;
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+body.funnel .founder-photo img { object-fit: cover; }
+body.funnel .quote { border-left: 3px solid var(--color-gold); padding-left: 26px; }
 body.funnel .quote .q {
   margin: 0;
-  font-family: var(--font-lora), serif;
+  font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.35rem;
-  color: var(--f-ocean);
-  line-height: 1.55;
+  font-weight: 500;
+  font-size: 1.42rem;
+  color: var(--color-white);
+  line-height: 1.5;
 }
 body.funnel .quote .who {
   margin: 16px 0 0;
-  font-family: var(--font-jetbrains-f), monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--f-ink-soft);
+  color: var(--color-steel);
 }
 
 /* faq */
 body.funnel .faq-list { max-width: 760px; margin: 44px auto 0; text-align: left; }
 body.funnel details {
-  background: #fff;
+  background: color-mix(in srgb, var(--color-white) 3%, transparent);
+  border: 1px solid var(--color-border);
   border-radius: 14px;
   margin-bottom: 14px;
-  box-shadow: 0 2px 14px rgba(36, 58, 68, 0.06);
   overflow: hidden;
+  transition: border-color 0.25s var(--ease-out);
 }
+body.funnel details:hover { border-color: color-mix(in srgb, var(--color-gold) 30%, transparent); }
 body.funnel summary {
   cursor: pointer;
   padding: 22px 26px;
-  font-weight: 600;
-  color: var(--f-ocean);
+  font-weight: 500;
+  color: var(--color-white);
   list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.98rem;
+  gap: 1rem;
 }
 body.funnel summary::-webkit-details-marker { display: none; }
-body.funnel summary:focus-visible { outline: 3px solid var(--f-teal); outline-offset: -3px; border-radius: 14px; }
+body.funnel summary:focus-visible { outline: 3px solid var(--color-teal); outline-offset: -3px; border-radius: 14px; }
 body.funnel summary::after {
   content: "+";
   font-size: 1.4rem;
-  color: var(--f-teal);
+  color: var(--color-gold);
   font-weight: 400;
   transition: transform 0.2s ease;
+  flex: none;
 }
 body.funnel details[open] summary::after { transform: rotate(45deg); }
-body.funnel details .a { padding: 0 26px 24px; color: var(--f-ink-soft); font-weight: 300; font-size: 0.94rem; }
+body.funnel details .a { padding: 0 26px 24px; color: var(--color-white-dim); font-weight: 300; font-size: 0.94rem; }
 
 /* final cta */
-body.funnel .final { background: var(--f-ocean); color: #fff; text-align: center; position: relative; overflow: hidden; }
-body.funnel .final h2 { color: #fff; }
+body.funnel .final {
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-deep) 100%);
+  color: var(--color-white);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+}
 body.funnel .final .tagline {
-  font-family: var(--font-lora), serif;
+  font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.3rem;
-  color: var(--f-sand);
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--color-cream-dim);
   margin: 14px 0 0;
 }
 body.funnel .final .cta-row { margin-top: 36px; }
-body.funnel .final .scarcity { margin: 16px 0 0; color: var(--f-teal-light); font-size: 0.9rem; }
+body.funnel .final .scarcity {
+  margin: 18px 0 0;
+  color: var(--color-teal);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
 
 /* footer */
 body.funnel .ffooter {
-  background: var(--f-char);
-  color: #8fa0a7;
+  background: var(--color-bg-deep);
+  color: var(--color-steel);
   padding: 44px 0;
   text-align: center;
   font-size: 0.85rem;
+  border-top: 1px solid var(--color-border);
 }
 body.funnel .ffooter p { margin: 0; }
-body.funnel .ffooter a { color: var(--f-teal-light); text-decoration: none; }
-body.funnel .ffooter a:focus-visible { outline: 3px solid var(--f-teal-light); outline-offset: 2px; }
+body.funnel .ffooter a { color: var(--color-white-dim); text-decoration: none; transition: color 0.25s var(--ease-out); }
+body.funnel .ffooter a:hover { color: var(--color-gold); }
+body.funnel .ffooter a:focus-visible { outline: 3px solid var(--color-teal); outline-offset: 2px; }
 body.funnel .ffooter .fine { margin-top: 14px; font-size: 0.75rem; opacity: 0.7; }
 
 /* scroll reveal */
-body.funnel .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+body.funnel .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
 body.funnel .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   body.funnel .reveal { opacity: 1; transform: none; }

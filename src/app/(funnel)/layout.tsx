@@ -2,41 +2,43 @@ import React, { Suspense } from 'react'
 import './funnel.css'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
-import { Poppins, Lora, JetBrains_Mono } from 'next/font/google'
+import { Inter, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
 import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import { CookieBanner } from '@/components/CookieBanner'
 
 const SITE_URL = 'https://coastglobal.org'
 
-// Funnel design tokens call for Poppins/Lora/JetBrains (per the landing brief).
-// next/font self-hosts them - no Google Fonts request on the critical path.
-const poppins = Poppins({
+// The main site's ocean font trio, with the SAME css variable names as the
+// (frontend) layout - so funnel.css and any imported site components
+// (e.g. TrustedBy) resolve --font-inter/--font-cormorant/--font-jetbrains
+// identically. next/font self-hosts; nothing on the critical path.
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-poppins',
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
   display: 'swap',
 })
 
-const lora = Lora({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['500'],
-  style: ['italic'],
-  variable: '--font-lora',
+  weight: ['300', '400', '500'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
   display: 'swap',
 })
 
-const jetbrainsFunnel = JetBrains_Mono({
+const jetbrains = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['500'],
-  variable: '--font-jetbrains-f',
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
   display: 'swap',
 })
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#243A44',
+  themeColor: '#0a0c12',
 }
 
 export const metadata: Metadata = {
@@ -65,7 +67,7 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
   return (
     <html
       lang="en"
-      className={`funnel-root ${poppins.variable} ${lora.variable} ${jetbrainsFunnel.variable}`}
+      className={`funnel-root ${inter.variable} ${cormorant.variable} ${jetbrains.variable}`}
     >
       <body className="funnel">
         <Script id="ga-init" strategy="afterInteractive">

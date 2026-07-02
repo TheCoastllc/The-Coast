@@ -3,6 +3,13 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import Image from 'next/image'
 import { CALENDLY_URL, calendlyUrl, trackCTA, type CtaLocation } from './funnel-track'
+import { CAPACITY } from './capacity'
+import { STATS } from '@/lib/content/coast'
+import { TRUSTED_BRANDS_FALLBACK } from '@/lib/trusted-brands-fallback'
+import { TrustedBy } from '@/components/home/TrustedBy'
+
+/** Live Google rating passed down from the server component (null if the fetch failed). */
+export type FunnelProof = { average: number; count: number } | null
 
 /**
  * /ai conversion funnel - faithful recreation of Coast_AI_Landing_Page.html.
@@ -39,7 +46,7 @@ function CtaLink({
   )
 }
 
-export function AiFunnelClient() {
+export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
   // Scroll reveal - same IntersectionObserver behavior as the source page.
   // funnel.css forces .reveal visible under prefers-reduced-motion.
   useEffect(() => {
@@ -65,13 +72,13 @@ export function AiFunnelClient() {
         <div className="nav-in">
           <Image
             className="nav-logo"
-            src="/ai/coast-logo.png"
+            src="/coast-logo.png"
             alt="The Coast"
-            width={360}
-            height={143}
+            width={1145}
+            height={412}
             priority
           />
-          <CtaLink location="nav" className="btn btn-coral">
+          <CtaLink location="nav" className="btn btn-gold">
             Book a Strategy Session
           </CtaLink>
         </div>
@@ -90,12 +97,35 @@ export function AiFunnelClient() {
             {'From "we should use AI" to real, working systems. The Coast designs, builds, and deploys AI for founders and growth-stage teams.'}
           </p>
           <div className="cta-row">
-            <CtaLink location="hero" className="btn btn-coral btn-big">
+            <CtaLink location="hero" className="btn btn-gold btn-big">
               Book Your AI Strategy Session
             </CtaLink>
           </div>
-          <div className="scarcity">We take on a limited number of builds each quarter</div>
+          <div className="scarcity">
+            We take on {CAPACITY.buildsPerQuarter} builds per quarter. {CAPACITY.spotsRemaining}{' '}
+            spots remaining for {CAPACITY.quarter}.
+          </div>
+          <div className="proof-strip">
+            {proof && (
+              <div className="proof-item">
+                <span className="proof-value">
+                  {proof.average.toFixed(1)}
+                  <span className="star"> ★</span>
+                </span>
+                <span className="proof-label">Google rating {'·'} {proof.count} reviews</span>
+              </div>
+            )}
+            <div className="proof-item">
+              <span className="proof-value">{STATS[0].value}</span>
+              <span className="proof-label">{STATS[0].label}</span>
+            </div>
+            <div className="proof-item">
+              <span className="proof-value">{STATS[2].value}</span>
+              <span className="proof-label">{STATS[2].label}</span>
+            </div>
+          </div>
           <div className="badge-strip">
+            <span>A launch Preferred partner in the Claude Partner Network Services Track</span>
             <Image
               src="/ai/claude-preferred-badge.png"
               alt="Preferred Services Partner, Claude Partner Network"
@@ -104,16 +134,7 @@ export function AiFunnelClient() {
               unoptimized
               priority
             />
-            <span>A launch Preferred partner in the Claude Partner Network Services Track</span>
           </div>
-        </div>
-        <div className="wave-bottom" aria-hidden="true">
-          <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-            <path
-              d="M0,40 C240,80 480,0 720,30 C960,60 1200,10 1440,40 L1440,70 L0,70 Z"
-              fill="#F2EFE7"
-            />
-          </svg>
         </div>
       </header>
 
@@ -148,11 +169,47 @@ export function AiFunnelClient() {
         </div>
       </section>
 
+      <section className="trusted" id="trusted">
+        <div className="wrap center">
+          <span className="eyebrow mono reveal">Trusted by</span>
+          <div className="reveal">
+            <TrustedBy clients={TRUSTED_BRANDS_FALLBACK} variant="marquee" />
+          </div>
+        </div>
+      </section>
+
+      <section id="who">
+        <div className="wrap center">
+          <span className="eyebrow mono reveal">Who this is for</span>
+          <h2 className="reveal">Built for the people doing the work.</h2>
+          <div className="cards">
+            <div className="card reveal">
+              <p className="persona-name">The Founder</p>
+              <p>
+                {"You're building fast and wearing every hat. AI should be leverage you own, not another tool to babysit."}
+              </p>
+            </div>
+            <div className="card reveal">
+              <p className="persona-name">The Operator</p>
+              <p>
+                {"You run the day-to-day. The repetitive work is eating your team's week, and you can feel it."}
+              </p>
+            </div>
+            <div className="card reveal">
+              <p className="persona-name">The Growing Team</p>
+              <p>
+                {"Leads slip, follow-ups lag, data sits unused. You're ready for systems that scale with you."}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="sol" id="solutions">
         <div className="wrap center">
           <span className="eyebrow mono reveal">What we build</span>
           <h2 className="reveal">AI woven into how your business actually runs.</h2>
-          <p className="lead reveal" style={{ color: 'var(--f-sand)', opacity: 0.85 }}>
+          <p className="lead reveal">
             Not bolted on the side. Built into operations, where it changes outcomes.
           </p>
           <div className="cards">
@@ -238,11 +295,22 @@ export function AiFunnelClient() {
                 Track.
               </p>
             </div>
-            <div className="quote reveal">
-              <p className="q">
-                {'"We didn\'t set out to earn a partnership. We set out to solve a real problem for the founders and small businesses who trusted us, and we built until we were ready."'}
-              </p>
-              <p className="who">David Coast {'•'} Founder &amp; CEO</p>
+            <div className="founder-wrap reveal">
+              <div className="founder-photo">
+                <Image
+                  src="/founder.jpg"
+                  alt="David Coast, Founder & CEO of The Coast"
+                  fill
+                  sizes="168px"
+                  loading="lazy"
+                />
+              </div>
+              <div className="quote">
+                <p className="q">
+                  {'"We didn\'t set out to earn a partnership. We set out to solve a real problem for the founders and small businesses who trusted us, and we built until we were ready."'}
+                </p>
+                <p className="who">David Coast {'•'} Founder &amp; CEO</p>
+              </div>
             </div>
           </div>
         </div>
@@ -264,7 +332,7 @@ export function AiFunnelClient() {
                 <li>Clear scope and recommendations</li>
                 <li>Credits toward your build</li>
               </ul>
-              <CtaLink location="pricing_blueprint" className="btn btn-coral">
+              <CtaLink location="pricing_blueprint" className="btn btn-gold">
                 Book a Strategy Session
               </CtaLink>
             </div>
@@ -280,7 +348,7 @@ export function AiFunnelClient() {
                 <li>Vendor and tooling decisions, handled</li>
                 <li>A partner in the room every month</li>
               </ul>
-              <CtaLink location="pricing_advisory" className="btn btn-coral">
+              <CtaLink location="pricing_advisory" className="btn btn-gold">
                 Book a Strategy Session
               </CtaLink>
             </div>
@@ -295,7 +363,7 @@ export function AiFunnelClient() {
                 <li>Team training and handoff</li>
                 <li>Built to hold up, not to demo</li>
               </ul>
-              <CtaLink location="pricing_build" className="btn btn-coral">
+              <CtaLink location="pricing_build" className="btn btn-gold">
                 Book a Strategy Session
               </CtaLink>
             </div>
@@ -351,17 +419,18 @@ export function AiFunnelClient() {
 
       <section className="final">
         <div className="wrap">
-          <span className="eyebrow mono" style={{ color: 'var(--f-teal-light)' }}>
-            Your move
-          </span>
+          <span className="eyebrow mono">Your move</span>
           <h2>Bring us a drop.</h2>
           <p className="tagline">{"We'll deliver the ocean."}</p>
           <div className="cta-row">
-            <CtaLink location="final" className="btn btn-coral btn-big">
+            <CtaLink location="final" className="btn btn-gold btn-big">
               Book Your AI Strategy Session
             </CtaLink>
           </div>
-          <p className="scarcity">Limited builds each quarter {'•'} Serious inquiries only</p>
+          <p className="scarcity">
+            {CAPACITY.spotsRemaining} of {CAPACITY.buildsPerQuarter} {CAPACITY.quarter} build spots
+            remaining {'•'} Serious inquiries only
+          </p>
         </div>
       </section>
 
