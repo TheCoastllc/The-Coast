@@ -105,8 +105,8 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             </CtaLink>
           </div>
           <div className="scarcity">
-            We take on {CAPACITY.buildsPerQuarter} builds per quarter. {CAPACITY.spotsRemaining}{' '}
-            spots remaining for {CAPACITY.quarter}.
+            We take on {CAPACITY.buildsPerMonth} builds per month. {CAPACITY.spotsRemaining} spots
+            remaining for {CAPACITY.month}.
           </div>
           <div className="proof-strip">
             {proof && (
@@ -431,7 +431,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             </CtaLink>
           </div>
           <p className="scarcity">
-            {CAPACITY.spotsRemaining} of {CAPACITY.buildsPerQuarter} {CAPACITY.quarter} build spots
+            {CAPACITY.spotsRemaining} of {CAPACITY.buildsPerMonth} {CAPACITY.month} build spots
             remaining {'•'} Serious inquiries only
           </p>
         </div>

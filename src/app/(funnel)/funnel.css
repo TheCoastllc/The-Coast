@@ -76,15 +76,15 @@ body.funnel img { max-width: 100%; display: block; }
 body.funnel a { color: inherit; }
 body.funnel ::selection { background: rgba(247, 148, 122, 0.35); color: var(--ink); }
 
-/* paper grain; vignette off in daylight */
+/* fine beach-sand speckle across the light ground; vignette off in daylight */
 body.funnel .fgrain {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 3;
-  opacity: 0.045;
+  opacity: 0.06;
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 body.funnel .fvignette { display: none; }
 
@@ -189,10 +189,21 @@ body.funnel .hero {
   color: var(--ink);
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--color-border);
+}
+/* layered dunes at the hero's shoreline - back dunes darker, front dune merges
+   into the next section's sand so the horizon reads as depth, not a border */
+body.funnel .hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 140px;
+  pointer-events: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 150' preserveAspectRatio='none'><path d='M0,86 C240,36 520,108 780,74 C1040,42 1260,96 1440,64 L1440,150 L0,150 Z' fill='%23ddd3b8' opacity='.55'/><path d='M0,104 C300,62 600,126 880,92 C1160,60 1330,112 1440,92 L1440,150 L0,150 Z' fill='%23e7dfc9' opacity='.8'/><path d='M0,124 C360,94 720,142 1040,116 C1240,100 1360,122 1440,112 L1440,150 L0,150 Z' fill='%23F2EFE7'/></svg>") bottom / 100% 100% no-repeat;
 }
 body.funnel .hero-in {
-  padding: 96px 24px 84px;
+  padding: 96px 24px 150px;
   text-align: center;
   max-width: 920px;
   margin: 0 auto;
@@ -430,8 +441,20 @@ body.funnel .sol {
   background:
     radial-gradient(860px 440px at 50% -8%, rgba(127, 211, 199, 0.14), transparent 60%),
     linear-gradient(180deg, var(--ocean) 0%, var(--ocean-deep) 100%);
-  border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+  padding-top: 160px;
+}
+/* the tide line - sand dips into the ocean band, teal foam tracing the waterline */
+body.funnel .sol::before,
+body.funnel .final::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 84px;
+  pointer-events: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'><path d='M0,0 L1440,0 L1440,34 C1200,66 960,18 720,42 C480,66 240,26 0,52 Z' fill='%23F2EFE7'/><path d='M0,52 C240,26 480,66 720,42 C960,18 1200,66 1440,34' fill='none' stroke='%237fd3c7' stroke-opacity='.3' stroke-width='3'/></svg>") top / 100% 100% no-repeat;
 }
 body.funnel .sol .eyebrow { color: var(--teal-l); }
 body.funnel .sol h2 { color: #ffffff; text-shadow: 0 0 18px rgba(127, 211, 199, 0.3); }
@@ -483,7 +506,9 @@ body.funnel .step p { margin: 10px 0 0; color: var(--ink-soft); font-size: 0.95r
 
 /* pricing - warm coral aura; featured tier framed in COASTAL TEAL (the original design) */
 body.funnel #pricing {
-  background: radial-gradient(920px 480px at 50% 18%, rgba(247, 148, 122, 0.1), transparent 62%);
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='420'><g fill='none' stroke='%23243A44' stroke-opacity='.045' stroke-width='1.2'><path d='M-20,80 C120,40 260,120 420,84 C560,52 660,110 720,90'/><path d='M-20,190 C140,150 300,230 460,194 C600,162 680,220 720,200'/><path d='M-20,300 C120,260 280,340 440,304 C580,272 680,330 720,310'/></g></svg>") repeat,
+    radial-gradient(920px 480px at 50% 18%, rgba(247, 148, 122, 0.1), transparent 62%);
 }
 body.funnel .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; align-items: stretch; }
 @media (max-width: 900px) { body.funnel .tiers { grid-template-columns: 1fr; } }
@@ -576,6 +601,7 @@ body.funnel .audit-note b { color: var(--ocean); font-weight: 600; }
 /* trust ("why the coast") - sand beige with a teal wash */
 body.funnel .trust {
   background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='420'><g fill='none' stroke='%23243A44' stroke-opacity='.05' stroke-width='1.2'><path d='M-20,80 C120,40 260,120 420,84 C560,52 660,110 720,90'/><path d='M-20,190 C140,150 300,230 460,194 C600,162 680,220 720,200'/><path d='M-20,300 C120,260 280,340 440,304 C580,272 680,330 720,310'/></g></svg>") repeat,
     radial-gradient(780px 400px at 24% 34%, rgba(58, 167, 181, 0.09), transparent 62%),
     var(--sand);
   border-top: 1px solid var(--color-border);
@@ -685,7 +711,7 @@ body.funnel .final {
   text-align: center;
   position: relative;
   overflow: hidden;
-  padding: 110px 0;
+  padding: 165px 0 110px;
 }
 body.funnel .final .eyebrow { color: var(--teal-l); text-shadow: 0 0 14px rgba(127, 211, 199, 0.35); }
 body.funnel .final h2 {
@@ -724,6 +750,16 @@ body.funnel .ffooter a { color: var(--teal-l); text-decoration: none; transition
 body.funnel .ffooter a:hover { color: var(--coral); }
 body.funnel .ffooter a:focus-visible { outline: 3px solid var(--teal-l); outline-offset: 2px; }
 body.funnel .ffooter .fine { margin-top: 14px; font-size: 0.75rem; color: #9aa5b1; }
+
+/* shoreline scale-down on small screens */
+@media (max-width: 640px) {
+  body.funnel .hero::after { height: 84px; }
+  body.funnel .hero-in { padding-bottom: 104px; }
+  body.funnel .sol::before,
+  body.funnel .final::before { height: 48px; }
+  body.funnel .sol { padding-top: 118px; }
+  body.funnel .final { padding-top: 128px; }
+}
 
 /* scroll reveal */
 body.funnel .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
