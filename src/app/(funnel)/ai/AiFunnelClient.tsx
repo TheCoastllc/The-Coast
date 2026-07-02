@@ -81,7 +81,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             />
             <span className="nav-word">The Coast</span>
           </span>
-          <CtaLink location="nav" className="btn btn-gold">
+          <CtaLink location="nav" className="btn btn-cta">
             Book a Strategy Session
           </CtaLink>
         </div>
@@ -100,7 +100,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             {'From "we should use AI" to real, working systems. The Coast designs, builds, and deploys AI for founders and growth-stage teams.'}
           </p>
           <div className="cta-row">
-            <CtaLink location="hero" className="btn btn-gold btn-big">
+            <CtaLink location="hero" className="btn btn-cta btn-big">
               Book Your AI Strategy Session
             </CtaLink>
           </div>
@@ -335,7 +335,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 <li>Clear scope and recommendations</li>
                 <li>Credits toward your build</li>
               </ul>
-              <CtaLink location="pricing_blueprint" className="btn btn-gold">
+              <CtaLink location="pricing_blueprint" className="btn btn-cta">
                 Book a Strategy Session
               </CtaLink>
             </div>
@@ -351,7 +351,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 <li>Vendor and tooling decisions, handled</li>
                 <li>A partner in the room every month</li>
               </ul>
-              <CtaLink location="pricing_advisory" className="btn btn-gold">
+              <CtaLink location="pricing_advisory" className="btn btn-cta">
                 Book a Strategy Session
               </CtaLink>
             </div>
@@ -366,7 +366,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 <li>Team training and handoff</li>
                 <li>Built to hold up, not to demo</li>
               </ul>
-              <CtaLink location="pricing_build" className="btn btn-gold">
+              <CtaLink location="pricing_build" className="btn btn-cta">
                 Book a Strategy Session
               </CtaLink>
             </div>
@@ -426,7 +426,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           <h2>Bring us a drop.</h2>
           <p className="tagline">{"We'll deliver the ocean."}</p>
           <div className="cta-row">
-            <CtaLink location="final" className="btn btn-gold btn-big">
+            <CtaLink location="final" className="btn btn-cta btn-big">
               Book Your AI Strategy Session
             </CtaLink>
           </div>

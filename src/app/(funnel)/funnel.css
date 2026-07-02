@@ -1,12 +1,16 @@
-/* AI funnel (/ai) - THE COAST, light mode.
-   Warm sand-light ground (the brand's light register, cf. the gallery light
-   theme) with ocean-ink type, gold beacon CTAs, and teal trust accents.
-   Conversion psychology: daylight = clarity/honesty for high-ticket; the gold
-   CTA stays the single most saturated element (isolation effect); scarcity
-   runs warm amber; the FINAL section deliberately drops into the dark ocean -
-   maximum contrast at the decision moment ("We'll deliver the ocean").
-   Token NAMES mirror body.ocean so imported site components (TrustedBy)
-   adapt to the light values automatically. */
+/* AI funnel (/ai) - THE COAST brand palette, orchestrated.
+   Light mode built from the official palette (not plain white):
+     Deep Ocean Blue #243A44 (authority ink + dark bands)
+     Coastal Teal #3AA7B5 / Teal #7FD3C7 (clarity, structure, featured frame)
+     Sand Beige #E7E3D8 + sand-light tones (the warm ground)
+     Charcoal #1C1F23 (anchor footer)
+     Soft Coral #F7947A (THE action color - CTAs + urgency accents only)
+     Bronze #C9A24B (premium/money - eyebrows, numbers, craft details)
+   Sales-psychology arc: pain runs WARM (coral-edged cards), solutions run COOL
+   (teal on a deep-ocean authority band), value reads BRONZE, and every action
+   is CORAL - the single most saturated element on the page (isolation effect).
+   Deep text shades are used where WCAG needs them (bronze/teal/coral text
+   tones); the vivid palette hexes do fills, borders, and glows. */
 
 html.funnel-root {
   scroll-behavior: smooth;
@@ -22,30 +26,39 @@ html.funnel-root {
 }
 
 body.funnel {
-  /* light ocean tokens (inverted register; names match the site's) */
-  --color-bg: #f7f4ec;
-  --color-bg-alt: #f0eadb;
-  --color-bg-deep: #ece4d2;
-  --color-ink: #131a23;
-  --color-gold: #e6b24d;
-  --color-gold-bright: #f5d78a;
-  --color-gold-text: #8f6a1d;
-  --color-gold-glow: rgba(230, 178, 77, 0.42);
-  --color-amber-text: #8a5c12;
-  --color-amber-dot: #e6a53c;
-  --color-teal: #177f73;
-  --color-teal-bright: #7fd3c7;
-  /* inverted "white" = ink so shared components read correctly on light */
-  --color-white: #131a23;
-  --color-white-dim: #4e5a66;
-  --color-cream: #131a23;
-  --color-cream-dim: #4e5a66;
-  --color-steel: #6b7683;
-  --color-mono: #6b7683;
-  --color-border: rgba(19, 26, 35, 0.12);
+  /* brand palette */
+  --ocean: #243A44;
+  --ocean-deep: #1C2A31;
+  --char: #1C1F23;
+  --sand: #E7E3D8;
+  --sand-light: #F2EFE7;
+  --sand-bright: #FAF8F2;
+  --coral: #F7947A;
+  --coral-dark: #E5734F;
+  --coral-deep: #b04a2b;
+  --teal-c: #3AA7B5;
+  --teal-l: #7FD3C7;
+  --teal-text: #256d79;
+  --bronze: #C9A24B;
+  --bronze-text: #8f6e23;
+  --ink: #243A44;
+  --ink-soft: #46545c;
+  --steel: #66757e;
+
+  /* site-compatible token names (imported components e.g. TrustedBy) */
+  --color-bg: var(--sand-light);
+  --color-bg-alt: var(--sand);
+  --color-gold: var(--bronze);
+  --color-teal: var(--teal-c);
+  --color-white: var(--ink);
+  --color-white-dim: var(--ink-soft);
+  --color-cream: var(--ink);
+  --color-cream-dim: var(--ink-soft);
+  --color-steel: var(--steel);
+  --color-mono: var(--steel);
+  --color-border: rgba(36, 58, 68, 0.14);
   --shadow-card: 0 2px 20px rgba(36, 58, 68, 0.08);
-  --shadow-card-hover: 0 14px 38px rgba(36, 58, 68, 0.14);
-  --glow-gold: 0 0 10px rgba(230, 178, 77, 0.42), 0 0 26px rgba(230, 178, 77, 0.18);
+  --shadow-card-hover: 0 14px 38px rgba(36, 58, 68, 0.15);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --font-display: var(--font-cormorant), Georgia, serif;
   --font-body: var(--font-inter), 'Helvetica Neue', sans-serif;
@@ -54,16 +67,16 @@ body.funnel {
   margin: 0;
   color-scheme: light;
   font-family: var(--font-body);
-  color: var(--color-white-dim);
-  background: var(--color-bg);
+  color: var(--ink-soft);
+  background: var(--sand-light);
   line-height: 1.6;
 }
 body.funnel * { box-sizing: border-box; }
 body.funnel img { max-width: 100%; display: block; }
 body.funnel a { color: inherit; }
-body.funnel ::selection { background: rgba(230, 178, 77, 0.35); color: var(--color-ink); }
+body.funnel ::selection { background: rgba(247, 148, 122, 0.35); color: var(--ink); }
 
-/* paper grain (multiply reads as texture on light); vignette off in daylight */
+/* paper grain; vignette off in daylight */
 body.funnel .fgrain {
   position: fixed;
   inset: 0;
@@ -88,7 +101,7 @@ body.funnel .fnav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(247, 244, 236, 0.86);
+  background: rgba(250, 248, 242, 0.86);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
 }
@@ -108,7 +121,7 @@ body.funnel .nav-word {
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-ink);
+  color: var(--ink);
 }
 body.funnel .btn {
   display: inline-block;
@@ -119,26 +132,26 @@ body.funnel .btn {
   text-transform: uppercase;
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.3s var(--ease-out), filter 0.3s var(--ease-out);
 }
-body.funnel .btn:focus-visible { outline: 3px solid var(--color-teal); outline-offset: 3px; }
+body.funnel .btn:focus-visible { outline: 3px solid var(--teal-c); outline-offset: 3px; }
 
-/* THE action color - the gold beacon owns the page */
-body.funnel .btn-gold {
-  background: linear-gradient(180deg, #f2c96e 0%, var(--color-gold) 55%, #d9a139 100%);
-  color: #07090d;
-  border: 1px solid #c9962e;
+/* THE action color - the coral beacon; nothing else may be this saturated */
+body.funnel .btn-cta {
+  background: linear-gradient(180deg, #fba98c 0%, var(--coral) 52%, var(--coral-dark) 100%);
+  color: var(--char);
+  border: 1px solid var(--coral-dark);
   padding: 13px 26px;
   font-size: 0.66rem;
   font-weight: 600;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
-    0 10px 28px -10px rgba(179, 128, 34, 0.55);
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 10px 28px -10px rgba(229, 115, 79, 0.6);
 }
-body.funnel .btn-gold:hover {
+body.funnel .btn-cta:hover {
   filter: brightness(1.05);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
-    0 0 0 4px rgba(230, 178, 77, 0.22),
-    0 14px 36px -10px rgba(179, 128, 34, 0.6);
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 0 0 4px rgba(247, 148, 122, 0.25),
+    0 14px 36px -10px rgba(229, 115, 79, 0.65);
   transform: translateY(-2px);
 }
 body.funnel .btn-big { padding: 19px 46px; font-size: 0.8rem; }
@@ -146,15 +159,15 @@ body.funnel .btn-big::after { content: "→"; margin-left: 0.7rem; }
 @keyframes ctaPulse {
   0%, 100% {
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.5) inset,
-      0 0 0 0 rgba(230, 178, 77, 0.4),
-      0 10px 28px -10px rgba(179, 128, 34, 0.55);
+      0 1px 0 rgba(255, 255, 255, 0.45) inset,
+      0 0 0 0 rgba(247, 148, 122, 0.45),
+      0 10px 28px -10px rgba(229, 115, 79, 0.6);
   }
   55% {
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.5) inset,
-      0 0 0 12px rgba(230, 178, 77, 0),
-      0 10px 28px -10px rgba(179, 128, 34, 0.55);
+      0 1px 0 rgba(255, 255, 255, 0.45) inset,
+      0 0 0 12px rgba(247, 148, 122, 0),
+      0 10px 28px -10px rgba(229, 115, 79, 0.6);
   }
 }
 body.funnel .btn-big { animation: ctaPulse 2.8s var(--ease-out) infinite; }
@@ -164,16 +177,16 @@ body.funnel .btn-big { animation: ctaPulse 2.8s var(--ease-out) infinite; }
   body.funnel .nav-in { padding: 10px 14px; }
   body.funnel .nav-logo { height: 24px; }
   body.funnel .nav-word { display: none; }
-  body.funnel .fnav .btn-gold { padding: 10px 14px; font-size: 0.58rem; white-space: nowrap; }
+  body.funnel .fnav .btn-cta { padding: 10px 14px; font-size: 0.58rem; white-space: nowrap; }
 }
 
 /* ---------- HERO ---------- */
 body.funnel .hero {
   background:
-    radial-gradient(900px 500px at 50% -12%, rgba(230, 178, 77, 0.16), transparent 60%),
-    radial-gradient(720px 420px at 50% 112%, rgba(23, 127, 115, 0.08), transparent 60%),
-    linear-gradient(180deg, #fbf8f1 0%, var(--color-bg) 100%);
-  color: var(--color-ink);
+    radial-gradient(900px 500px at 50% -12%, rgba(247, 148, 122, 0.16), transparent 60%),
+    radial-gradient(760px 440px at 50% 112%, rgba(58, 167, 181, 0.1), transparent 60%),
+    linear-gradient(180deg, var(--sand-bright) 0%, var(--sand-light) 100%);
+  color: var(--ink);
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--color-border);
@@ -186,7 +199,7 @@ body.funnel .hero-in {
   position: relative;
   z-index: 2;
 }
-body.funnel .hero .eyebrow { color: var(--color-gold-text); margin-bottom: 26px; }
+body.funnel .hero .eyebrow { color: var(--bronze-text); margin-bottom: 26px; }
 body.funnel .hero h1 {
   margin: 0;
   font-family: var(--font-display);
@@ -194,37 +207,37 @@ body.funnel .hero h1 {
   font-size: clamp(3rem, 6.6vw, 5.2rem);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  color: var(--color-ink);
+  color: var(--ocean);
 }
-/* the money word - deep-gold shimmer that stays legible on cream */
+/* the money word - coral shimmer (the brand accent doing its job) */
 body.funnel .hero h1 .accent {
-  background: linear-gradient(100deg, #8f6a1d 15%, #d9a139 45%, #8f6a1d 75%);
+  background: linear-gradient(100deg, var(--coral-dark) 15%, var(--coral) 45%, var(--coral-dark) 75%);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: goldShimmer 4.5s ease-in-out infinite;
+  animation: coralShimmer 4.5s ease-in-out infinite;
 }
-@keyframes goldShimmer {
+@keyframes coralShimmer {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  body.funnel .hero h1 .accent { color: #8f6a1d; background: none; }
+  body.funnel .hero h1 .accent { color: var(--coral-dark); background: none; }
 }
 body.funnel .hero p.sub {
   margin: 28px auto 0;
   max-width: 660px;
   font-weight: 400;
   font-size: 1.16rem;
-  color: var(--color-white-dim);
+  color: var(--ink-soft);
 }
 body.funnel .cta-row { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-/* scarcity - warm amber urgency with a live-pulse dot */
+/* scarcity - burnt-coral urgency with a live coral dot (one cluster with the CTA) */
 body.funnel .scarcity {
   margin-top: 22px;
-  color: var(--color-amber-text);
+  color: var(--coral-deep);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
@@ -237,19 +250,19 @@ body.funnel .scarcity::before {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-amber-dot);
+  background: var(--coral);
   margin-right: 0.6rem;
   vertical-align: 1px;
-  box-shadow: 0 0 0 0 rgba(230, 165, 60, 0.5);
+  box-shadow: 0 0 0 0 rgba(247, 148, 122, 0.55);
   animation: liveDot 2s ease-out infinite;
 }
 @keyframes liveDot {
-  0% { box-shadow: 0 0 0 0 rgba(230, 165, 60, 0.5); }
-  70% { box-shadow: 0 0 0 9px rgba(230, 165, 60, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(230, 165, 60, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(247, 148, 122, 0.55); }
+  70% { box-shadow: 0 0 0 9px rgba(247, 148, 122, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(247, 148, 122, 0); }
 }
 
-/* proof strip */
+/* proof strip - ocean numbers, bronze star */
 body.funnel .proof-strip {
   margin-top: 46px;
   display: flex;
@@ -271,25 +284,25 @@ body.funnel .proof-value {
   font-weight: 500;
   font-size: 2rem;
   line-height: 1;
-  color: var(--color-ink);
+  color: var(--ocean);
 }
 body.funnel .proof-value .star {
-  color: var(--color-gold);
-  filter: drop-shadow(0 2px 6px rgba(179, 128, 34, 0.45));
+  color: var(--bronze);
+  filter: drop-shadow(0 2px 6px rgba(143, 110, 35, 0.45));
 }
 body.funnel .proof-label {
   font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-steel);
+  color: var(--steel);
 }
 @media (max-width: 640px) {
   body.funnel .proof-item { padding: 0 1.1rem; }
   body.funnel .proof-value { font-size: 1.45rem; }
 }
 
-/* partner badge - light card presentation */
+/* partner badge */
 body.funnel .badge-strip {
   margin-top: 54px;
   padding-top: 42px;
@@ -304,7 +317,7 @@ body.funnel .badge-strip span {
   font-size: 0.62rem;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: var(--color-white-dim);
+  color: var(--ink-soft);
 }
 body.funnel .badge-strip img {
   width: 264px;
@@ -316,14 +329,14 @@ body.funnel .badge-strip img {
 }
 body.funnel .badge-strip img:hover { transform: translateY(-2px); }
 
-/* falling drop - deep teal reads on light */
+/* falling drop - coastal teal */
 body.funnel .drop {
   position: absolute;
   top: -40px;
   left: 50%;
   width: 10px;
   height: 10px;
-  background: var(--color-teal);
+  background: var(--teal-c);
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   opacity: 0;
@@ -344,7 +357,7 @@ body.funnel .eyebrow {
   font-size: 0.62rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-gold-text);
+  color: var(--bronze-text);
   margin-bottom: 14px;
 }
 body.funnel h2 {
@@ -353,24 +366,24 @@ body.funnel h2 {
   font-weight: 400;
   font-size: clamp(2.1rem, 4.4vw, 3.1rem);
   letter-spacing: -0.02em;
-  color: var(--color-ink);
+  color: var(--ocean);
   line-height: 1.1;
 }
 body.funnel .center { text-align: center; }
 body.funnel .lead {
   max-width: 640px;
   margin: 16px auto 0;
-  color: var(--color-white-dim);
+  color: var(--ink-soft);
   font-weight: 400;
   font-size: 1.06rem;
 }
 
-/* cards - crisp white on sand, warm lift on hover */
+/* cards - warm white on sand; PAIN cards run coral-edged (problems) */
 body.funnel .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 @media (max-width: 840px) { body.funnel .cards { grid-template-columns: 1fr; } }
 body.funnel .card {
-  background: #ffffff;
-  border: 1px solid rgba(19, 26, 35, 0.08);
+  background: #FCFBF7;
+  border: 1px solid rgba(36, 58, 68, 0.09);
   border-radius: 14px;
   padding: 34px 28px;
   text-align: left;
@@ -379,90 +392,104 @@ body.funnel .card {
 }
 body.funnel .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(201, 150, 46, 0.5);
   box-shadow: var(--shadow-card-hover);
 }
+body.funnel #problems .card { border-top: 4px solid var(--coral); }
 body.funnel .card .q {
   margin: 0;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
   font-size: 1.3rem;
-  color: var(--color-ink);
+  color: var(--ocean);
   line-height: 1.4;
 }
-body.funnel .card p { margin: 14px 0 0; color: var(--color-white-dim); font-size: 0.95rem; font-weight: 400; }
+body.funnel .card p { margin: 14px 0 0; color: var(--ink-soft); font-size: 0.95rem; font-weight: 400; }
 
-/* personas - gold-named */
+/* personas - bronze (identity/value) */
+body.funnel #who .card { border-top: 4px solid var(--bronze); }
 body.funnel .persona-name {
   margin: 0;
   font-weight: 600;
   font-size: 1.04rem;
-  color: var(--color-gold-text);
+  color: var(--bronze-text);
   letter-spacing: 0.01em;
 }
-body.funnel #who .card { border-top: 3px solid var(--color-gold); }
 
-/* trusted-by row */
+/* trusted-by row - sand beige band */
 body.funnel .trusted {
   padding: 58px 0;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg-alt);
+  background: var(--sand);
 }
 body.funnel .trusted .eyebrow { margin-bottom: 26px; }
 
-/* solutions - sand-alt band with a soft teal wash */
+/* solutions - THE DEEP OCEAN AUTHORITY BAND (relief runs cool) */
 body.funnel .sol {
   background:
-    radial-gradient(820px 420px at 50% -6%, rgba(23, 127, 115, 0.07), transparent 60%),
-    linear-gradient(180deg, #f2ecdf 0%, var(--color-bg-alt) 50%, #f2ecdf 100%);
+    radial-gradient(860px 440px at 50% -8%, rgba(127, 211, 199, 0.14), transparent 60%),
+    linear-gradient(180deg, var(--ocean) 0%, var(--ocean-deep) 100%);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
-body.funnel .sol .cards .card { border-top: 3px solid var(--color-teal); }
-body.funnel .sol .card .h { margin: 0; font-weight: 600; font-size: 1.14rem; color: var(--color-ink); line-height: 1.3; }
-body.funnel .sol .card p { color: var(--color-white-dim); }
-body.funnel .sol .card .tag { display: inline-block; margin-bottom: 14px; color: var(--color-teal); }
+body.funnel .sol .eyebrow { color: var(--teal-l); }
+body.funnel .sol h2 { color: #ffffff; text-shadow: 0 0 18px rgba(127, 211, 199, 0.3); }
+body.funnel .sol .lead { color: #cfdade; }
+body.funnel .sol .cards .card {
+  background: linear-gradient(160deg, rgba(31, 47, 56, 0.92), rgba(24, 36, 43, 0.95));
+  border: 1px solid rgba(127, 211, 199, 0.22);
+  border-top: 4px solid var(--teal-c);
+  box-shadow: inset 0 0 22px rgba(127, 211, 199, 0.05);
+}
+body.funnel .sol .cards .card:hover {
+  border-color: rgba(127, 211, 199, 0.55);
+  border-top-color: var(--teal-c);
+  box-shadow: 0 0 18px rgba(127, 211, 199, 0.2), inset 0 0 22px rgba(127, 211, 199, 0.07);
+}
+body.funnel .sol .card .h { margin: 0; font-weight: 600; font-size: 1.14rem; color: #ffffff; line-height: 1.3; }
+body.funnel .sol .card p { color: #c3cfd3; }
+body.funnel .sol .card .tag {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--teal-l);
+  text-shadow: 0 0 12px rgba(127, 211, 199, 0.4);
+}
 
-/* steps */
+/* steps - craft in bronze */
 body.funnel .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 @media (max-width: 840px) { body.funnel .steps { grid-template-columns: 1fr; } }
 body.funnel .step {
-  background: #ffffff;
-  border: 1px solid rgba(19, 26, 35, 0.08);
+  background: #FCFBF7;
+  border: 1px solid rgba(36, 58, 68, 0.09);
   border-radius: 14px;
   padding: 34px 28px;
   position: relative;
   text-align: left;
   box-shadow: var(--shadow-card);
-  transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
-body.funnel .step:hover {
-  transform: translateY(-4px);
-  border-color: rgba(201, 150, 46, 0.5);
-  box-shadow: var(--shadow-card-hover);
-}
+body.funnel .step:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
 body.funnel .step .num {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--color-gold-text);
+  color: var(--bronze-text);
   font-weight: 500;
 }
-body.funnel .step .h { margin: 12px 0 0; font-weight: 600; font-size: 1.14rem; color: var(--color-ink); }
-body.funnel .step p { margin: 10px 0 0; color: var(--color-white-dim); font-size: 0.95rem; font-weight: 400; }
+body.funnel .step .h { margin: 12px 0 0; font-weight: 600; font-size: 1.14rem; color: var(--ocean); }
+body.funnel .step p { margin: 10px 0 0; color: var(--ink-soft); font-size: 0.95rem; font-weight: 400; }
 
-/* pricing - warm gold aurora; the featured tier owns the section */
+/* pricing - warm coral aura; featured tier framed in COASTAL TEAL (the original design) */
 body.funnel #pricing {
-  background: radial-gradient(920px 480px at 50% 18%, rgba(230, 178, 77, 0.12), transparent 62%);
+  background: radial-gradient(920px 480px at 50% 18%, rgba(247, 148, 122, 0.1), transparent 62%);
 }
 body.funnel .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; align-items: stretch; }
 @media (max-width: 900px) { body.funnel .tiers { grid-template-columns: 1fr; } }
 body.funnel .tier {
-  background: #ffffff;
-  border: 1px solid rgba(19, 26, 35, 0.08);
+  background: #FCFBF7;
+  border: 1px solid rgba(36, 58, 68, 0.09);
   border-radius: 18px;
   padding: 38px 30px;
   display: flex;
@@ -471,30 +498,27 @@ body.funnel .tier {
   box-shadow: var(--shadow-card);
   transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-body.funnel .tier:hover {
-  border-color: rgba(201, 150, 46, 0.5);
-  box-shadow: var(--shadow-card-hover);
-}
+body.funnel .tier:hover { box-shadow: var(--shadow-card-hover); }
 body.funnel .tier.feat {
-  border: 2px solid var(--color-gold);
+  border: 2px solid var(--teal-c);
   position: relative;
-  background: linear-gradient(175deg, #fdf6e5 0%, #ffffff 55%);
+  background: linear-gradient(175deg, #f0f7f5 0%, #FCFBF7 55%);
   box-shadow:
-    0 22px 54px -18px rgba(179, 128, 34, 0.4),
+    0 22px 54px -18px rgba(58, 167, 181, 0.4),
     var(--shadow-card);
   transform: scale(1.035);
 }
 @media (max-width: 900px) { body.funnel .tier.feat { transform: none; } }
 body.funnel .tier.feat:hover {
-  box-shadow: 0 26px 60px -16px rgba(179, 128, 34, 0.5), var(--shadow-card);
+  box-shadow: 0 26px 60px -16px rgba(58, 167, 181, 0.5), var(--shadow-card);
 }
 body.funnel .tier.feat .pop {
   position: absolute;
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, #f2c96e, var(--color-gold));
-  color: #07090d;
+  background: linear-gradient(180deg, #56b9c5, var(--teal-c));
+  color: #ffffff;
   font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 600;
@@ -502,25 +526,25 @@ body.funnel .tier.feat .pop {
   padding: 7px 16px;
   border-radius: 999px;
   white-space: nowrap;
-  box-shadow: 0 6px 18px -4px rgba(179, 128, 34, 0.55);
+  box-shadow: 0 6px 18px -4px rgba(37, 109, 121, 0.55);
 }
-body.funnel .tier .t-name { margin: 0; font-weight: 600; color: var(--color-ink); font-size: 1.05rem; }
+body.funnel .tier .t-name { margin: 0; font-weight: 600; color: var(--ocean); font-size: 1.05rem; }
 body.funnel .tier .t-price {
   margin: 10px 0 0;
   font-family: var(--font-display);
   font-weight: 500;
   font-size: 2.55rem;
-  color: var(--color-ink);
+  color: var(--ocean);
   letter-spacing: -0.02em;
   line-height: 1;
 }
-body.funnel .tier .t-price small { font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; color: var(--color-white-dim); letter-spacing: 0; }
+body.funnel .tier .t-price small { font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; color: var(--ink-soft); letter-spacing: 0; }
 body.funnel .tier ul { list-style: none; margin: 24px 0 30px; padding: 0; flex: 1; }
 body.funnel .tier li {
   padding: 8px 0 8px 28px;
   position: relative;
   font-size: 0.93rem;
-  color: var(--color-white-dim);
+  color: var(--ink-soft);
   font-weight: 400;
 }
 body.funnel .tier li::before {
@@ -531,8 +555,8 @@ body.funnel .tier li::before {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--color-gold);
-  box-shadow: 0 2px 6px rgba(179, 128, 34, 0.4);
+  background: var(--teal-c);
+  box-shadow: 0 2px 6px rgba(37, 109, 121, 0.35);
 }
 body.funnel .tier li::after {
   content: "";
@@ -541,19 +565,19 @@ body.funnel .tier li::after {
   top: 16px;
   width: 6px;
   height: 3px;
-  border-left: 2px solid #07090d;
-  border-bottom: 2px solid #07090d;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
   transform: rotate(-45deg);
 }
 body.funnel .tier .btn { text-align: center; }
-body.funnel .audit-note { margin-top: 28px; text-align: center; color: var(--color-white-dim); font-size: 0.93rem; }
-body.funnel .audit-note b { color: var(--color-ink); font-weight: 600; }
+body.funnel .audit-note { margin-top: 28px; text-align: center; color: var(--ink-soft); font-size: 0.93rem; }
+body.funnel .audit-note b { color: var(--ocean); font-weight: 600; }
 
-/* trust ("why the coast") - warm sand band */
+/* trust ("why the coast") - sand beige with a teal wash */
 body.funnel .trust {
   background:
-    radial-gradient(780px 400px at 24% 34%, rgba(230, 178, 77, 0.1), transparent 62%),
-    var(--color-bg-alt);
+    radial-gradient(780px 400px at 24% 34%, rgba(58, 167, 181, 0.09), transparent 62%),
+    var(--sand);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -566,8 +590,8 @@ body.funnel .trust-grid {
 }
 @media (max-width: 840px) { body.funnel .trust-grid { grid-template-columns: 1fr; gap: 36px; } }
 body.funnel .trust-badge {
-  background: #ffffff;
-  border: 1px solid rgba(19, 26, 35, 0.08);
+  background: #FCFBF7;
+  border: 1px solid rgba(36, 58, 68, 0.09);
   border-radius: 18px;
   padding: 40px;
   text-align: center;
@@ -580,7 +604,7 @@ body.funnel .trust-badge img {
   border-radius: 8px;
   border: 1px solid var(--color-border);
 }
-body.funnel .trust-badge .line { margin: 0; font-size: 0.92rem; color: var(--color-white-dim); }
+body.funnel .trust-badge .line { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
 body.funnel .founder-wrap { display: flex; gap: 28px; align-items: center; }
 @media (max-width: 640px) { body.funnel .founder-wrap { flex-direction: column; align-items: flex-start; } }
 body.funnel .founder-photo {
@@ -590,18 +614,18 @@ body.funnel .founder-photo {
   aspect-ratio: 4 / 5;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid rgba(201, 150, 46, 0.45);
+  border: 1px solid rgba(201, 162, 75, 0.55);
   box-shadow: 0 18px 40px -18px rgba(36, 58, 68, 0.35);
 }
 body.funnel .founder-photo img { object-fit: cover; }
-body.funnel .quote { border-left: 3px solid var(--color-gold); padding-left: 26px; }
+body.funnel .quote { border-left: 3px solid var(--bronze); padding-left: 26px; }
 body.funnel .quote .q {
   margin: 0;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
   font-size: 1.46rem;
-  color: var(--color-ink);
+  color: var(--ocean);
   line-height: 1.5;
 }
 body.funnel .quote .who {
@@ -610,27 +634,27 @@ body.funnel .quote .who {
   font-size: 0.62rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-steel);
+  color: var(--steel);
 }
 
 /* faq */
 body.funnel .faq-list { max-width: 760px; margin: 44px auto 0; text-align: left; }
 body.funnel details {
-  background: #ffffff;
-  border: 1px solid rgba(19, 26, 35, 0.08);
+  background: #FCFBF7;
+  border: 1px solid rgba(36, 58, 68, 0.09);
   border-radius: 14px;
   margin-bottom: 14px;
   overflow: hidden;
   box-shadow: var(--shadow-card);
   transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
-body.funnel details:hover { border-color: rgba(201, 150, 46, 0.45); }
-body.funnel details[open] { border-color: rgba(201, 150, 46, 0.6); }
+body.funnel details:hover { border-color: rgba(58, 167, 181, 0.45); }
+body.funnel details[open] { border-color: rgba(58, 167, 181, 0.6); }
 body.funnel summary {
   cursor: pointer;
   padding: 22px 26px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--ocean);
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -639,32 +663,31 @@ body.funnel summary {
   gap: 1rem;
 }
 body.funnel summary::-webkit-details-marker { display: none; }
-body.funnel summary:focus-visible { outline: 3px solid var(--color-teal); outline-offset: -3px; border-radius: 14px; }
+body.funnel summary:focus-visible { outline: 3px solid var(--teal-c); outline-offset: -3px; border-radius: 14px; }
 body.funnel summary::after {
   content: "+";
   font-size: 1.4rem;
-  color: var(--color-gold-text);
+  color: var(--teal-text);
   font-weight: 400;
   transition: transform 0.2s ease;
   flex: none;
 }
 body.funnel details[open] summary::after { transform: rotate(45deg); }
-body.funnel details .a { padding: 0 26px 24px; color: var(--color-white-dim); font-weight: 400; font-size: 0.94rem; }
+body.funnel details .a { padding: 0 26px 24px; color: var(--ink-soft); font-weight: 400; font-size: 0.94rem; }
 
 /* final cta - the page descends into the deep ocean at the decision moment */
 body.funnel .final {
   background:
-    radial-gradient(880px 460px at 50% 0%, rgba(127, 211, 199, 0.12), transparent 60%),
-    radial-gradient(720px 420px at 50% 100%, rgba(230, 178, 77, 0.14), transparent 62%),
-    linear-gradient(180deg, #10151d 0%, #06080c 100%);
+    radial-gradient(880px 460px at 50% 0%, rgba(127, 211, 199, 0.14), transparent 60%),
+    radial-gradient(720px 420px at 50% 100%, rgba(247, 148, 122, 0.16), transparent 62%),
+    linear-gradient(180deg, var(--ocean) 0%, var(--char) 100%);
   color: #f4f6f8;
   text-align: center;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(19, 26, 35, 0.2);
   padding: 110px 0;
 }
-body.funnel .final .eyebrow { color: #e6b24d; text-shadow: 0 0 14px rgba(230, 178, 77, 0.3); }
+body.funnel .final .eyebrow { color: var(--teal-l); text-shadow: 0 0 14px rgba(127, 211, 199, 0.35); }
 body.funnel .final h2 {
   color: #ffffff;
   font-size: clamp(2.6rem, 5.4vw, 3.9rem);
@@ -675,31 +698,31 @@ body.funnel .final .tagline {
   font-style: italic;
   font-weight: 500;
   font-size: 1.6rem;
-  color: #b7c0ca;
+  color: var(--sand);
   margin: 14px 0 0;
 }
 body.funnel .final .cta-row { margin-top: 38px; }
-body.funnel .final .btn-gold {
-  border-color: rgba(245, 215, 138, 0.9);
+body.funnel .final .btn-cta {
+  border-color: #fba98c;
   box-shadow:
-    0 0 0 1px rgba(230, 178, 77, 0.25),
-    0 10px 34px -10px rgba(230, 178, 77, 0.6);
+    0 0 0 1px rgba(247, 148, 122, 0.3),
+    0 10px 34px -10px rgba(247, 148, 122, 0.65);
 }
-body.funnel .final .scarcity { color: #ffd27a; margin: 20px 0 0; }
-body.funnel .final .scarcity::before { background: #ffd27a; }
+body.funnel .final .scarcity { color: #f5b9a5; margin: 20px 0 0; }
+body.funnel .final .scarcity::before { background: var(--coral); }
 
-/* footer - stays in the deep */
+/* footer - charcoal anchor */
 body.funnel .ffooter {
-  background: #06080c;
-  color: #87929e;
+  background: var(--char);
+  color: #8fa0a7;
   padding: 44px 0;
   text-align: center;
   font-size: 0.85rem;
 }
 body.funnel .ffooter p { margin: 0; }
-body.funnel .ffooter a { color: #b7c0ca; text-decoration: none; transition: color 0.25s var(--ease-out); }
-body.funnel .ffooter a:hover { color: #e6b24d; }
-body.funnel .ffooter a:focus-visible { outline: 3px solid #7fd3c7; outline-offset: 2px; }
+body.funnel .ffooter a { color: var(--teal-l); text-decoration: none; transition: color 0.25s var(--ease-out); }
+body.funnel .ffooter a:hover { color: var(--coral); }
+body.funnel .ffooter a:focus-visible { outline: 3px solid var(--teal-l); outline-offset: 2px; }
 body.funnel .ffooter .fine { margin-top: 14px; font-size: 0.75rem; color: #9aa5b1; }
 
 /* scroll reveal */

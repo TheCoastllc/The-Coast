@@ -20,8 +20,8 @@ export default function OgImage() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          background: '#f7f4ec',
-          color: '#131a23',
+          background: '#F2EFE7',
+          color: '#243A44',
           fontFamily: 'sans-serif',
         }}
       >
@@ -29,7 +29,7 @@ export default function OgImage() {
           style={{
             fontSize: 26,
             letterSpacing: 10,
-            color: '#177f73',
+            color: '#256d79',
             textTransform: 'uppercase',
             marginBottom: 36,
           }}
@@ -51,14 +51,14 @@ export default function OgImage() {
           <div>{'Put AI to work'}</div>
           <div style={{ display: 'flex' }}>
             <span>{'in your '}</span>
-            <span style={{ color: '#8f6a1d' }}>{'business.'}</span>
+            <span style={{ color: '#E5734F' }}>{'business.'}</span>
           </div>
         </div>
         <div
           style={{
             marginTop: 52,
             fontSize: 24,
-            color: '#4e5a66',
+            color: '#8f6e23',
             letterSpacing: 6,
             textTransform: 'uppercase',
           }}
