@@ -11,6 +11,10 @@ import { TrustedBy } from '@/components/home/TrustedBy'
 /** Live Google rating passed down from the server component (null if the fetch failed). */
 export type FunnelProof = { average: number; count: number } | null
 
+/** Hero backdrop + statement tone. mood 'light' = ink text (bright skies),
+ *  'dark' = cream text (moody skies). Swap src/mood together. */
+const HERO = { src: '/ai/hero-shore.jpg', mood: 'dark' } as const
+
 /**
  * /ai conversion funnel - faithful recreation of Coast_AI_Landing_Page.html.
  * All copy is verbatim from the source file. CTAs carry utm passthrough onto
@@ -101,12 +105,13 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
         </div>
       </nav>
 
-      <header className="hero">
-        {/* dusk shoreline, full viewport - rose sky is the headline zone, deep
-            teal sea grounds the CTA (SKAI-style framed hero) */}
+      <header className="hero" data-mood={HERO.mood}>
+        {/* golden-hour beach, full viewport (SKAI-style framed hero). data-mood
+            flips the statement tones: 'light' = ink text on bright skies,
+            'dark' = cream text on moody skies. */}
         <Image
           className="hero-photo"
-          src="/ai/beach-dusk.jpg"
+          src={HERO.src}
           alt=""
           aria-hidden
           fill
