@@ -90,6 +90,9 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
       });
 
       // ---- velocity ambience (desktop pointers only) -----------------------
+      // The rAF loop runs ONLY while the user scrolls and goes silent ~0.4s
+      // after rest: keeps the main thread idle for anyone not scrolling (and
+      // keeps synthetic audits on the quiet path).
       const fine = window.matchMedia("(pointer: fine)").matches;
       if (fine) {
         const drifts = el.querySelectorAll<HTMLElement>('[data-mo="drift"]');
@@ -99,6 +102,8 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
         let lastY = window.scrollY;
         let lastT = performance.now();
         let raf = 0;
+        let running = false;
+        let quietFrames = 0;
         const tick = () => {
           const now = performance.now();
           const y = window.scrollY;
@@ -111,12 +116,30 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
           skewSet(Math.abs(skew) < 0.02 ? 0 : skew);
           const nudge = gsap.utils.clamp(-16, 16, vel * 0.3);
           driftSets.forEach((set) => set(nudge));
+          // settle detection: no meaningful velocity for ~25 frames -> sleep
+          quietFrames = Math.abs(vel) < 0.05 && Math.abs(instant) < 0.05 ? quietFrames + 1 : 0;
+          if (quietFrames > 25) {
+            running = false;
+            skewSet(0);
+            driftSets.forEach((set) => set(0));
+            return;
+          }
           raf = requestAnimationFrame(tick);
         };
-        raf = requestAnimationFrame(tick);
+        const wake = () => {
+          if (running) return;
+          running = true;
+          lastY = window.scrollY;
+          lastT = performance.now();
+          quietFrames = 0;
+          raf = requestAnimationFrame(tick);
+        };
+        window.addEventListener("scroll", wake, { passive: true });
         ScrollTrigger.addEventListener("refreshInit", () => skewSet(0));
-        // cleanup via context return below
-        const stop = () => cancelAnimationFrame(raf);
+        const stop = () => {
+          cancelAnimationFrame(raf);
+          window.removeEventListener("scroll", wake);
+        };
         (el as HTMLElement & { __coastVelStop?: () => void }).__coastVelStop = stop;
 
         // ---- magnetic CTAs -------------------------------------------------
