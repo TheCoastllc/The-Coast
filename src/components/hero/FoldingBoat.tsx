@@ -29,6 +29,20 @@ function BillboardBoat({ src, size }: { src: string; size: number }) {
   useEffect(() => {
     tex.colorSpace = THREE.SRGBColorSpace;
   }, [tex]);
+  // The renders' backgrounds aren't pure black, so additive blending alone
+  // leaves a faint plate edge - feather the plane radially to nothing.
+  const alphaMap = useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 256;
+    const g = c.getContext("2d")!;
+    const grad = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+    grad.addColorStop(0, "#fff");
+    grad.addColorStop(0.58, "#fff");
+    grad.addColorStop(1, "#000");
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 256, 256);
+    return new THREE.CanvasTexture(c);
+  }, []);
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -46,6 +60,7 @@ function BillboardBoat({ src, size }: { src: string; size: number }) {
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           map={tex}
+          alphaMap={alphaMap}
           transparent
           blending={THREE.AdditiveBlending}
           depthWrite={false}

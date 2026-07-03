@@ -59,7 +59,12 @@ export function IntroCurtain({ accent = "default" }: { accent?: "default" | "neo
               alt=""
               width={132}
               height={132}
-              style={{ mixBlendMode: "screen", filter: "drop-shadow(0 0 26px rgba(127,211,199,0.45))" }}
+              style={{
+                mixBlendMode: "screen",
+                filter: "drop-shadow(0 0 26px rgba(127,211,199,0.45))",
+                WebkitMaskImage: "radial-gradient(closest-side, #000 58%, transparent 98%)",
+                maskImage: "radial-gradient(closest-side, #000 58%, transparent 98%)",
+              }}
             />
           ) : (
             <Mark size={70} />
