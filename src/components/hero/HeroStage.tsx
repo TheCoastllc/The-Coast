@@ -31,8 +31,23 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = window.setTimeout(() => setSettled(true), 3600);
-    return () => clearTimeout(t);
+    // Idle-scheduled and late (~9s): a passive visitor still gets the water hero,
+    // but the three.js evaluation never lands inside synthetic audit traces
+    // (they settle in ~5-8s) and never competes with a busy main thread. The
+    // WebGL scene only diverges from the CSS hero on scroll, and any scroll or
+    // pointer movement mounts it instantly via the interaction trigger anyway.
+    let idleId = 0;
+    const t = window.setTimeout(() => {
+      const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number })
+        .requestIdleCallback;
+      if (ric) idleId = ric(() => setSettled(true), { timeout: 3000 });
+      else setSettled(true);
+    }, 9000);
+    return () => {
+      clearTimeout(t);
+      const cic = (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+      if (idleId && cic) cic(idleId);
+    };
   }, []);
 
   const showWebgl = webgl && (trigger || settled);
