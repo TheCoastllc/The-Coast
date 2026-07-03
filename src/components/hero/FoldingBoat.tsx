@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { COMPANY } from "@/lib/content/coast";
@@ -53,14 +53,18 @@ function makeFadeTexture() {
 /** The finale boat: the papercraft logo-sail render, neon-treated live -
  *  teal glow aura, drifting mist at the waterline, mirrored water reflection.
  *  Black-background render composites additively (black contributes nothing). */
-function NeonOrigamiBoat() {
+function NeonOrigamiBoat({ src = "/story/boat-origami.png" }: { src?: string }) {
   const root = useRef<THREE.Group>(null);
   const mistRefs = useRef<(THREE.Mesh | null)[]>([]);
   const reflRef = useRef<THREE.Mesh>(null);
-  const tex = useLoader(THREE.TextureLoader, "/story/boat-origami.png");
+  const gl = useThree((s3) => s3.gl);
+  const tex = useLoader(THREE.TextureLoader, src);
   useEffect(() => {
     tex.colorSpace = THREE.SRGBColorSpace;
-  }, [tex]);
+    // max anisotropy keeps the texture crisp when the plane heels obliquely
+    tex.anisotropy = gl.capabilities.getMaxAnisotropy();
+    tex.needsUpdate = true;
+  }, [tex, gl]);
 
   const featherMap = useMemo(() => makeRadialTexture(0.58), []);
   const mistMap = useMemo(() => makeRadialTexture(0.12), []);
@@ -106,14 +110,14 @@ function NeonOrigamiBoat() {
   return (
     <group ref={root} position={[0, BASE_Y, 0]}>
       {/* neon aura - teal-tinted duplicate behind; Bloom smears it into a glow */}
-      <mesh position={[0, 0, -0.06]} scale={[SIZE * 1.07, SIZE * 1.07, 1]}>
+      <mesh position={[0, 0, -0.06]} scale={[SIZE * 1.03, SIZE * 1.03, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           map={tex}
           alphaMap={featherMap}
           color="#69d8c8"
           transparent
-          opacity={0.55}
+          opacity={0.4}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
           toneMapped={false}
@@ -173,7 +177,7 @@ function NeonOrigamiBoat() {
   );
 }
 
-export function FoldingBoat() {
+export function FoldingBoat({ boatSrc }: { boatSrc?: string } = {}) {
   const ref = useRef<HTMLElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
   const aRef = useRef<HTMLSpanElement>(null);
@@ -238,7 +242,7 @@ export function FoldingBoat() {
             dpr={q.dpr}
           >
             <Suspense fallback={null}>
-              <NeonOrigamiBoat />
+              <NeonOrigamiBoat src={boatSrc} />
             </Suspense>
             {q.postfx && (
               <EffectComposer>
