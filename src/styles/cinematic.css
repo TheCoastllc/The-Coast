@@ -6,8 +6,6 @@
    next/font load — no @import url needed here.
    ===================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
 /* ── Local CSS variables (don't leak into rest of site) ── */
 .cinematic {
   --cs-bg: #0A0C12;
@@ -19,7 +17,7 @@
   --cs-accent-soft: rgba(201, 162, 75, 0.15);
   --cs-line: rgba(245, 241, 232, 0.12);
   --cs-font-display: 'Editorial New', var(--font-anton), Georgia, serif;
-  --cs-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --cs-font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   /* the kit's Fontshare faces (Editorial New / Neue Montreal) aren't loaded on
      the-coast - resolve those references to the site's own faces instead. */
   --font-display: var(--cs-font-display);
