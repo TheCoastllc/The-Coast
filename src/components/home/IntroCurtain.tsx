@@ -10,7 +10,7 @@ import styles from "./IntroCurtain.module.css";
  * then it fades/rises away after a beat. Skippable (click / scroll / key) and
  * skipped entirely under reduced-motion. Shown on every full load of the home.
  */
-export function IntroCurtain({ accent = "default" }: { accent?: "default" | "neon" } = {}) {
+export function IntroCurtain() {
   const [phase, setPhase] = useState<"in" | "out" | "gone">("in");
   const done = useRef(false);
 
@@ -52,23 +52,7 @@ export function IntroCurtain({ accent = "default" }: { accent?: "default" | "neo
     <div className={`${styles.curtain} ${phase === "out" ? styles.out : ""}`} aria-hidden>
       <div className={styles.inner}>
         <span className={styles.markWrap}>
-          {accent === "neon" ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src="/story/boat-neon.png"
-              alt=""
-              width={132}
-              height={132}
-              style={{
-                mixBlendMode: "screen",
-                filter: "drop-shadow(0 0 26px rgba(127,211,199,0.45))",
-                WebkitMaskImage: "radial-gradient(closest-side, #000 58%, transparent 98%)",
-                maskImage: "radial-gradient(closest-side, #000 58%, transparent 98%)",
-              }}
-            />
-          ) : (
-            <Mark size={70} />
-          )}
+          <Mark size={70} />
         </span>
         <span className={styles.line} />
         <span className={styles.tag}>Design the Future</span>

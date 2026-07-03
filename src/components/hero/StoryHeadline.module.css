@@ -79,22 +79,3 @@
   display: inline-block;
   will-change: transform, opacity;
 }
-
-/* variant b - the typographic hero: a giant editorial lockup whose letterforms
-   let the water world shimmer through (type made of ocean) */
-.lockupB {
-  font-size: clamp(4.6rem, 15vw, 15rem) !important;
-  line-height: 0.94;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  mix-blend-mode: overlay;
-  color: rgba(244, 246, 248, 0.96);
-}
-.lockupLine {
-  display: block;
-}
-@media (max-width: 640px) {
-  .lockupB {
-    font-size: clamp(3.4rem, 19vw, 6rem) !important;
-  }
-}

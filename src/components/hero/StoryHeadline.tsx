@@ -40,7 +40,7 @@ function CharSplit({ text }: { text: string }) {
  * same scrub), while blur rides the phrase wrapper so we never animate dozens
  * of filters per frame. Reads the same progress formula as StoryHero.
  */
-export function StoryHeadline({ variant = "a" }: { variant?: "a" | "b" } = {}) {
+export function StoryHeadline() {
   const aRef = useRef<HTMLParagraphElement>(null);
   const bRef = useRef<HTMLParagraphElement>(null);
   const cRef = useRef<HTMLParagraphElement>(null);
@@ -155,20 +155,9 @@ export function StoryHeadline({ variant = "a" }: { variant?: "a" | "b" } = {}) {
             aria-hidden). These are NOT the page heading - the real, crawlable
             <h1> lives in HomeOcean so the homepage has exactly one keyword-
             bearing h1. */}
-        {variant === "b" ? (
-          <p ref={aRef} className={`${styles.phrase} ${styles.lockupB} no-marble`}>
-            <span className={styles.lockupLine}>
-              <CharSplit text="THE" />
-            </span>
-            <span className={styles.lockupLine}>
-              <CharSplit text="COAST" />
-            </span>
-          </p>
-        ) : (
-          <p ref={aRef} className={`${styles.phrase} no-marble`}>
-            <CharSplit text="The Coast" />
-          </p>
-        )}
+        <p ref={aRef} className={`${styles.phrase} no-marble`}>
+          <CharSplit text="The Coast" />
+        </p>
         <p ref={bRef} className={`${styles.phrase} ${styles.phraseB} no-marble`}>
           <CharSplit text="Design The Future" />
         </p>
