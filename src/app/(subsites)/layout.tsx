@@ -1,5 +1,7 @@
 import React from 'react'
+import Script from 'next/script'
 import '../(frontend)/styles.css'
+import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 import { HUD } from '@/components/chrome/HUD'
@@ -22,6 +24,28 @@ export default function SubsitesLayout(props: { children: React.ReactNode }) {
             className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable}`}
         >
             <body className="ocean">
+                <GtmNoScript />
+                {/* Consent Mode v2 defaults (all denied) so GTM tags stay gated
+                    on subsites exactly like the main site. */}
+                <Script id="consent-init" strategy="afterInteractive">
+                    {`
+                      window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('consent', 'default', {
+                        ad_storage: 'denied',
+                        ad_user_data: 'denied',
+                        ad_personalization: 'denied',
+                        analytics_storage: 'denied',
+                        wait_for_update: 500
+                      });
+                      try {
+                        if (localStorage.getItem('coast-cookie-consent') === 'granted') {
+                          gtag('consent', 'update', { analytics_storage: 'granted' });
+                        }
+                      } catch (e) {}
+                    `}
+                </Script>
+                <GtmScript />
                 <SeaBackdrop />
                 {children}
                 <HUD />

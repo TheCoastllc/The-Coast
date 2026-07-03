@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { Inter, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
+import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import { CookieBanner } from '@/components/CookieBanner'
 
@@ -70,6 +71,7 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
       className={`funnel-root ${inter.variable} ${cormorant.variable} ${jetbrains.variable}`}
     >
       <body className="funnel">
+        <GtmNoScript />
         <Script id="ga-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -96,6 +98,7 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         />
+        <GtmScript />
         <Suspense fallback={null}>
           <RouteAnalytics />
         </Suspense>

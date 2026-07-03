@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { makeBoatProfile } from "./boatGeometry";
@@ -18,6 +18,43 @@ const smoothstep = (e0: number, e1: number, x: number) => {
 const BASE_Y = 0.0; // the boat sits centered in frame
 const SPAN = 13.5; // sail traverse width - wide enough to wrap fully off-screen (no visible jump)
 const SAIL_SPEED = 0.55;
+
+export type BoatLook = "current" | "origami" | "neon";
+
+/** Brand-asset boat: the black-background render composited additively (black
+ *  contributes nothing), sailing the same traverse as the classic profile. */
+function BillboardBoat({ src, size }: { src: string; size: number }) {
+  const root = useRef<THREE.Group>(null);
+  const tex = useLoader(THREE.TextureLoader, src);
+  useEffect(() => {
+    tex.colorSpace = THREE.SRGBColorSpace;
+  }, [tex]);
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    if (root.current) {
+      const cross = ((t * SAIL_SPEED + SPAN / 2) % SPAN) - SPAN / 2;
+      root.current.position.x = cross;
+      root.current.position.y = BASE_Y + Math.sin(t * 1.0) * 0.06;
+      root.current.rotation.z = Math.sin(t * 0.7) * 0.04;
+    }
+  });
+
+  return (
+    <group ref={root} position={[0, BASE_Y, 0]}>
+      <mesh scale={[size, size, 1]}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial
+          map={tex}
+          transparent
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          toneMapped={false}
+        />
+      </mesh>
+    </group>
+  );
+}
 
 /** The page-end finale: a pale matte sailboat (profile) sailing left -> right
  *  across the dark, looping by wrapping off-screen. No fold - stone doesn't fold. */
@@ -76,7 +113,7 @@ function SailScene() {
   );
 }
 
-export function FoldingBoat() {
+export function FoldingBoat({ look = "current" }: { look?: BoatLook } = {}) {
   const ref = useRef<HTMLElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
   const aRef = useRef<HTMLSpanElement>(null);
@@ -141,11 +178,17 @@ export function FoldingBoat() {
             dpr={q.dpr}
           >
             <Suspense fallback={null}>
-              <SailScene />
+              {look === "origami" ? (
+                <BillboardBoat src="/story/boat-origami.png" size={3.1} />
+              ) : look === "neon" ? (
+                <BillboardBoat src="/story/boat-neon.png" size={3.4} />
+              ) : (
+                <SailScene />
+              )}
             </Suspense>
             {q.postfx && (
               <EffectComposer>
-                <Bloom intensity={0.4} luminanceThreshold={0.6} luminanceSmoothing={0.7} mipmapBlur />
+                <Bloom intensity={look === "neon" ? 0.9 : 0.4} luminanceThreshold={look === "neon" ? 0.35 : 0.6} luminanceSmoothing={0.7} mipmapBlur />
               </EffectComposer>
             )}
           </Canvas>

@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
+import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import QueryProvider from '@/components/QueryProvider'
 import { Nav } from '@/components/chrome/Nav'
@@ -152,6 +153,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable} relative`}>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
+        <GtmNoScript />
         {/* Google Analytics 4 with Consent Mode v2.
             gtag loads on every page (no cookies until consent), defaults all
             storage to 'denied', and restores a prior 'granted' choice. config
@@ -184,6 +186,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         />
+        <GtmScript />
         <Suspense fallback={null}>
           <RouteAnalytics />
         </Suspense>

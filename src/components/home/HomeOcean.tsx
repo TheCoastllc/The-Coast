@@ -30,6 +30,9 @@ const FoldingBoat = dynamic(
   { ssr: false }
 );
 
+const HERO_VARIANTS = ["a", "b"] as const;
+const BOAT_LOOKS = ["current", "origami", "neon"] as const;
+
 /* Clients shown on the "Trusted by" wall (real roster; links to case studies or live sites). */
 const CLIENTS = TRUSTED_BRANDS_FALLBACK;
 
@@ -103,6 +106,9 @@ export function HomeOcean({
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
   const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "wall");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
+  // Build-off switchers (David compares on prod, then defaults get locked):
+  const heroVariant = useVariant("hero", HERO_VARIANTS, "a");
+  const boatLook = useVariant("boat", BOAT_LOOKS, "current");
 
   return (
     <>
@@ -126,9 +132,9 @@ export function HomeOcean({
       >
         The Coast - Brand Design Studio for Entrepreneurs, Artists, and Growing Businesses
       </h1>
-      <IntroCurtain />
+      <IntroCurtain accent={boatLook === "neon" ? "neon" : "default"} />
       <HeroStage meet="reflect" />
-      <StoryHeadline />
+      <StoryHeadline variant={heroVariant} />
       {/* tall transparent runway: gives scroll distance for the 3 hero acts */}
       <div className={styles.storyTrack} />
 
@@ -279,7 +285,7 @@ export function HomeOcean({
       </main>
 
       {/* the folding finale - flat paper scrubs into a boat (desktop, after interaction) */}
-      {webgl && interacted && <FoldingBoat />}
+      {webgl && interacted && <FoldingBoat look={boatLook} />}
     </>
   );
 }
