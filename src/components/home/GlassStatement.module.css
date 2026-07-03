@@ -177,3 +177,8 @@
     font-size: clamp(1.9rem, 8.5vw, 2.8rem);
   }
 }
+
+/* finale world: the sunset paint-bloom aerial replaces the ocean plate */
+.photoSunset {
+  background-image: url("/story/sunset-bloom.jpg");
+}

@@ -17,6 +17,7 @@ export function GlassStatement({
   ghostLabel,
   ghostHref,
   index,
+  backdrop = "ocean",
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -26,11 +27,13 @@ export function GlassStatement({
   ghostLabel?: string;
   ghostHref?: string;
   index?: string;
+  /** "sunset" swaps the plate to the paint-bloom aerial (the finale world). */
+  backdrop?: "ocean" | "sunset";
 }) {
   return (
     <section className={`section ${styles.wrap}`}>
       <div className={styles.stage}>
-        <div className={styles.photo} aria-hidden />
+        <div className={`${styles.photo} ${backdrop === "sunset" ? styles.photoSunset : ""}`} aria-hidden />
         <div className={styles.grade} aria-hidden />
         {index ? (
           <span className={styles.index} aria-hidden>

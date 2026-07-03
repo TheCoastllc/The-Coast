@@ -1,0 +1,39 @@
+/* Full-bleed brand-stroke band - the painting reveals itself on scroll. */
+
+.band {
+  padding: 0;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 56vh, 640px);
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: #f4f1e9; /* the plate's paper white, so the un-wiped area reads as canvas */
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 42%;
+  will-change: clip-path, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate {
+    clip-path: none !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .frame {
+    height: 300px;
+  }
+  .plate {
+    background-position: 62% 42%;
+  }
+}

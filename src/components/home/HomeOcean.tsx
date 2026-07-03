@@ -12,6 +12,7 @@ import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { GalleryPreview, type GalleryPreviewItem } from "./GalleryPreview";
 import { IntroCurtain } from "./IntroCurtain";
 import { MasterpieceThesis } from "./MasterpieceThesis";
+import { PaintSweep } from "./PaintSweep";
 import { GlassStatement } from "./GlassStatement";
 import { VideoWave } from "@/components/VideoWave";
 import { RevealGroup } from "@/components/motion/RevealGroup";
@@ -189,6 +190,8 @@ export function HomeOcean({
             </Link>
           </section>
 
+          <PaintSweep />
+
           <section className={`section ${styles.clientsSection}`}>
             <p className={styles.thesisLabel} data-mo="eyebrow">Trusted by</p>
             <TrustedBy clients={CLIENTS} variant={clientsVariant} />
@@ -270,6 +273,7 @@ export function HomeOcean({
             ghostLabel="See the work"
             ghostHref="/work"
             index="C / 09"
+            backdrop="sunset"
           />
         </RevealGroup>
       </main>

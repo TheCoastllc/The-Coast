@@ -226,13 +226,32 @@
    3 - FROSTED CARD  (content inside a floating glass card)
    ========================================================= */
 .card .photo {
-  background-image: url("/img/ocean-aerial-wide.jpg");
-  background-image: image-set(
-    url("/img/ocean-aerial-wide.avif") type("image/avif"),
-    url("/img/ocean-aerial-wide.webp") type("image/webp"),
-    url("/img/ocean-aerial-wide.jpg") type("image/jpeg")
-  );
+  background-image: url("/story/papercut-waves.jpg");
   transform-origin: 38% 46%;
+}
+/* paper-cut depth: a second copy of the plate, scaled up and masked to the
+   lower half, counter-drifting against the base layer - the layered-paper
+   canyon reads as physical depth behind the glass. */
+.card .photoNear {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/story/papercut-waves.jpg");
+  background-size: cover;
+  background-position: center 68%;
+  transform: scale(1.12);
+  transform-origin: 60% 80%;
+  -webkit-mask-image: linear-gradient(to top, black 42%, transparent 68%);
+  mask-image: linear-gradient(to top, black 42%, transparent 68%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card .photoNear {
+    animation: thesisNearDrift 30s ease-in-out infinite alternate;
+  }
+}
+@keyframes thesisNearDrift {
+  from { transform: scale(1.12) translateX(0); }
+  to { transform: scale(1.12) translateX(-22px); }
 }
 .card .grade {
   background:

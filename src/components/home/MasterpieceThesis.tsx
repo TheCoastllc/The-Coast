@@ -52,6 +52,7 @@ export function MasterpieceThesis() {
     <section ref={ref} className={`section ${styles.wrap} ${styles.card}`} data-treatment="card">
       <div className={styles.stage}>
         <div className={styles.photo} aria-hidden />
+        <div className={styles.photoNear} aria-hidden />
         <div className={styles.grade} aria-hidden />
         <div className={styles.glass} aria-hidden />
         <span className={styles.index} aria-hidden>
