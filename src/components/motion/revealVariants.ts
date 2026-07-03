@@ -6,7 +6,8 @@ export type RevealVariant =
   | "rise-blur"
   | "scale-in"
   | "parallax-slide"
-  | "rotate3d";
+  | "rotate3d"
+  | "mask-up";
 
 const CYCLE: RevealVariant[] = [
   "mask-wipe",

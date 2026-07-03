@@ -99,14 +99,14 @@ export function ReviewsMarquee({
 
   return (
     <>
-      <p className={styles.eyebrow}>What clients say</p>
-      <p className={styles.rating}>
+      <p className={styles.eyebrow} data-mo="eyebrow">What clients say</p>
+      <p className={styles.rating} data-mo="lead">
         <span className={styles.ratingStars} aria-hidden="true">★</span>
         {rating.average.toFixed(1)}
         <span className={styles.ratingFrom}>from {rating.count} Google reviews</span>
       </p>
 
-      <div ref={ref} className={styles.viewport}>
+      <div ref={ref} className={styles.viewport} data-mo="drift">
         <motion.div
           className={styles.track}
           animate={reduced || paused ? { x: 0 } : { x: ['0%', '-50%'] }}

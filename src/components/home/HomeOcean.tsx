@@ -16,6 +16,7 @@ import { GlassStatement } from "./GlassStatement";
 import { VideoWave } from "@/components/VideoWave";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
+import { CountUp } from "@/components/motion/CountUp";
 import { SERVICES, STATS, EDITORIAL } from "@/lib/content/coast";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { TRUSTED_BRANDS_FALLBACK } from "@/lib/trusted-brands-fallback";
@@ -140,19 +141,19 @@ export function HomeOcean({
                 <VideoWave rounded={false} />
               </div>
               <div className={styles.waveInfo}>
-                <p className={styles.waveLabel}>The Coast Brand Index</p>
-                <h2 className={styles.waveTitle}>
+                <p className={styles.waveLabel} data-mo="eyebrow">The Coast Brand Index</p>
+                <h2 className={styles.waveTitle} data-mo="title">
                   How strong is your <em>wave?</em>
                 </h2>
-                <p className={styles.waveCopy}>
+                <p className={styles.waveCopy} data-mo="lead">
                   Score your brand across five pillars and get your Wave Rating in under two minutes. Free, instant, and built to show you exactly where to sharpen.
                 </p>
-                <div className={styles.waveMeta}>
+                <div className={styles.waveMeta} data-mo="lead">
                   <span>Five pillars</span>
                   <span>Two minutes</span>
                   <span>Instant score</span>
                 </div>
-                <Link href="/cbi" className={styles.waveCta} data-cursor-label="Measure">
+                <Link href="/cbi" className={styles.waveCta} data-cursor-label="Measure" data-mo="magnetic">
                   Take the test
                   <span className={styles.ctaArrow}>→</span>
                 </Link>
@@ -164,16 +165,16 @@ export function HomeOcean({
             <div className={styles.imageBand}>
               <ParallaxImage src={EDITORIAL[1].src} alt={EDITORIAL[1].alt} mode="grain-graded" amount={14} />
               <div className={styles.imageBandCaption}>
-                <p className={styles.imageBandText}>{EDITORIAL[1].caption}</p>
+                <p className={styles.imageBandText} data-mo="lead">{EDITORIAL[1].caption}</p>
               </div>
             </div>
           </section>
 
           <section className={`section ${styles.venturesPreview}`}>
-            <p className={styles.thesisLabel}>What we do</p>
+            <p className={styles.thesisLabel} data-mo="eyebrow">What we do</p>
             <div className={styles.ventureList}>
               {SERVICES.slice(0, 4).map((s) => (
-                <article key={s.name} className={`${styles.ventureRow} glass`}>
+                <article key={s.name} className={`${styles.ventureRow} glass`} data-mo="item">
                   <div className={styles.ventureName}>
                     <span>{s.name}</span>
                   </div>
@@ -182,16 +183,16 @@ export function HomeOcean({
                 </article>
               ))}
             </div>
-            <Link href="/services" className={styles.cta} data-cursor-label="See all">
+            <Link href="/services" className={styles.cta} data-cursor-label="See all" data-mo="magnetic">
               All services
               <span className={styles.ctaArrow}>→</span>
             </Link>
           </section>
 
           <section className={`section ${styles.clientsSection}`}>
-            <p className={styles.thesisLabel}>Trusted by</p>
+            <p className={styles.thesisLabel} data-mo="eyebrow">Trusted by</p>
             <TrustedBy clients={CLIENTS} variant={clientsVariant} />
-            <div className={styles.partnerStrip}>
+            <div className={styles.partnerStrip} data-mo="item">
               <span className={styles.partnerStripLabel}>Preferred Services Partner</span>
               <Image
                 src="/claude-partner-badge.png"
@@ -204,9 +205,9 @@ export function HomeOcean({
           </section>
 
           <section className={`section ${styles.workShowcase}`}>
-            <p className={styles.thesisLabel}>Selected work</p>
+            <p className={styles.thesisLabel} data-mo="eyebrow">Selected work</p>
             <SelectedWork cases={FEATURED_CASES} variant={workVariant} />
-            <Link href="/work" className={styles.cta} data-cursor-label="Explore">
+            <Link href="/work" className={styles.cta} data-cursor-label="Explore" data-mo="magnetic">
               All work
               <span className={styles.ctaArrow}>→</span>
             </Link>
@@ -214,12 +215,13 @@ export function HomeOcean({
 
           {galleryPreview.length > 0 && (
             <section className="section">
-              <p className={styles.thesisLabel}>Gallery</p>
+              <p className={styles.thesisLabel} data-mo="eyebrow">Gallery</p>
               <GalleryPreview items={galleryPreview} />
               <a
                 href="https://gallery.coastglobal.org"
                 className={styles.cta}
                 data-cursor-label="Explore"
+                data-mo="magnetic"
               >
                 Explore the gallery
                 <span className={styles.ctaArrow}>→</span>
@@ -231,7 +233,7 @@ export function HomeOcean({
             <div className={styles.imageBand}>
               <ParallaxImage src={EDITORIAL[3].src} alt={EDITORIAL[3].alt} mode="grain-graded" amount={14} />
               <div className={styles.imageBandCaption}>
-                <p className={styles.imageBandText}>{EDITORIAL[3].caption}</p>
+                <p className={styles.imageBandText} data-mo="lead">{EDITORIAL[3].caption}</p>
               </div>
             </div>
           </section>
@@ -239,8 +241,8 @@ export function HomeOcean({
           <section className={`section ${styles.statsSection}`}>
             <div className={styles.stats}>
               {STATS.map((s) => (
-                <div key={s.label} className={styles.stat}>
-                  <span className={styles.statValue}>{s.value}</span>
+                <div key={s.label} className={styles.stat} data-mo="item">
+                  <CountUp value={s.value} className={styles.statValue} />
                   <span className={styles.statLabel}>{s.label}</span>
                 </div>
               ))}

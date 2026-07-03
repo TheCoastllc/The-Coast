@@ -165,3 +165,54 @@
   .footer { padding: 2.6rem 0.9rem 3rem; }
   .links { gap: 0.9rem 1.2rem; }
 }
+
+/* ---- footer wake: folds up into view on scroll (CSS-only, view timeline) ---- */
+@keyframes footerWake {
+  from {
+    opacity: 0;
+    transform: translateY(36px) perspective(900px) rotateX(7deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) perspective(900px) rotateX(0deg);
+  }
+}
+/* the boat glyph sails the top hairline as the footer scrolls into view */
+@keyframes footerSail {
+  from { left: -6%; }
+  to { left: 102%; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .inner,
+    .meta {
+      transform-origin: 50% 100%;
+      animation: footerWake linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+    .sailGlyph {
+      animation: footerSail linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+  }
+}
+.sailLane {
+  position: absolute;
+  top: -9px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  pointer-events: none;
+  overflow: hidden;
+}
+.sailGlyph {
+  position: absolute;
+  top: 1px;
+  left: -6%;
+  width: 17px;
+  height: 15px;
+  color: var(--color-teal);
+  filter: drop-shadow(0 0 6px rgba(127, 211, 199, 0.45));
+}

@@ -60,7 +60,7 @@ export function TrustedBy({ clients, variant = "wall" }: { clients: LedgerBrand[
   if (variant === "marquee" && !reduced) {
     const reel = [...clients, ...clients];
     return (
-      <div className={styles.marqueeViewport}>
+      <div className={styles.marqueeViewport} data-mo="drift">
         <motion.div
           className={styles.marqueeTrack}
           animate={{ x: ["0%", "-50%"] }}

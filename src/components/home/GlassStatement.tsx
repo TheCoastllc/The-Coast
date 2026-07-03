@@ -38,11 +38,11 @@ export function GlassStatement({
           </span>
         ) : null}
         <div className={styles.card}>
-          <p className={styles.eyebrow}>{eyebrow}</p>
-          <h2 className={`${styles.headline} no-marble`}>{title}</h2>
-          {body ? <p className={styles.body}>{body}</p> : null}
+          <p className={styles.eyebrow} data-mo="eyebrow">{eyebrow}</p>
+          <h2 className={`${styles.headline} no-marble`} data-mo="title">{title}</h2>
+          {body ? <p className={styles.body} data-mo="lead">{body}</p> : null}
           <div className={styles.actions}>
-            <Link href={ctaHref} className={styles.cta} data-cursor-label="Start">
+            <Link href={ctaHref} className={styles.cta} data-cursor-label="Start" data-mo="magnetic">
               {ctaLabel}
               <span className={styles.ctaArrow}>→</span>
             </Link>

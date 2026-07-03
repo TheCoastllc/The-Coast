@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { COMPANY } from "@/lib/content/coast";
 import styles from "./StoryHeadline.module.css";
 
@@ -10,17 +10,45 @@ const smoothstep = (e0: number, e1: number, x: number) => {
   return t * t * (3 - 2 * t);
 };
 
+/** Split a phrase into word/char spans so each character can ride its own
+ *  offset on the scroll scrub. Word wrappers keep natural line wrapping. */
+function CharSplit({ text }: { text: string }) {
+  const words = useMemo(() => text.split(" "), [text]);
+  return (
+    <>
+      {words.map((word, wi) => (
+        <span key={wi}>
+          <span className={styles.word}>
+            {Array.from(word).map((ch, ci) => (
+              <span key={ci} className={`hchar ${styles.char}`}>
+                {ch}
+              </span>
+            ))}
+          </span>
+          {/* the separator lives OUTSIDE the inline-block word so it can't collapse */}
+          {wi < words.length - 1 ? " " : null}
+        </span>
+      ))}
+    </>
+  );
+}
+
 /**
  * Fixed, scroll-scrubbed headline that morphs across the story in three beats:
- *   "The Coast" -> "Design The Future" -> the promise tagline,
- * then clears out before the page content arrives. The tagline lands last, as
- * the boat meets the sun. Reads the same progress formula as StoryHero.
+ *   "The Coast" -> "Design The Future" -> the promise tagline.
+ * Each beat is a per-character cascade (chars carry their own offset on the
+ * same scrub), while blur rides the phrase wrapper so we never animate dozens
+ * of filters per frame. Reads the same progress formula as StoryHero.
  */
 export function StoryHeadline() {
   const aRef = useRef<HTMLParagraphElement>(null);
   const bRef = useRef<HTMLParagraphElement>(null);
   const cRef = useRef<HTMLParagraphElement>(null);
   const cueRef = useRef<HTMLSpanElement>(null);
+  const charsRef = useRef<Map<HTMLElement, HTMLElement[]>>(new Map());
+  // 0->1 time ramp that cascades "The Coast" in on first paint (timed to land
+  // as the intro curtain lifts), after which scroll owns the story.
+  const aIntro = useRef(0);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -32,36 +60,60 @@ export function StoryHeadline() {
       return;
     }
 
+    const charsOf = (el: HTMLElement | null): HTMLElement[] => {
+      if (!el) return [];
+      const cache = charsRef.current;
+      let list = cache.get(el);
+      if (!list) {
+        list = Array.from(el.querySelectorAll<HTMLElement>(".hchar"));
+        cache.set(el, list);
+      }
+      return list;
+    };
+
+    /** Drive one phrase: wrapper carries opacity gate + blur, each char rides
+     *  its own offset window inside the in/out progress. */
+    const SPREAD = 0.45;
+    const drive = (el: HTMLElement | null, tIn: number, tOut: number, lift: number) => {
+      if (!el) return;
+      const visible = tIn > 0.001 && tOut < 0.999;
+      el.style.opacity = visible ? "1" : "0";
+      el.style.filter = `blur(${10 * (1 - tIn) + 10 * tOut}px)`;
+      el.style.transform = `translateY(${lift * (1 - tIn) * 0.4 - lift * tOut * 0.4}px)`;
+      if (!visible) return;
+      const chars = charsOf(el);
+      const n = Math.max(1, chars.length - 1);
+      for (let i = 0; i < chars.length; i++) {
+        const off = (i / n) * SPREAD;
+        const ci = clamp01((tIn * (1 + SPREAD) - off) / 1);
+        const co = clamp01((tOut * (1 + SPREAD) - off) / 1);
+        const eIn = ci * ci * (3 - 2 * ci);
+        const eOut = co * co * (3 - 2 * co);
+        chars[i].style.opacity = String(eIn * (1 - eOut));
+        chars[i].style.transform = `translateY(${lift * (1 - eIn) - lift * 1.15 * eOut}px)`;
+      }
+    };
+
     let raf = 0;
     const apply = () => {
       const span = (window.innerHeight || 1) * 2.4;
       const p = clamp01(window.scrollY / span);
 
-      // beat 1 - "The Coast" leaves
-      const aOut = smoothstep(0.16, 0.32, p);
-      if (aRef.current) {
-        aRef.current.style.opacity = String(1 - aOut);
-        aRef.current.style.transform = `translateY(${-50 * aOut}px)`;
-        aRef.current.style.filter = `blur(${10 * aOut}px)`;
-      }
+      // beat 1 - "The Coast" (visible on load, cascades away). A soft settle-in
+      // on first paint: chars arrive over the first few percent of scroll-space
+      // via an eased time ramp instead of scroll (so the page never loads blank).
+      const aOut = smoothstep(0.16, 0.34, p);
+      drive(aRef.current, aIntro.current, aOut, 44);
 
       // beat 2 - "Design The Future" arrives, then leaves
-      const bIn = smoothstep(0.26, 0.42, p);
-      const bOut = smoothstep(0.52, 0.66, p);
-      if (bRef.current) {
-        bRef.current.style.opacity = String(bIn * (1 - bOut));
-        bRef.current.style.transform = `translateY(${50 * (1 - bIn) - 50 * bOut}px)`;
-        bRef.current.style.filter = `blur(${10 * (1 - bIn) + 10 * bOut}px)`;
-      }
+      const bIn = smoothstep(0.26, 0.46, p);
+      const bOut = smoothstep(0.52, 0.68, p);
+      drive(bRef.current, bIn, bOut, 48);
 
       // beat 3 - the promise rises and holds as the finale
-      const cIn = smoothstep(0.64, 0.8, p);
+      const cIn = smoothstep(0.64, 0.82, p);
       const cOut = smoothstep(0.92, 0.99, p);
-      if (cRef.current) {
-        cRef.current.style.opacity = String(cIn * (1 - cOut));
-        cRef.current.style.transform = `translateY(${36 * (1 - cIn) - 36 * cOut}px)`;
-        cRef.current.style.filter = `blur(${8 * (1 - cIn) + 8 * cOut}px)`;
-      }
+      drive(cRef.current, cIn, cOut, 36);
 
       if (cueRef.current) cueRef.current.style.opacity = String(1 - smoothstep(0, 0.07, p));
     };
@@ -70,11 +122,27 @@ export function StoryHeadline() {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(apply);
     };
+
+    // Entrance ramp: cascade phrase A in over ~1.1s, starting as the curtain
+    // lifts (~1.4s in). Runs its own rAF loop only until the ramp completes;
+    // interaction can begin the scroll story at any time.
+    let introRaf = 0;
+    const t0 = performance.now();
+    const introTick = (now: number) => {
+      const t = (now - t0 - 1400) / 1100;
+      const c = clamp01(t);
+      aIntro.current = c * c * (3 - 2 * c);
+      apply();
+      if (t < 1) introRaf = requestAnimationFrame(introTick);
+    };
+    introRaf = requestAnimationFrame(introTick);
+
     apply();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(introRaf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -88,13 +156,13 @@ export function StoryHeadline() {
             <h1> lives in HomeOcean so the homepage has exactly one keyword-
             bearing h1. */}
         <p ref={aRef} className={`${styles.phrase} no-marble`}>
-          The Coast
+          <CharSplit text="The Coast" />
         </p>
         <p ref={bRef} className={`${styles.phrase} ${styles.phraseB} no-marble`}>
-          Design The Future
+          <CharSplit text="Design The Future" />
         </p>
         <p ref={cRef} className={`${styles.phrase} ${styles.phraseC}`}>
-          {COMPANY.promise}.
+          <CharSplit text={`${COMPANY.promise}.`} />
         </p>
       </div>
       <span ref={cueRef} className={styles.cue}>

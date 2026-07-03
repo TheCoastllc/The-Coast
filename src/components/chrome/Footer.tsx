@@ -49,6 +49,22 @@ const LEGAL = [
 export function Footer() {
   return (
     <footer className={styles.footer}>
+      {/* a tiny boat sails the top hairline as the footer scrolls into view */}
+      <div className={styles.sailLane} aria-hidden="true">
+        <svg
+          className={styles.sailGlyph}
+          viewBox="0 0 24 22"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 2v11" />
+          <path d="M12 3c4 1.4 6 4 6.4 8H12z" fill="currentColor" stroke="none" />
+          <path d="M3.5 15h17l-2.4 4.4a2 2 0 0 1-1.76 1.05H7.66a2 2 0 0 1-1.76-1.05z" />
+        </svg>
+      </div>
       <div className={styles.inner}>
         <div className={styles.brand}>
           <Mark size={34} />

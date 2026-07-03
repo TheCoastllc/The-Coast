@@ -17,6 +17,7 @@ const FROM: Record<RevealVariant, gsap.TweenVars> = {
   "scale-in": { scale: 0.82, opacity: 0 },
   "parallax-slide": { xPercent: 12, opacity: 0 },
   "rotate3d": { rotateY: 26, y: 48, opacity: 0, transformPerspective: 900 },
+  "mask-up": { clipPath: "inset(102% 0 -8% 0)", y: 34 },
 };
 
 const TO: Record<RevealVariant, gsap.TweenVars> = {
@@ -25,6 +26,7 @@ const TO: Record<RevealVariant, gsap.TweenVars> = {
   "scale-in": { scale: 1, opacity: 1, duration: 1.1, ease: "power3.out" },
   "parallax-slide": { xPercent: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
   "rotate3d": { rotateY: 0, y: 0, opacity: 1, duration: 1.2, ease: "power3.out" },
+  "mask-up": { clipPath: "inset(-8% 0 -8% 0)", y: 0, duration: 1.05, ease: "power4.out" },
 };
 
 /**

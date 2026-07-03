@@ -638,6 +638,10 @@
    admin or A's non-ocean trees.
    ============================================================ */
 body.ocean {
+  /* decorative hero/backdrop layers intentionally exceed the viewport (seamless
+     wave loops, aurora); clip (not hidden - keeps sticky working) stops them
+     creating a phantom horizontal scroll on mobile */
+  overflow-x: clip;
   --color-bg: #0a0c12;
   --color-bg-alt: #12161d;
   --color-bg-deep: #06080c;
