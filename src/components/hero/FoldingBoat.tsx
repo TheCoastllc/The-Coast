@@ -50,10 +50,11 @@ function makeFadeTexture() {
   return new THREE.CanvasTexture(c);
 }
 
-/** The finale boat: the papercraft logo-sail render, neon-treated live -
- *  teal glow aura, drifting mist at the waterline, mirrored water reflection.
- *  Black-background render composites additively (black contributes nothing). */
-function NeonOrigamiBoat({ src = "/story/boat-origami.png" }: { src?: string }) {
+/** The finale boat: David's neon yacht render, treated live - teal glow aura,
+ *  drifting mist at the waterline, mirrored water reflection. Black-background
+ *  render composites additively (black contributes nothing). */
+function FinaleBoat() {
+  const src = "/story/boat-hd-b.png";
   const root = useRef<THREE.Group>(null);
   const mistRefs = useRef<(THREE.Mesh | null)[]>([]);
   const reflRef = useRef<THREE.Mesh>(null);
@@ -177,7 +178,7 @@ function NeonOrigamiBoat({ src = "/story/boat-origami.png" }: { src?: string }) 
   );
 }
 
-export function FoldingBoat({ boatSrc }: { boatSrc?: string } = {}) {
+export function FoldingBoat() {
   const ref = useRef<HTMLElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
   const aRef = useRef<HTMLSpanElement>(null);
@@ -242,7 +243,7 @@ export function FoldingBoat({ boatSrc }: { boatSrc?: string } = {}) {
             dpr={q.dpr}
           >
             <Suspense fallback={null}>
-              <NeonOrigamiBoat src={boatSrc} />
+              <FinaleBoat />
             </Suspense>
             {q.postfx && (
               <EffectComposer>

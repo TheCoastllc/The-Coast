@@ -30,14 +30,6 @@ const FoldingBoat = dynamic(
   { ssr: false }
 );
 
-const BOAT_PICKS = ["current", "a", "b", "c"] as const;
-const BOAT_SRC: Record<string, string | undefined> = {
-  current: undefined,
-  a: "/story/boat-hd-a.png",
-  b: "/story/boat-hd-b.png",
-  c: "/story/boat-hd-c.png",
-};
-
 /* Clients shown on the "Trusted by" wall (real roster; links to case studies or live sites). */
 const CLIENTS = TRUSTED_BRANDS_FALLBACK;
 
@@ -111,8 +103,6 @@ export function HomeOcean({
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
   const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "wall");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
-  // TEMP boat-HD pick round (David chooses a|b|c, then this gets locked + removed)
-  const boatPick = useVariant("boat", BOAT_PICKS, "current");
 
   return (
     <>
@@ -289,7 +279,7 @@ export function HomeOcean({
       </main>
 
       {/* the folding finale - flat paper scrubs into a boat (desktop, after interaction) */}
-      {webgl && interacted && <FoldingBoat boatSrc={BOAT_SRC[boatPick]} />}
+      {webgl && interacted && <FoldingBoat />}
     </>
   );
 }
