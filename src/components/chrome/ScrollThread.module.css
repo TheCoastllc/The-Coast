@@ -39,23 +39,30 @@
   border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--color-teal) 50%, transparent);
 }
-/* the boat - position marker descending the course */
+/* the boat - the neon yacht itself, journeying the course to the end */
 .boat {
   position: absolute;
-  right: 2px;
-  width: 13px;
-  height: 16px;
-  margin-top: -8px;
+  right: -6px;
+  width: 34px;
+  height: 34px;
+  margin-top: -17px;
   will-change: top;
 }
-.boat svg {
+.boat img {
   width: 100%;
   height: 100%;
-  stroke: var(--color-teal);
-  stroke-width: 1.1;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(closest-side, #000 52%, transparent 96%);
+  mask-image: radial-gradient(closest-side, #000 52%, transparent 96%);
+  filter: drop-shadow(0 0 7px rgba(111, 211, 196, 0.55));
+  animation: railBob 4.5s ease-in-out infinite;
 }
-.boat svg path {
-  fill: color-mix(in srgb, var(--color-teal) 22%, transparent);
+@keyframes railBob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-2px) rotate(2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boat img { animation: none; }
 }
 
 @media (max-width: 760px) {

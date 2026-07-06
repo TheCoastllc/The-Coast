@@ -41,7 +41,10 @@ function YachtBillboard() {
   return (
     /* image waterline sits ~2/3 down the frame - lift so the hull rides where
        the old profile hull's waterline was (group origin ~ -0.3) */
-    <mesh position={[0, 0.55, 0]} scale={[5.2, 5.2, 1]}>
+    /* angled ~32deg off broadside: with the voyage group's PI flip this
+       reads as a three-quarter view - bow leading, approaching the viewer -
+       instead of a flat cardboard side profile */
+    <mesh position={[0, 0.55, 0]} rotation={[0, 0.56, 0]} scale={[5.2, 5.2, 1]}>
       <planeGeometry args={[1, 1]} />
       <meshBasicMaterial
         map={tex}

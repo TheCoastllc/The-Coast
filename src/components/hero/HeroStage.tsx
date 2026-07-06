@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useWebGLAllowed, useHeroMountTrigger } from "@/lib/perf";
 import { StoryHeroStatic } from "./StoryHeroStatic";
@@ -22,6 +22,34 @@ const StoryHero = dynamic(() => import("./StoryHero").then((m) => ({ default: m.
  */
 export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode; boat?: BoatMode }) {
   const webgl = useWebGLAllowed();
+  // The story plays over a 2.4vh runway; once it ends, retire the whole stage
+  // (sun + yacht would otherwise peek through transparent seams between the
+  // content sections further down the page).
+  const stageRef = useRef<HTMLDivElement>(null);
+  const staticRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let raf = 0;
+    const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+    const apply = () => {
+      const vh = window.innerHeight || 1;
+      const past = clamp01((window.scrollY / vh - 2.45) / 0.4); // gone by ~2.85vh
+      const o = String(1 - past);
+      if (stageRef.current) stageRef.current.style.opacity = o;
+      if (staticRef.current) staticRef.current.style.opacity = o;
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(apply);
+    };
+    apply();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
   // Mount on first interaction (incl. mousemove) - R3F renders reliably once the
   // layout has settled; an eager mount during the intro paints blank.
   const trigger = useHeroMountTrigger();
@@ -57,7 +85,9 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
       {/* instant CSS base - crossfades AWAY once the WebGL water actually paints,
           so the dramatic animated hero is what the visitor lands on. */}
       <div style={{ opacity: ready ? 0 : 1, transition: "opacity 1.2s ease" }} aria-hidden>
-        <StoryHeroStatic />
+        <div ref={staticRef}>
+          <StoryHeroStatic />
+        </div>
       </div>
 
       {showWebgl && (
@@ -72,7 +102,9 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
           }}
           aria-hidden
         >
-          <StoryHero meet={meet} boat={boat} onReady={() => setReady(true)} />
+          <div ref={stageRef} style={{ position: "absolute", inset: 0 }}>
+            <StoryHero meet={meet} boat={boat} onReady={() => setReady(true)} />
+          </div>
         </div>
       )}
     </>

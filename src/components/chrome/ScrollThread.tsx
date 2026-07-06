@@ -40,9 +40,8 @@ export function ScrollThread() {
         <span key={b} className={styles.buoy} style={{ top: `${b * 100}%` }} />
       ))}
       <div ref={boatRef} className={styles.boat}>
-        <svg viewBox="-7 -8 14 15">
-          <path d="M-5 1 L5 1 L3 5 L-3 5 Z M0 1 L0 -6 L4 -1 Z" />
-        </svg>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/story/boat-hd-b.png" alt="" width={34} height={34} />
       </div>
     </div>
   );
