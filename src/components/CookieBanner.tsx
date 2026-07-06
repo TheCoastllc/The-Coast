@@ -18,11 +18,18 @@ type Consent = 'granted' | 'denied' | null
  */
 function applyConsent(granted: boolean) {
   if (typeof window === 'undefined') return
-  const w = window as unknown as { gtag?: (...args: unknown[]) => void }
+  const w = window as unknown as {
+    gtag?: (...args: unknown[]) => void
+    fbq?: (...args: unknown[]) => void
+  }
   if (typeof w.gtag === 'function') {
     w.gtag('consent', 'update', {
       analytics_storage: granted ? 'granted' : 'denied',
     })
+  }
+  // Meta Pixel holds its event queue while revoked and releases it on grant.
+  if (typeof w.fbq === 'function') {
+    w.fbq('consent', granted ? 'grant' : 'revoke')
   }
 }
 
@@ -57,7 +64,7 @@ export function CookieBanner() {
       try {
         document.cookie.split(';').forEach((c) => {
           const name = c.split('=')[0]?.trim()
-          if (name && (name.startsWith('_ga') || name === '_gid' || name.startsWith('_gtm') || name.startsWith('_gcl'))) {
+          if (name && (name.startsWith('_ga') || name === '_gid' || name.startsWith('_gtm') || name.startsWith('_gcl') || name.startsWith('_fbp') || name.startsWith('_fbc'))) {
             document.cookie = `${name}=; Max-Age=0; path=/; domain=${window.location.hostname}`
             document.cookie = `${name}=; Max-Age=0; path=/; domain=.${window.location.hostname}`
           }

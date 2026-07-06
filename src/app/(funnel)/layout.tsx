@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { Inter, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
 import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
+import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
 import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import { CookieBanner } from '@/components/CookieBanner'
 
@@ -72,6 +73,7 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
     >
       <body className="funnel">
         <GtmNoScript />
+        <MetaPixelNoScript />
         <Script id="ga-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -99,6 +101,7 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         />
         <GtmScript />
+        <MetaPixelScript />
         <Suspense fallback={null}>
           <RouteAnalytics />
         </Suspense>

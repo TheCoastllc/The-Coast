@@ -44,6 +44,10 @@ export function RouteAnalytics() {
       page_title: document.title,
       send_to: GA_MEASUREMENT_ID,
     })
+
+    // Meta Pixel SPA pageview (initial PageView fires in the pixel bootstrap)
+    const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq
+    if (typeof fbq === 'function') fbq('track', 'PageView')
   }, [pathname, searchParams])
 
   return null

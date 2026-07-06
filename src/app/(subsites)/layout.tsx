@@ -2,6 +2,7 @@ import React from 'react'
 import Script from 'next/script'
 import '../(frontend)/styles.css'
 import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
+import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
 import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 import { HUD } from '@/components/chrome/HUD'
@@ -25,6 +26,7 @@ export default function SubsitesLayout(props: { children: React.ReactNode }) {
         >
             <body className="ocean">
                 <GtmNoScript />
+                <MetaPixelNoScript />
                 {/* Consent Mode v2 defaults (all denied) so GTM tags stay gated
                     on subsites exactly like the main site. */}
                 <Script id="consent-init" strategy="afterInteractive">
@@ -46,6 +48,7 @@ export default function SubsitesLayout(props: { children: React.ReactNode }) {
                     `}
                 </Script>
                 <GtmScript />
+                <MetaPixelScript />
                 <SeaBackdrop />
                 {children}
                 <HUD />
