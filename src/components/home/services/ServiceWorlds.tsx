@@ -104,40 +104,42 @@ export function ServiceStack({ shelf = true }: { shelf?: boolean } = {}) {
             className={styles.stackCard}
             data-stack-card
             data-pillar={pl.key}
-            style={{ top: `calc(76px + ${i * 24}px)`, zIndex: i + 1 }}
+            style={{ top: `calc(84px + ${i * 18}px)`, zIndex: i + 1 }}
           >
-            {/* full-bleed art + scrim */}
-            <div className={styles.stackArt} data-stack-img aria-hidden>
-              <Image
-                src={CARD_ART[pl.key]}
-                alt=""
-                fill
-                sizes="100vw"
-                quality={80}
-                className={styles.stackImg}
-              />
-            </div>
-            <div className={styles.stackScrim} aria-hidden />
-            <span className={styles.stackGhost} aria-hidden>{pl.index}</span>
-
-            <div className={styles.stackInner}>
-              <span className={styles.stackIndex} data-mo="eyebrow">{pl.index} / 03</span>
-              <h3 className={styles.stackName} data-mo="title">{pl.name}</h3>
-              <p className={styles.stackPromise} data-mo="lead">{pl.promise}</p>
-              <div className={styles.stackList}>
-                {pl.services.map((sv) => (
-                  <span key={sv} className={styles.stackItem} data-mo="item">{sv}</span>
-                ))}
+            {/* content zone - title up top, body + list on the base line */}
+            <div className={styles.cardContent}>
+              <div className={styles.cardHead}>
+                <h3 className={styles.stackName} data-mo="title">{pl.name}</h3>
+                <span className={styles.stackIndex}>{pl.index} / 03</span>
               </div>
-              <Link href={pl.cta.href} className={styles.stackCta} data-cursor-label="Go" data-mo="magnetic">
-                {pl.cta.label}
-                <span aria-hidden> →</span>
-              </Link>
+              <div className={styles.cardBase}>
+                <div className={styles.cardCol}>
+                  <p className={styles.stackPromise}>{pl.promise}</p>
+                  <Link href={pl.cta.href} className={styles.stackCta} data-cursor-label="Go">
+                    {pl.cta.label}
+                    <span aria-hidden> →</span>
+                  </Link>
+                </div>
+                <ul className={styles.stackList}>
+                  {pl.services.map((sv) => (
+                    <li key={sv} className={styles.stackItem}>{sv}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
-
-            <span className={styles.stackFoot} aria-hidden>
-              The Coast — What We Do · {pl.index}/03
-            </span>
+            {/* contained media panel, full-bleed to the card's right edge */}
+            <div className={styles.cardMedia} aria-hidden>
+              <div className={styles.cardMediaInner} data-stack-img>
+                <Image
+                  src={CARD_ART[pl.key]}
+                  alt=""
+                  fill
+                  sizes="(max-width: 860px) 100vw, 42vw"
+                  quality={82}
+                  className={styles.stackImg}
+                />
+              </div>
+            </div>
           </li>
         ))}
       </ol>

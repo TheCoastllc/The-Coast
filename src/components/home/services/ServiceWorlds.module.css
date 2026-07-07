@@ -1,6 +1,9 @@
 /* ============================================================
-   The Stack - Awwwards-winner grade: full-bleed imagery, dark
-   scrim, oversized serif, sticky stacking + GSAP settle.
+   The Stack - faithful recreation of Oaksun Studio's award-winning
+   services stack (Awwwards SOTD/HM): clean surface cards with big
+   radius + real shadow, huge title, body copy bottom-left, right-
+   aligned service list, and a CONTAINED media panel bleeding to the
+   card's right edge. Sticky stacking + GSAP settle.
    ============================================================ */
 
 .stack {
@@ -9,111 +12,93 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 3rem;
 }
 .stackCard {
   position: sticky;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-  padding: clamp(2rem, 5vw, 4rem);
-  border: 1px solid var(--color-border);
+  min-height: 72vh;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  border-radius: 22px;
   overflow: hidden;
-  background: var(--color-bg);
+  background: #0f1722;
+  border: 1px solid color-mix(in srgb, var(--color-fg) 10%, transparent);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.5);
   will-change: transform, filter;
   transform-origin: center top;
 }
-.stackCard[data-pillar="brand"] {
-  border-top: 2px solid var(--color-gold, #e6b24d);
-}
-.stackCard[data-pillar="growth"] {
-  border-top: 2px solid var(--color-teal, #6fd3c4);
-}
-.stackCard[data-pillar="ai"] {
-  border-top: 2px solid #ff9d7e;
-}
+.stackCard[data-pillar="brand"] .stackIndex { color: var(--color-gold, #e6b24d); }
+.stackCard[data-pillar="growth"] .stackIndex { color: var(--color-teal, #6fd3c4); }
+.stackCard[data-pillar="ai"] .stackIndex { color: #ff9d7e; }
 
-/* full-bleed art, slightly oversized so the parallax never shows edges */
-.stackArt {
-  position: absolute;
-  inset: -6% 0;
-  will-change: transform;
-}
-.stackImg {
-  object-fit: cover;
-}
-.stackScrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to right, color-mix(in srgb, var(--color-bg) 88%, transparent) 0%, color-mix(in srgb, var(--color-bg) 55%, transparent) 55%, color-mix(in srgb, var(--color-bg) 30%, transparent) 100%),
-    linear-gradient(to top, color-mix(in srgb, var(--color-bg) 80%, transparent), transparent 40%);
-}
-.stackGhost {
-  position: absolute;
-  right: -1.2rem;
-  bottom: -5rem;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(15rem, 32vw, 28rem);
-  line-height: 1;
-  color: var(--color-fg);
-  opacity: 0.05;
-  pointer-events: none;
-  user-select: none;
-}
-
-.stackInner {
-  position: relative;
+.cardContent {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
-  max-width: 700px;
+  justify-content: space-between;
+  gap: 2.5rem;
+  padding: clamp(2rem, 3.6vw, 3.4rem);
+}
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.stackName {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 1.02;
+  margin: 0;
+  color: var(--color-fg);
+  text-wrap: balance;
+  max-width: 14ch;
 }
 .stackIndex {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
   font-size: 0.72rem;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: var(--color-gold, #e6b24d);
+  letter-spacing: 0.3em;
+  white-space: nowrap;
+  padding-top: 0.8rem;
 }
-.stackName {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(3rem, 6.5vw, 5.6rem);
-  line-height: 0.98;
-  margin: 0;
-  color: var(--color-fg);
-  text-wrap: balance;
+.cardBase {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2.5rem;
+  align-items: end;
+}
+.cardCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 .stackPromise {
   margin: 0;
-  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
   line-height: 1.65;
-  color: color-mix(in srgb, var(--color-fg) 78%, transparent);
-  max-width: 54ch;
+  color: color-mix(in srgb, var(--color-fg) 76%, transparent);
+  max-width: 44ch;
 }
+/* right-aligned deliverables, fading down the list - straight from the reference */
 .stackList {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
-  max-width: 560px;
-  border-top: 1px solid var(--color-border);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  text-align: right;
 }
 .stackItem {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.76rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
   color: var(--color-fg);
-  opacity: 0.82;
-  padding: 0.7rem 0;
-  border-bottom: 1px solid var(--color-border);
 }
-.stackItem:nth-child(odd) {
-  padding-right: 1.4rem;
-}
+.stackItem:nth-child(4) { opacity: 0.65; }
+.stackItem:nth-child(5) { opacity: 0.42; }
+.stackItem:nth-child(n + 6) { opacity: 0.25; }
 .stackCta {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-gold, #e6b24d);
@@ -121,22 +106,26 @@
   border-bottom: 1px solid color-mix(in srgb, var(--color-gold, #e6b24d) 40%, transparent);
   padding-bottom: 3px;
   width: fit-content;
-  margin-top: 0.4rem;
 }
 .stackCta:hover,
 .stackCta:focus-visible {
   border-bottom-color: var(--color-gold, #e6b24d);
   outline: none;
 }
-.stackFoot {
+
+/* contained media panel - bleeds to the card's right edge */
+.cardMedia {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+}
+.cardMediaInner {
   position: absolute;
-  left: clamp(2rem, 5vw, 4rem);
-  bottom: 1.3rem;
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-fg) 38%, transparent);
+  inset: -7% 0;
+  will-change: transform;
+}
+.stackImg {
+  object-fit: cover;
 }
 
 /* ---------- launching shelf ---------- */
@@ -208,17 +197,20 @@
 
 @media (max-width: 860px) {
   .stackCard {
-    min-height: 74vh;
-    align-items: flex-end;
-    padding-bottom: 3.4rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: 38vh auto;
+    min-height: 0;
+  }
+  .cardMedia {
+    order: -1;
+    min-height: 38vh;
+  }
+  .cardBase {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
   }
   .stackList {
-    grid-template-columns: 1fr;
-  }
-  .stackGhost {
-    right: -0.6rem;
-    bottom: auto;
-    top: -2.5rem;
+    text-align: left;
   }
   .shelfRow {
     grid-template-columns: 1fr;
