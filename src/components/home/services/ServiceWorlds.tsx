@@ -31,6 +31,41 @@ function LaunchShelf() {
   );
 }
 
+/* ---------- STACK: the Awwwards format - cards pin + stack on scroll ---------- */
+export function ServiceStack() {
+  return (
+    <div className={styles.stackWrap}>
+      <ol className={styles.stack}>
+        {PILLARS.map((pl, i) => (
+          <li
+            key={pl.key}
+            className={`${styles.stackCard} glass`}
+            data-pillar={pl.key}
+            style={{ top: `calc(84px + ${i * 26}px)`, zIndex: i + 1 }}
+          >
+            <span className={styles.stackGhost} aria-hidden>{pl.index}</span>
+            <div className={styles.stackInner}>
+              <span className={styles.stackIndex}>{pl.index} / 03</span>
+              <h3 className={styles.stackName}>{pl.name}</h3>
+              <p className={styles.stackPromise}>{pl.promise}</p>
+              <div className={styles.stackList}>
+                {pl.services.map((sv) => (
+                  <span key={sv} className={styles.stackItem}>{sv}</span>
+                ))}
+              </div>
+              <Link href={pl.cta.href} className={styles.stackCta} data-cursor-label="Go">
+                {pl.cta.label}
+                <span aria-hidden> →</span>
+              </Link>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <LaunchShelf />
+    </div>
+  );
+}
+
 /* ---------- DECK: three pillar panels; the open one unfolds ---------- */
 export function TransformDeck() {
   const [open, setOpen] = useState(0);

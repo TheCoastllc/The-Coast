@@ -64,6 +64,106 @@
   font-style: italic;
 }
 
+/* ---------- STACK (the Awwwards format: sticky stacking cards) ---------- */
+.stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+.stackCard {
+  position: sticky;
+  min-height: 62vh;
+  display: flex;
+  align-items: stretch;
+  padding: clamp(1.8rem, 4vw, 3.2rem);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+}
+.stackCard[data-pillar="brand"] {
+  border-top: 2px solid var(--color-gold, #e6b24d);
+}
+.stackCard[data-pillar="growth"] {
+  border-top: 2px solid var(--color-teal, #6fd3c4);
+}
+.stackCard[data-pillar="ai"] {
+  border-top: 2px solid #ff9d7e;
+}
+.stackGhost {
+  position: absolute;
+  right: -1.5rem;
+  bottom: -4rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(14rem, 30vw, 26rem);
+  line-height: 1;
+  color: var(--color-fg);
+  opacity: 0.045;
+  pointer-events: none;
+  user-select: none;
+}
+.stackInner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  max-width: 640px;
+  justify-content: center;
+}
+.stackIndex {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  color: var(--color-muted);
+}
+.stackName {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
+  line-height: 1.02;
+  margin: 0;
+  color: var(--color-fg);
+}
+.stackPromise {
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--color-muted);
+  max-width: 52ch;
+}
+.stackList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+}
+.stackItem {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-fg);
+  opacity: 0.78;
+}
+.stackCta {
+  composes: deckCta;
+}
+/* scroll-driven dim as the next card covers this one (progressive enhancement) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .stackCard {
+      animation: stackSettle linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+@keyframes stackSettle {
+  to {
+    transform: scale(0.965);
+    filter: brightness(0.72);
+  }
+}
+
 /* ---------- DECK ---------- */
 .deck {
   display: flex;
@@ -377,5 +477,8 @@
   }
   .shelfRow {
     grid-template-columns: 1fr;
+  }
+  .stackCard {
+    min-height: 70vh;
   }
 }

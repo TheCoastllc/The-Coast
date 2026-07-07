@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
 import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
-import { TransformDeck, CommandBridge, VoyageMap } from "./services/ServiceWorlds";
+import { TransformDeck, CommandBridge, VoyageMap, ServiceStack } from "./services/ServiceWorlds";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { GalleryPreview, type GalleryPreviewItem } from "./GalleryPreview";
 import { IntroCurtain } from "./IntroCurtain";
@@ -32,7 +32,7 @@ const FoldingBoat = dynamic(
 );
 
 /* Clients shown on the "Trusted by" wall (real roster; links to case studies or live sites). */
-const SERVICES_FORMATS = ["current", "deck", "bridge", "map"] as const;
+const SERVICES_FORMATS = ["current", "stack", "deck", "bridge", "map"] as const;
 
 const CLIENTS = TRUSTED_BRANDS_FALLBACK;
 
@@ -178,7 +178,9 @@ export function HomeOcean({
 
           <section className={`section ${styles.venturesPreview}`}>
             <p className={styles.thesisLabel} data-mo="eyebrow">What we do</p>
-            {servicesFormat === "deck" ? (
+            {servicesFormat === "stack" ? (
+              <ServiceStack />
+            ) : servicesFormat === "deck" ? (
               <TransformDeck />
             ) : servicesFormat === "bridge" ? (
               <CommandBridge />
