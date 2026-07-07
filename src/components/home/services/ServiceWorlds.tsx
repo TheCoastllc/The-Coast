@@ -1,17 +1,34 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PILLARS, PRODUCTS } from "@/lib/content/coast";
 import styles from "./ServiceWorlds.module.css";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 /* ============================================================
-   Services build-off - three formats behind ?services=deck|bridge|map.
-   Same content (PILLARS + PRODUCTS), three ways to move through it.
+   The Stack - David's pick, elevated to Awwwards-winner grade:
+   full-bleed imagery per pillar card, sticky stacking on native
+   scroll, GSAP settle of the covered card (scale + dim + image
+   parallax), oversized display type.
    ============================================================ */
 
-/* Shared: the launching shelf - Colony, ANT, Demi */
-function LaunchShelf() {
+/* Interim card art from approved plates; swapped for generated
+   pillar-specific 4K art when the Higgsfield batch runs. */
+const CARD_ART: Record<string, string> = {
+  brand: "/img/billboard-plate.jpg",
+  growth: "/img/ocean-aerial-wide.jpg",
+  ai: "/img/ocean-dark.jpg",
+};
+
+/* The launching shelf - Colony, ANT, Demi */
+export function LaunchShelf() {
   return (
     <div className={styles.shelf}>
       <p className={styles.shelfLabel} data-mo="eyebrow">Products we are launching</p>
@@ -31,192 +48,100 @@ function LaunchShelf() {
   );
 }
 
-/* ---------- STACK: the Awwwards format - cards pin + stack on scroll ---------- */
-export function ServiceStack() {
+export function ServiceStack({ shelf = true }: { shelf?: boolean } = {}) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  // the winner's settle: as the next card rides up, the covered card scales
+  // back + dims and its image drifts slower (parallax) - scrubbed, all browsers
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cards = Array.from(wrap.querySelectorAll<HTMLElement>("[data-stack-card]"));
+    const triggers: ScrollTrigger[] = [];
+    cards.forEach((card, i) => {
+      const img = card.querySelector<HTMLElement>("[data-stack-img]");
+      // image parallax across the card's own pass
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.4,
+          onUpdate: (self) => {
+            if (img) gsap.set(img, { yPercent: (self.progress - 0.5) * 10 });
+          },
+        })
+      );
+      // settle while the NEXT card covers this one
+      const next = cards[i + 1];
+      if (!next) return;
+      triggers.push(
+        ScrollTrigger.create({
+          trigger: next,
+          start: "top bottom",
+          end: "top top+=140",
+          scrub: 0.35,
+          onUpdate: (self) => {
+            const p = self.progress;
+            gsap.set(card, {
+              scale: 1 - p * 0.055,
+              filter: `brightness(${1 - p * 0.38})`,
+            });
+          },
+        })
+      );
+    });
+    return () => triggers.forEach((t) => t.kill());
+  }, []);
+
   return (
-    <div className={styles.stackWrap}>
+    <div className={styles.stackWrap} ref={wrapRef}>
       <ol className={styles.stack}>
         {PILLARS.map((pl, i) => (
           <li
             key={pl.key}
-            className={`${styles.stackCard} glass`}
+            className={styles.stackCard}
+            data-stack-card
             data-pillar={pl.key}
-            style={{ top: `calc(84px + ${i * 26}px)`, zIndex: i + 1 }}
+            style={{ top: `calc(76px + ${i * 24}px)`, zIndex: i + 1 }}
           >
+            {/* full-bleed art + scrim */}
+            <div className={styles.stackArt} data-stack-img aria-hidden>
+              <Image
+                src={CARD_ART[pl.key]}
+                alt=""
+                fill
+                sizes="100vw"
+                quality={80}
+                className={styles.stackImg}
+              />
+            </div>
+            <div className={styles.stackScrim} aria-hidden />
             <span className={styles.stackGhost} aria-hidden>{pl.index}</span>
+
             <div className={styles.stackInner}>
-              <span className={styles.stackIndex}>{pl.index} / 03</span>
-              <h3 className={styles.stackName}>{pl.name}</h3>
-              <p className={styles.stackPromise}>{pl.promise}</p>
+              <span className={styles.stackIndex} data-mo="eyebrow">{pl.index} / 03</span>
+              <h3 className={styles.stackName} data-mo="title">{pl.name}</h3>
+              <p className={styles.stackPromise} data-mo="lead">{pl.promise}</p>
               <div className={styles.stackList}>
                 {pl.services.map((sv) => (
-                  <span key={sv} className={styles.stackItem}>{sv}</span>
+                  <span key={sv} className={styles.stackItem} data-mo="item">{sv}</span>
                 ))}
               </div>
-              <Link href={pl.cta.href} className={styles.stackCta} data-cursor-label="Go">
+              <Link href={pl.cta.href} className={styles.stackCta} data-cursor-label="Go" data-mo="magnetic">
                 {pl.cta.label}
                 <span aria-hidden> →</span>
               </Link>
             </div>
-          </li>
-        ))}
-      </ol>
-      <LaunchShelf />
-    </div>
-  );
-}
 
-/* ---------- DECK: three pillar panels; the open one unfolds ---------- */
-export function TransformDeck() {
-  const [open, setOpen] = useState(0);
-  return (
-    <div className={styles.deckWrap}>
-      <div className={styles.deck}>
-        {PILLARS.map((pl, i) => (
-          <button
-            key={pl.key}
-            type="button"
-            className={`${styles.deckPanel} glass`}
-            data-open={open === i}
-            data-pillar={pl.key}
-            onClick={() => setOpen(i)}
-            onMouseEnter={() => setOpen(i)}
-          >
-            <span className={styles.deckIndex}>{pl.index}</span>
-            <span className={styles.deckName}>{pl.name}</span>
-            <span className={styles.deckBody}>
-              <span className={styles.deckPromise}>{pl.promise}</span>
-              <span className={styles.deckList}>
-                {pl.services.map((sv) => (
-                  <span key={sv} className={styles.deckItem}>{sv}</span>
-                ))}
-              </span>
-              <Link
-                href={pl.cta.href}
-                className={styles.deckCta}
-                data-cursor-label="Go"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {pl.cta.label}
-                <span aria-hidden> →</span>
-              </Link>
+            <span className={styles.stackFoot} aria-hidden>
+              The Coast — What We Do · {pl.index}/03
             </span>
-          </button>
-        ))}
-      </div>
-      <LaunchShelf />
-    </div>
-  );
-}
-
-/* ---------- BRIDGE: giant index left, live panel right ---------- */
-export function CommandBridge() {
-  const [active, setActive] = useState(0);
-  const pl = PILLARS[active];
-  return (
-    <div className={styles.bridgeWrap}>
-      <div className={styles.bridge}>
-        <div className={styles.bridgeIndex}>
-          {PILLARS.map((p, i) => (
-            <button
-              key={p.key}
-              type="button"
-              className={styles.bridgeName}
-              data-active={active === i}
-              onMouseEnter={() => setActive(i)}
-              onClick={() => setActive(i)}
-            >
-              <span className={styles.bridgeNum}>{p.index}</span>
-              {p.name}
-            </button>
-          ))}
-        </div>
-        <div className={styles.bridgePanel} key={pl.key}>
-          <p className={styles.bridgePromise}>{pl.promise}</p>
-          <ul className={styles.bridgeList}>
-            {pl.services.map((sv) => (
-              <li key={sv}>{sv}</li>
-            ))}
-          </ul>
-          <Link href={pl.cta.href} className={styles.bridgeCta} data-cursor-label="Go">
-            {pl.cta.label}
-            <span aria-hidden> →</span>
-          </Link>
-        </div>
-      </div>
-      <LaunchShelf />
-    </div>
-  );
-}
-
-/* ---------- MAP: one gold route, three ports, vessels at the end ---------- */
-export function VoyageMap() {
-  const pathRef = useRef<SVGPathElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
-
-  // draw the route as the section scrolls through the viewport
-  useEffect(() => {
-    const path = pathRef.current;
-    const wrap = wrapRef.current;
-    if (!path || !wrap) return;
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = String(len);
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      path.style.strokeDashoffset = "0";
-      return;
-    }
-    path.style.strokeDashoffset = String(len);
-    let raf = 0;
-    const apply = () => {
-      const r = wrap.getBoundingClientRect();
-      const vh = window.innerHeight || 1;
-      const p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height * 0.9)));
-      path.style.strokeDashoffset = String(len * (1 - p));
-    };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(apply);
-    };
-    apply();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
-
-  return (
-    <div className={styles.mapWrap} ref={wrapRef}>
-      <svg className={styles.route} viewBox="0 0 100 900" preserveAspectRatio="none" aria-hidden>
-        <path
-          ref={pathRef}
-          d="M50 0 C 20 120 80 210 50 300 C 20 390 80 480 50 570 C 20 660 80 750 50 900"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
-      <ol className={styles.ports}>
-        {PILLARS.map((pl, i) => (
-          <li key={pl.key} className={styles.port} data-side={i % 2 === 0 ? "l" : "r"} data-mo="item">
-            <span className={styles.portNode} aria-hidden />
-            <div className={`${styles.portCard} glass`}>
-              <span className={styles.portIndex}>Port {pl.index}</span>
-              <h3 className={styles.portName}>{pl.name}</h3>
-              <p className={styles.portPromise}>{pl.promise}</p>
-              <p className={styles.portList}>{pl.services.join(" · ")}</p>
-              <Link href={pl.cta.href} className={styles.portCta} data-cursor-label="Go">
-                {pl.cta.label}
-                <span aria-hidden> →</span>
-              </Link>
-            </div>
           </li>
         ))}
       </ol>
-      <LaunchShelf />
+      {shelf && <LaunchShelf />}
     </div>
   );
 }

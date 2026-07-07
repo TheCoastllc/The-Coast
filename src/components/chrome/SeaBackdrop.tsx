@@ -1,4 +1,3 @@
-import { MarineLife } from "./MarineLife";
 import styles from "./SeaBackdrop.module.css";
 
 /** The site's living deep-ocean backdrop: a flowing deep-blue ground + glowing
@@ -9,7 +8,6 @@ export function SeaBackdrop() {
   return (
     <div className={styles.ground} aria-hidden>
       <div className={styles.aurora} />
-      <MarineLife />
     </div>
   );
 }

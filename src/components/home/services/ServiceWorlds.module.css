@@ -1,11 +1,147 @@
 /* ============================================================
-   Services build-off formats. Site language only: serif display,
-   mono labels, existing glass cards, gold/teal accents.
+   The Stack - Awwwards-winner grade: full-bleed imagery, dark
+   scrim, oversized serif, sticky stacking + GSAP settle.
    ============================================================ */
 
-/* ---------- shared: launching shelf ---------- */
+.stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+.stackCard {
+  position: sticky;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  background: var(--color-bg);
+  will-change: transform, filter;
+  transform-origin: center top;
+}
+.stackCard[data-pillar="brand"] {
+  border-top: 2px solid var(--color-gold, #e6b24d);
+}
+.stackCard[data-pillar="growth"] {
+  border-top: 2px solid var(--color-teal, #6fd3c4);
+}
+.stackCard[data-pillar="ai"] {
+  border-top: 2px solid #ff9d7e;
+}
+
+/* full-bleed art, slightly oversized so the parallax never shows edges */
+.stackArt {
+  position: absolute;
+  inset: -6% 0;
+  will-change: transform;
+}
+.stackImg {
+  object-fit: cover;
+}
+.stackScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, color-mix(in srgb, var(--color-bg) 88%, transparent) 0%, color-mix(in srgb, var(--color-bg) 55%, transparent) 55%, color-mix(in srgb, var(--color-bg) 30%, transparent) 100%),
+    linear-gradient(to top, color-mix(in srgb, var(--color-bg) 80%, transparent), transparent 40%);
+}
+.stackGhost {
+  position: absolute;
+  right: -1.2rem;
+  bottom: -5rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(15rem, 32vw, 28rem);
+  line-height: 1;
+  color: var(--color-fg);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+.stackInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  max-width: 700px;
+}
+.stackIndex {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-gold, #e6b24d);
+}
+.stackName {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(3rem, 6.5vw, 5.6rem);
+  line-height: 0.98;
+  margin: 0;
+  color: var(--color-fg);
+  text-wrap: balance;
+}
+.stackPromise {
+  margin: 0;
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-fg) 78%, transparent);
+  max-width: 54ch;
+}
+.stackList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  max-width: 560px;
+  border-top: 1px solid var(--color-border);
+}
+.stackItem {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-fg);
+  opacity: 0.82;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.stackItem:nth-child(odd) {
+  padding-right: 1.4rem;
+}
+.stackCta {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold, #e6b24d);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold, #e6b24d) 40%, transparent);
+  padding-bottom: 3px;
+  width: fit-content;
+  margin-top: 0.4rem;
+}
+.stackCta:hover,
+.stackCta:focus-visible {
+  border-bottom-color: var(--color-gold, #e6b24d);
+  outline: none;
+}
+.stackFoot {
+  position: absolute;
+  left: clamp(2rem, 5vw, 4rem);
+  bottom: 1.3rem;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-fg) 38%, transparent);
+}
+
+/* ---------- launching shelf ---------- */
 .shelf {
-  margin-top: 3.5rem;
+  margin-top: 4rem;
 }
 .shelfLabel {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
@@ -64,421 +200,27 @@
   font-style: italic;
 }
 
-/* ---------- STACK (the Awwwards format: sticky stacking cards) ---------- */
-.stack {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem;
-}
-.stackCard {
-  position: sticky;
-  min-height: 62vh;
-  display: flex;
-  align-items: stretch;
-  padding: clamp(1.8rem, 4vw, 3.2rem);
-  border: 1px solid var(--color-border);
-  overflow: hidden;
-  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
-}
-.stackCard[data-pillar="brand"] {
-  border-top: 2px solid var(--color-gold, #e6b24d);
-}
-.stackCard[data-pillar="growth"] {
-  border-top: 2px solid var(--color-teal, #6fd3c4);
-}
-.stackCard[data-pillar="ai"] {
-  border-top: 2px solid #ff9d7e;
-}
-.stackGhost {
-  position: absolute;
-  right: -1.5rem;
-  bottom: -4rem;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(14rem, 30vw, 26rem);
-  line-height: 1;
-  color: var(--color-fg);
-  opacity: 0.045;
-  pointer-events: none;
-  user-select: none;
-}
-.stackInner {
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-  max-width: 640px;
-  justify-content: center;
-}
-.stackIndex {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.32em;
-  color: var(--color-muted);
-}
-.stackName {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
-  line-height: 1.02;
-  margin: 0;
-  color: var(--color-fg);
-}
-.stackPromise {
-  margin: 0;
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  line-height: 1.65;
-  color: var(--color-muted);
-  max-width: 52ch;
-}
-.stackList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.4rem;
-}
-.stackItem {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.76rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-fg);
-  opacity: 0.78;
-}
-.stackCta {
-  composes: deckCta;
-}
-/* scroll-driven dim as the next card covers this one (progressive enhancement) */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .stackCard {
-      animation: stackSettle linear both;
-      animation-timeline: view();
-      animation-range: exit 0% exit 100%;
-    }
-  }
-}
-@keyframes stackSettle {
-  to {
-    transform: scale(0.965);
-    filter: brightness(0.72);
+@media (prefers-reduced-motion: reduce) {
+  .vesselDot {
+    animation: none;
   }
 }
 
-/* ---------- DECK ---------- */
-.deck {
-  display: flex;
-  gap: 1rem;
-  min-height: 460px;
-}
-.deckPanel {
-  position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  padding: 2rem;
-  border: 1px solid var(--color-border);
-  background: transparent;
-  cursor: pointer;
-  color: inherit;
-  transition: flex 0.65s cubic-bezier(0.32, 0.72, 0.24, 1);
-  overflow: hidden;
-}
-.deckPanel[data-open="true"] {
-  flex: 2.6;
-}
-.deckIndex {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: var(--color-muted);
-}
-.deckName {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(1.5rem, 2.4vw, 2.3rem);
-  line-height: 1.08;
-  margin-top: 0.9rem;
-  color: var(--color-fg);
-  transition: color 0.4s ease;
-}
-.deckPanel[data-open="true"] .deckName {
-  color: var(--color-gold, #e6b24d);
-}
-.deckBody {
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-  margin-top: 1.2rem;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.45s ease 0.18s, transform 0.45s ease 0.18s;
-  pointer-events: none;
-}
-.deckPanel[data-open="true"] .deckBody {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-.deckPromise {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--color-muted);
-  max-width: 44ch;
-}
-.deckList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.2rem;
-}
-.deckItem {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.74rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-fg);
-  opacity: 0.75;
-}
-.deckCta {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-gold, #e6b24d);
-  text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-gold, #e6b24d) 40%, transparent);
-  padding-bottom: 2px;
-  width: fit-content;
-}
-.deckCta:hover,
-.deckCta:focus-visible {
-  border-bottom-color: var(--color-gold, #e6b24d);
-  outline: none;
-}
-
-/* ---------- BRIDGE ---------- */
-.bridge {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-.bridgeIndex {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-.bridgeName {
-  display: flex;
-  align-items: baseline;
-  gap: 1.1rem;
-  background: none;
-  border: 0;
-  padding: 0.55rem 0;
-  text-align: left;
-  cursor: pointer;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(1.8rem, 3.4vw, 3.1rem);
-  line-height: 1.05;
-  color: var(--color-muted);
-  transition: color 0.3s ease;
-  border-bottom: 1px solid var(--color-border);
-}
-.bridgeName[data-active="true"] {
-  color: var(--color-fg);
-}
-.bridgeName[data-active="true"] .bridgeNum {
-  color: var(--color-gold, #e6b24d);
-}
-.bridgeNum {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  color: var(--color-muted);
-}
-.bridgePanel {
-  border-left: 1px solid var(--color-border);
-  padding-left: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  animation: bridgeIn 0.45s ease both;
-}
-@keyframes bridgeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.bridgePromise {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--color-fg);
-  margin: 0;
-  max-width: 40ch;
-}
-.bridgeList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.55rem 1.4rem;
-}
-.bridgeList li {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  padding-left: 1rem;
-  position: relative;
-}
-.bridgeList li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.42em;
-  width: 5px;
-  height: 5px;
-  background: color-mix(in srgb, var(--color-teal, #6fd3c4) 70%, transparent);
-}
-.bridgeCta {
-  composes: deckCta;
-}
-
-/* ---------- MAP ---------- */
-.mapWrap {
-  position: relative;
-}
-.route {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 120px;
-  height: calc(100% - 220px);
-  transform: translateX(-50%);
-  color: color-mix(in srgb, var(--color-gold, #e6b24d) 55%, transparent);
-  overflow: visible;
-}
-.ports {
-  list-style: none;
-  margin: 0;
-  padding: 0 0 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4.5rem;
-}
-.port {
-  position: relative;
-  display: flex;
-}
-.port[data-side="l"] {
-  justify-content: flex-start;
-}
-.port[data-side="r"] {
-  justify-content: flex-end;
-}
-.portNode {
-  position: absolute;
-  left: 50%;
-  top: 2.4rem;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  background: var(--color-bg);
-  border: 2px solid var(--color-gold, #e6b24d);
-}
-.portCard {
-  width: min(46%, 480px);
-  padding: 1.8rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-.portIndex {
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-gold, #e6b24d);
-}
-.portName {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
-  line-height: 1.1;
-  margin: 0;
-  color: var(--color-fg);
-}
-.portPromise {
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: var(--color-muted);
-}
-.portList {
-  margin: 0;
-  font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-fg);
-  opacity: 0.7;
-  line-height: 1.9;
-}
-.portCta {
-  composes: deckCta;
-}
-
-/* ---------- responsive ---------- */
 @media (max-width: 860px) {
-  .deck {
-    flex-direction: column;
-    min-height: 0;
+  .stackCard {
+    min-height: 74vh;
+    align-items: flex-end;
+    padding-bottom: 3.4rem;
   }
-  .deckPanel[data-open="true"] {
-    flex: 1;
-  }
-  .deckBody {
-    display: none;
-  }
-  .deckPanel[data-open="true"] .deckBody {
-    display: flex;
-  }
-  .bridge {
+  .stackList {
     grid-template-columns: 1fr;
-    gap: 1.6rem;
   }
-  .bridgePanel {
-    border-left: 0;
-    padding-left: 0;
-    border-top: 1px solid var(--color-border);
-    padding-top: 1.4rem;
-  }
-  .route {
-    left: 12px;
-    transform: none;
-  }
-  .port,
-  .port[data-side="r"] {
-    justify-content: flex-start;
-  }
-  .portNode {
-    left: 12px;
-  }
-  .portCard {
-    width: calc(100% - 44px);
-    margin-left: 44px;
+  .stackGhost {
+    right: -0.6rem;
+    bottom: auto;
+    top: -2.5rem;
   }
   .shelfRow {
     grid-template-columns: 1fr;
-  }
-  .stackCard {
-    min-height: 70vh;
   }
 }
