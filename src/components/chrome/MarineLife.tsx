@@ -1,4 +1,10 @@
+"use client";
+
+import { useVariant } from "@/components/visuals/useVariant";
 import styles from "./MarineLife.module.css";
+
+/* TEMP build-off looks (David picks, then the winner locks + this goes away) */
+const SEA_LOOKS = ["current", "neon", "fog", "minimal"] as const;
 
 /* Shared gradients, a scale pattern + a soft-focus blur, referenced by id. */
 function Defs() {
@@ -55,6 +61,25 @@ function Defs() {
 /* ---------- atmosphere ---------- */
 function GodRays() {
   return <div className={styles.godrays} aria-hidden />;
+}
+/* marine snow - slow-falling detritus motes; per-look density via CSS */
+function Snow() {
+  return (
+    <div className={styles.snow} aria-hidden>
+      {Array.from({ length: 22 }, (_, i) => (
+        <span
+          key={i}
+          style={{
+            left: `${(i * 43 + 7) % 100}%`,
+            top: `${(i * 29) % 100}%`,
+            animationDelay: `${(i % 11) * -2.3}s`,
+            animationDuration: `${15 + (i % 7) * 2.4}s`,
+            opacity: 0.2 + (i % 5) * 0.09,
+          }}
+        />
+      ))}
+    </div>
+  );
 }
 function Plankton() {
   return (
@@ -253,8 +278,9 @@ function Shoal() {
  *  caustic light + drifting plankton + swaying kelp, with a whale, manta, turtle,
  *  octopus, koi, seahorse, jellyfish + a shoal. Pure SVG/CSS, reduced-motion safe. */
 export function MarineLife() {
+  const sea = useVariant("sea", SEA_LOOKS, "current");
   return (
-    <div className={styles.marine} aria-hidden>
+    <div className={styles.marine} data-sea={sea} aria-hidden>
       <Defs />
       <GodRays />
       <Kelp />
@@ -267,6 +293,7 @@ export function MarineLife() {
       <Seahorse />
       <Jelly />
       <Plankton />
+      <Snow />
     </div>
   );
 }
