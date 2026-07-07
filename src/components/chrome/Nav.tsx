@@ -50,6 +50,10 @@ export function Nav() {
       <nav
         className={styles.menu}
         data-open={open}
+        // Lenis intercepts wheel/touch globally; without this the drawer's own
+        // overflow-y:auto never receives input (menu can't scroll, and stranded
+        // taps read as click-off closes).
+        data-lenis-prevent
         aria-label="Primary navigation"
         onClick={(e) => {
           // Click anywhere that isn't a nav link → close and stay on this page.
