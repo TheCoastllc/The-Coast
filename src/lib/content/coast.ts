@@ -106,6 +106,55 @@ export type WorkItem = {
   featured?: boolean;
 };
 
+/* Service pillars - the umbrella offering (David's structure, 2026-07). The
+ * original SERVICES list above stays intact; pillars group + extend it. */
+export type Pillar = {
+  key: "brand" | "growth" | "ai";
+  index: string;
+  name: string;
+  promise: string;
+  services: string[];
+  cta: { label: string; href: string };
+};
+
+export const PILLARS: Pillar[] = [
+  {
+    key: "brand",
+    index: "01",
+    name: "Branding & Marketing",
+    promise:
+      "We transform brands and small businesses from small to premium-tier, world-class brands that command premium pricing.",
+    services: ["Logo design", "Full branding", "Brand revamp", "Social media", "Marketing", "Pitch decks & EPKs"],
+    cta: { label: "Start a brand", href: "/services" },
+  },
+  {
+    key: "growth",
+    index: "02",
+    name: "Digital Growth",
+    promise: "Lead generation, ads, and everything digital marketing - attention turned into revenue.",
+    services: ["Lead generation", "Paid ads", "Digital marketing", "Campaigns", "Funnels", "Content systems"],
+    cta: { label: "Grow the pipeline", href: "/contact" },
+  },
+  {
+    key: "ai",
+    index: "03",
+    name: "AI & Software",
+    promise:
+      "AI consultancy and custom AI + software solutions - chatbots, tools, and systems built around your business.",
+    services: ["AI consultancy", "AI solutions", "Custom software", "Chatbots", "Automation", "Integrations"],
+    cta: { label: "Book an AI consult", href: "/ai" },
+  },
+];
+
+/* Products the studio is launching - public teaser lines only. */
+export type Product = { name: string; line: string; status: string };
+
+export const PRODUCTS: Product[] = [
+  { name: "Colony", line: "Where ideas come alive.", status: "Launching" },
+  { name: "ANT", line: "Where intelligence comes alive.", status: "Launching" },
+  { name: "Demi", line: "The next vessel in the fleet.", status: "Launching" },
+];
+
 // Real clients from coastglobal.org. Descriptions are indicative - swap freely.
 export const WORK: WorkItem[] = [
   { name: "AMG Records", category: "Music / Identity", year: "2025", featured: true, blurb: "Label identity and release-campaign system for an independent music house.", services: ["Brand Identity", "Campaign"] },

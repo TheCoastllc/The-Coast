@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
 import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
+import { TransformDeck, CommandBridge, VoyageMap } from "./services/ServiceWorlds";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { GalleryPreview, type GalleryPreviewItem } from "./GalleryPreview";
 import { IntroCurtain } from "./IntroCurtain";
@@ -31,6 +32,8 @@ const FoldingBoat = dynamic(
 );
 
 /* Clients shown on the "Trusted by" wall (real roster; links to case studies or live sites). */
+const SERVICES_FORMATS = ["current", "deck", "bridge", "map"] as const;
+
 const CLIENTS = TRUSTED_BRANDS_FALLBACK;
 
 /* Image-led "Selected work" cards - ready, cinematic case studies that have a cover frame. */
@@ -103,6 +106,8 @@ export function HomeOcean({
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
   const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "wall");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
+  // TEMP services-format build-off (David picks deck|bridge|map, then locks)
+  const servicesFormat = useVariant("services", SERVICES_FORMATS, "current");
 
   return (
     <>
@@ -173,17 +178,25 @@ export function HomeOcean({
 
           <section className={`section ${styles.venturesPreview}`}>
             <p className={styles.thesisLabel} data-mo="eyebrow">What we do</p>
-            <div className={styles.ventureList}>
-              {SERVICES.slice(0, 4).map((s) => (
-                <article key={s.name} className={`${styles.ventureRow} glass`} data-mo="item">
-                  <div className={styles.ventureName}>
-                    <span>{s.name}</span>
-                  </div>
-                  <p className={styles.ventureTag}>{s.body}</p>
-                  <span className={styles.ventureStatus} />
-                </article>
-              ))}
-            </div>
+            {servicesFormat === "deck" ? (
+              <TransformDeck />
+            ) : servicesFormat === "bridge" ? (
+              <CommandBridge />
+            ) : servicesFormat === "map" ? (
+              <VoyageMap />
+            ) : (
+              <div className={styles.ventureList}>
+                {SERVICES.slice(0, 4).map((s) => (
+                  <article key={s.name} className={`${styles.ventureRow} glass`} data-mo="item">
+                    <div className={styles.ventureName}>
+                      <span>{s.name}</span>
+                    </div>
+                    <p className={styles.ventureTag}>{s.body}</p>
+                    <span className={styles.ventureStatus} />
+                  </article>
+                ))}
+              </div>
+            )}
             <Link href="/services" className={styles.cta} data-cursor-label="See all" data-mo="magnetic">
               All services
               <span className={styles.ctaArrow}>→</span>

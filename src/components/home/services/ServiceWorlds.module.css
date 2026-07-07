@@ -1,0 +1,381 @@
+/* ============================================================
+   Services build-off formats. Site language only: serif display,
+   mono labels, existing glass cards, gold/teal accents.
+   ============================================================ */
+
+/* ---------- shared: launching shelf ---------- */
+.shelf {
+  margin-top: 3.5rem;
+}
+.shelfLabel {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0 0 1.1rem;
+}
+.shelfRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.vessel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.5rem 1.6rem;
+}
+.vesselStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold, #e6b24d);
+}
+.vesselDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-gold, #e6b24d);
+  animation: vesselPulse 2.6s ease-in-out infinite;
+}
+@keyframes vesselPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.vesselName {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.9rem;
+  line-height: 1.1;
+  color: var(--color-fg);
+}
+.vesselLine {
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* ---------- DECK ---------- */
+.deck {
+  display: flex;
+  gap: 1rem;
+  min-height: 460px;
+}
+.deckPanel {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 2rem;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  transition: flex 0.65s cubic-bezier(0.32, 0.72, 0.24, 1);
+  overflow: hidden;
+}
+.deckPanel[data-open="true"] {
+  flex: 2.6;
+}
+.deckIndex {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--color-muted);
+}
+.deckName {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.5rem, 2.4vw, 2.3rem);
+  line-height: 1.08;
+  margin-top: 0.9rem;
+  color: var(--color-fg);
+  transition: color 0.4s ease;
+}
+.deckPanel[data-open="true"] .deckName {
+  color: var(--color-gold, #e6b24d);
+}
+.deckBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-top: 1.2rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease 0.18s, transform 0.45s ease 0.18s;
+  pointer-events: none;
+}
+.deckPanel[data-open="true"] .deckBody {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.deckPromise {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+  max-width: 44ch;
+}
+.deckList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+}
+.deckItem {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-fg);
+  opacity: 0.75;
+}
+.deckCta {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold, #e6b24d);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold, #e6b24d) 40%, transparent);
+  padding-bottom: 2px;
+  width: fit-content;
+}
+.deckCta:hover,
+.deckCta:focus-visible {
+  border-bottom-color: var(--color-gold, #e6b24d);
+  outline: none;
+}
+
+/* ---------- BRIDGE ---------- */
+.bridge {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.bridgeIndex {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.bridgeName {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+  background: none;
+  border: 0;
+  padding: 0.55rem 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.8rem, 3.4vw, 3.1rem);
+  line-height: 1.05;
+  color: var(--color-muted);
+  transition: color 0.3s ease;
+  border-bottom: 1px solid var(--color-border);
+}
+.bridgeName[data-active="true"] {
+  color: var(--color-fg);
+}
+.bridgeName[data-active="true"] .bridgeNum {
+  color: var(--color-gold, #e6b24d);
+}
+.bridgeNum {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--color-muted);
+}
+.bridgePanel {
+  border-left: 1px solid var(--color-border);
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  animation: bridgeIn 0.45s ease both;
+}
+@keyframes bridgeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.bridgePromise {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-fg);
+  margin: 0;
+  max-width: 40ch;
+}
+.bridgeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem 1.4rem;
+}
+.bridgeList li {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding-left: 1rem;
+  position: relative;
+}
+.bridgeList li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 5px;
+  height: 5px;
+  background: color-mix(in srgb, var(--color-teal, #6fd3c4) 70%, transparent);
+}
+.bridgeCta {
+  composes: deckCta;
+}
+
+/* ---------- MAP ---------- */
+.mapWrap {
+  position: relative;
+}
+.route {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 120px;
+  height: calc(100% - 220px);
+  transform: translateX(-50%);
+  color: color-mix(in srgb, var(--color-gold, #e6b24d) 55%, transparent);
+  overflow: visible;
+}
+.ports {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+}
+.port {
+  position: relative;
+  display: flex;
+}
+.port[data-side="l"] {
+  justify-content: flex-start;
+}
+.port[data-side="r"] {
+  justify-content: flex-end;
+}
+.portNode {
+  position: absolute;
+  left: 50%;
+  top: 2.4rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  border: 2px solid var(--color-gold, #e6b24d);
+}
+.portCard {
+  width: min(46%, 480px);
+  padding: 1.8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.portIndex {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold, #e6b24d);
+}
+.portName {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  line-height: 1.1;
+  margin: 0;
+  color: var(--color-fg);
+}
+.portPromise {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+.portList {
+  margin: 0;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-fg);
+  opacity: 0.7;
+  line-height: 1.9;
+}
+.portCta {
+  composes: deckCta;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  .deck {
+    flex-direction: column;
+    min-height: 0;
+  }
+  .deckPanel[data-open="true"] {
+    flex: 1;
+  }
+  .deckBody {
+    display: none;
+  }
+  .deckPanel[data-open="true"] .deckBody {
+    display: flex;
+  }
+  .bridge {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+  .bridgePanel {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.4rem;
+  }
+  .route {
+    left: 12px;
+    transform: none;
+  }
+  .port,
+  .port[data-side="r"] {
+    justify-content: flex-start;
+  }
+  .portNode {
+    left: 12px;
+  }
+  .portCard {
+    width: calc(100% - 44px);
+    margin-left: 44px;
+  }
+  .shelfRow {
+    grid-template-columns: 1fr;
+  }
+}
