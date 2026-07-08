@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { splitWords } from "./splitWords";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -54,14 +55,17 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
             0.05
           );
         });
-        if (titles.length) {
+        // true word-by-word reveal: each word rises out of its own mask
+        titles.forEach((t, ti) => {
+          const words = splitWords(t);
+          if (!words.length) return;
           tl.fromTo(
-            titles,
-            { clipPath: "inset(102% 0 -8% 0)", y: 34 },
-            { clipPath: "inset(-8% 0 -8% 0)", y: 0, duration: 1.05, ease: "power4.out", stagger: 0.08 },
-            0.14
+            words,
+            { yPercent: 118, rotate: 4 },
+            { yPercent: 0, rotate: 0, duration: 0.9, ease: "power4.out", stagger: 0.055 },
+            0.12 + ti * 0.08
           );
-        }
+        });
         if (leads.length) {
           tl.fromTo(
             leads,
@@ -78,6 +82,25 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
             0.3
           );
         }
+
+        // fade OUT as the section leaves the top - scrubbed, so scrolling back
+        // fades it in again (the continuous in/out breathing of award sites)
+        gsap.fromTo(
+          s,
+          { "--exit": 0 } as gsap.TweenVars,
+          {
+            opacity: 0.12,
+            y: -30,
+            ease: "none",
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: s,
+              start: "bottom 34%",
+              end: "bottom 4%",
+              scrub: 0.4,
+            },
+          }
+        );
 
         const play = () => tl.play();
         // Already in view on mount - reveal now instead of waiting for a scroll

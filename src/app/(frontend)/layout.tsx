@@ -2,9 +2,10 @@ import React, { Suspense } from 'react'
 import './styles.css'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
-import { Inter, Anton, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Inter, Anton, Space_Grotesk, JetBrains_Mono, Archivo_Black, Unbounded } from 'next/font/google'
 import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
 import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
+import { FontPick } from '@/components/visuals/FontPick'
 import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
 import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import QueryProvider from '@/components/QueryProvider'
@@ -48,6 +49,21 @@ const grotesk = Space_Grotesk({
   weight: ['500', '700'],
   variable: '--font-grotesk',
   display: 'swap',
+})
+// TEMP font build-off candidates (?font=anton|archivo|unbounded; David picks)
+const archivo = Archivo_Black({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-archivo',
+  display: 'swap',
+  preload: false,
+})
+const unbounded = Unbounded({
+  subsets: ['latin'],
+  weight: ['500', '700'],
+  variable: '--font-unbounded',
+  display: 'swap',
+  preload: false,
 })
 
 const jetbrains = JetBrains_Mono({
@@ -152,7 +168,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${jetbrains.variable} relative`}>
+    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${archivo.variable} ${unbounded.variable} ${jetbrains.variable} relative`}>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
         <GtmNoScript />
         <MetaPixelNoScript />
@@ -193,6 +209,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <Suspense fallback={null}>
           <RouteAnalytics />
         </Suspense>
+        <FontPick />
 
         <SeaBackdrop />
         <QueryProvider>

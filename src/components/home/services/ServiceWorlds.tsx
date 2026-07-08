@@ -6,6 +6,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PILLARS, PRODUCTS } from "@/lib/content/coast";
+import { splitWords } from "@/components/motion/splitWords";
 import styles from "./ServiceWorlds.module.css";
 
 if (typeof window !== "undefined") {
@@ -60,6 +61,32 @@ export function ServiceStack({ shelf = true }: { shelf?: boolean } = {}) {
     const cards = Array.from(wrap.querySelectorAll<HTMLElement>("[data-stack-card]"));
     const triggers: ScrollTrigger[] = [];
     cards.forEach((card, i) => {
+      // per-card entrance: the title's words rise masked, then the rest follows
+      const name = card.querySelector<HTMLElement>("h3");
+      const rest = card.querySelectorAll<HTMLElement>("p, li, a, [data-stack-idx]");
+      if (name) {
+        const words = splitWords(name);
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo(
+          words,
+          { yPercent: 118, rotate: 4 },
+          { yPercent: 0, rotate: 0, duration: 0.85, ease: "power4.out", stagger: 0.07 },
+          0
+        );
+        tl.fromTo(
+          rest,
+          { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.05 },
+          0.28
+        );
+        if (card.getBoundingClientRect().top < window.innerHeight * 0.85) {
+          tl.play();
+        } else {
+          triggers.push(
+            ScrollTrigger.create({ trigger: card, start: "top 78%", once: true, onEnter: () => tl.play() })
+          );
+        }
+      }
       const img = card.querySelector<HTMLElement>("[data-stack-img]");
       // image parallax across the card's own pass
       triggers.push(
