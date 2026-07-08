@@ -18,7 +18,9 @@
 
 .title {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(2.6rem, 8vw, 7rem);
   line-height: 1.02;
   letter-spacing: -0.02em;
@@ -109,7 +111,9 @@
 
 .thesisTitle {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(2rem, 5vw, 3.6rem);
   letter-spacing: -0.015em;
   line-height: 1.1;
@@ -158,8 +162,10 @@
 
 .ventureName {
   font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 300;
   color: var(--color-white);
   display: flex;
   flex-direction: column;
@@ -176,7 +182,9 @@
 
 .ventureTag {
   font-family: var(--font-display);
-  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: 1.15rem;
   color: var(--color-white-dim);
 }
@@ -208,8 +216,9 @@
 
 .closingTitle {
   font-family: var(--font-display);
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(1.8rem, 4.5vw, 3rem);
   line-height: 1.3;
   color: var(--color-cream);
@@ -224,7 +233,9 @@
 
 .reviewsRating {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(2rem, 4.5vw, 3rem);
   line-height: 1;
   color: var(--color-gold);
@@ -349,7 +360,9 @@
 }
 .statValue {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(2.4rem, 4.5vw, 3.6rem);
   color: var(--color-accent);
   line-height: 1;
@@ -409,7 +422,9 @@
 }
 .clientWordmark {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(1.35rem, 2.6vw, 2rem);
   letter-spacing: -0.01em;
   line-height: 1;
@@ -485,7 +500,9 @@
 }
 .workClient {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: 1.3rem;
   line-height: 1.05;
   color: var(--color-white);
@@ -557,7 +574,9 @@
 }
 .waveTitle {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(2rem, 4.4vw, 3.2rem);
   line-height: 1.04;
   color: var(--color-white);
@@ -653,7 +672,9 @@
 
 .beatTitle {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(2.6rem, 7.5vw, 6.5rem);
   line-height: 1.04;
   letter-spacing: -0.02em;
@@ -663,7 +684,9 @@
 
 .beatSub {
   font-family: var(--font-display);
-  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(1.1rem, 2.2vw, 1.6rem);
   color: var(--color-white-dim);
   margin-top: 1.4rem;
@@ -700,8 +723,9 @@
 }
 .imageBandText {
   font-family: var(--font-display);
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(1.4rem, 3vw, 2.4rem);
   color: var(--color-white);
 }

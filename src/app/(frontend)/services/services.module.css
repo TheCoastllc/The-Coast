@@ -30,7 +30,9 @@
 
 .name {
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   letter-spacing: -0.01em;
   color: var(--color-white);
@@ -92,7 +94,9 @@
 }
 .stepTitle {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: 1.5rem;
   color: var(--color-white);
   margin-bottom: 0.7rem;
@@ -120,7 +124,9 @@
 }
 .modelName {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: 1.6rem;
   color: var(--color-white);
   margin-bottom: 0.6rem;

@@ -21,7 +21,9 @@
 .phrase {
   grid-area: 1 / 1;
   font-family: var(--font-display);
-  font-weight: 300;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(2.8rem, 9vw, 7.5rem);
   line-height: 1.02;
   letter-spacing: -0.02em;

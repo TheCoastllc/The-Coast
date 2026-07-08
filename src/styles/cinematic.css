@@ -16,7 +16,7 @@
   --cs-accent: #E6B24D;                /* the-coast gold (matches --primary) */
   --cs-accent-soft: rgba(201, 162, 75, 0.15);
   --cs-line: rgba(245, 241, 232, 0.12);
-  --cs-font-display: 'Editorial New', var(--font-anton), Georgia, serif;
+  --cs-font-display: var(--font-grotesk), var(--font-anton), system-ui, sans-serif;
   --cs-font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   /* the kit's Fontshare faces (Editorial New / Neue Montreal) aren't loaded on
      the-coast - resolve those references to the site's own faces instead. */
@@ -92,21 +92,22 @@
   margin-bottom: 22px;
 }
 .cs-work-hero h1 {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(56px, 8.5vw, 138px);
   line-height: 1;
   letter-spacing: -0.02em;
-  text-transform: none;
   color: var(--cs-fg);
   max-width: 1300px;
   text-shadow: 0 0 46px rgba(127, 179, 211, 0.16);
 }
 .cs-work-hero h1 em {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  text-transform: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   color: var(--cs-accent);
   letter-spacing: -0.02em;
 }
@@ -166,12 +167,13 @@
   opacity: 0.95;
 }
 .cs-takeover-section h3 {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(40px, 5.4vw, 88px);
   line-height: 1.02;
   letter-spacing: -0.018em;
-  text-transform: none;
   color: var(--section-fg, var(--cs-fg));
   margin: 0;
   text-shadow: 0 0 34px color-mix(in srgb, var(--section-fg, #fff) 16%, transparent);
@@ -330,11 +332,12 @@
 }
 .cs-case-h1 {
   font-family: var(--cs-font-display);
-  font-weight: 900;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(72px, 11vw, 200px);
   line-height: 0.88;
   letter-spacing: -0.005em;
-  text-transform: uppercase;
   color: var(--cs-fg);
   max-width: 1400px;
   margin: 0;
@@ -533,11 +536,12 @@
 .cs-case-stat:last-child { border-right: 0; }
 .cs-case-stat-value {
   font-family: var(--cs-font-display);
-  font-weight: 900;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(56px, 6vw, 96px);
   line-height: 0.9;
   letter-spacing: -0.005em;
-  text-transform: uppercase;
   color: var(--cs-fg);
 }
 .cs-case-stat-label {
@@ -583,10 +587,11 @@
   gap: 12px;
   font-family: var(--cs-font-display);
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(40px, 5.5vw, 96px);
   line-height: 1;
   letter-spacing: 0;
-  text-transform: uppercase;
   color: var(--cs-accent);
   border-bottom: 2px solid var(--cs-accent);
   padding-bottom: 10px;
@@ -627,11 +632,12 @@
 }
 .cs-case-next-name {
   font-family: var(--cs-font-display);
-  font-weight: 900;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: clamp(54px, 8vw, 140px);
   line-height: 0.92;
   letter-spacing: 0;
-  text-transform: uppercase;
   margin: 0;
 }
 .cs-case-next-tagline {

@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import './styles.css'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
-import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
+import { Inter, Anton, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
 import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
@@ -42,11 +42,11 @@ const inter = Inter({
   display: 'swap',
 })
 
-// Ocean redesign display + mono faces (ported from coast-site)
-const cormorant = Cormorant_Garamond({
+// Display face: Space Grotesk 700 (the Higgsfield-anchored bold voice)
+const grotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-cormorant',
+  weight: ['500', '700'],
+  variable: '--font-grotesk',
   display: 'swap',
 })
 
@@ -152,7 +152,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable} relative`}>
+    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${jetbrains.variable} relative`}>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
         <GtmNoScript />
         <MetaPixelNoScript />

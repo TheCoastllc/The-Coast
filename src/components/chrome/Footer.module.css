@@ -32,8 +32,10 @@
 
 .brandText {
   font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   font-size: 1.4rem;
-  font-weight: 300;
   color: var(--color-cream);
 }
 

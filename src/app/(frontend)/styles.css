@@ -92,7 +92,7 @@
   --animate-grid: grid 15s linear infinite;
   --font-display: var(--font-anton);
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-serif: var(--font-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   @keyframes accordion-down {
@@ -690,10 +690,10 @@ body.ocean {
   --z-overlay: 200;
 
   /* fonts: wired to next/font CSS variables set on <html> in the layout */
-  --font-display-var: var(--font-cormorant);
+  --font-display-var: var(--font-grotesk);
   --font-mono-var: var(--font-jetbrains);
   --font-body-var: var(--font-inter);
-  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-display: var(--font-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), Menlo, monospace;
   --font-body: var(--font-inter), "Helvetica Neue", sans-serif;
 }

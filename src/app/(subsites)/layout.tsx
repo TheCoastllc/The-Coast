@@ -3,18 +3,18 @@ import Script from 'next/script'
 import '../(frontend)/styles.css'
 import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
-import { Inter, Anton, Cormorant_Garamond, JetBrains_Mono } from 'next/font/google'
+import { Inter, Anton, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 import { HUD } from '@/components/chrome/HUD'
 import { CompassRose } from '@/components/chrome/CompassRose'
 import { Cursor } from '@/components/chrome/Cursor'
 
 // Same faces as the main site so /cbi (and other subsites) match the brand:
-// these define --font-inter / --font-cormorant / --font-jetbrains, which the
+// these define --font-inter / --font-grotesk / --font-jetbrains, which the
 // Tailwind @theme maps to font-sans / font-serif / font-mono.
 const anton = Anton({ subsets: ['latin'], weight: ['400'], variable: '--font-anton', display: 'swap' })
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-inter', display: 'swap' })
-const cormorant = Cormorant_Garamond({ subsets: ['latin'], weight: ['300', '400', '500'], variable: '--font-cormorant', display: 'swap' })
+const grotesk = Space_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--font-grotesk', display: 'swap' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-jetbrains', display: 'swap' })
 
 export default function SubsitesLayout(props: { children: React.ReactNode }) {
@@ -22,7 +22,7 @@ export default function SubsitesLayout(props: { children: React.ReactNode }) {
     return (
         <html
             lang="en"
-            className={`dark ${inter.variable} ${anton.variable} ${cormorant.variable} ${jetbrains.variable}`}
+            className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${jetbrains.variable}`}
         >
             <body className="ocean">
                 <GtmNoScript />
