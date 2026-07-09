@@ -2,10 +2,9 @@ import React, { Suspense } from 'react'
 import './styles.css'
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
-import { Inter, Anton, Space_Grotesk, JetBrains_Mono, Archivo_Black, Unbounded } from 'next/font/google'
+import { Inter, Anton, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { RouteAnalytics } from '@/components/analytics/RouteAnalytics'
 import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
-import { FontPick } from '@/components/visuals/FontPick'
 import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
 import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import QueryProvider from '@/components/QueryProvider'
@@ -43,27 +42,13 @@ const inter = Inter({
   display: 'swap',
 })
 
-// Display face: Space Grotesk 700 (the Higgsfield-anchored bold voice)
-const grotesk = Space_Grotesk({
+// Display face: Hanken Grotesk - the free twin of Aeonik, the brand book's
+// typeface (swap to licensed Aeonik files via next/font/local when acquired)
+const grotesk = Hanken_Grotesk({
   subsets: ['latin'],
-  weight: ['500', '700'],
+  weight: ['500', '700', '800'],
   variable: '--font-grotesk',
   display: 'swap',
-})
-// TEMP font build-off candidates (?font=anton|archivo|unbounded; David picks)
-const archivo = Archivo_Black({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-archivo',
-  display: 'swap',
-  preload: false,
-})
-const unbounded = Unbounded({
-  subsets: ['latin'],
-  weight: ['500', '700'],
-  variable: '--font-unbounded',
-  display: 'swap',
-  preload: false,
 })
 
 const jetbrains = JetBrains_Mono({
@@ -168,7 +153,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${archivo.variable} ${unbounded.variable} ${jetbrains.variable} relative`}>
+    <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${jetbrains.variable} relative`}>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
         <GtmNoScript />
         <MetaPixelNoScript />
@@ -209,7 +194,6 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <Suspense fallback={null}>
           <RouteAnalytics />
         </Suspense>
-        <FontPick />
 
         <SeaBackdrop />
         <QueryProvider>

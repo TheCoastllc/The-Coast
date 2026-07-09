@@ -18,7 +18,7 @@ export const tokens = {
     borderAccent: "rgba(219,82,39,0.30)",
   },
   font: {
-    display: '"Space Grotesk", system-ui, sans-serif',
+    display: '"Hanken Grotesk", system-ui, sans-serif',
     mono: '"JetBrains Mono", "Menlo", monospace',
     body: '"Inter", "Helvetica Neue", sans-serif',
   },

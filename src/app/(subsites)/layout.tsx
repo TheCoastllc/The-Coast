@@ -3,7 +3,7 @@ import Script from 'next/script'
 import '../(frontend)/styles.css'
 import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
-import { Inter, Anton, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Inter, Anton, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 import { HUD } from '@/components/chrome/HUD'
 import { CompassRose } from '@/components/chrome/CompassRose'
@@ -14,7 +14,7 @@ import { Cursor } from '@/components/chrome/Cursor'
 // Tailwind @theme maps to font-sans / font-serif / font-mono.
 const anton = Anton({ subsets: ['latin'], weight: ['400'], variable: '--font-anton', display: 'swap' })
 const inter = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-inter', display: 'swap' })
-const grotesk = Space_Grotesk({ subsets: ['latin'], weight: ['500', '700'], variable: '--font-grotesk', display: 'swap' })
+const grotesk = Hanken_Grotesk({ subsets: ['latin'], weight: ['500', '700', '800'], variable: '--font-grotesk', display: 'swap' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-jetbrains', display: 'swap' })
 
 export default function SubsitesLayout(props: { children: React.ReactNode }) {

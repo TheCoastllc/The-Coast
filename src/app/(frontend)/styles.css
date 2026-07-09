@@ -696,24 +696,6 @@ body.ocean {
   --font-display: var(--font-grotesk), system-ui, sans-serif;
 }
 
-/* TEMP font build-off overrides (?font=...) - remove after David's pick */
-body.ocean[data-font="anton"] {
-  --font-display-var: var(--font-anton);
-  --font-display: var(--font-anton), system-ui, sans-serif;
-  --font-serif: var(--font-anton), system-ui, sans-serif;
-}
-body.ocean[data-font="archivo"] {
-  --font-display-var: var(--font-archivo);
-  --font-display: var(--font-archivo), system-ui, sans-serif;
-  --font-serif: var(--font-archivo), system-ui, sans-serif;
-}
-body.ocean[data-font="unbounded"] {
-  --font-display-var: var(--font-unbounded);
-  --font-display: var(--font-unbounded), system-ui, sans-serif;
-  --font-serif: var(--font-unbounded), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), Menlo, monospace;
-  --font-body: var(--font-inter), "Helvetica Neue", sans-serif;
-}
 
 /* universal grain overlay (very subtle film texture) */
 .grain {
