@@ -22,6 +22,7 @@ import { CookieBanner } from '@/components/CookieBanner'
 import { Toaster } from 'sonner'
 import { PREMIUM_KEYS } from '@/lib/premium'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
+import { SunArc } from '@/components/chrome/SunArc'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -196,6 +197,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         </Suspense>
 
         <SeaBackdrop />
+        <SunArc />
         <QueryProvider>
           <PageTransitionProvider>
             <Nav />
