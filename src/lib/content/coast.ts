@@ -300,9 +300,9 @@ export const PALETTE: Swatch[] = [
 export type EditorialImage = { src: string; alt: string; caption: string };
 export const EDITORIAL: EditorialImage[] = [
   { src: "/img/editorial/01.jpg", alt: "Editorial brand identity study by The Coast - an identity made unmistakable", caption: "Identity, made unmistakable." },
-  { src: "/img/editorial/02.jpg", alt: "Bold editorial brand design study by The Coast", caption: "Bold by design." },
+  { src: "/img/editorial/02-hd.jpg", alt: "Obsidian wave sculpture veined with molten gold", caption: "Bold by design." },
   { src: "/img/editorial/03.jpg", alt: "Editorial brand study by The Coast - a brand seen, trusted, and remembered", caption: "Seen, trusted, remembered." },
-  { src: "/img/editorial/04.jpg", alt: "Editorial brand vision study by The Coast", caption: "Vision without compromise." },
+  { src: "/img/editorial/04-hd.jpg", alt: "A single golden light shaft cutting through dark glass toward the horizon", caption: "Vision without compromise." },
   { src: "/img/editorial/05.jpg", alt: "Editorial study in brand form and intent by The Coast", caption: "Form with intent." },
   { src: "/img/editorial/06.jpg", alt: "Future-facing editorial brand study by The Coast", caption: "Future-facing." },
   { src: "/img/editorial/07.jpg", alt: "Editorial brand study by The Coast, crafted to be chosen", caption: "Crafted to be chosen." },

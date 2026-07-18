@@ -20,12 +20,12 @@ if (typeof window !== "undefined") {
    parallax), oversized display type.
    ============================================================ */
 
-/* Interim card art from approved plates; swapped for generated
-   pillar-specific 4K art when the Higgsfield batch runs. */
+/* Pillar card art - generated to the brand's Higgsfield-style direction:
+   molten gold wave / converging light trails / circuit-veined obsidian. */
 const CARD_ART: Record<string, string> = {
-  brand: "/img/billboard-plate.jpg",
-  growth: "/img/ocean-aerial-wide.jpg",
-  ai: "/img/ocean-dark.jpg",
+  brand: "/img/pillar-brand.jpg",
+  growth: "/img/pillar-growth.jpg",
+  ai: "/img/pillar-ai.jpg",
 };
 
 /* The launching shelf - Colony, ANT, Demi */

@@ -127,6 +127,7 @@ function StoryScene({
         boat.current.position.z = -13;
         boat.current.rotation.x = 0;
         boat.current.rotation.y = -Math.PI / 2 + Math.sin(t * 0.5) * 0.06;
+        boat.current.userData.ease = 1; // cross mode sails broadside - side view only
       } else {
         // THE VOYAGE: emerges from the sun FACING US, grows + nears (bow -> camera)
         boat.current.scale.setScalar(appear * lerp(0.16, 1.15, ease));
@@ -135,6 +136,7 @@ function StoryScene({
         boat.current.position.z = lerp(-19, -2.5, ease);
         boat.current.rotation.x = lerp(0.16, -0.04, ease); // nose-up far -> level near (deck shows)
         boat.current.rotation.y = Math.PI + Math.sin(t * 0.5) * 0.05; // bow toward camera
+        boat.current.userData.ease = ease; // Boat reads this for the bow->side crossfade
       }
     }
 
