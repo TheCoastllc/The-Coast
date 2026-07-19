@@ -50,11 +50,11 @@ function makeFadeTexture() {
   return new THREE.CanvasTexture(c);
 }
 
-/** The finale boat: David's neon yacht render, treated live - teal glow aura,
- *  drifting mist at the waterline, mirrored water reflection. Black-background
- *  render composites additively (black contributes nothing). */
+/** The finale: THE COAST ONE arriving in full profile - a real photographic
+ *  cutout with true alpha (normal blending), drifting mist at the waterline
+ *  and a shimmering mirrored reflection beneath her. */
 function FinaleBoat() {
-  const src = "/story/boat-hd-b.png";
+  const src = "/story/coast-one-side.png";
   const root = useRef<THREE.Group>(null);
   const mistRefs = useRef<(THREE.Mesh | null)[]>([]);
   const reflRef = useRef<THREE.Mesh>(null);
@@ -67,7 +67,6 @@ function FinaleBoat() {
     tex.needsUpdate = true;
   }, [tex, gl]);
 
-  const featherMap = useMemo(() => makeRadialTexture(0.58), []);
   const mistMap = useMemo(() => makeRadialTexture(0.12), []);
   const fadeMap = useMemo(() => makeFadeTexture(), []);
 
@@ -93,7 +92,7 @@ function FinaleBoat() {
     }
     // the reflection shimmers like water
     if (reflRef.current) {
-      reflRef.current.scale.x = SIZE * (1 + 0.014 * Math.sin(t * 1.7));
+      reflRef.current.scale.x = SIZE * 1.5 * (1 + 0.014 * Math.sin(t * 1.7));
       (reflRef.current.material as THREE.MeshBasicMaterial).opacity =
         0.24 + 0.05 * Math.sin(t * 0.9);
     }
@@ -110,45 +109,25 @@ function FinaleBoat() {
 
   return (
     <group ref={root} position={[0, BASE_Y, 0]}>
-      {/* neon aura - teal-tinted duplicate behind; Bloom smears it into a glow */}
-      <mesh position={[0, 0, -0.06]} scale={[SIZE * 1.03, SIZE * 1.03, 1]}>
+      {/* the boat itself - true-alpha cutout, 3:2 */}
+      <mesh scale={[SIZE * 1.5, SIZE, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           map={tex}
-          alphaMap={featherMap}
-          color="#69d8c8"
           transparent
-          opacity={0.4}
-          blending={THREE.AdditiveBlending}
           depthWrite={false}
-          toneMapped={false}
-        />
-      </mesh>
-
-      {/* the boat itself */}
-      <mesh scale={[SIZE, SIZE, 1]}>
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial
-          map={tex}
-          alphaMap={featherMap}
-          transparent
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          toneMapped={false}
         />
       </mesh>
 
       {/* water reflection - mirrored, faded toward the depths */}
-      <mesh ref={reflRef} position={[0, -SIZE * 0.62, 0.02]} scale={[SIZE, -SIZE, 1]}>
+      <mesh ref={reflRef} position={[0, -SIZE * 0.98, 0.02]} scale={[SIZE * 1.5, -SIZE, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           map={tex}
           alphaMap={fadeMap}
           transparent
-          opacity={0.24}
-          blending={THREE.AdditiveBlending}
+          opacity={0.22}
           depthWrite={false}
-          toneMapped={false}
         />
       </mesh>
 

@@ -1,72 +1,81 @@
 "use client";
 
-import { Suspense, useEffect, useMemo } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import * as THREE from "three";
-import { useLoader, useThree } from "@react-three/fiber";
+import { useFrame, useLoader, useThree } from "@react-three/fiber";
 
 export type BoatMode = "current" | "geo" | "paper" | "rig" | "all";
 
-/** Key the render's near-black background to true transparency (alpha from
- *  luminance, lifted so the neon lines go solid). Additive blending would
- *  vanish against the giant bright sun the voyage sails across - with a real
- *  alpha channel + normal blending the yacht reads everywhere: glowing
- *  wireframe over the sun, luminous boat over the dark sea. */
-function keyBlackToAlpha(img: HTMLImageElement | ImageBitmap): THREE.Texture {
-  const c = document.createElement("canvas");
-  c.width = img.width;
-  c.height = img.height;
-  const g = c.getContext("2d")!;
-  g.drawImage(img, 0, 0);
-  const d = g.getImageData(0, 0, c.width, c.height);
-  const px = d.data;
-  for (let i = 0; i < px.length; i += 4) {
-    const lum = Math.max(px[i], px[i + 1], px[i + 2]);
-    px[i + 3] = Math.min(255, Math.round(lum * 1.6));
-  }
-  g.putImageData(d, 0, 0);
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
+const smoothstep = (e0: number, e1: number, x: number) => {
+  const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0)));
+  return t * t * (3 - 2 * t);
+};
 
-function YachtBillboard() {
+/** THE COAST ONE in the voyage: real photographic cutouts with true alpha
+ *  (background-removed), composited with normal blending. The BOW view sails
+ *  the approach; as she arrives (voyage ease -> 1) she turns to present her
+ *  full profile - a crossfade driven by the ease StoryHero publishes on the
+ *  parent group's userData each frame. */
+function CoastOne() {
   const gl = useThree((s) => s.gl);
-  const raw = useLoader(THREE.TextureLoader, "/story/boat-hd-b.png");
-  const tex = useMemo(() => keyBlackToAlpha(raw.image as HTMLImageElement), [raw]);
+  const root = useRef<THREE.Group>(null);
+  const bowMat = useRef<THREE.MeshBasicMaterial>(null);
+  const sideMat = useRef<THREE.MeshBasicMaterial>(null);
+  const [side, bow] = useLoader(THREE.TextureLoader, [
+    "/story/coast-one-side.png",
+    "/story/coast-one-bow.png",
+  ]);
   useEffect(() => {
-    tex.anisotropy = gl.capabilities.getMaxAnisotropy();
-    tex.needsUpdate = true;
-  }, [tex, gl]);
+    for (const t of [side, bow]) {
+      t.colorSpace = THREE.SRGBColorSpace;
+      t.anisotropy = gl.capabilities.getMaxAnisotropy();
+      t.needsUpdate = true;
+    }
+  }, [side, bow, gl]);
 
+  useFrame(() => {
+    const group = root.current?.parent;
+    const ease = (group?.userData.ease as number | undefined) ?? 1;
+    const turn = smoothstep(0.8, 0.96, ease);
+    if (bowMat.current) bowMat.current.opacity = 1 - turn;
+    if (sideMat.current) sideMat.current.opacity = turn;
+  });
+
+  // cutouts are 3:2 (w:h) - plane aspect matches so she never distorts
   return (
-    /* image waterline sits ~2/3 down the frame - lift so the hull rides where
-       the old profile hull's waterline was (group origin ~ -0.3) */
-    /* angled ~32deg off broadside: with the voyage group's PI flip this
-       reads as a three-quarter view - bow leading, approaching the viewer -
-       instead of a flat cardboard side profile */
-    <mesh position={[0, 0.55, 0]} rotation={[0, 0.56, 0]} scale={[5.2, 5.2, 1]}>
-      <planeGeometry args={[1, 1]} />
-      <meshBasicMaterial
-        map={tex}
-        transparent
-        depthWrite={false}
-        toneMapped={false}
-        side={THREE.DoubleSide}
-        fog={false}
-      />
-    </mesh>
+    <group ref={root}>
+      <mesh position={[0, 0.62, 0.01]} scale={[5.4, 3.6, 1]}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial
+          ref={bowMat}
+          map={bow}
+          transparent
+          depthWrite={false}
+          side={THREE.DoubleSide}
+          fog={false}
+        />
+      </mesh>
+      <mesh position={[0, 0.62, 0]} rotation={[0, 0.5, 0]} scale={[5.4, 3.6, 1]}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial
+          ref={sideMat}
+          map={side}
+          transparent
+          opacity={0}
+          depthWrite={false}
+          side={THREE.DoubleSide}
+          fog={false}
+        />
+      </mesh>
+    </group>
   );
 }
 
-/** The hero boat: the neon yacht render as a glowing billboard - its baked
- *  light-pool doubles as the boat's glow on the sea. StoryHero drives the
- *  group transform (voyage: emerges from the sun, nears the camera; the flat
- *  plane reads as the yacht gliding in profile). */
 export function Boat({ mode = "all" }: { mode?: BoatMode }) {
   void mode;
   return (
     <Suspense fallback={null}>
-      <YachtBillboard />
+      <CoastOne />
     </Suspense>
   );
 }

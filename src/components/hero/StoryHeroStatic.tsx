@@ -10,6 +10,8 @@ import styles from "./StoryHeroStatic.module.css";
 export function StoryHeroStatic() {
   return (
     <div className={styles.stage} aria-hidden>
+      {/* Act I: THE COAST ONE waits on the horizon at first light */}
+      <div className={styles.horizonPhoto} />
       <span className={styles.sunGlow} />
       <span className={styles.sun} />
 

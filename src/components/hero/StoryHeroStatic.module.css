@@ -178,3 +178,15 @@
     animation: none !important;
   }
 }
+
+/* the designed vessel on the horizon - the journey's opening frame */
+.horizonPhoto {
+  position: absolute;
+  inset: 0;
+  background-image: url("/img/horizon-dawn.jpg");
+  background-size: cover;
+  background-position: center 62%;
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 88%, transparent 100%);
+}
