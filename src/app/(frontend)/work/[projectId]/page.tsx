@@ -100,16 +100,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
       creativeWorkSchema.dateCreated = String(meta.year)
       creativeWorkSchema.datePublished = String(meta.year)
     }
-    if (meta.client) creativeWorkSchema.about = meta.client
-    if (meta.category) creativeWorkSchema.genre = meta.category
-    if (meta.role && meta.role.length > 0) creativeWorkSchema.keywords = meta.role.join(', ')
-    if (meta.liveUrl) {
-      creativeWorkSchema.mainEntityOfPage = {
-        '@type': 'WebSite',
-        url: meta.liveUrl,
+    // the case-study page itself is the main entity; the client is a typed
+    // Organization (with their live site as its url), not a bare string
+    creativeWorkSchema.mainEntityOfPage = {
+      '@type': 'WebPage',
+      '@id': `https://coastglobal.org/work/${projectId}`,
+    }
+    if (meta.client) {
+      creativeWorkSchema.about = {
+        '@type': 'Organization',
         name: meta.client,
+        ...(meta.liveUrl ? { url: meta.liveUrl } : {}),
       }
     }
+    if (meta.category) creativeWorkSchema.genre = meta.category
+    if (meta.role && meta.role.length > 0) creativeWorkSchema.keywords = meta.role.join(', ')
     if (meta.stack && meta.stack.length > 0) {
       creativeWorkSchema.workExample = {
         '@type': 'SoftwareApplication',

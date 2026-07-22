@@ -1,5 +1,6 @@
 import { CalendlyButton } from '@/components/CalendlyButton'
 import { COMPANY, CONTACT_STEPS } from '@/lib/content/coast'
+import { GOOGLE_LISTING_URL } from '@/lib/schema'
 import styles from './contact-treatments.module.css'
 
 /** A - The Glass Invitation: a frosted contact card over the full-bleed ocean,
@@ -28,6 +29,14 @@ export function ContactGlass() {
             </a>
             <span className={styles.coord}>{COMPANY.city}</span>
             <span>{COMPANY.domain}</span>
+            <a
+              href={GOOGLE_LISTING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor-label="Maps"
+            >
+              Find us on Google
+            </a>
           </div>
         </div>
       </div>

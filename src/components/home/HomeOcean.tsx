@@ -155,10 +155,10 @@ export function HomeOcean({
                   <span>Two minutes</span>
                   <span>Instant score</span>
                 </div>
-                <Link href="/cbi" className={styles.waveCta} data-cursor-label="Measure" data-mo="magnetic">
+                <a href="https://cbi.coastglobal.org" className={styles.waveCta} data-cursor-label="Measure" data-mo="magnetic">
                   Take the test
                   <span className={styles.ctaArrow}>→</span>
-                </Link>
+                </a>
               </div>
             </div>
           </section>

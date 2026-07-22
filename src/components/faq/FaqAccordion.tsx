@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion } from 'motion/react'
 import styles from './FaqAccordion.module.css'
 
 type FaqItem = { question: string; answer: string }
@@ -41,22 +41,26 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                 </span>
               </span>
             </button>
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  className={styles.panel}
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <p className={styles.answer}>{faq.answer}</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* panels stay mounted so every answer is in the server-rendered
+                DOM (text extractors and AI engines read all of them, not just
+                the open one) - the toggle only animates height/opacity */}
+            <motion.div
+              id={panelId}
+              role="region"
+              aria-labelledby={buttonId}
+              className={styles.panel}
+              initial={false}
+              animate={
+                isOpen
+                  ? { height: 'auto', opacity: 1 }
+                  : { height: 0, opacity: 0 }
+              }
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ overflow: 'hidden' }}
+              aria-hidden={!isOpen}
+            >
+              <p className={styles.answer}>{faq.answer}</p>
+            </motion.div>
           </div>
         )
       })}

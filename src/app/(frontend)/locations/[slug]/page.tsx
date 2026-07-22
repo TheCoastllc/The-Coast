@@ -8,6 +8,7 @@ import { ShineButton } from '@/components/ui/ShineButton'
 import { LOCATION_PAGES, LOCATION_PAGES_MAP } from '@/lib/location-pages'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import { ORG_ID, WEBSITE_ID } from '@/lib/schema'
+import { COMPANY } from '@/lib/content/coast'
 import styles from '../../services/[slug]/serviceDetail.module.css'
 
 type Params = Promise<{ slug: string }>
@@ -187,6 +188,14 @@ export default async function LocationPage({ params }: { params: Params }) {
         <section className="section">
           <p className="sectionLabel">Ready to get started?</p>
           <h2 className="sectionTitle">{loc.name} - let&apos;s build something worth noticing.</h2>
+          {/* visible, tappable NAP on the page local searchers actually land on */}
+          <div className={styles.ctaMeta}>
+            <a href={`tel:${COMPANY.phone.replace(/[^\d+]/g, '')}`} data-cursor-label="Call">
+              {COMPANY.phone}
+            </a>
+            <span className={styles.ctaMetaDot} aria-hidden="true">/</span>
+            <a href={`mailto:${COMPANY.email}`} data-cursor-label="Email">{COMPANY.email}</a>
+          </div>
           <div className={styles.ctaRow}>
             <ShineButton href="/get-started" size="md">Start a Project</ShineButton>
             <ShineButton href="/contact" size="md" variant="ghost">Talk to Us</ShineButton>

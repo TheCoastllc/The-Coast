@@ -28,9 +28,9 @@ export async function GET() {
     // DB unavailable - serve without posts section
   }
 
-  const lastUpdated = posts[0]?.publishedAt
-    ? new Date(posts[0].publishedAt).toISOString().split('T')[0]
-    : new Date().toISOString().split('T')[0]
+  // the file is regenerated on every revalidation - stamp it with the actual
+  // generation date, not the newest post's publish date (which goes stale)
+  const lastUpdated = new Date().toISOString().split('T')[0]
 
   const categoryLines = Object.entries(BLOG_CATEGORIES)
     .map(([slug, label]) => `  - [${label}](${BASE_URL}/blog/category/${slug})`)
@@ -148,6 +148,7 @@ ${postLines}
 ## FAQ
 
 - What is your typical project timeline? Our engagements typically range from 2 to 6 weeks depending on scope. A standalone logo design takes 2 to 3 weeks. A full brand identity system runs 4 to 6 weeks.
+- What is your pricing structure? Two models: project-based work is quoted as a transparent flat fee after a scoping call (no hourly billing), and ongoing needs run on monthly retainers. Every quote states scope, timeline, and price before work begins.
 - Do you work with startups or established businesses? Both. We partner with solo founders, early-stage startups, small businesses, and growing companies across tech, healthcare, e-commerce, entertainment, food and beverage, and professional services.
 - Do you offer ongoing support after launch? Yes - our retainer packages provide continuous access to design, development, and strategic support with priority turnaround.
 

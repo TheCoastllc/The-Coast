@@ -152,3 +152,49 @@
   display: block;
   margin-bottom: 1.6rem;
 }
+
+/* visible direct-answer box - the AI-citable summary above the article body */
+.directAnswer {
+  margin: 0 0 2.4rem;
+  padding: 1.4rem 1.6rem;
+  border-left: 2px solid var(--color-gold, #e6b24d);
+  background: color-mix(in srgb, var(--color-gold, #e6b24d) 6%, transparent);
+  border-radius: 0 10px 10px 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-fg, #fff) 88%, transparent);
+}
+.directAnswerLabel {
+  display: block;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold, #e6b24d);
+  margin-bottom: 0.6rem;
+}
+
+/* crawlable service/location links under the CTA */
+.moreLinks {
+  max-width: 720px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem;
+}
+.moreLinksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 2rem;
+}
+.moreLinksList a {
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--color-fg, #fff) 78%, transparent);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-gold, #e6b24d) 35%, transparent);
+  padding-bottom: 2px;
+}
+.moreLinksList a:hover {
+  color: var(--color-gold, #e6b24d);
+}

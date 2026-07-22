@@ -1,5 +1,13 @@
 {
   "crons": [
     { "path": "/api/sync-gallery-from-drive", "schedule": "0 7 * * *" }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.coastglobal.org" }],
+      "destination": "https://coastglobal.org/:path*",
+      "permanent": true
+    }
   ]
 }

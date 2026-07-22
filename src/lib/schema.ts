@@ -39,7 +39,13 @@ export const SAME_AS = [
   'https://www.facebook.com/coastglobal',
   'https://www.linkedin.com/company/thecoastcompanylimited/',
   'https://x.com/TheCoastHQ',
+  'https://www.pinterest.com/coastglobal',
 ]
+
+/** The verified Google Business Profile listing (place_id from the on-site
+ *  write-review link) - used for site<->GBP entity reciprocity. */
+export const GOOGLE_LISTING_URL =
+  'https://www.google.com/maps/place/?q=place_id:ChIJ_fjV-mLpAo4Riif8WzjsV70'
 
 export function buildOrgGraph() {
   return {
@@ -55,12 +61,16 @@ export function buildOrgGraph() {
         legalName: COMPANY.name,
         alternateName: ['The Coast', 'Coast Global'],
         url: SITE_URL,
+        // true pixel dimensions of full-logo.png - >=600px wide keeps every
+        // BlogPosting (which inherits this via publisher) Article-rich-result
+        // eligible
         logo: {
           '@type': 'ImageObject',
           url: `${SITE_URL}/full-logo.png`,
-          width: 200,
-          height: 60,
+          width: 1145,
+          height: 412,
         },
+        founder: { '@type': 'Person', name: 'David Coast', url: `${SITE_URL}/about` },
         image: { '@type': 'ImageObject', url: `${SITE_URL}/preview.jpg` },
         description:
           'Branding, digital growth, and AI agency turning small businesses into premium-tier brands. Based in Dallas-Fort Worth, serving Texas, Florida, and Alabama.',

@@ -11,38 +11,92 @@ Disallow: /intake
 # GPTBot
 User-agent: GPTBot
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # OAI-SearchBot
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # ChatGPT-User
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # ClaudeBot
 User-agent: ClaudeBot
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # PerplexityBot
 User-agent: PerplexityBot
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # Google-Extended
 User-agent: Google-Extended
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # Bytespider
 User-agent: Bytespider
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # CCBot
 User-agent: CCBot
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # anthropic-ai (Claude's real-time web search / citation crawler — allow for GEO visibility)
 User-agent: anthropic-ai
 Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /portal
+Disallow: /payment-success
+Disallow: /subscription-success
+Disallow: /intake
 
 # Host
 Host: https://coastglobal.org

@@ -1067,7 +1067,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       'Full-funnel digital marketing for small businesses — lead generation, paid ads, SEO, and email. Strategy through execution, measured by customers won.',
     tagline: 'Everything digital, one team — built to bring customers through the door, not just clicks.',
     heroBody:
-      'The Coast Global runs full-funnel digital marketing for small businesses: lead generation systems, paid advertising on Google and Meta, local SEO, and email campaigns — planned, built, and managed by the same team that builds your brand. Every engagement starts with a growth audit, ships with clear targets, and reports monthly on the number that matters: qualified leads, not vanity metrics.',
+      'The Coast Global runs full-funnel digital marketing for small businesses: lead generation systems, paid advertising on Google and Meta, local SEO, and email campaigns — planned, built, and managed by the same team that builds your brand, from our Dallas-Fort Worth home base. Every engagement starts with a growth audit, ships with clear targets, and reports monthly on the number that matters: qualified leads, not vanity metrics.',
     timeline: 'Ongoing retainer',
     priceRange: 'Custom quote',
     stats: [
@@ -1145,6 +1145,10 @@ export const SERVICE_PAGES: ServicePage[] = [
       {
         q: 'Do you handle everything, or do we need in-house marketing?',
         a: 'We handle everything digital: strategy, landing pages, ad creative, campaign management, email, tracking, and reporting. You need no in-house marketing team — most of our clients have none. What we do need from you is product knowledge: a monthly call and quick answers when a campaign needs an offer decision. Because the same studio builds your brand and your funnel, the creative never drifts off-brand and nothing gets lost between agencies.',
+      },
+      {
+        q: 'Do you work with Dallas-Fort Worth businesses in person?',
+        a: 'Yes — The Coast Global is based in the DFW Metroplex, and local clients get in-person kickoffs and strategy sessions across Dallas, Fort Worth, Arlington, Plano, and Frisco. Local campaigns benefit from that proximity: we know which DFW submarkets respond to which channels, and local SEO work is grounded in the same market we operate in. Clients across Texas, Florida, and Alabama run the identical program on our video-first process — see our service areas for how that works.',
       },
     ],
     relatedSlugs: ['social-media-management', 'website-design', 'ai-consulting'],

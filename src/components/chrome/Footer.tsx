@@ -37,6 +37,24 @@ const SOCIALS = [
       </svg>
     ),
   },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/coastglobal",
+    glyph: (
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+        <path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.87.24-1.46 1.49-1.46h1.4V4.9c-.27-.04-1.2-.12-2.28-.12-2.26 0-3.81 1.38-3.81 3.91V11H8v3h2.3v7z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Pinterest",
+    href: "https://www.pinterest.com/coastglobal",
+    glyph: (
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 4.1 2.47 7.61 6 9.15-.08-.78-.16-1.98.03-2.83.17-.77 1.13-4.87 1.13-4.87s-.29-.58-.29-1.44c0-1.35.78-2.36 1.76-2.36.83 0 1.23.62 1.23 1.37 0 .83-.53 2.08-.8 3.23-.23.97.48 1.76 1.44 1.76 1.72 0 3.05-1.82 3.05-4.44 0-2.32-1.67-3.94-4.05-3.94-2.76 0-4.38 2.07-4.38 4.21 0 .83.32 1.73.72 2.21a.3.3 0 0 1 .07.28c-.07.31-.24.97-.27 1.1-.04.18-.14.22-.33.13-1.25-.58-2.03-2.4-2.03-3.87 0-3.15 2.29-6.04 6.6-6.04 3.46 0 6.16 2.47 6.16 5.77 0 3.44-2.17 6.21-5.18 6.21-1.01 0-1.96-.53-2.29-1.15l-.62 2.37c-.22.87-.83 1.96-1.24 2.62.93.29 1.92.45 2.95.45 5.52 0 10-4.48 10-10S17.52 2 12 2z" />
+      </svg>
+    ),
+  },
 ] as const;
 
 /** Secondary legal / utility links. */
@@ -93,6 +111,9 @@ export function Footer() {
             data-cursor="active"
           >
             hello@coastglobal.org
+          </a>
+          <a href="tel:+16827020374" className={styles.link} data-cursor="active">
+            +1 (682) 702-0374
           </a>
         </nav>
       </div>

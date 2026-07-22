@@ -41,7 +41,7 @@ export function ScrollThread() {
       ))}
       <div ref={boatRef} className={styles.boat}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/story/coast-one-side.png" alt="" width={34} height={34} />
+        <img src="/story/coast-one-rail.png" alt="" width={34} height={34} />
       </div>
     </div>
   );

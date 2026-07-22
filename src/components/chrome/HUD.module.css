@@ -56,9 +56,13 @@
 }
 
 @media (max-width: 700px) {
-  .top,
   .bottom {
     padding: 1rem;
     font-size: 0.55rem;
+  }
+  /* the section chip sits just below the nav and collides with headings on
+     narrow viewports - the bottom corners are enough chrome on mobile */
+  .top {
+    display: none;
   }
 }

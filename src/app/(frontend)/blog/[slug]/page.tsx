@@ -12,6 +12,62 @@ import styles from './article.module.css'
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
+/** Multi-aspect-ratio image set for Article rich results - Google recommends
+ *  16:9 / 4:3 / 1:1 crops at >=1200px wide. Cloudinary generates them on the
+ *  fly via URL transforms; non-Cloudinary covers fall back to the single URL. */
+const articleImages = (coverUrl: string | null): string | string[] => {
+  if (!coverUrl) return 'https://coastglobal.org/preview.jpg'
+  if (!coverUrl.includes('/upload/')) return coverUrl
+  return ['c_fill,ar_16:9,w_1200', 'c_fill,ar_4:3,w_1200', 'c_fill,ar_1:1,w_1200'].map((t) =>
+    coverUrl.replace('/upload/', `/upload/${t}/`)
+  )
+}
+
+/** Crawlable service/location links per category - wires the Journal into the
+ *  money pages (each location + growth/AI page gets blog inbound links). */
+const CATEGORY_LINKS: Record<string, Array<{ href: string; label: string }>> = {
+  'brand-strategy': [
+    { href: '/services/rebrand', label: 'Our rebrand process' },
+    { href: '/services/brand-identity', label: 'Brand identity design' },
+    { href: '/locations/dallas-fort-worth', label: 'Dallas-Fort Worth branding agency' },
+  ],
+  'visual-identity': [
+    { href: '/services/brand-guidelines', label: 'Brand guidelines service' },
+    { href: '/services/logo-design', label: 'Logo design for small business' },
+    { href: '/locations/florida', label: 'Serving Florida businesses' },
+  ],
+  'logo-design': [
+    { href: '/services/logo-design', label: 'Logo design service' },
+    { href: '/services/brand-identity', label: 'Full brand identity' },
+    { href: '/locations/texas', label: 'Branding across Texas' },
+  ],
+  'web-design': [
+    { href: '/services/website-design', label: 'Website design service' },
+    { href: '/services/digital-marketing', label: 'Digital marketing & lead generation' },
+    { href: '/locations/dallas-fort-worth', label: 'DFW web design clients' },
+  ],
+  'social-media': [
+    { href: '/services/social-media-management', label: 'Social media management' },
+    { href: '/services/digital-marketing', label: 'Full digital growth services' },
+    { href: '/locations/florida', label: 'Working with Florida brands' },
+  ],
+  'creative-direction': [
+    { href: '/services/brand-identity', label: 'Brand identity design' },
+    { href: '/services/video-motion', label: 'Video & motion' },
+    { href: '/locations/alabama', label: 'Serving Alabama businesses' },
+  ],
+  'case-study': [
+    { href: '/work', label: 'More of our work' },
+    { href: '/services/rebrand', label: 'The rebrand service behind it' },
+    { href: '/locations/alabama', label: 'Branding for the southeast' },
+  ],
+  'industry-insights': [
+    { href: '/services/ai-consulting', label: 'AI consulting for small business' },
+    { href: '/ai', label: 'Put AI to work in your business' },
+    { href: '/locations/texas', label: 'Serving businesses across Texas' },
+  ],
+}
+
 type Params = Promise<{ slug: string }>
 
 export async function generateStaticParams() {
@@ -152,9 +208,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
     url: `https://coastglobal.org/blog/${slug}`,
     headline: post.title,
     description: post.excerpt || '',
-    image: coverUrl || 'https://coastglobal.org/preview.jpg',
+    image: articleImages(coverUrl),
     inLanguage: 'en-US',
-    author: { '@type': 'Person', name: authorName },
+    author: { '@type': 'Person', name: authorName, url: 'https://coastglobal.org/about' },
     publisher: { '@id': 'https://coastglobal.org/#organization' },
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,
@@ -204,7 +260,14 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       )}
 
       <div className={styles.body}>
-        {post.directAnswer && <p className="sr-only">{post.directAnswer}</p>}
+        {/* the CMS's purpose-built direct answer, rendered VISIBLY - this is
+            the 40-80 word self-contained passage AI engines lift into answers */}
+        {post.directAnswer && (
+          <p className={styles.directAnswer}>
+            <span className={styles.directAnswerLabel}>In brief</span>
+            {post.directAnswer}
+          </p>
+        )}
         {post.content && (
           <div className="prose prose-invert max-w-none">
             <RichText data={post.content} converters={jsxConverters} />
@@ -216,6 +279,21 @@ export default async function BlogPostPage({ params }: { params: Params }) {
         <p className={styles.ctaText}>Let&apos;s create something remarkable together.</p>
         <ShineButton href="/get-started" size="md">Start a Project</ShineButton>
       </div>
+
+      {(CATEGORY_LINKS[post.category] ?? CATEGORY_LINKS['brand-strategy']).length > 0 && (
+        <nav className={styles.moreLinks} aria-label="Related services and areas">
+          <span className={styles.relatedLabel}>Where to next</span>
+          <ul className={styles.moreLinksList}>
+            {(CATEGORY_LINKS[post.category] ?? CATEGORY_LINKS['brand-strategy']).map((l) => (
+              <li key={l.href}>
+                <TransitionLink href={l.href} data-cursor-label="Open">
+                  {l.label} →
+                </TransitionLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
 
       {relatedPosts.length > 0 && (
         <div className={styles.related}>

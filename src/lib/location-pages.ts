@@ -40,6 +40,7 @@ export const LOCATION_PAGES: LocationPage[] = [
     intro: [
       'The Coast Global is based in Dallas-Fort Worth. This is where we take calls, meet founders in person, and build brands - and the 682 on our phone number is not an accident.',
       'DFW is one of the fastest-growing business markets in the country, which means every small business here competes for attention against national brands with national budgets. Our work closes that gap: brand identity, marketing, and AI systems that make a local company look and operate like the premium player in its market.',
+      'What that looks like in practice: a fixed scope agreed before work starts, a single point of contact from kickoff to final files, and deliverables built to survive contact with the real world - a logo that holds up on a Frisco storefront and a trade-show banner alike, a website that converts the traffic your ads pay for, an AI system your front desk actually uses. We work with the businesses that keep the Metroplex running - healthcare practices, real estate teams, restaurants and food brands, tech startups, and the trades - and the standard is the same for a solo founder in Denton as it is for a established firm in Uptown. The work in our portfolio is the proof; the 682 number at the bottom of this page is the shortest path to talking it through.',
     ],
     pillars: [
       {
@@ -96,6 +97,7 @@ export const LOCATION_PAGES: LocationPage[] = [
     intro: [
       'From Dallas-Fort Worth, The Coast Global works with businesses across the state - Houston, Austin, San Antonio, El Paso, and everywhere between. Texas has more small businesses than any state but California, and most of them are still wearing a brand that undersells the work.',
       'We fix that. The same premium identity, marketing, and AI systems we build for DFW clients ship statewide, with a process designed to run clean whether you are across the street or across the state.',
+      'Texas markets are not interchangeable, and the work should not be either. A Houston energy-services firm needs a brand that reads as institutional-grade to procurement teams; an Austin startup needs one that holds its own in a room full of venture-backed competitors; a San Antonio family business needs a rebrand that keeps thirty years of earned trust while shedding thirty years of dated design. That judgment - what to change, what to keep, how far to push - is the actual product, and it is the same judgment whether the engagement is a three-week logo or a full transformation. Every Texas project runs on a fixed scope and a stated timeline, reviewed weekly on video, with files delivered in a shared hub you keep. No agency mystery, no invoice surprises, no waiting on a team two time zones away.',
     ],
     pillars: [
       {
@@ -148,6 +150,7 @@ export const LOCATION_PAGES: LocationPage[] = [
     intro: [
       'The Coast Global has history in Florida. Before there was a studio, founder David Coast was building its beginnings from his car in Miami - working out of coffee shops by day and designing late into every night. Florida is not a market on a map to us; it is where the story started.',
       'Today we bring that same drive back to Florida businesses - in Miami, Orlando, Tampa, and statewide. Premium brand identity, digital marketing, and AI systems for the founders and small businesses fighting to be seen in some of the loudest markets in the country.',
+      'Florida punishes forgettable brands harder than almost anywhere. Miami alone is one of the most saturated small-business markets in America - hospitality, wellness, real estate, and creative ventures all shouting over each other - and Orlando and Tampa are not far behind. Standing out there is not a volume game; it is a precision game: an identity distinctive enough to be remembered from one scroll, marketing sharp enough to make paid attention pay for itself, and systems that answer a customer at 11pm when your competitors are closed. That is the work we do for Florida clients, on the same fixed scopes and stated timelines as everywhere else. The remote process is not a compromise here - it was built for this: every kickoff, review, and delivery happens on video and in a shared hub, and the Miami chapter of our own story means we never treat Florida like a market on a map.',
     ],
     pillars: [
       {
@@ -200,6 +203,7 @@ export const LOCATION_PAGES: LocationPage[] = [
     intro: [
       'Alabama is growing fast - Huntsville is one of the strongest tech corridors in the south and Birmingham keeps producing businesses that outgrow their branding. What the state is short on is agencies that deliver premium-tier work without big-market pricing.',
       'That is the gap The Coast Global fills. We give Alabama small businesses the same identity, marketing, and AI work we deliver in Dallas and Miami - so a Birmingham company can walk into any room looking like the national player.',
+      'The math favors Alabama businesses right now. Huntsville engineering and defense-adjacent firms are winning national contracts while carrying brands built in a different decade; Birmingham medical, legal, and financial practices compete on referrals that increasingly start with a Google search; and statewide, the service businesses growing fastest are the ones that look like they deserve the premium they charge. Closing that presentation gap costs a fraction of what it returns - a fixed-scope rebrand or marketing system priced the same as our Texas engagements, not marked up and not watered down. Every Alabama project runs remote-first on video with a shared delivery hub, weekly reviews, and one point of contact. When the scope justifies it, we get on a plane. Either way, the standard does not change with the zip code.',
     ],
     pillars: [
       {

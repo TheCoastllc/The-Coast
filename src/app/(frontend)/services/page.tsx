@@ -35,20 +35,20 @@ const servicesSchema = {
   url: 'https://coastglobal.org/services',
   numberOfItems: 14,
   itemListElement: [
-    { '@type': 'ListItem', position: 1, item: { '@type': 'Service', name: 'Branding & Marketing', description: 'Logo design, full branding, brand revamp, social media, marketing - small brands transformed to premium-tier.', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 1, item: { '@type': 'Service', name: 'Branding & Marketing', description: 'Logo design, full branding, brand revamp, social media, marketing - small brands transformed to premium-tier.', url: 'https://coastglobal.org/services', provider: { '@id': 'https://coastglobal.org/#organization' } } },
     { '@type': 'ListItem', position: 2, item: { '@type': 'Service', name: 'Digital Growth', description: 'Lead generation, paid ads, and everything digital marketing.', url: 'https://coastglobal.org/services/digital-marketing', provider: { '@id': 'https://coastglobal.org/#organization' } } },
     { '@type': 'ListItem', position: 3, item: { '@type': 'Service', name: 'AI & Software Solutions', description: 'AI consultancy and custom AI + software builds - chatbots, tools, automation.', url: 'https://coastglobal.org/services/ai-consulting', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 4, item: { '@type': 'Service', name: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 5, item: { '@type': 'Service', name: 'Full Rebrand', description: 'Complete brand transformation package', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 6, item: { '@type': 'Service', name: 'Brand Identity Guidelines', description: 'Logo, colors, typography & usage rules', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 7, item: { '@type': 'Service', name: 'Flyers', description: 'Print-ready promotional designs (digital + print)', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 8, item: { '@type': 'Service', name: 'EPK / Press Kit', description: 'Professional media kit for press & partners', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 9, item: { '@type': 'Service', name: 'Social Graphics', description: '5-10 branded templates for social platforms', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 10, item: { '@type': 'Service', name: 'Pitch Deck', description: 'Investor-ready presentation design', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 11, item: { '@type': 'Service', name: 'Website Design', description: 'Custom website design & development', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 12, item: { '@type': 'Service', name: 'Video & Motion', description: 'Promotional videos & animations', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 13, item: { '@type': 'Service', name: 'Digital Marketing', description: 'SEO, ads setup, email campaigns', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 14, item: { '@type': 'Service', name: 'Social Media Management', description: 'Content creation, scheduling & management', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 4, item: { '@type': 'Service', name: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds', url: 'https://coastglobal.org/services/logo-design', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 5, item: { '@type': 'Service', name: 'Full Rebrand', description: 'Complete brand transformation package', url: 'https://coastglobal.org/services/rebrand', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 6, item: { '@type': 'Service', name: 'Brand Identity Guidelines', description: 'Logo, colors, typography & usage rules', url: 'https://coastglobal.org/services/brand-guidelines', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 7, item: { '@type': 'Service', name: 'Flyers', description: 'Print-ready promotional designs (digital + print)', url: 'https://coastglobal.org/services/flyers', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 8, item: { '@type': 'Service', name: 'EPK / Press Kit', description: 'Professional media kit for press & partners', url: 'https://coastglobal.org/services/epk-design', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 9, item: { '@type': 'Service', name: 'Social Graphics', description: '5-10 branded templates for social platforms', url: 'https://coastglobal.org/services/social-graphics', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 10, item: { '@type': 'Service', name: 'Pitch Deck', description: 'Investor-ready presentation design', url: 'https://coastglobal.org/services/pitch-deck', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 11, item: { '@type': 'Service', name: 'Website Design', description: 'Custom website design & development', url: 'https://coastglobal.org/services/website-design', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 12, item: { '@type': 'Service', name: 'Video & Motion', description: 'Promotional videos & animations', url: 'https://coastglobal.org/services/video-motion', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 13, item: { '@type': 'Service', name: 'Digital Marketing', description: 'SEO, ads setup, email campaigns', url: 'https://coastglobal.org/services/digital-marketing', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 14, item: { '@type': 'Service', name: 'Social Media Management', description: 'Content creation, scheduling & management', url: 'https://coastglobal.org/services/social-media-management', provider: { '@id': 'https://coastglobal.org/#organization' } } },
   ],
 }
 
@@ -56,8 +56,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 15, name: 'Home', item: 'https://coastglobal.org' },
-    { '@type': 'ListItem', position: 16, name: 'Services', item: 'https://coastglobal.org/services' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://coastglobal.org' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://coastglobal.org/services' },
   ],
 }
 

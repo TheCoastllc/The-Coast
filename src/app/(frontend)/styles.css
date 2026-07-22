@@ -924,3 +924,11 @@ body.ocean {
   --gold-dark: 42 60% 45%;
   --surface: #12161d;
 }
+/* mobile: a handful of decorative/card elements measure a few px past the
+   viewport (audit: 18-28px scrollWidth overflow) - clip, never scroll, and
+   `clip` (unlike hidden) keeps position: sticky working */
+@media (max-width: 768px) {
+  html {
+    overflow-x: clip;
+  }
+}

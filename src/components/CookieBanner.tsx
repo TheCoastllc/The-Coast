@@ -90,7 +90,9 @@ export function CookieBanner() {
             aria-label="Cookie consent"
             className="fixed bottom-4 left-4 right-4 z-100 md:left-6 md:right-auto md:max-w-md"
           >
-            <div className="relative rounded-2xl border border-white/10 bg-[#0A0C12]/95 p-5 shadow-2xl backdrop-blur-md md:p-6">
+            {/* compact on mobile - the banner was eating ~28% of a phone
+                viewport; tighter padding/type + side-by-side buttons */}
+            <div className="relative rounded-2xl border border-white/10 bg-[#0A0C12]/95 p-4 shadow-2xl backdrop-blur-md md:p-6">
               <button
                 type="button"
                 onClick={() => handleChoice('denied')}
@@ -100,11 +102,11 @@ export function CookieBanner() {
                 <X className="size-4" />
               </button>
 
-              <h2 className="pr-6 font-(family-name:--font-anton) text-lg uppercase tracking-wide text-white">
+              <h2 className="pr-6 font-(family-name:--font-anton) text-base uppercase tracking-wide text-white md:text-lg">
                 We value your privacy
               </h2>
 
-              <p className="mt-2 text-sm leading-relaxed text-white/70">
+              <p className="mt-1.5 text-xs leading-snug text-white/70 md:mt-2 md:text-sm md:leading-relaxed">
                 We use Google Analytics (GA4) cookies only if you consent, to understand how
                 visitors use our site. No cookies are set unless you accept. Read our{' '}
                 <Link
@@ -116,7 +118,7 @@ export function CookieBanner() {
                 .
               </p>
 
-              <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+              <div className="mt-3 flex flex-row gap-2 md:mt-4">
                 <button
                   type="button"
                   onClick={() => handleChoice('denied')}

@@ -26,7 +26,7 @@ export function HUD() {
       </div>
 
       <div className={styles.bottom} data-ocean-chrome>
-        <span className={styles.label}>Worldwide</span>
+        <span className={styles.label}>Dallas-Fort Worth, TX</span>
         <span className={styles.label}>coastglobal.org &nbsp;/&nbsp; 2026</span>
       </div>
     </>

@@ -31,6 +31,7 @@ const contactPageSchema = {
   name: 'Start Your Brand Project | The Coast Global',
   description: 'Tell us about your business and the services you need - we will respond within 24 hours.',
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
+  about: { '@id': 'https://coastglobal.org/#organization' },
   breadcrumb: {
     '@type': 'BreadcrumbList',
     itemListElement: [
