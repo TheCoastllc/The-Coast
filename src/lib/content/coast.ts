@@ -10,7 +10,7 @@ export const BRAND = "The Coast Global";
 export const COMPANY = {
   name: "The Coast Global Inc.",
   short: BRAND,
-  city: "Worldwide",
+  city: "Dallas-Fort Worth, TX",
   domain: "coastglobal.org",
   email: "hello@coastglobal.org",
   phone: "+1 (682) 702-0374",

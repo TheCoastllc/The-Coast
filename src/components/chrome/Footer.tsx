@@ -130,6 +130,9 @@ export function Footer() {
         <span className={styles.line}>
           The Coast Global Inc. &nbsp;/&nbsp; coastglobal.org &nbsp;/&nbsp; 2026
         </span>
+        <span className={styles.line}>
+          Dallas&ndash;Fort Worth, TX &nbsp;&middot;&nbsp; Serving Texas, Florida &amp; Alabama
+        </span>
         <span className={styles.line}>Design the Future.</span>
       </div>
     </footer>

@@ -7,6 +7,7 @@ import { variantForIndex } from '@/components/motion/revealVariants'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { SERVICE_PAGES, SERVICE_PAGES_MAP } from '@/lib/service-pages'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { AREA_SERVED } from '@/lib/schema'
 import styles from './serviceDetail.module.css'
 
 type Params = Promise<{ slug: string }>
@@ -56,7 +57,7 @@ export default async function ServiceSlugPage({ params }: { params: Params }) {
       '@id': 'https://coastglobal.org/#organization',
       name: 'The Coast Global',
     },
-    areaServed: 'Worldwide',
+    areaServed: AREA_SERVED,
     category: service.category,
   }
 

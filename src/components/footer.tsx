@@ -113,7 +113,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 									[ The studio ]
 								</span>
 								<span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--fg-subtle)]">
-									Built in Dallas · Working globally
+									Dallas–Fort Worth, TX · Serving Texas, Florida &amp; Alabama
 								</span>
 							</div>
 							<h2

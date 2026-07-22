@@ -22,83 +22,9 @@ export const metadata: Metadata = {
   },
 }
 
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': 'https://coastglobal.org/#website',
-  url: 'https://coastglobal.org',
-  name: 'The Coast Global',
-  description: 'Brand design studio building unforgettable visual identities.',
-  publisher: { '@id': 'https://coastglobal.org/#organization' },
-}
-
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  '@id': 'https://coastglobal.org/#organization',
-  name: 'The Coast Global',
-  alternateName: 'Coast Global',
-  url: 'https://coastglobal.org',
-  logo: {
-    '@type': 'ImageObject',
-    url: 'https://coastglobal.org/full-logo.png',
-    width: 200,
-    height: 60,
-  },
-  description:
-    'Brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
-  email: 'hello@coastglobal.org',
-  telephone: '+16827020374',
-  foundingDate: '2023-02',
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'customer service',
-    telephone: '+16827020374',
-    email: 'hello@coastglobal.org',
-    availableLanguage: 'English',
-  },
-  // NOTE: No aggregateRating here. Google's structured-data policy forbids
-  // self-serving ratings (reviews about the business, collected on its own site)
-  // on Organization/LocalBusiness - they are ineligible for star rich results and
-  // can trigger a manual action. Real Google reviews still render on-page via
-  // ReviewsMarquee. To re-add a rating legitimately, mark up individual Review
-  // items sourced from a third party (e.g. Google) and attach them here.
-  sameAs: [
-    'https://www.instagram.com/coastglobal',
-    'https://www.facebook.com/coastglobal',
-    'https://www.linkedin.com/company/thecoastcompanylimited/',
-    'https://x.com/TheCoastHQ',
-  ],
-}
-
-const professionalServiceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  '@id': 'https://coastglobal.org/#professional-service',
-  name: 'The Coast Global',
-  alternateName: 'Coast Global',
-  url: 'https://coastglobal.org',
-  logo: {
-    '@type': 'ImageObject',
-    url: 'https://coastglobal.org/full-logo.png',
-    width: 200,
-    height: 60,
-  },
-  image: { '@type': 'ImageObject', url: 'https://coastglobal.org/preview.jpg' },
-  description:
-    'Strategic brand design for entrepreneurs, artists, and growing businesses. Logo design, visual identity, brand strategy, and marketing assets.',
-  email: 'hello@coastglobal.org',
-  telephone: '+16827020374',
-  priceRange: '$$',
-  areaServed: { '@type': 'Place', name: 'World' },
-  address: { '@type': 'PostalAddress', addressCountry: 'US' },
-  sameAs: [
-    'https://www.instagram.com/coastglobal',
-    'https://www.facebook.com/coastglobal',
-    'https://www.linkedin.com/company/thecoastcompanylimited/',
-    'https://x.com/TheCoastHQ',
-  ],
-}
+// The WebSite/Organization/ProfessionalService graph now ships sitewide via
+// <OrgSchema /> in the root layouts (src/lib/schema.ts) - no homepage-only
+// schema blocks, no duplicate nodes.
 
 // A POOL of live published gallery images for the homepage teaser - the client
 // shuffles a random 8 of these on each load so it rotates. Excludes the
@@ -152,11 +78,6 @@ export default async function HomePage() {
   const reviewStats = { average: stats.averageRating, count: stats.count }
 
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }} />
-      <HomeOcean reviews={reviews} reviewStats={reviewStats} leaveReviewUrl={LEAVE_REVIEW_URL} galleryPreview={galleryPreview} />
-    </>
+    <HomeOcean reviews={reviews} reviewStats={reviewStats} leaveReviewUrl={LEAVE_REVIEW_URL} galleryPreview={galleryPreview} />
   )
 }

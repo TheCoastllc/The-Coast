@@ -144,7 +144,8 @@ export default function AboutPage() {
           <p className="sectionLabel">Where</p>
           <h2 className={styles.where}>{COMPANY.city}</h2>
           <p className={styles.whereBody}>
-            Working globally. Wherever the vision is, we meet it.
+            Home base in Dallas&ndash;Fort Worth, serving Texas, Florida, and
+            Alabama - and wherever the vision is, we meet it.
           </p>
         </section>
 

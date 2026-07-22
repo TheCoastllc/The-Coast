@@ -8,6 +8,7 @@ import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
 import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 import { CookieBanner } from '@/components/CookieBanner'
+import { OrgSchema } from '@/components/seo/OrgSchema'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -72,6 +73,7 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
       className={`funnel-root ${inter.variable} ${cormorant.variable} ${jetbrains.variable}`}
     >
       <body className="funnel">
+        <OrgSchema />
         <GtmNoScript />
         <MetaPixelNoScript />
         <Script id="ga-init" strategy="afterInteractive">

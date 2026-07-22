@@ -8,6 +8,7 @@ import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 import { HUD } from '@/components/chrome/HUD'
 import { CompassRose } from '@/components/chrome/CompassRose'
 import { Cursor } from '@/components/chrome/Cursor'
+import { OrgSchema } from '@/components/seo/OrgSchema'
 
 // Same faces as the main site so /cbi (and other subsites) match the brand:
 // these define --font-inter / --font-grotesk / --font-jetbrains, which the
@@ -25,6 +26,7 @@ export default function SubsitesLayout(props: { children: React.ReactNode }) {
             className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${jetbrains.variable}`}
         >
             <body className="ocean">
+                <OrgSchema />
                 <GtmNoScript />
                 <MetaPixelNoScript />
                 {/* Consent Mode v2 defaults (all denied) so GTM tags stay gated

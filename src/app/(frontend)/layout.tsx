@@ -24,6 +24,7 @@ import { PREMIUM_KEYS } from '@/lib/premium'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 import { SunArc } from '@/components/chrome/SunArc'
 import { BRAND } from '@/lib/content/coast'
+import { OrgSchema } from '@/components/seo/OrgSchema'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -157,6 +158,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${anton.variable} ${grotesk.variable} ${jetbrains.variable} relative`}>
       <body suppressHydrationWarning className="ocean" data-premium={PREMIUM_KEYS.join(' ')}>
+        <OrgSchema />
         <GtmNoScript />
         <MetaPixelNoScript />
         {/* Google Analytics 4 with Consent Mode v2.
