@@ -16,8 +16,14 @@ export const FAQ: GlobalConfig = {
   hooks: {
     afterChange: [
       () => {
-        revalidatePath('/faq')
-        revalidatePath('/')
+        // revalidatePath requires a Next request context - guard so updates
+        // via the Payload Local API (scripts) don't fail after the DB write
+        try {
+          revalidatePath('/faq')
+          revalidatePath('/')
+        } catch {
+          // outside Next (script/CLI): revalidation happens on next deploy
+        }
       },
     ],
   },
