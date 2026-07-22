@@ -6,7 +6,7 @@ import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 export const metadata: Metadata = {
   title: 'Contact The Coast Global',
   description:
-    'Get in touch with The Coast Global. Reach our brand studio by email, phone, or form - we respond to every inquiry within 24 hours on business days.',
+    'Start a project with The Coast Global. Call +1 (682) 702-0374 or email hello@coastglobal.org. Based in Dallas-Fort Worth, serving Texas, Florida, Alabama.',
   alternates: { canonical: 'https://coastglobal.org/contact' },
   twitter: buildTwitter({
     title: 'Contact The Coast Global | Brand Design Studio',

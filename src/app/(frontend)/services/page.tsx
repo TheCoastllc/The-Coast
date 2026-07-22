@@ -9,18 +9,18 @@ import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './services.module.css'
 
 export const metadata: Metadata = {
-  title: 'Brand Design Services',
+  title: 'Branding, Digital & AI Services',
   description:
-    'Custom logo design, visual identity, brand guidelines, marketing collateral, social graphics, pitch decks, video, and digital marketing.',
+    'Logo design, brand identity, websites, digital marketing, and AI - fixed-scope creative services that turn small businesses into premium brands.',
   alternates: { canonical: 'https://coastglobal.org/services' },
   twitter: buildTwitter({
-    title: 'Brand Design Services | The Coast Global',
+    title: 'Branding, Digital & AI Services | The Coast Global',
     description:
       'From logo design to full brand transformations - everything your business needs to stand out.',
   }),
   openGraph: {
     type: 'website',
-    title: 'Brand Design Services | The Coast Global',
+    title: 'Branding, Digital & AI Services | The Coast Global',
     description:
       'From logo design to full brand transformations - everything your business needs to stand out.',
     url: 'https://coastglobal.org/services',

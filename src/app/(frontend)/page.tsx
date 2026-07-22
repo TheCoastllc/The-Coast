@@ -8,16 +8,17 @@ import type { GalleryPreviewItem } from '@/components/home/GalleryPreview'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: { absolute: 'The Coast Global | Brand Design Studio' },
+  title: { absolute: 'The Coast Global | Branding, Growth & AI Agency' },
   description:
-    'The Coast Global is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses. Logo design and brand strategy.',
+    'The Coast Global is a Dallas-Fort Worth branding and digital growth agency turning small businesses into premium-tier brands. Serving Texas, Florida, Alabama.',
   alternates: { canonical: 'https://coastglobal.org' },
   openGraph: {
     type: 'website',
     url: 'https://coastglobal.org',
-    title: 'The Coast Global | Brand Design Studio',
+    siteName: 'The Coast Global',
+    title: 'The Coast Global | Branding, Growth & AI Agency',
     description:
-      'Building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
+      'Branding, digital growth, and AI - turning small businesses into premium-tier brands from Dallas-Fort Worth.',
     images: DEFAULT_OG_IMAGES,
   },
 }

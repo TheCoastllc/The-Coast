@@ -13,7 +13,7 @@ import styles from './about.module.css'
 export const metadata: Metadata = {
   title: 'About The Coast Global - Brand Studio for Visionaries',
   description:
-    'The Coast Global levels the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
+    'The story of The Coast Global: a Dallas-Fort Worth branding agency founded by David Coast, built for the founders, artists, and businesses the world overlooks.',
   alternates: { canonical: 'https://coastglobal.org/about' },
   twitter: buildTwitter({
     title: 'About The Coast Global | Brand Design Studio',

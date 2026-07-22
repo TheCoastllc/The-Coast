@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { BLOG_CATEGORIES } from '@/lib/blog-categories'
 import { CASE_STUDIES } from '@/lib/case-studies'
+import { PRODUCTS } from '@/lib/content/coast'
 
 // Revalidated on demand via revalidatePath('/llms.txt') in the Posts afterChange hook
 export const revalidate = 3600
@@ -50,7 +51,14 @@ export async function GET() {
 
 > Last updated: ${lastUpdated}
 
-> The Coast Global is a brand design studio that makes professional branding affordable and accessible for small businesses, entrepreneurs, startups, and artists. Founded by David Coast, we turn visions into empires - crafting custom branding solutions that make small businesses look and feel like they belong in the big leagues.
+> The Coast Global is a branding, digital growth, and AI agency that makes premium-tier brand work affordable and accessible for small businesses, entrepreneurs, startups, and artists. Founded by David Coast and based in Dallas-Fort Worth, Texas - serving clients across Texas, Florida, and Alabama, and working globally - we turn visions into empires.
+
+## Locations & Service Areas
+
+- Home base: Dallas-Fort Worth, Texas (in-person availability across the DFW Metroplex)
+- Service areas: Texas, Florida (Miami, Orlando, Tampa), Alabama (Birmingham, Huntsville)
+- Remote engagements available worldwide
+- Phone: +1 (682) 702-0374 - Email: hello@coastglobal.org
 
 ## About
 
@@ -60,17 +68,25 @@ export async function GET() {
 ## Services
 
 - [Services](${BASE_URL}/services): From identity design to complete brand transformations - everything you need to stand out. A la carte creative services for businesses of all sizes.
-  - [Logo Design](${BASE_URL}/services): Custom logo with 3 concepts and 2 revision rounds.
-  - [Flyers](${BASE_URL}/services): Print-ready promotional designs for digital and print.
-  - [EPK / Press Kit](${BASE_URL}/services): Professional media kit for press and partners.
-  - [Social Graphics](${BASE_URL}/services): 5–10 branded templates for social platforms.
-  - [Full Rebrand](${BASE_URL}/services): Complete brand transformation package.
-  - [Brand Identity Guidelines](${BASE_URL}/services): Logo, colors, typography, and comprehensive brand guidelines.
-  - [Website Design](${BASE_URL}/services): Custom website design and development.
-  - [Pitch Deck / Investor Materials](${BASE_URL}/services): Investor-ready presentation design.
-  - [Video & Motion](${BASE_URL}/services): Promotional videos and animations.
+  - [Logo Design](${BASE_URL}/services/logo-design): Custom logo with 3 concepts and 2 revision rounds.
+  - [Flyers](${BASE_URL}/services/flyers): Print-ready promotional designs for digital and print.
+  - [EPK / Press Kit](${BASE_URL}/services/epk-design): Professional media kit for press and partners.
+  - [Social Graphics](${BASE_URL}/services/social-graphics): 5–10 branded templates for social platforms.
+  - [Full Rebrand](${BASE_URL}/services/rebrand): Complete brand transformation package.
+  - [Brand Identity Guidelines](${BASE_URL}/services/brand-guidelines): Logo, colors, typography, and comprehensive brand guidelines.
+  - [Website Design](${BASE_URL}/services/website-design): Custom website design and development.
+  - [Pitch Deck / Investor Materials](${BASE_URL}/services/pitch-deck): Investor-ready presentation design.
+  - [Video & Motion](${BASE_URL}/services/video-motion): Promotional videos and animations.
   - [Digital Marketing](${BASE_URL}/services): SEO, ads setup, and email campaigns.
-  - [Social Media Management](${BASE_URL}/services): Content creation, scheduling, and management.
+  - [Social Media Management](${BASE_URL}/services/social-media-management): Content creation, scheduling, and management.
+
+## Digital Growth
+
+- Lead generation, paid ads management, and full-funnel digital marketing for small businesses - everything digital, from strategy to execution.
+
+## AI & Software
+
+- [AI Consulting & Implementation](${BASE_URL}/ai): From "we should use AI" to real, working systems - AI strategy, custom AI solutions, chatbots, and software tools designed, built, and deployed for founders and growth-stage teams.
 
 ## Service Categories
 
@@ -131,6 +147,10 @@ ${postLines}
 - What is your typical project timeline? Our engagements typically range from 2 to 6 weeks depending on scope. A standalone logo design takes 2 to 3 weeks. A full brand identity system runs 4 to 6 weeks.
 - Do you work with startups or established businesses? Both. We partner with solo founders, early-stage startups, small businesses, and growing companies across tech, healthcare, e-commerce, entertainment, food and beverage, and professional services.
 - Do you offer ongoing support after launch? Yes - our retainer packages provide continuous access to design, development, and strategic support with priority turnaround.
+
+## Products
+
+${PRODUCTS.map((p) => `- ${p.name} (${p.status.toLowerCase()}): ${p.line}`).join('\n')}
 
 ## Company Stats
 

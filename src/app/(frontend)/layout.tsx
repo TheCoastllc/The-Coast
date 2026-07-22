@@ -74,20 +74,23 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: `${BRAND} | Full-Stack Creative Ecosystem`,
+    default: `${BRAND} | Branding, Growth & AI Agency`,
     template: `%s | ${BRAND}`,
   },
 
   description:
-    'The Coast Global is an end-to-end brand studio: brand identity, digital marketing, and cinematic content that helps founders scale and turn visions into empires.',
+    'The Coast Global is a Dallas-Fort Worth agency for branding, digital growth, and AI - turning small businesses into premium-tier brands. Serving Texas, Florida, Alabama.',
 
   keywords: [
+    'branding agency',
+    'branding agency dallas',
     'brand design studio',
     'logo design',
     'visual identity',
     'brand strategy',
-    'brand identity',
-    'marketing assets',
+    'digital marketing agency',
+    'lead generation',
+    'ai consulting',
     'small business branding',
     'entrepreneur branding',
     'The Coast Global',

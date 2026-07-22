@@ -125,7 +125,7 @@ export function HomeOcean({
           border: 0,
         }}
       >
-        The Coast Global - Brand Design Studio for Entrepreneurs, Artists, and Growing Businesses
+        The Coast Global - Branding, Digital Growth & AI Agency in Dallas-Fort Worth for Entrepreneurs, Artists, and Growing Businesses
       </h1>
       <IntroCurtain />
       <HeroStage meet="reflect" />

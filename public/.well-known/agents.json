@@ -1,9 +1,13 @@
 {
   "schema_version": "1.0",
   "name": "The Coast Global",
-  "description": "Brand design studio crafting visual identities, brand strategy, marketing, and cinematic content for entrepreneurs, artists, and growing businesses.",
+  "description": "Branding, digital growth, and AI agency turning small businesses into premium-tier brands. Brand identity, logo design, marketing, lead generation, and custom AI solutions. Based in Dallas-Fort Worth, TX; serving Texas, Florida, and Alabama. Products launching: Colony, ANT, Demi.",
   "url": "https://coastglobal.org",
-  "capabilities": ["browse", "search", "contact"],
+  "capabilities": [
+    "browse",
+    "search",
+    "contact"
+  ],
   "contact": "hello@coastglobal.org",
   "documentation": "https://coastglobal.org/llms.txt"
 }
