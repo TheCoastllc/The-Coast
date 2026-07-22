@@ -4,6 +4,7 @@ import type { MetadataRoute } from 'next'
 import { BLOG_CATEGORIES } from '@/lib/blog-categories'
 import { CASE_STUDIES } from '@/lib/case-studies'
 import { SERVICE_PAGES } from '@/lib/service-pages'
+import { LOCATION_PAGES } from '@/lib/location-pages'
 
 const BASE_URL = 'https://coastglobal.org'
 
@@ -20,6 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/offers`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/faq`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/brand-avatar`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/locations`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/vision`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/visuals`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/privacy`, changeFrequency: 'yearly', priority: 0.3 },
@@ -75,5 +77,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...servicePages, ...categoryPages, ...workPages, ...blogPosts]
+  // Location / service-area pages - sourced from src/lib/location-pages.ts
+  const locationPages: MetadataRoute.Sitemap = LOCATION_PAGES.map((l) => ({
+    url: `${BASE_URL}/locations/${l.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  return [...staticPages, ...servicePages, ...locationPages, ...categoryPages, ...workPages, ...blogPosts]
 }

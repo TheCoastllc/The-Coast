@@ -46,6 +46,14 @@ const LEGAL = [
   { label: "Terms", path: "/terms" },
 ] as const;
 
+/** Service areas - crawlable links to the location pages (local SEO). */
+const AREAS = [
+  { label: "Dallas-Fort Worth", path: "/locations/dallas-fort-worth" },
+  { label: "Texas", path: "/locations/texas" },
+  { label: "Florida", path: "/locations/florida" },
+  { label: "Alabama", path: "/locations/alabama" },
+] as const;
+
 export function Footer() {
   return (
     <footer className={styles.footer}>
@@ -115,6 +123,23 @@ export function Footer() {
           ))}
         </nav>
       </div>
+
+      <nav className={styles.utility} aria-label="Service areas">
+        <ul className={styles.social} style={{ gap: 0 }}>
+          <li>
+            <Link href="/locations" className={styles.link} data-cursor="active">
+              Areas we serve:
+            </Link>
+          </li>
+        </ul>
+        <div className={styles.legal}>
+          {AREAS.map((a) => (
+            <Link key={a.path} href={a.path} className={styles.link} data-cursor="active">
+              {a.label}
+            </Link>
+          ))}
+        </div>
+      </nav>
 
       <div className={styles.partner}>
         <Image

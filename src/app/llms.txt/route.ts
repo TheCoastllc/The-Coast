@@ -55,9 +55,11 @@ export async function GET() {
 
 ## Locations & Service Areas
 
-- Home base: Dallas-Fort Worth, Texas (in-person availability across the DFW Metroplex)
-- Service areas: Texas, Florida (Miami, Orlando, Tampa), Alabama (Birmingham, Huntsville)
-- Remote engagements available worldwide
+- [Areas We Serve](${BASE_URL}/locations): Home base plus three named service areas; remote engagements available worldwide.
+  - [Dallas-Fort Worth](${BASE_URL}/locations/dallas-fort-worth): Home base - in-person availability across the DFW Metroplex.
+  - [Texas](${BASE_URL}/locations/texas): Statewide - Houston, Austin, San Antonio, and beyond.
+  - [Florida](${BASE_URL}/locations/florida): Miami, Orlando, Tampa, and statewide - where the company story began.
+  - [Alabama](${BASE_URL}/locations/alabama): Birmingham, Huntsville, and statewide.
 - Phone: +1 (682) 702-0374 - Email: hello@coastglobal.org
 
 ## About
