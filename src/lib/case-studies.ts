@@ -47,7 +47,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   // Cinematic case studies (Coast Studio designed + built)
   // ─────────────────────────────────────────────────────────────
   troi: {
-    title: 'TROI Trading & Tech — Brand & Site | The Coast',
+    title: 'TROI Trading & Tech — Brand & Site | The Coast Global',
     description:
       'Brand site for John Dunham — U.S. Army vet running mentorship for traders and AI for business owners. Includes a 10-card testimonial deck and a /studio template system.',
     ready: true,
@@ -79,9 +79,9 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   },
 
   'dada-global-finance': {
-    title: 'Dada Global Finance - Brand & Website | The Coast',
+    title: 'Dada Global Finance - Brand & Website | The Coast Global',
     description:
-      'Brand and website for Dada Global Financial Group - a boutique wealth and life-insurance firm protecting families through generational wealth planning. Designed and built by The Coast.',
+      'Brand and website for Dada Global Financial Group - a boutique wealth and life-insurance firm protecting families through generational wealth planning. Designed and built by The Coast Global.',
     ready: true,
     style: 'cinematic',
     client: 'Dada Global Finance',
@@ -99,11 +99,11 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     ],
     stats: [],
     summary:
-      'A boutique wealth and life-insurance brand. The Coast designed and built the full brand site for Dada Global Financial Group - an editorial serif identity in dark navy and gold, and a calm, trust-first experience at dadaglobalfin.com.',
+      'A boutique wealth and life-insurance brand. The Coast Global designed and built the full brand site for Dada Global Financial Group - an editorial serif identity in dark navy and gold, and a calm, trust-first experience at dadaglobalfin.com.',
   },
 
   kando: {
-    title: 'Kando Elite Health — Brand & Site | The Coast',
+    title: 'Kando Elite Health — Brand & Site | The Coast Global',
     description:
       'Brand and site for a concierge healthcare practice — refined, exclusive, high-touch. Dusty-rose mauve on warm cream.',
     ready: true,
@@ -134,7 +134,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   },
 
   'solomon-katsman': {
-    title: 'Solomon Katsman — Wealth Strategist Site | The Coast',
+    title: 'Solomon Katsman — Wealth Strategist Site | The Coast Global',
     description:
       'Wealth strategist site for taxable-income mitigation — Defined Benefit plans and exit-stage structures for high-earning business owners.',
     ready: true,
@@ -165,7 +165,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   },
 
   'omotunde-hospital': {
-    title: 'Omotunde Hospital — Healthcare Brand | The Coast',
+    title: 'Omotunde Hospital — Healthcare Brand | The Coast Global',
     description:
       'Healthcare brand and site for a Nigerian hospital — warm rust + navy palette signals trust without sterility.',
     ready: true,
@@ -196,7 +196,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   },
 
   'iamd-health': {
-    title: 'iAMD Health — Clinical Brand | The Coast',
+    title: 'iAMD Health — Clinical Brand | The Coast Global',
     description:
       'Healthcare practice site with a deep-blue + cream palette — calm, trustworthy, considered. Built for patient confidence.',
     ready: true,
@@ -230,7 +230,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
   // Existing custom case studies (preserved)
   // ─────────────────────────────────────────────────────────────
   zappedco: {
-    title: 'Zapped Co — Brand Transformation | The Coast',
+    title: 'Zapped Co — Brand Transformation | The Coast Global',
     description:
       'Complete brand identity transformation for Zapped Co — from DIY lightning bolt to a dynamic, modern visual system across 15+ deliverables.',
     ready: true,
@@ -243,7 +243,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     textColor: '#0d0d0d',
   },
   'amg-records': {
-    title: 'AMG Records — Brand Identity | The Coast',
+    title: 'AMG Records — Brand Identity | The Coast Global',
     description:
       'Black-and-gold identity for a record label. Restrained, serious, made for artists who take the work seriously.',
     ready: true,
@@ -273,7 +273,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
       'Identity and site for a record label that needed to look as serious as the music. Black-and-gold palette, condensed type, restrained motion.',
   },
   ogaticket: {
-    title: 'OgaTicket — Web Development | The Coast',
+    title: 'OgaTicket — Web Development | The Coast Global',
     description:
       "End-to-end digital platform for Africa's next-gen event ticketing experience.",
     ready: true,
@@ -303,7 +303,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
       'End-to-end ticketing platform built for the African events market — fast checkout, organizer tools, and a brand that holds up under scale.',
   },
   prospry: {
-    title: 'Prospry — Brand Identity | The Coast',
+    title: 'Prospry — Brand Identity | The Coast Global',
     description: 'A clean, prosperous visual system for a fintech brand built on trust.',
     ready: false,
     style: 'custom',

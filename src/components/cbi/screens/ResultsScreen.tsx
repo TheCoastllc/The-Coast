@@ -295,7 +295,7 @@ export function ResultsScreen() {
           Build a bigger wave.
         </div>
         <div className="text-[10px] tracking-[4px] text-white/40 uppercase font-mono mt-4">
-          The Coast
+          The Coast Global
         </div>
       </motion.div>
     </div>

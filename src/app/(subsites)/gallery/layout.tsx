@@ -8,39 +8,39 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: 'The Coast Gallery - Artwork & Creatives',
-    template: '%s | The Coast Gallery',
+    default: 'The Coast Global Gallery - Artwork & Creatives',
+    template: '%s | The Coast Global Gallery',
   },
 
   description:
-    'A curated, ever-growing gallery of artwork, imagery, and original creatives from The Coast. Follow on Pinterest or shop the collection.',
+    'A curated, ever-growing gallery of artwork, imagery, and original creatives from The Coast Global. Follow on Pinterest or shop the collection.',
 
   keywords: [
     'art gallery',
     'creative artwork',
     'design prints',
     'brand art',
-    'The Coast',
+    'The Coast Global',
   ],
 
-  authors: [{ name: 'The Coast', url: 'https://coastglobal.org' }],
-  creator: 'The Coast',
-  publisher: 'The Coast',
+  authors: [{ name: 'The Coast Global', url: 'https://coastglobal.org' }],
+  creator: 'The Coast Global',
+  publisher: 'The Coast Global',
 
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    siteName: 'The Coast Gallery',
-    title: 'The Coast Gallery - Artwork & Creatives',
+    siteName: 'The Coast Global Gallery',
+    title: 'The Coast Global Gallery - Artwork & Creatives',
     description:
-      'A curated gallery of artwork, imagery, and original creatives from The Coast.',
+      'A curated gallery of artwork, imagery, and original creatives from The Coast Global.',
     images: [
       {
         url: '/preview.jpg',
         width: 1600,
         height: 900,
-        alt: 'The Coast Gallery',
+        alt: 'The Coast Global Gallery',
         type: 'image/jpeg',
       },
     ],
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@TheCoastHQ',
     creator: '@TheCoastHQ',
-    title: 'The Coast Gallery - Artwork & Creatives',
-    description: 'A curated gallery of artwork, imagery, and original creatives from The Coast.',
+    title: 'The Coast Global Gallery - Artwork & Creatives',
+    description: 'A curated gallery of artwork, imagery, and original creatives from The Coast Global.',
     images: ['/preview.jpg'],
   },
 

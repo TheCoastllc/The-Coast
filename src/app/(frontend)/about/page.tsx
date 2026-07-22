@@ -11,18 +11,18 @@ import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './about.module.css'
 
 export const metadata: Metadata = {
-  title: 'About The Coast - Brand Studio for Visionaries',
+  title: 'About The Coast Global - Brand Studio for Visionaries',
   description:
-    'The Coast levels the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
+    'The Coast Global levels the playing field - giving entrepreneurs, startups, and small businesses the branding power that makes people stop, look, and remember.',
   alternates: { canonical: 'https://coastglobal.org/about' },
   twitter: buildTwitter({
-    title: 'About The Coast | Brand Design Studio',
+    title: 'About The Coast Global | Brand Design Studio',
     description:
       'Founded by David Coast, we turn visions into empires. Professional branding for entrepreneurs, artists, and growing businesses.',
   }),
   openGraph: {
     type: 'website',
-    title: 'About The Coast | Brand Design Studio',
+    title: 'About The Coast Global | Brand Design Studio',
     description:
       'Founded by David Coast, we turn visions into empires. Professional branding for entrepreneurs, artists, and growing businesses.',
     url: 'https://coastglobal.org/about',
@@ -35,9 +35,9 @@ const aboutSchema = {
   '@type': 'AboutPage',
   '@id': 'https://coastglobal.org/about#webpage',
   url: 'https://coastglobal.org/about',
-  name: 'About The Coast',
+  name: 'About The Coast Global',
   description:
-    'Founded by David Coast, The Coast is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
+    'Founded by David Coast, The Coast Global is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
   about: { '@id': 'https://coastglobal.org/#organization' },
   breadcrumb: {
@@ -106,7 +106,7 @@ export default function AboutPage() {
               <figure
                 className={styles.founderPortrait}
                 role="img"
-                aria-label={`${STUDIO.founder.name}, ${STUDIO.founder.role} of The Coast`}
+                aria-label={`${STUDIO.founder.name}, ${STUDIO.founder.role} of The Coast Global`}
               />
             </Reveal>
             <div className={styles.founderStory}>

@@ -87,7 +87,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
     url: `https://coastglobal.org/work/${projectId}`,
     creator: {
       '@type': 'Organization',
-      name: 'The Coast',
+      name: 'The Coast Global',
       url: 'https://coastglobal.org',
     },
   }

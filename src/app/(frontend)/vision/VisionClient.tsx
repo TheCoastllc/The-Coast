@@ -15,17 +15,17 @@ const conceptImages = [
     id: 'night',
     number: '01',
     src: '/vision/night.jpeg',
-    alt: 'Conceptual rendering of The Coast HQ at night - futuristic waterfront architecture with starry sky (visionary concept only, not an actual building).',
+    alt: 'Conceptual rendering of The Coast Global HQ at night - futuristic waterfront architecture with starry sky (visionary concept only, not an actual building).',
     title: 'Night View',
     tagline: 'A beacon against the dark.',
     description:
-      'A nighttime rendering of The Coast HQ rising against a coastal sky. Imagined as a signal - a place where creative minds gather and light stays on after the world has gone quiet.',
+      'A nighttime rendering of The Coast Global HQ rising against a coastal sky. Imagined as a signal - a place where creative minds gather and light stays on after the world has gone quiet.',
   },
   {
     id: 'day',
     number: '02',
     src: '/vision/day.jpg',
-    alt: 'Conceptual rendering of The Coast HQ by day - futuristic waterfront architecture with blue sky and palm trees (visionary concept only, not an actual building).',
+    alt: 'Conceptual rendering of The Coast Global HQ by day - futuristic waterfront architecture with blue sky and palm trees (visionary concept only, not an actual building).',
     title: 'Day View',
     tagline: 'Smooth sailing, made literal.',
     description:
@@ -35,7 +35,7 @@ const conceptImages = [
     id: 'blueprint',
     number: '03',
     src: '/vision/blueprint.jpeg',
-    alt: 'Blueprint rendering of The Coast HQ - architectural blueprint with dimension lines and palm trees (visionary concept only, not an actual building).',
+    alt: 'Blueprint rendering of The Coast Global HQ - architectural blueprint with dimension lines and palm trees (visionary concept only, not an actual building).',
     title: 'Blueprint',
     tagline: 'Structure behind the vision.',
     description:
@@ -74,7 +74,7 @@ export default function VisionClient() {
             A Headquarters That Doesn&apos;t Exist Yet.
           </TextReveal>
           <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl">
-            Conceptual renderings of The Coast HQ - imagining the studio we&apos;re building toward.
+            Conceptual renderings of The Coast Global HQ - imagining the studio we&apos;re building toward.
             <span className="text-foreground"> Not real buildings. </span>
             A place in our head, rendered so we - and you - can see it.
           </p>

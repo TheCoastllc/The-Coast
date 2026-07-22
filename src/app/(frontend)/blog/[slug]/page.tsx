@@ -47,17 +47,17 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       post.coverImage?.cloudinary?.secure_url ?? post.coverImage?.url ?? null
     const ogImages = coverImageUrl
       ? [{ url: coverImageUrl, alt: post.title }]
-      : [{ url: '/preview.jpg', width: 1600, height: 900, alt: 'The Coast - Brand Design Studio' }]
+      : [{ url: '/preview.jpg', width: 1600, height: 900, alt: 'The Coast Global - Brand Design Studio' }]
     const canonicalUrl = `https://coastglobal.org/blog/${slug}`
-    const authorName = post.author?.fullName || 'The Coast'
+    const authorName = post.author?.fullName || 'The Coast Global'
 
     return {
       title: post.title,
-      description: post.excerpt || 'Read on The Coast Journal.',
+      description: post.excerpt || 'Read on The Coast Global Journal.',
       alternates: { canonical: canonicalUrl },
       openGraph: {
         title: post.title,
-        description: post.excerpt || 'Read on The Coast Journal.',
+        description: post.excerpt || 'Read on The Coast Global Journal.',
         url: canonicalUrl,
         type: 'article',
         publishedTime: post.publishedAt,
@@ -68,12 +68,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       twitter: {
         card: 'summary_large_image',
         title: post.title,
-        description: post.excerpt || 'Read on The Coast Journal.',
+        description: post.excerpt || 'Read on The Coast Global Journal.',
         images: coverImageUrl ? [coverImageUrl] : ['/preview.jpg'],
       },
     }
   } catch {
-    return { title: 'The Coast Journal' }
+    return { title: 'The Coast Global Journal' }
   }
 }
 
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
   if (!post) notFound()
 
-  const authorName: string = post.author?.fullName || 'The Coast'
+  const authorName: string = post.author?.fullName || 'The Coast Global'
   const initials = authorName.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
   const coverUrl: string | null = post.coverImage?.cloudinary?.secure_url ?? post.coverImage?.url ?? null
   const publishDate = post.publishedAt
@@ -192,7 +192,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           <span className={styles.authorMark}>{initials}</span>
           <div>
             <div className={styles.authorName}>{authorName}</div>
-            <div className={styles.authorRole}>The Coast</div>
+            <div className={styles.authorRole}>The Coast Global</div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 /**
- * Reusable HTML email shell for The Coast brand.
+ * Reusable HTML email shell for The Coast Global brand.
  * Dark theme, gold accents, Georgia serif body, logo header, gold divider,
  * brand signature, services bar, social footer.
  *
@@ -13,7 +13,7 @@ export const BRAND = {
     'https://beefree-storage.onesignal.com/thumbnails/ba73b3e1-9acf-484b-9457-8b81d9ed04ff/lllllAsset%2015.png_thumb.png?hash=1773663275005',
   footerImgUrl:
     'https://beefree-storage.onesignal.com/thumbnails/ba73b3e1-9acf-484b-9457-8b81d9ed04ff/lllllArtboard%2043-100.jpg_thumb.png?hash=1773657383202',
-  name: 'The Coast',
+  name: 'The Coast Global',
   url: 'https://coastglobal.org',
   email: 'hello@coastglobal.org',
   phone: '(682) 702-0374',
@@ -38,7 +38,7 @@ export function emailShell(opts: { title?: string; body: string }) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>${opts.title ?? 'The Coast'}</title>
+    <title>${opts.title ?? 'The Coast Global'}</title>
     <!--[if mso]>
     <style>
         table {border-collapse:collapse;}

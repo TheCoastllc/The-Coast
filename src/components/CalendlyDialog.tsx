@@ -69,7 +69,7 @@ export function CalendlyDialog({ open, onClose }: CalendlyDialogProps) {
           {open && (
             <iframe
               src={buildCalendlyEmbedUrl()}
-              title="Book a 30-minute discovery call with The Coast"
+              title="Book a 30-minute discovery call with The Coast Global"
               className="block h-[80vh] min-h-[600px] w-full"
               style={{ border: 0 }}
             />

@@ -9,16 +9,16 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Branding & Design FAQ',
   description:
-    'Frequently asked questions about The Coast - our process, timelines, and ongoing support for branding and design projects.',
+    'Frequently asked questions about The Coast Global - our process, timelines, and ongoing support for branding and design projects.',
   alternates: { canonical: 'https://coastglobal.org/faq' },
   twitter: buildTwitter({
-    title: 'Branding & Design FAQ | The Coast',
+    title: 'Branding & Design FAQ | The Coast Global',
     description:
       'Answers to common questions about our branding and design services.',
   }),
   openGraph: {
     type: 'website',
-    title: 'FAQ | The Coast',
+    title: 'FAQ | The Coast Global',
     description:
       'Answers to common questions about our branding and design services.',
     url: 'https://coastglobal.org/faq',
@@ -33,7 +33,7 @@ const hardcodedFaqs = [
   },
   {
     question: "Do you work with startups or established businesses?",
-    answer: "Both. The Coast was built specifically to make professional branding accessible to businesses at every stage. We partner with solo founders, early-stage startups, small businesses, and growing companies who are ready to level up their brand presence. Many of our clients are entrepreneurs launching their first business and need a complete brand identity from scratch - logo, visual system, website, and marketing materials. Others are established businesses going through a rebrand because their current identity no longer reflects who they are or where they are headed. We have delivered projects across industries including tech, healthcare, e-commerce, entertainment, food and beverage, and professional services. What unites our clients is ambition: they want a visual identity that commands attention, builds trust with their audience, and positions them as leaders in their space - regardless of whether they are a team of one or a team of fifty."
+    answer: "Both. The Coast Global was built specifically to make professional branding accessible to businesses at every stage. We partner with solo founders, early-stage startups, small businesses, and growing companies who are ready to level up their brand presence. Many of our clients are entrepreneurs launching their first business and need a complete brand identity from scratch - logo, visual system, website, and marketing materials. Others are established businesses going through a rebrand because their current identity no longer reflects who they are or where they are headed. We have delivered projects across industries including tech, healthcare, e-commerce, entertainment, food and beverage, and professional services. What unites our clients is ambition: they want a visual identity that commands attention, builds trust with their audience, and positions them as leaders in their space - regardless of whether they are a team of one or a team of fifty."
   },
   {
     question: "Do you offer ongoing support after launch?",

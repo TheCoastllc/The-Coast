@@ -53,7 +53,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 						>
 							<Image
 								src="/logo.png"
-								alt="The Coast Logo"
+								alt="The Coast Global Logo"
 								width={40}
 								height={40}
 								className="object-contain"
@@ -102,7 +102,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 				</div>
 
 				{/* ─── W16: Display-type lockup ───
-				    Giant outlined "THE COAST" wordmark anchors the footer.
+				    Giant outlined "THE COAST GLOBAL" wordmark anchors the footer.
 				    Visible on default footer only (minimal variant keeps the
 				    older minimal layout for shared subsite pages). */}
 				{!isMinimal && (
@@ -123,7 +123,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 									fontSize: 'clamp(4rem, 16vw, 14rem)',
 								}}
 							>
-								The Coast
+								The Coast Global
 							</h2>
 						</div>
 					</div>

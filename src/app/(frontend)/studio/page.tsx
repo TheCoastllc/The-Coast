@@ -1,5 +1,5 @@
 // Internal download hub for cinematic scroll videos + companion assets.
-// Lives at /studio - noindex, intended for The Coast team.
+// Lives at /studio - noindex, intended for The Coast Global team.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
 import { CASE_STUDIES, CASE_STUDY_ORDER, type CaseStudyMeta } from '@/lib/case-studies'
 
 export const metadata: Metadata = {
-  title: 'Studio - Asset Downloads | The Coast',
+  title: 'Studio - Asset Downloads | The Coast Global',
   description: 'Internal download hub for cinematic scroll videos and case study assets.',
   robots: { index: false, follow: false },
   alternates: { canonical: 'https://coastglobal.org/studio' },
@@ -128,7 +128,7 @@ export default function StudioPage() {
               marginBottom: '20px',
             }}
           >
-            The Coast · Studio · Internal use
+            The Coast Global · Studio · Internal use
           </div>
           <h1
             style={{
@@ -222,7 +222,7 @@ export default function StudioPage() {
             color: 'rgba(240, 234, 214, 0.4)',
           }}
         >
-          Internal use only · The Coast ·{' '}
+          Internal use only · The Coast Global ·{' '}
           <a href="/work" style={{ color: '#E6B24D' }}>
             ← Back to /work
           </a>

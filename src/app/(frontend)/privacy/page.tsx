@@ -6,13 +6,13 @@ import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy & Data Practices',
-  description: 'Privacy Policy for The Coast - how we collect, use, and protect your personal information.',
+  description: 'Privacy Policy for The Coast Global - how we collect, use, and protect your personal information.',
   alternates: { canonical: 'https://coastglobal.org/privacy' },
   robots: { index: true, follow: true },
   openGraph: {
     type: 'website',
-    title: 'Privacy Policy | The Coast',
-    description: 'How The Coast collects, uses, and protects your personal information.',
+    title: 'Privacy Policy | The Coast Global',
+    description: 'How The Coast Global collects, uses, and protects your personal information.',
     url: 'https://coastglobal.org/privacy',
     images: DEFAULT_OG_IMAGES,
   },

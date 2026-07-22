@@ -8,7 +8,7 @@ export function ShareButton({ score, tier }: { score: number; tier: ResultTier }
   const [copied, setCopied] = useState(false)
 
   const handleShare = useCallback(async () => {
-    const text = `I scored ${score}/30 on The Coast Brand Quiz \u2014 my brand is "${tier}". Take the quiz: https://offers.coastglobal.org/brand-quiz`
+    const text = `I scored ${score}/30 on Coast Brand Quiz \u2014 my brand is "${tier}". Take the quiz: https://offers.coastglobal.org/brand-quiz`
 
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {

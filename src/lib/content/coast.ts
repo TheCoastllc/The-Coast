@@ -1,9 +1,15 @@
 // Content for The Coast Global Inc. - a brand design studio.
 // Source: coastglobal.org. No AI/venture-studio language anywhere.
 
+/** The public brand name - matches the Google Business Profile exactly.
+ *  Every metadata/schema surface imports this; the only "The Coast" strings
+ *  left in the codebase are the hero animation headline, verbatim quotes,
+ *  and Twilio-approved legal copy (The Coast LLC - a separate owned entity). */
+export const BRAND = "The Coast Global";
+
 export const COMPANY = {
   name: "The Coast Global Inc.",
-  short: "The Coast",
+  short: BRAND,
   city: "Worldwide",
   domain: "coastglobal.org",
   email: "hello@coastglobal.org",
@@ -21,7 +27,7 @@ export const COMPANY = {
 
 export const HERO = {
   title: "Design the Future",
-  subtitle: "The Coast / Brand Design Studio",
+  subtitle: "The Coast Global / Brand Design Studio",
   location: "Working globally",
 };
 
@@ -190,7 +196,7 @@ export const ENGAGEMENT = {
 
 export const STUDIO = {
   intro:
-    "The best brand should win - not the biggest budget. The Coast is a design studio built to make that true: agency-grade identity, websites, and strategy for the founders, artists, and challengers the industry overlooks.",
+    "The best brand should win - not the biggest budget. The Coast Global is a design studio built to make that true: agency-grade identity, websites, and strategy for the founders, artists, and challengers the industry overlooks.",
   beliefs: [
     {
       n: "01",
@@ -226,7 +232,7 @@ export const STUDIO = {
     story: [
       "David Coast lost his corporate job in America and made the call most people only talk about - he bet on himself. One suitcase, a laptop, and a guitar. A one-way drive to Miami with no plan B.",
       "For months, his car was home. He worked out of Starbucks by day, showered at Planet Fitness, and built - late into every night - the studio that would become The Coast.",
-      "He knew exactly what it felt like to be overlooked. So he built a studio for the people the world overlooks - the founders, the artists, the dreamers with everything to prove and no budget to prove it. Today, The Coast turns their visions into empires.",
+      "He knew exactly what it felt like to be overlooked. So he built a studio for the people the world overlooks - the founders, the artists, the dreamers with everything to prove and no budget to prove it. Today, The Coast Global turns their visions into empires.",
     ],
   },
   team: [
@@ -299,13 +305,13 @@ export const PALETTE: Swatch[] = [
 // for owned/licensed assets before launch. Captions are brand mood lines.
 export type EditorialImage = { src: string; alt: string; caption: string };
 export const EDITORIAL: EditorialImage[] = [
-  { src: "/img/editorial/01.jpg", alt: "Editorial brand identity study by The Coast - an identity made unmistakable", caption: "Identity, made unmistakable." },
-  { src: "/img/editorial/02.jpg", alt: "Bold editorial brand design study by The Coast", caption: "Bold by design." },
-  { src: "/img/editorial/03.jpg", alt: "Editorial brand study by The Coast - a brand seen, trusted, and remembered", caption: "Seen, trusted, remembered." },
-  { src: "/img/editorial/04.jpg", alt: "Editorial brand vision study by The Coast", caption: "Vision without compromise." },
-  { src: "/img/editorial/05.jpg", alt: "Editorial study in brand form and intent by The Coast", caption: "Form with intent." },
-  { src: "/img/editorial/06.jpg", alt: "Future-facing editorial brand study by The Coast", caption: "Future-facing." },
-  { src: "/img/editorial/07.jpg", alt: "Editorial brand study by The Coast, crafted to be chosen", caption: "Crafted to be chosen." },
-  { src: "/img/editorial/08.jpg", alt: "Editorial brand study by The Coast - the brand as a signal", caption: "The brand as a signal." },
-  { src: "/img/editorial/09.jpg", alt: "Editorial brand study by The Coast - design the future", caption: "Design the future." },
+  { src: "/img/editorial/01.jpg", alt: "Editorial brand identity study by The Coast Global - an identity made unmistakable", caption: "Identity, made unmistakable." },
+  { src: "/img/editorial/02.jpg", alt: "Bold editorial brand design study by The Coast Global", caption: "Bold by design." },
+  { src: "/img/editorial/03.jpg", alt: "Editorial brand study by The Coast Global - a brand seen, trusted, and remembered", caption: "Seen, trusted, remembered." },
+  { src: "/img/editorial/04.jpg", alt: "Editorial brand vision study by The Coast Global", caption: "Vision without compromise." },
+  { src: "/img/editorial/05.jpg", alt: "Editorial study in brand form and intent by The Coast Global", caption: "Form with intent." },
+  { src: "/img/editorial/06.jpg", alt: "Future-facing editorial brand study by The Coast Global", caption: "Future-facing." },
+  { src: "/img/editorial/07.jpg", alt: "Editorial brand study by The Coast Global, crafted to be chosen", caption: "Crafted to be chosen." },
+  { src: "/img/editorial/08.jpg", alt: "Editorial brand study by The Coast Global - the brand as a signal", caption: "The brand as a signal." },
+  { src: "/img/editorial/09.jpg", alt: "Editorial brand study by The Coast Global - design the future", caption: "Design the future." },
 ];

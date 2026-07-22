@@ -10,9 +10,9 @@ export function CoverSection() {
       {/* Top bar */}
       <div className="max-w-[760px] mx-auto w-full flex justify-between items-start">
         <div className="flex items-center gap-2.5">
-          <Image src="/logo.png" alt="The Coast" width={20} height={20} className="opacity-60" />
+          <Image src="/logo.png" alt="The Coast Global" width={20} height={20} className="opacity-60" />
           <span className="text-[#E6B24D] text-[11px] font-extrabold tracking-[0.22em] uppercase">
-            The Coast
+            The Coast Global
           </span>
         </div>
         <span className="text-white/25 text-[11px] tracking-wider">Brand Education Series</span>

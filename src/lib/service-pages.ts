@@ -25,12 +25,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Logo Design',
     category: 'Brand Identity',
     headline: 'Logo Design for Small Business',
-    metaTitle: 'Logo Design for Small Business | The Coast',
+    metaTitle: 'Logo Design for Small Business | The Coast Global',
     metaDescription:
       'Custom logo design for small businesses — 3 original concepts, 2 revision rounds, all file formats. Built to stand out and scale with your brand.',
     tagline: 'A logo that works as hard as you do — distinctive, versatile, and entirely yours.',
     heroBody:
-      'The Coast creates custom logos for small businesses that communicate credibility at a glance. Every project includes a deep discovery session, three distinct original concepts, two rounds of revisions, and final delivery in all formats — SVG, PNG, PDF, and EPS — optimised for web, print, and merchandise. You own 100% of the final artwork.',
+      'The Coast Global creates custom logos for small businesses that communicate credibility at a glance. Every project includes a deep discovery session, three distinct original concepts, two rounds of revisions, and final delivery in all formats — SVG, PNG, PDF, and EPS — optimised for web, print, and merchandise. You own 100% of the final artwork.',
     timeline: '2–3 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -99,11 +99,11 @@ export const SERVICE_PAGES: ServicePage[] = [
     faqs: [
       {
         q: 'How much does logo design for a small business cost?',
-        a: 'Logo design pricing for small businesses varies based on complexity, number of concepts, and deliverables. At The Coast, we offer custom quotes because every business is different — a simple wordmark requires different effort than a detailed emblem system. As a general range, professional small business logo design typically runs from $500 to $2,500 depending on scope. Our packages include discovery, three original concepts, two revision rounds, and full file delivery. We never use stock icons or template customisation — everything is created from scratch. Request a quote and we\'ll provide a transparent, flat-fee proposal with no hourly billing surprises.',
+        a: 'Logo design pricing for small businesses varies based on complexity, number of concepts, and deliverables. At The Coast Global, we offer custom quotes because every business is different — a simple wordmark requires different effort than a detailed emblem system. As a general range, professional small business logo design typically runs from $500 to $2,500 depending on scope. Our packages include discovery, three original concepts, two revision rounds, and full file delivery. We never use stock icons or template customisation — everything is created from scratch. Request a quote and we\'ll provide a transparent, flat-fee proposal with no hourly billing surprises.',
       },
       {
         q: 'How long does logo design take?',
-        a: 'A professional logo design project at The Coast takes 2–3 weeks from kick-off to final delivery. Week one is discovery and concept development; week two is refinement and revisions based on your feedback; week three (if needed) is final file packaging and any last tweaks. Rush projects can sometimes be accommodated for an additional fee — ask us at enquiry. The timeline assumes you have feedback ready within 2 business days of each delivery. Extended feedback windows extend the overall timeline proportionally.',
+        a: 'A professional logo design project at The Coast Global takes 2–3 weeks from kick-off to final delivery. Week one is discovery and concept development; week two is refinement and revisions based on your feedback; week three (if needed) is final file packaging and any last tweaks. Rush projects can sometimes be accommodated for an additional fee — ask us at enquiry. The timeline assumes you have feedback ready within 2 business days of each delivery. Extended feedback windows extend the overall timeline proportionally.',
       },
       {
         q: 'What file formats will I receive?',
@@ -119,12 +119,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Brand Identity',
     category: 'Brand Identity',
     headline: 'Brand Identity Design Services',
-    metaTitle: 'Brand Identity Design Services | The Coast',
+    metaTitle: 'Brand Identity Design Services | The Coast Global',
     metaDescription:
       'Complete brand identity design — logo, colour palette, typography, brand patterns, and usage guidelines. One cohesive system that scales across every touchpoint.',
     tagline: 'Every element of your brand working together — consistently, compellingly, correctly.',
     heroBody:
-      'The Coast delivers complete brand identity systems built around a clear brand strategy. Beyond the logo, you receive a full visual language: primary and secondary colour palettes with HEX/RGB/CMYK values, typographic hierarchy for digital and print, brand pattern elements, photography art direction guidelines, and a comprehensive brand guidelines document your whole team can follow.',
+      'The Coast Global delivers complete brand identity systems built around a clear brand strategy. Beyond the logo, you receive a full visual language: primary and secondary colour palettes with HEX/RGB/CMYK values, typographic hierarchy for digital and print, brand pattern elements, photography art direction guidelines, and a comprehensive brand guidelines document your whole team can follow.',
     timeline: '4–6 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -197,7 +197,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: 'How long does a brand identity project take?',
-        a: 'A complete brand identity project at The Coast typically runs 4–6 weeks. The first week is dedicated to the strategy workshop and research phase. Weeks two and three are concept development, where we build out the full visual system and present it in context. Weeks four and five cover revision rounds — refining the chosen direction based on your structured feedback. The final week is file packaging, brand guidelines document production, and asset delivery. The timeline can extend if your business has multiple stakeholders whose input is needed at review stages, or compress slightly if you have a clear brief and fast feedback cycles.',
+        a: 'A complete brand identity project at The Coast Global typically runs 4–6 weeks. The first week is dedicated to the strategy workshop and research phase. Weeks two and three are concept development, where we build out the full visual system and present it in context. Weeks four and five cover revision rounds — refining the chosen direction based on your structured feedback. The final week is file packaging, brand guidelines document production, and asset delivery. The timeline can extend if your business has multiple stakeholders whose input is needed at review stages, or compress slightly if you have a clear brief and fast feedback cycles.',
       },
       {
         q: 'Do I need a brand identity or just a logo?',
@@ -213,12 +213,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Rebrand',
     category: 'Brand Identity',
     headline: 'Rebrand Small Business',
-    metaTitle: 'Rebrand Small Business | The Coast',
+    metaTitle: 'Rebrand Small Business | The Coast Global',
     metaDescription:
       'Strategic rebrand for small businesses — new visual identity, updated messaging, and a complete rollout plan. Evolve your brand without losing the equity you\'ve built.',
     tagline: 'Same business, stronger identity — a rebrand that respects your history while building your future.',
     heroBody:
-      "The Coast leads small business rebrands from strategic audit to final rollout. We analyse your existing brand equity, identify what to preserve and what to evolve, and build a refreshed visual identity system that feels both new and authentic. The result is a brand that reflects who you are today — and positions you for where you're going.",
+      "The Coast Global leads small business rebrands from strategic audit to final rollout. We analyse your existing brand equity, identify what to preserve and what to evolve, and build a refreshed visual identity system that feels both new and authentic. The result is a brand that reflects who you are today — and positions you for where you're going.",
     timeline: '6–8 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -295,7 +295,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: 'How is a rebrand different from a brand refresh?',
-        a: 'A rebrand is a comprehensive overhaul of your visual identity and often your positioning — it may involve a new name, a completely new logo, a new colour system, and a new messaging framework. A brand refresh is a more conservative evolution — updating your logo while retaining its core shape, refreshing colours to feel more contemporary, or modernising typography without changing the fundamental identity. At The Coast, our rebrand discovery process helps determine which is appropriate for your situation. Both are valid strategic choices, and the right one depends on how much equity your current brand has, how far your business has evolved, and how distinct you need to be from your current perception.',
+        a: 'A rebrand is a comprehensive overhaul of your visual identity and often your positioning — it may involve a new name, a completely new logo, a new colour system, and a new messaging framework. A brand refresh is a more conservative evolution — updating your logo while retaining its core shape, refreshing colours to feel more contemporary, or modernising typography without changing the fundamental identity. At The Coast Global, our rebrand discovery process helps determine which is appropriate for your situation. Both are valid strategic choices, and the right one depends on how much equity your current brand has, how far your business has evolved, and how distinct you need to be from your current perception.',
       },
     ],
     relatedSlugs: ['brand-identity', 'logo-design', 'brand-guidelines'],
@@ -307,12 +307,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Brand Guidelines',
     category: 'Brand Identity',
     headline: 'Brand Guidelines Design Service',
-    metaTitle: 'Brand Guidelines Design Service | The Coast',
+    metaTitle: 'Brand Guidelines Design Service | The Coast Global',
     metaDescription:
       'Professional brand guidelines that standardise your visual identity. Comprehensive style guide covering logo usage, colour, typography, and tone of voice — ready to share with any designer or vendor.',
     tagline: 'One document that makes every future design decision easier for everyone.',
     heroBody:
-      'The Coast creates professionally designed brand guidelines documents that serve as the definitive reference for your visual identity. Whether you have an existing brand that needs codifying or a new identity that needs documenting, we build a clear, comprehensive style guide covering logo usage rules, colour palette specifications, typographic hierarchy, imagery direction, and tone of voice — formatted for PDF distribution and digital use.',
+      'The Coast Global creates professionally designed brand guidelines documents that serve as the definitive reference for your visual identity. Whether you have an existing brand that needs codifying or a new identity that needs documenting, we build a clear, comprehensive style guide covering logo usage rules, colour palette specifications, typographic hierarchy, imagery direction, and tone of voice — formatted for PDF distribution and digital use.',
     timeline: '1–2 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -401,12 +401,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'EPK Design',
     category: 'Collateral',
     headline: 'EPK Design Service',
-    metaTitle: 'EPK Design Service for Artists & Musicians | The Coast',
+    metaTitle: 'EPK Design Service for Artists & Musicians | The Coast Global',
     metaDescription:
       'Professional EPK design for musicians, artists, DJs, and performers. A press kit that gets you booked — biography, press photos, streaming stats, rider, and contact — beautifully designed.',
     tagline: 'Your EPK is your first impression with every booker, label, and journalist. Make it count.',
     heroBody:
-      'The Coast designs professional electronic press kits (EPKs) for musicians, artists, DJs, podcasters, and performers. A well-designed EPK communicates credibility instantly to bookers, labels, music supervisors, and press contacts. We combine your biography, press photos, streaming stats, music samples links, and booking information into a single polished PDF or one-page website that opens doors.',
+      'The Coast Global designs professional electronic press kits (EPKs) for musicians, artists, DJs, podcasters, and performers. A well-designed EPK communicates credibility instantly to bookers, labels, music supervisors, and press contacts. We combine your biography, press photos, streaming stats, music samples links, and booking information into a single polished PDF or one-page website that opens doors.',
     timeline: '1 week',
     priceRange: 'Custom quote',
     stats: [
@@ -495,12 +495,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Social Graphics',
     category: 'Collateral',
     headline: 'Social Media Graphics Design Service',
-    metaTitle: 'Social Media Graphics Design Service | The Coast',
+    metaTitle: 'Social Media Graphics Design Service | The Coast Global',
     metaDescription:
       'Branded social media graphics and templates designed for Instagram, LinkedIn, TikTok, and Facebook. 5–10 reusable templates your team can update without a designer.',
     tagline: 'Scroll-stopping graphics your team can actually use — consistent, on-brand, and built to scale.',
     heroBody:
-      'The Coast designs branded social media graphics and editable template sets for businesses that need to post consistently without hiring a full-time designer. Each set includes 5–10 platform-optimised templates for announcements, promotions, quotes, events, and evergreen content — all formatted for Instagram, LinkedIn, Facebook, and TikTok, and delivered in an editable format your team can update independently.',
+      'The Coast Global designs branded social media graphics and editable template sets for businesses that need to post consistently without hiring a full-time designer. Each set includes 5–10 platform-optimised templates for announcements, promotions, quotes, events, and evergreen content — all formatted for Instagram, LinkedIn, Facebook, and TikTok, and delivered in an editable format your team can update independently.',
     timeline: '1–2 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -589,12 +589,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Pitch Deck',
     category: 'Collateral',
     headline: 'Pitch Deck Design Service',
-    metaTitle: 'Pitch Deck Design Service | The Coast',
+    metaTitle: 'Pitch Deck Design Service | The Coast Global',
     metaDescription:
       'Investor-ready pitch deck design. We take your content and transform it into a compelling, visually polished presentation that communicates traction, credibility, and vision.',
     tagline: 'Your idea is fundable. Your deck needs to prove it — visually, clearly, immediately.',
     heroBody:
-      'The Coast designs investor-ready pitch decks that communicate your business\'s traction, market opportunity, and vision with visual clarity. We work from your existing content or help you structure it, then produce a professionally designed presentation — optimised for live pitches and email-send formats — that holds attention and conveys credibility from slide one.',
+      'The Coast Global designs investor-ready pitch decks that communicate your business\'s traction, market opportunity, and vision with visual clarity. We work from your existing content or help you structure it, then produce a professionally designed presentation — optimised for live pitches and email-send formats — that holds attention and conveys credibility from slide one.',
     timeline: '1–2 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -684,12 +684,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Website Design',
     category: 'Digital',
     headline: 'Website Design for Startups',
-    metaTitle: 'Website Design for Startups | The Coast',
+    metaTitle: 'Website Design for Startups | The Coast Global',
     metaDescription:
       'Custom website design for startups and small businesses. Strategy-led design that converts visitors into customers — no templates, no page builders, no compromises.',
     tagline: 'A website that works as a 24/7 sales tool — not just a digital business card.',
     heroBody:
-      'The Coast designs custom websites for startups and small businesses that combine strategic clarity with visual polish. We handle information architecture, UX design, visual design, and development handoff — or full-stack development for qualifying projects. Every site is optimised for conversion, accessibility, and search engine visibility from the ground up.',
+      'The Coast Global designs custom websites for startups and small businesses that combine strategic clarity with visual polish. We handle information architecture, UX design, visual design, and development handoff — or full-stack development for qualifying projects. Every site is optimised for conversion, accessibility, and search engine visibility from the ground up.',
     timeline: '4–8 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -766,7 +766,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       },
       {
         q: 'How long does it take to design a website for a startup?',
-        a: 'A complete website design project at The Coast takes 4–8 weeks depending on the number of pages, complexity of interactions, and decision-making speed on your side. A focused marketing site (5–7 pages) typically runs 4–5 weeks. A larger site with a blog, case studies, and product pages runs 6–8 weeks. If development is included, add 4–6 weeks to those timelines. The most common timeline extension is delayed client feedback — having a clear internal decision-making process and committing to review turnaround times at the project outset is the single biggest factor in keeping timelines on track.',
+        a: 'A complete website design project at The Coast Global takes 4–8 weeks depending on the number of pages, complexity of interactions, and decision-making speed on your side. A focused marketing site (5–7 pages) typically runs 4–5 weeks. A larger site with a blog, case studies, and product pages runs 6–8 weeks. If development is included, add 4–6 weeks to those timelines. The most common timeline extension is delayed client feedback — having a clear internal decision-making process and committing to review turnaround times at the project outset is the single biggest factor in keeping timelines on track.',
       },
     ],
     relatedSlugs: ['brand-identity', 'social-media-management', 'social-graphics'],
@@ -778,12 +778,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Flyers',
     category: 'Collateral',
     headline: 'Flyer Design Service for Small Business',
-    metaTitle: 'Flyer Design Service for Small Business | The Coast',
+    metaTitle: 'Flyer Design Service for Small Business | The Coast Global',
     metaDescription:
       'Professional flyer design for small businesses. Print-ready and digital-ready promotional designs for events, offers, and announcements — delivered fast.',
     tagline: 'Promotional design that stops people mid-scroll and mid-step — compelling in print and digital.',
     heroBody:
-      'The Coast designs professional promotional flyers for small businesses — for events, offers, grand openings, menus, and announcements. Every flyer is delivered print-ready (300 DPI, CMYK, bleed marks) and in a digital-optimised version for social sharing and email. Fast turnaround, brand-consistent design, and file formats your printer will accept without conversation.',
+      'The Coast Global designs professional promotional flyers for small businesses — for events, offers, grand openings, menus, and announcements. Every flyer is delivered print-ready (300 DPI, CMYK, bleed marks) and in a digital-optimised version for social sharing and email. Fast turnaround, brand-consistent design, and file formats your printer will accept without conversation.',
     timeline: '3–5 days',
     priceRange: 'Custom quote',
     stats: [
@@ -871,12 +871,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Video & Motion',
     category: 'Digital',
     headline: 'Motion Graphics Design Service',
-    metaTitle: 'Motion Graphics Design Service | The Coast',
+    metaTitle: 'Motion Graphics Design Service | The Coast Global',
     metaDescription:
       'Branded motion graphics and promotional video design for businesses. Logo animations, social video templates, explainer animations, and full promotional videos — built for digital-first brands.',
     tagline: 'Your brand in motion — designed to hold attention in a world that scrolls past static.',
     heroBody:
-      'The Coast creates motion graphics and promotional videos for businesses that need to communicate with immediacy and impact in digital-first environments. Services include logo animations, animated social graphics, explainer videos, brand video packages, and custom motion templates for social media — all designed to be visually consistent with your brand identity and optimised for the platforms where your audience lives.',
+      'The Coast Global creates motion graphics and promotional videos for businesses that need to communicate with immediacy and impact in digital-first environments. Services include logo animations, animated social graphics, explainer videos, brand video packages, and custom motion templates for social media — all designed to be visually consistent with your brand identity and optimised for the platforms where your audience lives.',
     timeline: '2–4 weeks',
     priceRange: 'Custom quote',
     stats: [
@@ -965,12 +965,12 @@ export const SERVICE_PAGES: ServicePage[] = [
     name: 'Social Media Management',
     category: 'Digital',
     headline: 'Social Media Management Services for Small Business',
-    metaTitle: 'Social Media Management for Small Business | The Coast',
+    metaTitle: 'Social Media Management for Small Business | The Coast Global',
     metaDescription:
       'Done-for-you social media management for small businesses. Brand-consistent content creation, scheduling, community management, and monthly performance reporting.',
     tagline: 'Your social presence, professionally managed — so you can focus on running your business.',
     heroBody:
-      'The Coast provides ongoing social media management services for small businesses that need consistent, on-brand social presence without the overhead of an in-house team. Monthly retainers include content planning, branded graphic creation, caption writing, scheduling, community management, and performance reporting across your priority platforms — all aligned with your brand identity and business goals.',
+      'The Coast Global provides ongoing social media management services for small businesses that need consistent, on-brand social presence without the overhead of an in-house team. Monthly retainers include content planning, branded graphic creation, caption writing, scheduling, community management, and performance reporting across your priority platforms — all aligned with your brand identity and business goals.',
     timeline: 'Ongoing monthly retainer',
     priceRange: 'Monthly retainer',
     stats: [

@@ -46,15 +46,15 @@ export async function GET() {
     .map(([id, meta]) => `  - [${meta.title.split(' - ')[0]}](${BASE_URL}/work/${id}): ${meta.description}`)
     .join('\n')
 
-  const content = `# The Coast
+  const content = `# The Coast Global
 
 > Last updated: ${lastUpdated}
 
-> The Coast is a brand design studio that makes professional branding affordable and accessible for small businesses, entrepreneurs, startups, and artists. Founded by David Coast, we turn visions into empires - crafting custom branding solutions that make small businesses look and feel like they belong in the big leagues.
+> The Coast Global is a brand design studio that makes professional branding affordable and accessible for small businesses, entrepreneurs, startups, and artists. Founded by David Coast, we turn visions into empires - crafting custom branding solutions that make small businesses look and feel like they belong in the big leagues.
 
 ## About
 
-- [About The Coast](${BASE_URL}/about): Learn about our story, mission, and vision. Founded by David Coast, The Coast was built to level the playing field - giving small businesses, startups, and solo entrepreneurs the branding power that makes people stop, look, and remember.
+- [About The Coast Global](${BASE_URL}/about): Learn about our story, mission, and vision. Founded by David Coast, The Coast Global was built to level the playing field - giving small businesses, startups, and solo entrepreneurs the branding power that makes people stop, look, and remember.
 - [Vision 2026](${BASE_URL}/vision): Conceptual architectural renderings of our future Coast HQ - embodying innovation, coastal serenity, and the bold pursuit of excellence.
 
 ## Services
@@ -81,7 +81,7 @@ export async function GET() {
 
 ## Process
 
-- [How Does The Coast's Brand Design Process Work?](${BASE_URL}/#process): Our four-step process for transforming your brand.
+- [How Does The Coast Global's Brand Design Process Work?](${BASE_URL}/#process): Our four-step process for transforming your brand.
   - Discover: We dive deep into your brand's DNA - story, audience, competitors, and aspirations.
   - Design: From mood boards to final concepts - every color, typeface, and element chosen with purpose.
   - Develop: Designs become real-world assets - websites, social templates, print materials.
@@ -95,7 +95,7 @@ ${featuredWork || '  - Case studies coming soon.'}
 
 ## Blog
 
-- [The Journal](${BASE_URL}/blog): Insights on brand design, visual identity, and creative strategy from The Coast team.
+- [The Journal](${BASE_URL}/blog): Insights on brand design, visual identity, and creative strategy from The Coast Global team.
 - Categories:
 ${categoryLines}
 
@@ -114,7 +114,7 @@ ${postLines}
 
 ## Contact
 
-- [Contact Us](${BASE_URL}/#contact): Get in touch with The Coast.
+- [Contact Us](${BASE_URL}/#contact): Get in touch with The Coast Global.
   - Email: hello@coastglobal.org
   - Phone: +1 (682) 702-0374
 

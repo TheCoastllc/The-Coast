@@ -23,6 +23,7 @@ import { Toaster } from 'sonner'
 import { PREMIUM_KEYS } from '@/lib/premium'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
 import { SunArc } from '@/components/chrome/SunArc'
+import { BRAND } from '@/lib/content/coast'
 
 const SITE_URL = 'https://coastglobal.org'
 
@@ -72,12 +73,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: 'The Coast | Full-Stack Creative Ecosystem',
-    template: '%s | The Coast',
+    default: `${BRAND} | Full-Stack Creative Ecosystem`,
+    template: `%s | ${BRAND}`,
   },
 
   description:
-    'The Coast is an end-to-end brand studio: brand identity, digital marketing, and cinematic content that helps founders scale and turn visions into empires.',
+    'The Coast Global is an end-to-end brand studio: brand identity, digital marketing, and cinematic content that helps founders scale and turn visions into empires.',
 
   keywords: [
     'brand design studio',
@@ -88,16 +89,16 @@ export const metadata: Metadata = {
     'marketing assets',
     'small business branding',
     'entrepreneur branding',
-    'The Coast',
+    'The Coast Global',
   ],
 
-  authors: [{ name: 'The Coast', url: SITE_URL }],
-  creator: 'The Coast',
-  publisher: 'The Coast',
+  authors: [{ name: BRAND, url: SITE_URL }],
+  creator: BRAND,
+  publisher: BRAND,
 
   appleWebApp: {
     capable: true,
-    title: 'The Coast',
+    title: BRAND,
     statusBarStyle: 'black-translucent',
   },
 
@@ -109,8 +110,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    siteName: 'The Coast',
-    title: 'The Coast | Brand Design Studio',
+    siteName: BRAND,
+    title: `${BRAND} | Brand Design Studio`,
     description:
       'Strategic brand design for entrepreneurs, artists, and growing businesses. Logo design, visual identity, brand strategy, and marketing assets.',
     images: [
@@ -118,7 +119,7 @@ export const metadata: Metadata = {
         url: '/preview.jpg',
         width: 1600,
         height: 900,
-        alt: 'The Coast - Brand Design Studio',
+        alt: `${BRAND} - Brand Design Studio`,
         type: 'image/jpeg',
       },
     ],
@@ -128,7 +129,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@TheCoastHQ',
     creator: '@TheCoastHQ',
-    title: 'The Coast | Brand Design Studio',
+    title: `${BRAND} | Brand Design Studio`,
     description:
       'Strategic brand design for entrepreneurs, artists, and growing businesses.',
     images: ['/preview.jpg'],

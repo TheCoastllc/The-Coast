@@ -18,13 +18,13 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
 
   return {
     title: category
-      ? `${formatCategory(category)} - The Coast Journal`
-      : 'The Coast Journal - Brand Design Insights',
-    description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Journal.',
+      ? `${formatCategory(category)} - The Coast Global Journal`
+      : 'The Coast Global Journal - Brand Design Insights',
+    description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses. The Coast Global Journal.',
     alternates: { canonical: 'https://coastglobal.org/blog' },
     openGraph: {
       type: 'website',
-      title: 'The Coast Journal - Brand Design Insights',
+      title: 'The Coast Global Journal - Brand Design Insights',
       description: 'Insights on brand design, visual identity, and creative strategy.',
       url: 'https://coastglobal.org/blog',
       images: DEFAULT_OG_IMAGES,
@@ -171,7 +171,7 @@ const blogCollectionSchema = {
   '@type': 'CollectionPage',
   '@id': 'https://coastglobal.org/blog#webpage',
   url: 'https://coastglobal.org/blog',
-  name: 'The Coast Journal - Brand Design Insights',
+  name: 'The Coast Global Journal - Brand Design Insights',
   description: 'Insights on brand design, visual identity, and creative strategy for entrepreneurs and growing businesses.',
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
 }

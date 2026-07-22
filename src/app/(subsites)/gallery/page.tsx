@@ -21,7 +21,7 @@ function toItem(doc: any): GalleryItem | null {
     src,
     width: cl?.width ?? img?.width ?? 4,
     height: cl?.height ?? img?.height ?? 5,
-    alt: 'Artwork - The Coast',
+    alt: 'Artwork - The Coast Global',
     category: doc.category ?? null,
     section: doc.section ?? null,
     shopUrl: doc.shopUrl ?? null,
@@ -101,14 +101,14 @@ export default async function GalleryPage() {
     '@type': 'CollectionPage',
     '@id': `${SITE_URL}/#gallery`,
     url: SITE_URL,
-    name: 'The Coast Gallery',
+    name: 'The Coast Global Gallery',
     description:
-      'A curated gallery of artwork, imagery, and original creatives from The Coast.',
+      'A curated gallery of artwork, imagery, and original creatives from The Coast Global.',
     isPartOf: { '@id': 'https://coastglobal.org/#website' },
     about: { '@id': 'https://coastglobal.org/#organization' },
     mainEntity: {
       '@type': 'ImageGallery',
-      name: 'The Coast Gallery',
+      name: 'The Coast Global Gallery',
       image: items.slice(0, 50).map((c) => {
         const name = displayTitle(c.title)
         return {

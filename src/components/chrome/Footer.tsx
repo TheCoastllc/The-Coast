@@ -119,7 +119,7 @@ export function Footer() {
       <div className={styles.partner}>
         <Image
           src="/claude-partner-badge.png"
-          alt="The Coast - Preferred Services Partner in the Claude Partner Network"
+          alt="The Coast Global - Preferred Services Partner in the Claude Partner Network"
           width={800}
           height={253}
           className={styles.partnerBadge}

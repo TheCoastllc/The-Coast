@@ -1,4 +1,4 @@
-// Nav structure for The Coast. Single source - changes here update every page.
+// Nav structure for The Coast Global. Single source - changes here update every page.
 
 export type Section = {
   slug: string;
@@ -9,7 +9,7 @@ export type Section = {
 };
 
 export const NAV: Section[] = [
-  { slug: "home",     path: "/",         chamber: "The Coast",        label: "Index" },
+  { slug: "home",     path: "/",         chamber: "The Coast Global",        label: "Index" },
   { slug: "work",     path: "/work",     chamber: "Selected Work",    label: "Work" },
   { slug: "visuals",  path: "/visuals",  chamber: "The Visual Field", label: "Visuals" },
   { slug: "gallery",  path: "https://gallery.coastglobal.org", chamber: "The Collection", label: "Gallery", external: true },

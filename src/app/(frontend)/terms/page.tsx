@@ -6,13 +6,13 @@ import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Terms of Service & Client Agreement',
-  description: 'Terms of Service for The Coast - our service agreement, revision policy, and client responsibilities.',
+  description: 'Terms of Service for The Coast Global - our service agreement, revision policy, and client responsibilities.',
   alternates: { canonical: 'https://coastglobal.org/terms' },
   robots: { index: true, follow: true },
   openGraph: {
     type: 'website',
-    title: 'Terms of Service | The Coast',
-    description: 'Service agreement, revision policy, and client responsibilities for The Coast.',
+    title: 'Terms of Service | The Coast Global',
+    description: 'Service agreement, revision policy, and client responsibilities for The Coast Global.',
     url: 'https://coastglobal.org/terms',
     images: DEFAULT_OG_IMAGES,
   },
@@ -52,7 +52,7 @@ export default async function TermsPage() {
                 <a href="mailto:hello@coastglobal.org">hello@coastglobal.org</a> with any questions about our service agreement.
               </p>
               <p>
-                By engaging <strong>The Coast LLC</strong> for brand design services, you agree to the terms outlined in your project proposal and service agreement. All creative work remains the property of The Coast until final payment is received.
+                By engaging <strong>The Coast LLC</strong> for brand design services, you agree to the terms outlined in your project proposal and service agreement. All creative work remains the property of The Coast Global until final payment is received.
               </p>
             </div>
           )}

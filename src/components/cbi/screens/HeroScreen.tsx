@@ -16,7 +16,7 @@ export function HeroScreen() {
     >
       <div className="flex items-center justify-between max-w-[1180px] mx-auto px-8 py-6">
         <span className="font-mono text-[11px] font-medium tracking-[5px] text-white/60 uppercase">
-          The Coast
+          The Coast Global
         </span>
         <button
           onClick={go}
@@ -29,13 +29,13 @@ export function HeroScreen() {
       <section className="max-w-[1180px] mx-auto px-8 pt-8 md:pt-14 pb-10 grid md:grid-cols-[1.05fr_0.9fr] gap-12 md:gap-16 items-center">
         <div className="text-center md:text-left">
           <span className="font-mono text-[11px] tracking-[4px] uppercase text-[#E6B24D]">
-            The Coast Brand Index
+            Coast Brand Index
           </span>
           <h1 className="font-serif text-[clamp(46px,6vw,78px)] font-light leading-[0.98] tracking-[-1.5px] mt-5">
             How Strong Is Your Wave?
           </h1>
           <p className="text-[16px] text-white/75 font-light leading-[1.7] max-w-[460px] mx-auto md:mx-0 mt-6">
-            Most brands have no idea how they actually perform. The Coast Brand Index scores
+            Most brands have no idea how they actually perform. Coast Brand Index scores
             yours across five pillars and twenty criteria - and shows you exactly where to sharpen.
           </p>
           <div className="flex items-center gap-4 justify-center md:justify-start mt-7 font-mono text-[11px] tracking-[1.5px] uppercase text-white/50">

@@ -8,14 +8,14 @@ import type { GalleryPreviewItem } from '@/components/home/GalleryPreview'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: { absolute: 'The Coast | Brand Design Studio' },
+  title: { absolute: 'The Coast Global | Brand Design Studio' },
   description:
-    'The Coast is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses. Logo design and brand strategy.',
+    'The Coast Global is a brand design studio building unforgettable visual identities for entrepreneurs, artists, and growing businesses. Logo design and brand strategy.',
   alternates: { canonical: 'https://coastglobal.org' },
   openGraph: {
     type: 'website',
     url: 'https://coastglobal.org',
-    title: 'The Coast | Brand Design Studio',
+    title: 'The Coast Global | Brand Design Studio',
     description:
       'Building unforgettable visual identities for entrepreneurs, artists, and growing businesses.',
     images: DEFAULT_OG_IMAGES,
@@ -27,7 +27,7 @@ const websiteSchema = {
   '@type': 'WebSite',
   '@id': 'https://coastglobal.org/#website',
   url: 'https://coastglobal.org',
-  name: 'The Coast',
+  name: 'The Coast Global',
   description: 'Brand design studio building unforgettable visual identities.',
   publisher: { '@id': 'https://coastglobal.org/#organization' },
 }
@@ -36,7 +36,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': 'https://coastglobal.org/#organization',
-  name: 'The Coast',
+  name: 'The Coast Global',
   alternateName: 'Coast Global',
   url: 'https://coastglobal.org',
   logo: {
@@ -75,7 +75,7 @@ const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   '@id': 'https://coastglobal.org/#professional-service',
-  name: 'The Coast',
+  name: 'The Coast Global',
   alternateName: 'Coast Global',
   url: 'https://coastglobal.org',
   logo: {

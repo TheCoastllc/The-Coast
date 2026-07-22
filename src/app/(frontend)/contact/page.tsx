@@ -4,20 +4,20 @@ import { ContactGlass } from '@/components/contact/ContactGlass'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Contact The Coast',
+  title: 'Contact The Coast Global',
   description:
-    'Get in touch with The Coast. Reach our brand studio by email, phone, or form - we respond to every inquiry within 24 hours on business days.',
+    'Get in touch with The Coast Global. Reach our brand studio by email, phone, or form - we respond to every inquiry within 24 hours on business days.',
   alternates: { canonical: 'https://coastglobal.org/contact' },
   twitter: buildTwitter({
-    title: 'Contact The Coast | Brand Design Studio',
+    title: 'Contact The Coast Global | Brand Design Studio',
     description:
-      'Questions, partnerships, press, or projects - reach The Coast team directly. We reply within 24 hours.',
+      'Questions, partnerships, press, or projects - reach The Coast Global team directly. We reply within 24 hours.',
   }),
   openGraph: {
     type: 'website',
-    title: 'Contact The Coast | Brand Design Studio',
+    title: 'Contact The Coast Global | Brand Design Studio',
     description:
-      'Questions, partnerships, press, or projects - reach The Coast team directly. We reply within 24 hours.',
+      'Questions, partnerships, press, or projects - reach The Coast Global team directly. We reply within 24 hours.',
     url: 'https://coastglobal.org/contact',
     images: DEFAULT_OG_IMAGES,
   },
@@ -28,9 +28,9 @@ const contactPageSchema = {
   '@type': 'ContactPage',
   '@id': 'https://coastglobal.org/contact#webpage',
   url: 'https://coastglobal.org/contact',
-  name: 'Contact The Coast',
+  name: 'Contact The Coast Global',
   description:
-    'Contact The Coast - a brand design studio for entrepreneurs, startups, and growing businesses. Email hello@coastglobal.org or submit the contact form.',
+    'Contact The Coast Global - a brand design studio for entrepreneurs, startups, and growing businesses. Email hello@coastglobal.org or submit the contact form.',
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
   about: { '@id': 'https://coastglobal.org/#organization' },
   breadcrumb: {

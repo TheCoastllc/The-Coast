@@ -85,7 +85,7 @@ export function ResultsScreen() {
 
         {/* Wordmark */}
         <p className="text-center text-white/45 text-xs tracking-[0.4em] uppercase mt-16">
-          The Coast
+          The Coast Global
         </p>
       </div>
     </div>

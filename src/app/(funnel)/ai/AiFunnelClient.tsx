@@ -92,12 +92,12 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             <Image
               className="nav-logo"
               src="/logolight.png"
-              alt="The Coast"
+              alt="The Coast Global"
               width={364}
               height={280}
               priority
             />
-            <span className="nav-word">The Coast</span>
+            <span className="nav-word">The Coast Global</span>
           </span>
           <CtaLink location="nav" className="btn btn-cta">
             Book a Strategy Session
@@ -126,7 +126,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           </a>
           <span className="chrome-brand">
             <Image src="/logolight.png" alt="" aria-hidden width={364} height={280} />
-            <span>The Coast</span>
+            <span>The Coast Global</span>
           </span>
           <CtaLink location="nav" className="chrome-pill chrome-cta">
             Book a Strategy Session
@@ -159,7 +159,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
       <section className="intro">
         <div className="wrap center">
           <p className="sub">
-            {'From "we should use AI" to real, working systems. The Coast designs, builds, and deploys AI for founders and growth-stage teams.'}
+            {'From "we should use AI" to real, working systems. The Coast Global designs, builds, and deploys AI for founders and growth-stage teams.'}
           </p>
           <div className="proof-strip">
             {proof && (
@@ -337,7 +337,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
       <section className="trust" id="why">
         <div className="wrap">
           <div className="center">
-            <span className="eyebrow mono reveal">Why The Coast</span>
+            <span className="eyebrow mono reveal">Why The Coast Global</span>
             <h2 className="reveal">We built until we were ready.</h2>
           </div>
           <div className="trust-grid">
@@ -358,7 +358,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               <div className="founder-photo">
                 <Image
                   src="/founder.jpg"
-                  alt="David Coast, Founder & CEO of The Coast"
+                  alt="David Coast, Founder & CEO of The Coast Global"
                   fill
                   sizes="168px"
                   loading="lazy"
@@ -518,7 +518,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           <p className="fine">
             The Coast LLC is a launch Preferred partner in the Claude Partner Network Services Track.
           </p>
-          <p className="fine">{'©'} 2026 The Coast. All rights reserved.</p>
+          <p className="fine">{'©'} 2026 The Coast Global. All rights reserved.</p>
         </div>
       </footer>
     </>

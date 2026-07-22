@@ -6,18 +6,18 @@ import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 export const metadata: Metadata = {
   title: 'Start Your Brand Project - Free Quote',
   description:
-    'Start your brand project with The Coast. Tell us about your business and the services you need - we will respond within 24 hours.',
+    'Start your brand project with The Coast Global. Tell us about your business and the services you need - we will respond within 24 hours.',
   alternates: { canonical: 'https://coastglobal.org/get-started' },
   twitter: buildTwitter({
-    title: 'Start Your Brand Project | The Coast',
+    title: 'Start Your Brand Project | The Coast Global',
     description:
-      'Tell us about yourself, your services needed, and your budget. Get a custom quote from The Coast.',
+      'Tell us about yourself, your services needed, and your budget. Get a custom quote from The Coast Global.',
   }),
   openGraph: {
     type: 'website',
-    title: 'Start Your Brand Project | The Coast',
+    title: 'Start Your Brand Project | The Coast Global',
     description:
-      'Tell us about yourself, your services needed, and your budget. Get a custom quote from The Coast.',
+      'Tell us about yourself, your services needed, and your budget. Get a custom quote from The Coast Global.',
     url: 'https://coastglobal.org/get-started',
     images: DEFAULT_OG_IMAGES,
   },
@@ -28,7 +28,7 @@ const contactPageSchema = {
   '@type': 'ContactPage',
   '@id': 'https://coastglobal.org/get-started#webpage',
   url: 'https://coastglobal.org/get-started',
-  name: 'Start Your Brand Project | The Coast',
+  name: 'Start Your Brand Project | The Coast Global',
   description: 'Tell us about your business and the services you need - we will respond within 24 hours.',
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
   breadcrumb: {
@@ -46,9 +46,9 @@ export default function GetStartedPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }} />
 
       <section className="sr-only">
-        <h2>Start Your Brand Project with The Coast</h2>
+        <h2>Start Your Brand Project with The Coast Global</h2>
         <p>
-          This page is the starting point for every new engagement with The Coast - whether you are
+          This page is the starting point for every new engagement with The Coast Global - whether you are
           launching a brand from scratch, rebuilding an identity that has outgrown its original
           design, or scoping a long-term creative partnership. Tell us about your business, the
           services you need, your rough timeline, and your budget range. A member of our strategy

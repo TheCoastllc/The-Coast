@@ -125,7 +125,7 @@ export function HomeOcean({
           border: 0,
         }}
       >
-        The Coast - Brand Design Studio for Entrepreneurs, Artists, and Growing Businesses
+        The Coast Global - Brand Design Studio for Entrepreneurs, Artists, and Growing Businesses
       </h1>
       <IntroCurtain />
       <HeroStage meet="reflect" />
@@ -143,7 +143,7 @@ export function HomeOcean({
                 <VideoWave rounded={false} />
               </div>
               <div className={styles.waveInfo}>
-                <p className={styles.waveLabel} data-mo="eyebrow">The Coast Brand Index</p>
+                <p className={styles.waveLabel} data-mo="eyebrow">Coast Brand Index</p>
                 <h2 className={styles.waveTitle} data-mo="title">
                   How strong is your <em>wave?</em>
                 </h2>
@@ -190,7 +190,7 @@ export function HomeOcean({
               <span className={styles.partnerStripLabel}>Preferred Services Partner</span>
               <Image
                 src="/claude-partner-badge.png"
-                alt="The Coast - Preferred Services Partner in the Claude Partner Network"
+                alt="The Coast Global - Preferred Services Partner in the Claude Partner Network"
                 width={800}
                 height={253}
                 className={styles.partnerStripBadge}

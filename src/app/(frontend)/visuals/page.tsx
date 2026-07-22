@@ -9,15 +9,15 @@ import styles from './visuals.module.css'
 
 export const metadata: Metadata = {
   title: 'Brand Visual Language Archive',
-  description: "A working archive of The Coast's visual language - brand plates, collected and catalogued.",
+  description: "A working archive of The Coast Global's visual language - brand plates, collected and catalogued.",
   alternates: { canonical: 'https://coastglobal.org/visuals' },
   twitter: buildTwitter({
-    title: 'Visuals | The Coast',
+    title: 'Visuals | The Coast Global',
     description: "The studio's visual language, collected and catalogued.",
   }),
   openGraph: {
     type: 'website',
-    title: 'Visuals | The Coast',
+    title: 'Visuals | The Coast Global',
     description: "The studio's visual language, collected and catalogued.",
     url: 'https://coastglobal.org/visuals',
     images: DEFAULT_OG_IMAGES,
@@ -56,7 +56,7 @@ export default function VisualsPage() {
               <Plate
                 src={img.src}
                 code={code(i)}
-                title="The Coast"
+                title="The Coast Global"
                 meta={`PLATE ${String(i + 1).padStart(2, '0')}`}
                 tilt={TILTS[i % TILTS.length]}
                 parallax={5 + (i % 3) * 3}

@@ -5,9 +5,9 @@ import { AiFunnelClient, type FunnelProof } from './AiFunnelClient'
 export const revalidate = 3600
 
 const PAGE_URL = 'https://coastglobal.org/ai'
-const TITLE = 'AI Consulting & Implementation | The Coast'
+const TITLE = 'AI Consulting & Implementation | The Coast Global'
 const DESCRIPTION =
-  "From 'we should use AI' to real, working systems. The Coast designs, builds, and deploys AI for founders and growth-stage teams. Book an AI Strategy Session."
+  "From 'we should use AI' to real, working systems. The Coast Global designs, builds, and deploys AI for founders and growth-stage teams. Book an AI Strategy Session."
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: PAGE_URL,
-    siteName: 'The Coast',
+    siteName: 'The Coast Global',
     title: TITLE,
     description: DESCRIPTION,
   },

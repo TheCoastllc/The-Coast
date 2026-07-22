@@ -38,7 +38,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
           <Menu className="h-5 w-5" />
         </button>
         <div className="flex items-center gap-1 ml-3">
-          <span className="text-lg font-bold tracking-tight text-foreground">THE COAST</span>
+          <span className="text-lg font-bold tracking-tight text-foreground">THE COAST GLOBAL</span>
           <span className="text-primary text-2xl leading-none">.</span>
         </div>
       </header>

@@ -20,13 +20,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!label) return { title: 'Not Found', robots: { index: false } }
 
   return {
-    title: `${label} - The Coast Journal`,
-    description: `Articles and insights on ${label.toLowerCase()} from The Coast - brand design studio for entrepreneurs and growing businesses.`,
+    title: `${label} - The Coast Global Journal`,
+    description: `Articles and insights on ${label.toLowerCase()} from The Coast Global - brand design studio for entrepreneurs and growing businesses.`,
     alternates: { canonical: `https://coastglobal.org/blog/category/${category}` },
     openGraph: {
       type: 'website',
-      title: `${label} - The Coast Journal`,
-      description: `Articles and insights on ${label.toLowerCase()} from The Coast.`,
+      title: `${label} - The Coast Global Journal`,
+      description: `Articles and insights on ${label.toLowerCase()} from The Coast Global.`,
       url: `https://coastglobal.org/blog/category/${category}`,
       images: DEFAULT_OG_IMAGES,
     },
@@ -77,7 +77,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
         index="06"
         label="Journal"
         chamber={label}
-        preface={`${posts.length} article${posts.length !== 1 ? 's' : ''} on ${label.toLowerCase()} from The Coast Journal.`}
+        preface={`${posts.length} article${posts.length !== 1 ? 's' : ''} on ${label.toLowerCase()} from The Coast Global Journal.`}
       >
         <section className="section">
           {posts.length === 0 ? (

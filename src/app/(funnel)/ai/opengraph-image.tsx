@@ -5,7 +5,7 @@ import { ImageResponse } from 'next/og'
  * Next auto-wires this file as og:image + twitter:image for the route.
  */
 
-export const alt = 'Put AI to work in your business. The Coast - AI Consulting & Implementation'
+export const alt = 'Put AI to work in your business. The Coast Global - AI Consulting & Implementation'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -63,7 +63,7 @@ export default function OgImage() {
             textTransform: 'uppercase',
           }}
         >
-          {'The Coast • coastglobal.org/ai'}
+          {'The Coast Global • coastglobal.org/ai'}
         </div>
       </div>
     ),

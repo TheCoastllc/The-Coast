@@ -45,7 +45,7 @@ export default function PortalSidebar({ collapsed, onToggle, onSignOut }: Portal
       <div className="h-16 flex items-center justify-between px-4 border-b border-border/40">
         {!collapsed && (
           <Link href="/" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-            <span className="text-lg font-bold tracking-tight text-foreground">THE COAST</span>
+            <span className="text-lg font-bold tracking-tight text-foreground">THE COAST GLOBAL</span>
             <span className="text-primary text-2xl leading-none">.</span>
           </Link>
         )}

@@ -12,7 +12,7 @@ const CbiLanding = dynamic(() => import('@/components/cbi/CbiLanding'), {
 export const metadata: Metadata = {
   title: 'Coast Brand Index - How Strong Is Your Wave?',
   description:
-    'The Coast Brand Index scores your brand across 5 pillars and 20 criteria. Get your Wave Rating in under 2 minutes - free.',
+    'Coast Brand Index scores your brand across 5 pillars and 20 criteria. Get your Wave Rating in under 2 minutes - free.',
 }
 
 export default function CbiPage() {

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useReducedMotion } from "@/lib/perf";
 
 /**
- * The Coast brand wave clip (curling wave + figure, "Design the Future"). Fills
+ * The Coast Global brand wave clip (curling wave + figure, "Design the Future"). Fills
  * its container - the parent sets size/aspect. Decorative (aria-hidden); muted
  * loop. The poster shows instantly; the ~2MB clip is only fetched when the
  * element nears the viewport (preload="none" + IntersectionObserver), and pauses

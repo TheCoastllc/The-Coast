@@ -16,10 +16,10 @@ export type Tool = {
 }
 
 export const CBI = {
-  eyebrow: 'The Coast Brand Index',
+  eyebrow: 'Coast Brand Index',
   headline: 'How Strong Is Your Wave?',
   blurb:
-    'The Coast Brand Index scores your brand across 5 pillars and 20 criteria. Get your Wave Rating in under 2 minutes - free.',
+    'Coast Brand Index scores your brand across 5 pillars and 20 criteria. Get your Wave Rating in under 2 minutes - free.',
   href: '/cbi',
   cta: 'Measure your wave',
   pillars: ['Identity', 'Digital Foundation', 'Market Presence', 'Consistency', 'Trust Signals'],

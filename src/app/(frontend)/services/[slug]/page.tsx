@@ -54,7 +54,7 @@ export default async function ServiceSlugPage({ params }: { params: Params }) {
     provider: {
       '@type': 'Organization',
       '@id': 'https://coastglobal.org/#organization',
-      name: 'The Coast',
+      name: 'The Coast Global',
     },
     areaServed: 'Worldwide',
     category: service.category,

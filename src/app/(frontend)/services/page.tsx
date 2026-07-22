@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     'Custom logo design, visual identity, brand guidelines, marketing collateral, social graphics, pitch decks, video, and digital marketing.',
   alternates: { canonical: 'https://coastglobal.org/services' },
   twitter: buildTwitter({
-    title: 'Brand Design Services | The Coast',
+    title: 'Brand Design Services | The Coast Global',
     description:
       'From logo design to full brand transformations - everything your business needs to stand out.',
   }),
   openGraph: {
     type: 'website',
-    title: 'Brand Design Services | The Coast',
+    title: 'Brand Design Services | The Coast Global',
     description:
       'From logo design to full brand transformations - everything your business needs to stand out.',
     url: 'https://coastglobal.org/services',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 const servicesSchema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'The Coast - Brand Design Services',
+  name: 'The Coast Global - Brand Design Services',
   url: 'https://coastglobal.org/services',
   numberOfItems: 14,
   itemListElement: [

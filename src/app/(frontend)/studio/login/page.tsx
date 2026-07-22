@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 import { loginAction } from './actions'
 
 export const metadata: Metadata = {
-  title: 'Studio access | The Coast',
+  title: 'Studio access | The Coast Global',
   description: 'Internal team access.',
   robots: { index: false, follow: false },
 }
@@ -58,7 +58,7 @@ export default async function StudioLoginPage({
             marginBottom: '20px',
           }}
         >
-          The Coast · Studio · Internal
+          The Coast Global · Studio · Internal
         </div>
 
         <h1
@@ -93,7 +93,7 @@ export default async function StudioLoginPage({
             color: 'rgba(240, 234, 214, 0.6)',
           }}
         >
-          This area is restricted to The Coast team. Ask David if you don&apos;t
+          This area is restricted to The Coast Global team. Ask David if you don&apos;t
           have the password.
         </p>
 

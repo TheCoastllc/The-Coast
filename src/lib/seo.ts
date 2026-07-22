@@ -5,7 +5,7 @@ export const DEFAULT_OG_IMAGES: NonNullable<NonNullable<Metadata['openGraph']>['
     url: '/preview.jpg',
     width: 1600,
     height: 900,
-    alt: 'The Coast - Brand Design Studio',
+    alt: 'The Coast Global - Brand Design Studio',
     type: 'image/jpeg',
   },
 ]

@@ -31,7 +31,7 @@ export function CTASection() {
         </div>
 
         <p className="mt-16 pt-7 border-t border-white/[0.07] text-white/20 text-[11px] tracking-wider">
-          The Coast &nbsp;&middot;&nbsp; Branding &amp; Digital Agency &nbsp;&middot;&nbsp;
+          The Coast Global &nbsp;&middot;&nbsp; Branding &amp; Digital Agency &nbsp;&middot;&nbsp;
           <a href="https://coastglobal.org" className="text-white/30 hover:text-white/55 transition-colors">
             coastglobal.org
           </a>

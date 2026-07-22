@@ -5,15 +5,15 @@ import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 export const metadata: Metadata = {
   title: 'Our Work - Brand Transformations',
   description:
-    'Brand transformations, creative projects, and the stories behind them - logo design, rebrands, and full visual identities from The Coast.',
+    'Brand transformations, creative projects, and the stories behind them - logo design, rebrands, and full visual identities from The Coast Global.',
   alternates: { canonical: 'https://coastglobal.org/work' },
   twitter: buildTwitter({
-    title: 'Our Work | Brand Transformations | The Coast',
+    title: 'Our Work | Brand Transformations | The Coast Global',
     description: 'Brand transformations, creative projects, and the stories behind them.',
   }),
   openGraph: {
     type: 'website',
-    title: 'Our Work | Brand Transformations | The Coast',
+    title: 'Our Work | Brand Transformations | The Coast Global',
     description: 'Brand transformations, creative projects, and the stories behind them.',
     url: 'https://coastglobal.org/work',
     images: DEFAULT_OG_IMAGES,
@@ -35,7 +35,7 @@ const workCollectionSchema = {
   '@id': 'https://coastglobal.org/work#webpage',
   url: 'https://coastglobal.org/work',
   name: 'Our Work',
-  description: 'Explore brand transformations, logo design projects, and creative work from The Coast.',
+  description: 'Explore brand transformations, logo design projects, and creative work from The Coast Global.',
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
 }
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://coastglobal.org/brand-avatar' },
   openGraph: {
     type: 'website',
-    title: 'Brand Builder - Build Your Brand Avatar | The Coast',
+    title: 'Brand Builder - Build Your Brand Avatar | The Coast Global',
     description:
       'Interactive brand builder tool. Select the services that make up your complete brand identity.',
     url: 'https://coastglobal.org/brand-avatar',

@@ -85,7 +85,7 @@ export default function PortalLoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-1">
-            <span className="text-2xl font-bold tracking-tight text-foreground">THE COAST</span>
+            <span className="text-2xl font-bold tracking-tight text-foreground">THE COAST GLOBAL</span>
             <span className="text-primary text-3xl leading-none">.</span>
           </Link>
           <p className="text-muted-foreground mt-2">Client Portal</p>

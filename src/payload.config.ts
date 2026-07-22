@@ -44,8 +44,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     meta: {
-      titleSuffix: '- The Coast',
-      description: 'Brand management hub for The Coast — content, clients, and projects in one place.',
+      titleSuffix: '- The Coast Global',
+      description: 'Brand management hub for The Coast Global — content, clients, and projects in one place.',
       icons: [{ rel: 'icon', type: 'image/png', url: '/logolight.png' }],
     },
     components: {
@@ -57,7 +57,7 @@ export default buildConfig({
   },
   email: resendAdapter({
     defaultFromAddress: process.env.RESEND_FROM || 'dev@admin.coastglobal.org',
-    defaultFromName: 'The Coast',
+    defaultFromName: 'The Coast Global',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
   collections: [

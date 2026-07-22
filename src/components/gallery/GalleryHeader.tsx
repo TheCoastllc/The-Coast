@@ -12,16 +12,16 @@ function ArrowOut({ className }: { className?: string }) {
 }
 
 /**
- * Gallery header: a sticky glass bar (The Coast mark + Pinterest/Shop links)
+ * Gallery header: a sticky glass bar (The Coast Global mark + Pinterest/Shop links)
  * and an editorial hero. The hero <h1> is the page's sole heading.
  */
 export function GalleryHeader({ links }: { links: GalleryLinks }) {
   return (
     <>
       <header className={styles.bar}>
-        <a className={styles.mark} href={MAIN_SITE} data-cursor-label="The Coast">
+        <a className={styles.mark} href={MAIN_SITE} data-cursor-label="The Coast Global">
           <span className={styles.markDiamond} aria-hidden="true" />
-          The Coast
+          The Coast Global
         </a>
         <nav className={styles.barLinks} aria-label="Gallery links">
           <a
@@ -50,7 +50,7 @@ export function GalleryHeader({ links }: { links: GalleryLinks }) {
       </header>
 
       <section className={styles.hero}>
-        <p className={styles.eyebrow}>The Coast / Gallery</p>
+        <p className={styles.eyebrow}>The Coast Global / Gallery</p>
         <h1 className={`${styles.title} no-marble`}>The Gallery</h1>
         <p className={styles.statement}>
           <em>Design The Future</em>

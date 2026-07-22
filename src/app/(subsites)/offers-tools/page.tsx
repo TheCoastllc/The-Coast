@@ -42,7 +42,7 @@ export default function OffersLandingPage() {
       <header className="border-b border-white/6">
         <div className="max-w-5xl mx-auto flex items-center justify-between h-14 px-5">
           <a href="https://coastglobal.org" className="flex items-center gap-2.5">
-            <Image src="/logo.png" alt="The Coast" width={28} height={28} className="opacity-80" />
+            <Image src="/logo.png" alt="The Coast Global" width={28} height={28} className="opacity-80" />
             <span className="text-white/30 text-xs tracking-widest uppercase font-light">Brand Tools</span>
           </a>
           <a
@@ -75,7 +75,7 @@ export default function OffersLandingPage() {
       <section className="pb-8 px-5">
         <div className="max-w-3xl mx-auto space-y-5 text-white/60 text-sm md:text-base leading-relaxed">
           <p>
-            Most founders never see their brand the way their customers do. You see the strategy, the intent, the story behind every decision. Your audience sees a logo, a color, a landing page, and a social feed - and forms a judgment about you in under three seconds. The Coast Brand Lab exists to close that gap. Each tool in this lab is designed to surface the specific, measurable ways your brand is either building trust or quietly leaking it.
+            Most founders never see their brand the way their customers do. You see the strategy, the intent, the story behind every decision. Your audience sees a logo, a color, a landing page, and a social feed - and forms a judgment about you in under three seconds. Coast Brand Lab exists to close that gap. Each tool in this lab is designed to surface the specific, measurable ways your brand is either building trust or quietly leaking it.
           </p>
           <p>
             The <strong className="text-white/80">Brand Quiz</strong> is a 10-question diagnostic that places you on a spectrum from invisible to established. The <strong className="text-white/80">Brand Consistency Checklist</strong> scores your presence across 25 checkpoints in five pillars - visual identity, written voice, digital presence, customer touchpoints, and trust signals. The <strong className="text-white/80">3-Second Test</strong> walks you through the five things a new visitor processes the moment they land on your brand, and shows you how to pass them.
