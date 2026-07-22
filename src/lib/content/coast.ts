@@ -139,7 +139,7 @@ export const PILLARS: Pillar[] = [
     name: "Digital Growth",
     promise: "Lead generation, ads, and everything digital marketing - attention turned into revenue.",
     services: ["Lead generation", "Paid ads", "Digital marketing", "Campaigns", "Funnels", "Content systems"],
-    cta: { label: "Grow the pipeline", href: "/contact" },
+    cta: { label: "Grow the pipeline", href: "/services/digital-marketing" },
   },
   {
     key: "ai",

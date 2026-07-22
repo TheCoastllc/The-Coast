@@ -2,7 +2,7 @@ export interface ServicePage {
   slug: string
   number: string
   name: string
-  category: 'Brand Identity' | 'Collateral' | 'Digital'
+  category: 'Brand Identity' | 'Collateral' | 'Digital' | 'Growth' | 'AI & Software'
   headline: string
   metaTitle: string
   metaDescription: string
@@ -16,6 +16,9 @@ export interface ServicePage {
   audiences: Array<{ label: string; description: string }>
   faqs: Array<{ q: string; a: string }>
   relatedSlugs: string[]
+  /** Optional CTA override - e.g. the AI service page funnels into /ai. */
+  ctaHref?: string
+  ctaLabel?: string
 }
 
 export const SERVICE_PAGES: ServicePage[] = [
@@ -769,7 +772,7 @@ export const SERVICE_PAGES: ServicePage[] = [
         a: 'A complete website design project at The Coast Global takes 4–8 weeks depending on the number of pages, complexity of interactions, and decision-making speed on your side. A focused marketing site (5–7 pages) typically runs 4–5 weeks. A larger site with a blog, case studies, and product pages runs 6–8 weeks. If development is included, add 4–6 weeks to those timelines. The most common timeline extension is delayed client feedback — having a clear internal decision-making process and committing to review turnaround times at the project outset is the single biggest factor in keeping timelines on track.',
       },
     ],
-    relatedSlugs: ['brand-identity', 'social-media-management', 'social-graphics'],
+    relatedSlugs: ['brand-identity', 'social-media-management', 'digital-marketing'],
   },
 
   {
@@ -1050,7 +1053,196 @@ export const SERVICE_PAGES: ServicePage[] = [
         a: 'Realistic expectations are important. Organic social media is a compound discipline — results build over months, not weeks. In the first month, you\'ll see improved consistency and content quality. In months 2–3, engagement metrics typically begin to improve as the algorithm rewards consistent posting and your audience grows accustomed to regular content. Measurable follower growth and engagement lift are typically visible at the 3–6 month mark for most small business accounts. Paid social advertising — available as a retainer add-on — can accelerate reach and follower growth significantly when layered on top of the organic strategy. We report on progress monthly with full transparency on what\'s working, what isn\'t, and what we\'re adapting.',
       },
     ],
-    relatedSlugs: ['social-graphics', 'video-motion', 'website-design'],
+    relatedSlugs: ['social-graphics', 'digital-marketing', 'website-design'],
+  },
+
+  {
+    slug: 'digital-marketing',
+    number: '12',
+    name: 'Digital Marketing & Lead Generation',
+    category: 'Growth',
+    headline: 'Digital Marketing & Lead Generation',
+    metaTitle: 'Digital Marketing & Lead Generation | The Coast Global',
+    metaDescription:
+      'Full-funnel digital marketing for small businesses — lead generation, paid ads, SEO, and email. Strategy through execution, measured by customers won.',
+    tagline: 'Everything digital, one team — built to bring customers through the door, not just clicks.',
+    heroBody:
+      'The Coast Global runs full-funnel digital marketing for small businesses: lead generation systems, paid advertising on Google and Meta, local SEO, and email campaigns — planned, built, and managed by the same team that builds your brand. Every engagement starts with a growth audit, ships with clear targets, and reports monthly on the number that matters: qualified leads, not vanity metrics.',
+    timeline: 'Ongoing retainer',
+    priceRange: 'Custom quote',
+    stats: [
+      { value: 'Full-funnel', label: 'Strategy to execution' },
+      { value: 'Monthly', label: 'Performance reporting' },
+      { value: '1 team', label: 'Brand + growth together' },
+    ],
+    deliverables: [
+      'Growth audit & channel strategy',
+      'Lead generation system (landing pages + forms + follow-up)',
+      'Paid ads management (Google & Meta)',
+      'Local SEO & Google Business Profile optimisation',
+      'Email marketing setup & campaigns',
+      'Conversion tracking & analytics setup',
+      'Monthly performance report with plain-language insights',
+      'Quarterly strategy review',
+    ],
+    process: [
+      {
+        step: '01',
+        title: 'Audit',
+        description:
+          'We map your current funnel end to end — traffic sources, landing pages, follow-up, and tracking — and identify exactly where customers are leaking out. You get a written growth audit whether or not you continue with us.',
+      },
+      {
+        step: '02',
+        title: 'Build',
+        description:
+          'We build the missing infrastructure first: conversion-ready landing pages, lead capture and follow-up automation, clean analytics. Ads spend nothing until there is somewhere profitable for the click to land.',
+      },
+      {
+        step: '03',
+        title: 'Launch',
+        description:
+          'Campaigns go live across the channels the audit picked — paid search, paid social, local SEO, email — with conversion tracking wired from day one so every dollar is accountable.',
+      },
+      {
+        step: '04',
+        title: 'Optimise',
+        description:
+          'Monthly reporting on leads, cost per lead, and revenue impact. We cut what underperforms, scale what works, and review strategy with you every quarter.',
+      },
+    ],
+    audiences: [
+      {
+        label: 'Local Service Businesses',
+        description:
+          'You need a steady flow of local leads — calls, bookings, quote requests — not impressions.',
+      },
+      {
+        label: 'E-commerce & DTC Brands',
+        description:
+          'You have a product that converts but need profitable traffic and an email engine behind it.',
+      },
+      {
+        label: 'B2B & Professional Services',
+        description:
+          'Longer sales cycles need a funnel that captures, nurtures, and hands off qualified leads.',
+      },
+      {
+        label: 'Rebranded Businesses',
+        description:
+          'You invested in a premium brand — now put a growth system behind it so the market actually sees it.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'What does digital marketing for a small business cost?',
+        a: 'Digital marketing retainers at The Coast Global are custom-quoted based on channels, ad spend, and scope — most small business engagements land in the $1,500–$5,000/month range plus ad spend, which stays in your own accounts. We quote a flat monthly fee after the growth audit, so you know the full cost before anything launches. There are no long lock-ins: retainers run month to month after an initial 3-month ramp, because a lead generation system needs about that long to gather data and stabilise cost per lead.',
+      },
+      {
+        q: 'How long until lead generation shows results?',
+        a: 'Paid campaigns generate their first leads within days of launch, but expect 6–12 weeks for cost per lead to stabilise as we gather conversion data and optimise targeting. Local SEO compounds over 3–6 months. That is why every engagement starts with the build phase — a converting landing page and clean tracking shorten the path to profitable results more than any targeting trick. We report monthly from day one so you see the trajectory, not just the destination.',
+      },
+      {
+        q: 'Do you handle everything, or do we need in-house marketing?',
+        a: 'We handle everything digital: strategy, landing pages, ad creative, campaign management, email, tracking, and reporting. You need no in-house marketing team — most of our clients have none. What we do need from you is product knowledge: a monthly call and quick answers when a campaign needs an offer decision. Because the same studio builds your brand and your funnel, the creative never drifts off-brand and nothing gets lost between agencies.',
+      },
+    ],
+    relatedSlugs: ['social-media-management', 'website-design', 'ai-consulting'],
+  },
+
+  {
+    slug: 'ai-consulting',
+    number: '13',
+    name: 'AI Consulting & Custom Solutions',
+    category: 'AI & Software',
+    headline: 'AI Consulting for Small Business',
+    metaTitle: 'AI Consulting for Small Business | The Coast Global',
+    metaDescription:
+      'AI consulting and custom AI solutions for small businesses — chatbots, automations, and tools that cut hours of work. From “we should use AI” to a working system.',
+    tagline: 'From “we should use AI” to a system that actually runs your busywork.',
+    heroBody:
+      'The Coast Global helps small businesses put AI to work: we audit your operations, identify where AI genuinely saves hours or wins customers, and then design, build, and deploy the solution — chatbots that answer like your best employee, automations that clear repetitive work, and custom tools built around your workflow. No jargon, no science projects; a working system with a measurable payoff.',
+    timeline: '2–8 weeks by scope',
+    priceRange: 'Custom quote',
+    stats: [
+      { value: 'Audit-first', label: 'ROI before build' },
+      { value: '2–8 wks', label: 'Idea to deployment' },
+      { value: 'Yours', label: 'You own the system' },
+    ],
+    deliverables: [
+      'AI opportunity audit of your operations',
+      'Prioritised roadmap with ROI estimates',
+      'Custom chatbot trained on your business',
+      'Workflow automations (intake, follow-up, reporting)',
+      'Custom AI tools & integrations with your existing software',
+      'Team training & documentation',
+      'Ongoing support & improvement retainer (optional)',
+    ],
+    process: [
+      {
+        step: '01',
+        title: 'Audit',
+        description:
+          'We sit with your actual workflows — sales, support, admin, content — and find the places where AI saves real hours or real money. You get a prioritised roadmap with honest ROI estimates, including the ideas we recommend against.',
+      },
+      {
+        step: '02',
+        title: 'Design',
+        description:
+          'For the winning use case we design the system around how your team already works: what it connects to, what it automates, where a human stays in the loop, and what success measurably looks like.',
+      },
+      {
+        step: '03',
+        title: 'Build',
+        description:
+          'We build and test the solution — chatbot, automation, or custom tool — against real scenarios from your business before it ever touches a customer.',
+      },
+      {
+        step: '04',
+        title: 'Deploy',
+        description:
+          'Launch, team training, and a tuning period where we watch real usage and sharpen the system. You own what we build; an optional retainer keeps it improving.',
+      },
+    ],
+    audiences: [
+      {
+        label: 'Owner-Operated Businesses',
+        description:
+          'You are the bottleneck. AI takes the repetitive half of your week — intake, follow-up, scheduling — off your plate.',
+      },
+      {
+        label: 'Customer-Facing Teams',
+        description:
+          'A chatbot trained on your business answers instantly, around the clock, and hands the hard cases to a human.',
+      },
+      {
+        label: 'Growing Teams Drowning in Ops',
+        description:
+          'Quotes, reports, data entry, status updates — the work that grows with headcount is the work AI does best.',
+      },
+      {
+        label: 'AI-Curious, Burned Before',
+        description:
+          'You tried a tool that went nowhere. An audit-first approach finds the use case with payback before anything gets built.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'What does AI consulting cost for a small business?',
+        a: 'AI engagements at The Coast Global are custom-quoted by scope. As a general range: an AI opportunity audit is a fixed low-four-figure engagement, a deployed chatbot or single automation typically runs $2,500–$10,000, and larger custom tools are quoted from the roadmap. Every build starts from the audit, so you invest in the full solution only after seeing where the return is. Ongoing support is an optional monthly retainer, not a requirement — you own everything we build.',
+      },
+      {
+        q: 'What can AI actually do for a small business?',
+        a: 'The highest-return uses we deploy are unglamorous and powerful: a chatbot that answers customer questions instantly from your real business information; intake and follow-up automation that responds to every lead within a minute; document and report generation that turns hours of admin into a click; and internal assistants that let your team search company knowledge in plain English. The pattern is consistent — AI is best at high-volume, repetitive, language-heavy work. The audit finds which of those is worth the most in your business.',
+      },
+      {
+        q: 'Do we need technical staff to use what you build?',
+        a: 'No. We design for teams with zero technical staff: the systems run inside tools you already use, your team gets hands-on training and plain-English documentation, and nothing requires a developer to operate day to day. If something needs adjusting later, the optional support retainer covers it — or we hand over clean documentation so any future hire can pick it up.',
+      },
+    ],
+    relatedSlugs: ['digital-marketing', 'website-design', 'social-media-management'],
+    ctaHref: '/ai',
+    ctaLabel: 'Book an AI Strategy Session',
   },
 ]
 

@@ -36,8 +36,8 @@ const servicesSchema = {
   numberOfItems: 14,
   itemListElement: [
     { '@type': 'ListItem', position: 1, item: { '@type': 'Service', name: 'Branding & Marketing', description: 'Logo design, full branding, brand revamp, social media, marketing - small brands transformed to premium-tier.', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 2, item: { '@type': 'Service', name: 'Digital Growth', description: 'Lead generation, paid ads, and everything digital marketing.', provider: { '@id': 'https://coastglobal.org/#organization' } } },
-    { '@type': 'ListItem', position: 3, item: { '@type': 'Service', name: 'AI & Software Solutions', description: 'AI consultancy and custom AI + software builds - chatbots, tools, automation.', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 2, item: { '@type': 'Service', name: 'Digital Growth', description: 'Lead generation, paid ads, and everything digital marketing.', url: 'https://coastglobal.org/services/digital-marketing', provider: { '@id': 'https://coastglobal.org/#organization' } } },
+    { '@type': 'ListItem', position: 3, item: { '@type': 'Service', name: 'AI & Software Solutions', description: 'AI consultancy and custom AI + software builds - chatbots, tools, automation.', url: 'https://coastglobal.org/services/ai-consulting', provider: { '@id': 'https://coastglobal.org/#organization' } } },
     { '@type': 'ListItem', position: 4, item: { '@type': 'Service', name: 'Logo Design', description: 'Custom logo with 3 concepts & 2 revision rounds', provider: { '@id': 'https://coastglobal.org/#organization' } } },
     { '@type': 'ListItem', position: 5, item: { '@type': 'Service', name: 'Full Rebrand', description: 'Complete brand transformation package', provider: { '@id': 'https://coastglobal.org/#organization' } } },
     { '@type': 'ListItem', position: 6, item: { '@type': 'Service', name: 'Brand Identity Guidelines', description: 'Logo, colors, typography & usage rules', provider: { '@id': 'https://coastglobal.org/#organization' } } },

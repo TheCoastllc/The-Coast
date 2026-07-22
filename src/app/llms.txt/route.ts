@@ -79,16 +79,17 @@ export async function GET() {
   - [Website Design](${BASE_URL}/services/website-design): Custom website design and development.
   - [Pitch Deck / Investor Materials](${BASE_URL}/services/pitch-deck): Investor-ready presentation design.
   - [Video & Motion](${BASE_URL}/services/video-motion): Promotional videos and animations.
-  - [Digital Marketing](${BASE_URL}/services): SEO, ads setup, and email campaigns.
+  - [Digital Marketing & Lead Generation](${BASE_URL}/services/digital-marketing): Full-funnel digital marketing - lead generation, paid ads, SEO, and email.
   - [Social Media Management](${BASE_URL}/services/social-media-management): Content creation, scheduling, and management.
 
 ## Digital Growth
 
-- Lead generation, paid ads management, and full-funnel digital marketing for small businesses - everything digital, from strategy to execution.
+- [Digital Marketing & Lead Generation](${BASE_URL}/services/digital-marketing): Lead generation, paid ads management, and full-funnel digital marketing for small businesses - everything digital, from strategy to execution.
 
 ## AI & Software
 
-- [AI Consulting & Implementation](${BASE_URL}/ai): From "we should use AI" to real, working systems - AI strategy, custom AI solutions, chatbots, and software tools designed, built, and deployed for founders and growth-stage teams.
+- [AI Consulting for Small Business](${BASE_URL}/services/ai-consulting): AI opportunity audits, custom chatbots, automations, and tools - designed, built, and deployed for teams with zero technical staff.
+- [AI Consulting & Implementation](${BASE_URL}/ai): From "we should use AI" to real, working systems - book an AI Strategy Session.
 
 ## Service Categories
 

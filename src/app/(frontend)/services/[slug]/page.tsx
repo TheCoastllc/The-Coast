@@ -24,7 +24,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!service) return {}
 
   return {
-    title: service.metaTitle,
+    // metaTitle already carries the brand suffix - absolute stops the layout
+    // template appending it a second time
+    title: { absolute: service.metaTitle },
     description: service.metaDescription,
     alternates: { canonical: `https://coastglobal.org/services/${service.slug}` },
     openGraph: {
@@ -224,7 +226,9 @@ export default async function ServiceSlugPage({ params }: { params: Params }) {
             <span>{service.priceRange}</span>
           </div>
           <div className={styles.ctaRow}>
-            <ShineButton href="/get-started" size="md">Request a Quote</ShineButton>
+            <ShineButton href={service.ctaHref ?? '/get-started'} size="md">
+              {service.ctaLabel ?? 'Request a Quote'}
+            </ShineButton>
             <ShineButton href="/services" size="md" variant="ghost">All Services</ShineButton>
           </div>
         </section>
