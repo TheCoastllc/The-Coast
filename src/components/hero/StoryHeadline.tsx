@@ -2,7 +2,10 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { COMPANY } from "@/lib/content/coast";
+import { useVariant } from "@/components/visuals/useVariant";
 import styles from "./StoryHeadline.module.css";
+
+const STAGE_MODES = ["off", "on"] as const;
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 const smoothstep = (e0: number, e1: number, x: number) => {
@@ -41,6 +44,13 @@ function CharSplit({ text }: { text: string }) {
  * of filters per frame. Reads the same progress formula as StoryHero.
  */
 export function StoryHeadline() {
+  // ?stage=on build-off: as THE COAST ONE arrives, the promise line flips to
+  // an outlined wordmark so she sails visibly THROUGH the letterforms
+  // (the Ciao can-through-logo trick). Inert unless the flag is set.
+  const stage = useVariant("stage", STAGE_MODES, "off");
+  const stageRef = useRef(stage);
+  stageRef.current = stage;
+  const wrapRef = useRef<HTMLDivElement>(null);
   const aRef = useRef<HTMLParagraphElement>(null);
   const bRef = useRef<HTMLParagraphElement>(null);
   const cRef = useRef<HTMLParagraphElement>(null);
@@ -115,6 +125,14 @@ export function StoryHeadline() {
       const cOut = smoothstep(0.92, 0.99, p);
       drive(cRef.current, cIn, cOut, 36);
 
+      // ?stage=on: outline the promise while the boat crosses behind it
+      if (wrapRef.current) {
+        const through = stageRef.current === "on" && p > 0.74 && p < 0.94;
+        if (through !== (wrapRef.current.dataset.outline === "true")) {
+          wrapRef.current.dataset.outline = String(through);
+        }
+      }
+
       if (cueRef.current) cueRef.current.style.opacity = String(1 - smoothstep(0, 0.07, p));
     };
 
@@ -149,7 +167,7 @@ export function StoryHeadline() {
   }, []);
 
   return (
-    <div className={styles.wrap} aria-hidden>
+    <div ref={wrapRef} className={styles.wrap} aria-hidden>
       <div className={styles.stack}>
         {/* Decorative, scroll-scrubbed morph phrases (the whole wrap is
             aria-hidden). These are NOT the page heading - the real, crawlable

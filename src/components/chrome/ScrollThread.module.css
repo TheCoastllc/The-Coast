@@ -70,3 +70,23 @@
     display: none;
   }
 }
+
+/* ?stage=on: the traveled course becomes the day's arc - dawn rose at the
+   top of the voyage, gold through the middle, ember toward the finale. */
+:global([data-stage="on"]) .bar {
+  border-right: none;
+  width: 2px;
+  right: 7.5px;
+  background: linear-gradient(
+    to bottom,
+    #e28c78 0%,
+    #e6b24d 34%,
+    #ffd685 58%,
+    #f4a53a 78%,
+    #d6604d 100%
+  );
+  box-shadow: 0 0 10px rgba(230, 178, 77, 0.45);
+}
+:global([data-stage="on"]) .buoy {
+  border-color: color-mix(in srgb, #e6b24d 60%, transparent);
+}

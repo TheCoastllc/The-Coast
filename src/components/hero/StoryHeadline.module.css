@@ -81,3 +81,15 @@
   display: inline-block;
   will-change: transform, opacity;
 }
+
+/* ?stage=on: the promise flips to an outlined wordmark while THE COAST ONE
+   crosses behind it - she sails through the letterforms, Ciao-style. The
+   stroke carries the dawn gold so the outline reads as lit, not hollow. */
+[data-outline="true"] .phraseC .char {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-cream, #f2efe7) 88%, transparent);
+  text-shadow: 0 0 26px rgba(255, 200, 120, 0.22);
+}
+.phraseC .char {
+  transition: color 0.45s ease, text-shadow 0.45s ease;
+}

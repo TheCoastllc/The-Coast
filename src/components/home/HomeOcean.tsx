@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HeroStage } from "@/components/hero/HeroStage";
+import { StageLight } from "@/components/hero/StageLight";
 import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
@@ -129,6 +130,7 @@ export function HomeOcean({
       </h1>
       <IntroCurtain />
       <HeroStage meet="reflect" />
+      <StageLight />
       <StoryHeadline />
       {/* tall transparent runway: gives scroll distance for the 3 hero acts */}
       <div className={styles.storyTrack} />
