@@ -107,12 +107,16 @@ export function FilmStrip() {
       const vh = window.innerHeight || 1;
       const raw = clamp01((vh - r.top) / (r.height + vh));
       if (layerRef.current) {
+        // exit completes BEFORE the next section's copy becomes readable -
+        // no double exposure with the incoming thesis block
         layerRef.current.style.opacity = String(
-          smoothstep(0.02, 0.1, raw) * (1 - smoothstep(0.9, 0.99, raw))
+          smoothstep(0.02, 0.1, raw) * (1 - smoothstep(0.78, 0.9, raw))
         );
       }
       if (copyRef.current) {
-        copyRef.current.style.opacity = String(smoothstep(0.35, 0.5, raw));
+        copyRef.current.style.opacity = String(
+          smoothstep(0.35, 0.5, raw) * (1 - smoothstep(0.72, 0.82, raw))
+        );
       }
       const index = reduced ? FRAME_COUNT - 1 : Math.round(raw * (FRAME_COUNT - 1));
       paint(index);

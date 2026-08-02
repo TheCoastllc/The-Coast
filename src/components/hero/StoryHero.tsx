@@ -25,6 +25,28 @@ const smoothstep = (e0: number, e1: number, x: number) => {
   return t * t * (3 - 2 * t);
 };
 
+/** Soft radial sun sprite - warm core, gold corona, long falloff. A flat
+ *  vector circle reads cheap once the disc dominates the frame; a gradient
+ *  texture gives it the photographic glow, and the soft edge swallows the
+ *  hard dark slivers where wave crests cross the disc. */
+function makeSunTexture() {
+  const c = document.createElement("canvas");
+  c.width = c.height = 512;
+  const g = c.getContext("2d")!;
+  const grad = g.createRadialGradient(256, 256, 0, 256, 256, 256);
+  grad.addColorStop(0, "rgba(255, 236, 200, 1)");
+  grad.addColorStop(0.22, "rgba(255, 196, 110, 1)");
+  grad.addColorStop(0.38, "rgba(244, 99, 58, 1)");
+  grad.addColorStop(0.5, "rgba(244, 99, 58, 0.85)");
+  grad.addColorStop(0.66, "rgba(244, 99, 58, 0.28)");
+  grad.addColorStop(1, "rgba(244, 99, 58, 0)");
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 512, 512);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
 type V3 = [number, number, number];
 type Key = { p: number; pos: V3; look: V3 };
 
@@ -68,6 +90,7 @@ function StoryScene({
   const sun = useRef<THREE.Mesh>(null);
   const boat = useRef<THREE.Group>(null);
   const _look = useMemo(() => new THREE.Vector3(), []);
+  const sunMap = useMemo(() => makeSunTexture(), []);
 
   const seaMat = useMemo(
     () =>
@@ -76,17 +99,17 @@ function StoryScene({
         fragmentShader: WATER_FRAG,
         uniforms: {
           uTime: { value: 0 },
-          uAmp: { value: 1.15 },
+          uAmp: { value: 1.25 },
           uFreq: { value: 0.62 },
           uDeep: { value: new THREE.Color("#04101f") },
           uCrest: { value: new THREE.Color("#2E6CA8") },
           uAccent: { value: new THREE.Color("#DB5227") },
           uFoam: { value: new THREE.Color("#7FD3C7") },
-          uFoamAmt: { value: 1 },
+          uFoamAmt: { value: 1.15 },
           uFog: { value: new THREE.Color("#0A0C12") },
           uFogDensity: { value: 0.05 },
           uReflect: { value: 0 },
-          uCaustics: { value: 0.5 },
+          uCaustics: { value: 0.6 },
         },
       }),
     []
@@ -99,15 +122,17 @@ function StoryScene({
 
     // sea: lively waves from the start, calming for the boat
     seaMat.uniforms.uTime.value = t;
-    seaMat.uniforms.uAmp.value = 1.15 - 0.7 * smoothstep(0.58, 0.84, p);
+    seaMat.uniforms.uAmp.value = 1.25 - 0.8 * smoothstep(0.58, 0.84, p);
     // reflection streak only in reflect mode, ramping in with the full sun
     seaMat.uniforms.uReflect.value = meet === "reflect" ? smoothstep(0.5, 0.68, p) * 0.95 : 0;
 
-    // sun: tiny dot anchored high above the headline -> grows + descends to the horizon
+    // sun: a RISEN disc behind "The Coast" from the very first frame ->
+    // grows and descends to the horizon as the story advances (growth capped
+    // so the disc never dominates the mid-story frame as a flat shape)
     if (sun.current) {
-      sun.current.scale.setScalar(lerp(0.08, 1.5, smoothstep(0.04, 0.6, p)));
-      sun.current.position.y = lerp(6.5, 0.55, smoothstep(0.18, 0.72, p));
-      // always visible (incl. at the very top) - the dot must read above "The Coast"
+      sun.current.scale.setScalar(lerp(0.55, 1.25, smoothstep(0.04, 0.6, p)));
+      sun.current.position.y = lerp(3.6, 0.55, smoothstep(0.16, 0.72, p));
+      // always visible (incl. at the very top) - it must read behind the wordmark
       (sun.current.material as THREE.MeshBasicMaterial).opacity = 1;
     }
 
@@ -157,10 +182,18 @@ function StoryScene({
 
       <DriftClouds max={clouds} />
 
-      {/* the sun - tiny dot above the headline, grows + descends to the horizon */}
-      <mesh ref={sun} position={[0, 6.5, -20]} scale={0.08}>
-        <circleGeometry args={[5, 64]} />
-        <meshBasicMaterial color="#F4633A" transparent toneMapped={false} fog={false} />
+      {/* the sun - risen behind the wordmark from frame one, then grows +
+          descends to the horizon. Radial-gradient sprite: solid core out to
+          ~r5 (matching the old disc), then a warm corona falloff */}
+      <mesh ref={sun} position={[0, 3.6, -20]} scale={0.55}>
+        <planeGeometry args={[20, 20]} />
+        <meshBasicMaterial
+          map={sunMap}
+          transparent
+          toneMapped={false}
+          fog={false}
+          depthWrite={false}
+        />
       </mesh>
 
       {/* the origami boat (switchable upgrade variants) */}

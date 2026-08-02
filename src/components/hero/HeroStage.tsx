@@ -84,7 +84,7 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
     <>
       {/* instant CSS base - crossfades AWAY once the WebGL water actually paints,
           so the dramatic animated hero is what the visitor lands on. */}
-      <div style={{ opacity: ready ? 0 : 1, transition: "opacity 1.2s ease" }} aria-hidden>
+      <div style={{ opacity: ready ? 0 : 1, transition: "opacity 0.5s ease" }} aria-hidden>
         <div ref={staticRef}>
           <StoryHeroStatic />
         </div>
@@ -97,7 +97,7 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
             inset: 0,
             zIndex: -1,
             opacity: ready ? 1 : 0,
-            transition: "opacity 1.2s ease",
+            transition: "opacity 0.5s ease",
             pointerEvents: "none",
           }}
           aria-hidden

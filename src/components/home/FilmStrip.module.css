@@ -28,7 +28,7 @@
 .copy {
   position: absolute;
   left: clamp(1.4rem, 5vw, 5rem);
-  bottom: clamp(3.5rem, 10vh, 7rem);
+  bottom: clamp(6rem, 14vh, 9rem);
   opacity: 0;
   will-change: opacity;
 }
