@@ -10,6 +10,7 @@ import * as THREE from "three";
  * billboard that drifts across the sky on its own speed, like ironhill's leaves.
  * The cloud silhouette is drawn procedurally to a canvas texture (flat base,
  * puffy top), so it reads as a real cloud rather than a fog blob.
+ * A photographic replacement is on hold until David picks reference imagery.
  */
 
 const PUFFS: [number, number, number][][] = [
@@ -31,18 +32,19 @@ const PUFFS: [number, number, number][][] = [
 
 function makeCloudTexture(variant: number): THREE.Texture | null {
   if (typeof document === "undefined") return null;
-  const w = 256;
-  const h = 160;
+  const w = 512;
+  const h = 320;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;
   const ctx = c.getContext("2d");
   if (!ctx) return null;
   ctx.clearRect(0, 0, w, h);
-  for (const [px, py, r] of PUFFS[variant]) {
+  for (const [px0, py0, r0] of PUFFS[variant]) {
+    const px = px0 * 2, py = py0 * 2, r = r0 * 2;
     const g = ctx.createRadialGradient(px, py, 0, px, py, r);
-    g.addColorStop(0, "rgba(255,255,255,0.95)");
-    g.addColorStop(0.55, "rgba(255,255,255,0.55)");
+    g.addColorStop(0, "rgba(255,255,255,0.78)");
+    g.addColorStop(0.55, "rgba(255,255,255,0.4)");
     g.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = g;
     ctx.beginPath();

@@ -7,9 +7,16 @@ import styles from "./FilmStrip.module.css";
 
 const FILM_MODES = ["off", "on"] as const;
 
-/** Frame manifest - written by the slicing pipeline (scripts/slice-film.ts). */
+/** Frame manifest - written by the slicing pipeline (scripts/slice-film-4k.ts).
+ *  Two tiers from the same 4K master: uhd (native ~3840w) for large/retina
+ *  canvases, hd (1920w) for laptop-class - picked once at load time. */
 const FRAME_COUNT = 60;
-const frameSrc = (i: number) => `/story/film/frame-${String(i).padStart(3, "0")}.webp`;
+const frameDir = () =>
+  Math.min(2, window.devicePixelRatio || 1) * window.innerWidth > 2200
+    ? "film-uhd"
+    : "film-hd";
+const frameSrc = (i: number, dir: string) =>
+  `/story/${dir}/frame-${String(i).padStart(3, "0")}.webp`;
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 const smoothstep = (e0: number, e1: number, x: number) => {
@@ -27,7 +34,9 @@ const smoothstep = (e0: number, e1: number, x: number) => {
  * whole component renders nothing on touch/low-end devices or without the flag.
  */
 export function FilmStrip() {
-  const film = useVariant("film", FILM_MODES, "off");
+  // default ON (desktop): promoted from the ?film=on demo after David's
+  // "the 4k boat is still not rendering" - ?film=off remains the escape hatch
+  const film = useVariant("film", FILM_MODES, "on");
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger();
   const reduced = useReducedMotion();
@@ -49,6 +58,7 @@ export function FilmStrip() {
     let cancelled = false;
     const frames = framesRef.current;
     if (frames.length === 0) frames.length = FRAME_COUNT;
+    const dir = frameDir();
     const load = (i: number) =>
       new Promise<void>((resolve) => {
         if (frames[i]) return resolve();
@@ -58,7 +68,7 @@ export function FilmStrip() {
           resolve();
         };
         img.onerror = () => resolve();
-        img.src = frameSrc(i);
+        img.src = frameSrc(i, dir);
       });
     (async () => {
       await load(0);

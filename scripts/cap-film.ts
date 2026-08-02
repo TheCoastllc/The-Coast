@@ -23,7 +23,7 @@ const run = async () => {
   // mobile WITH flag: section must be absent + zero frame requests
   const m = await browser.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
   const frameReqs: string[] = [];
-  m.on("request", (r) => { if (r.url().includes("/story/film/")) frameReqs.push(r.url()); });
+  m.on("request", (r) => { if (r.url().includes("/story/film")) frameReqs.push(r.url()); });
   await m.goto("https://coastglobal.org/?film=on", { waitUntil: "networkidle", timeout: 60000 });
   await m.mouse.move(195, 400);
   for (let i = 0; i < 20; i++) { await m.mouse.wheel(0, 700); await m.waitForTimeout(70); }
@@ -33,7 +33,7 @@ const run = async () => {
   // flagless desktop: no film spacer, homepage weight unchanged
   const f = await browser.newPage({ viewport: { width: 1200, height: 750 } });
   const flaglessReqs: string[] = [];
-  f.on("request", (r) => { if (r.url().includes("/story/film/")) flaglessReqs.push(r.url()); });
+  f.on("request", (r) => { if (r.url().includes("/story/film")) flaglessReqs.push(r.url()); });
   await f.goto("https://coastglobal.org/", { waitUntil: "networkidle", timeout: 60000 });
   await f.waitForTimeout(3000);
   const h = await f.evaluate(() => document.documentElement.scrollHeight);

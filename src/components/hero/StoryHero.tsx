@@ -25,28 +25,6 @@ const smoothstep = (e0: number, e1: number, x: number) => {
   return t * t * (3 - 2 * t);
 };
 
-/** Soft radial sun sprite - warm core, gold corona, long falloff. A flat
- *  vector circle reads cheap once the disc dominates the frame; a gradient
- *  texture gives it the photographic glow, and the soft edge swallows the
- *  hard dark slivers where wave crests cross the disc. */
-function makeSunTexture() {
-  const c = document.createElement("canvas");
-  c.width = c.height = 512;
-  const g = c.getContext("2d")!;
-  const grad = g.createRadialGradient(256, 256, 0, 256, 256, 256);
-  grad.addColorStop(0, "rgba(255, 236, 200, 1)");
-  grad.addColorStop(0.22, "rgba(255, 196, 110, 1)");
-  grad.addColorStop(0.38, "rgba(244, 99, 58, 1)");
-  grad.addColorStop(0.5, "rgba(244, 99, 58, 0.85)");
-  grad.addColorStop(0.66, "rgba(244, 99, 58, 0.28)");
-  grad.addColorStop(1, "rgba(244, 99, 58, 0)");
-  g.fillStyle = grad;
-  g.fillRect(0, 0, 512, 512);
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
-
 type V3 = [number, number, number];
 type Key = { p: number; pos: V3; look: V3 };
 
@@ -90,7 +68,6 @@ function StoryScene({
   const sun = useRef<THREE.Mesh>(null);
   const boat = useRef<THREE.Group>(null);
   const _look = useMemo(() => new THREE.Vector3(), []);
-  const sunMap = useMemo(() => makeSunTexture(), []);
 
   const seaMat = useMemo(
     () =>
@@ -183,17 +160,12 @@ function StoryScene({
       <DriftClouds max={clouds} />
 
       {/* the sun - risen behind the wordmark from frame one, then grows +
-          descends to the horizon. Radial-gradient sprite: solid core out to
-          ~r5 (matching the old disc), then a warm corona falloff */}
+          descends to the horizon. The clean flat disc (the look David
+          approved); bloom supplies the glow. A photographic replacement is
+          on hold until David picks a reference image he loves. */}
       <mesh ref={sun} position={[0, 3.6, -20]} scale={0.55}>
-        <planeGeometry args={[20, 20]} />
-        <meshBasicMaterial
-          map={sunMap}
-          transparent
-          toneMapped={false}
-          fog={false}
-          depthWrite={false}
-        />
+        <circleGeometry args={[5, 64]} />
+        <meshBasicMaterial color="#F4633A" transparent toneMapped={false} fog={false} />
       </mesh>
 
       {/* the origami boat (switchable upgrade variants) */}
