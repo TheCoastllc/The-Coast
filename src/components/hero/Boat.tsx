@@ -46,7 +46,7 @@ function Flagship() {
   // y-center puts her hull on the same waterline the old frame established
   return (
     <group ref={root}>
-      <mesh position={[0, -0.2, 0.01]} scale={[4.8, 4.8 / 2.035, 1]}>
+      <mesh position={[0, 0.05, 0.01]} scale={[4.8, 4.8 / 2.035, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           ref={bowMat}
@@ -57,7 +57,7 @@ function Flagship() {
           fog={false}
         />
       </mesh>
-      <mesh position={[0, -0.7, 0]} rotation={[0, 0.5, 0]} scale={[6.4, 6.4 / 5.644, 1]}>
+      <mesh position={[0, 0.0, 0]} rotation={[0, 0.5, 0]} scale={[6.4, 6.4 / 5.644, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           ref={sideMat}

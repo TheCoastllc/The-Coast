@@ -190,3 +190,12 @@
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 88%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, #000 34%, #000 88%, transparent 100%);
 }
+
+/* mobile: `cover` on the 16:9 horizon photo blows the distant flagship into a
+   blurry dark hump under the wordmark - portrait gets the clean gradient +
+   CSS sun instead, the photo stays a desktop-only layer */
+@media (max-width: 900px) {
+  .horizonPhoto {
+    display: none;
+  }
+}
