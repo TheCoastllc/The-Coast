@@ -13,6 +13,7 @@ import { ServiceStack } from "./services/ServiceWorlds";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { GalleryPreview, type GalleryPreviewItem } from "./GalleryPreview";
 import { IntroCurtain } from "./IntroCurtain";
+import { FilmStrip } from "./FilmStrip";
 import { MasterpieceThesis } from "./MasterpieceThesis";
 import { PaintSweep } from "./PaintSweep";
 import { GlassStatement } from "./GlassStatement";
@@ -134,6 +135,10 @@ export function HomeOcean({
       <StoryHeadline />
       {/* tall transparent runway: gives scroll distance for the 3 hero acts */}
       <div className={styles.storyTrack} />
+
+      {/* ?film=on build-off: scroll-scrubbed flagship film - its spacer adds
+          runway between the hero and the content; null when the flag is off */}
+      <FilmStrip />
 
       <main className={styles.content}>
         <RevealGroup>
