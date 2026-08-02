@@ -16,8 +16,12 @@ const smoothstep = (e0: number, e1: number, x: number) => {
 
 const BASE_Y = 0.0; // the boat sits centered in frame
 const SPAN = 13.5; // traverse width - wide enough to wrap fully off-screen (no visible jump)
-const SAIL_SPEED = 0.55;
-const SIZE = 3.1; // billboard plane size (image is square)
+const SAIL_SPEED = 0.85; // a speed boat crosses with intent
+// the flagship cutout is content-trimmed at 5.644:1 (w:h) - the plane matches
+// so her hull bottom is exactly the texture's bottom edge (the waterline)
+const RATIO = 5.644;
+const WIDTH = 5.0;
+const HEIGHT = WIDTH / RATIO;
 
 /** Soft radial texture used both to feather the billboard edges (the render's
  *  background isn't pure black, so additive alone leaves a plate edge) and,
@@ -50,11 +54,11 @@ function makeFadeTexture() {
   return new THREE.CanvasTexture(c);
 }
 
-/** The finale: THE COAST ONE arriving in full profile - a real photographic
+/** The finale: the flagship crossing in full profile - a real photographic
  *  cutout with true alpha (normal blending), drifting mist at the waterline
  *  and a shimmering mirrored reflection beneath her. */
 function FinaleBoat() {
-  const src = "/story/coast-one-side.png";
+  const src = "/story/flagship-side.png";
   const root = useRef<THREE.Group>(null);
   const mistRefs = useRef<(THREE.Mesh | null)[]>([]);
   const reflRef = useRef<THREE.Mesh>(null);
@@ -70,13 +74,13 @@ function FinaleBoat() {
   const mistMap = useMemo(() => makeRadialTexture(0.12), []);
   const fadeMap = useMemo(() => makeFadeTexture(), []);
 
-  // mist puffs: phase / drift-span / size / base opacity
+  // mist puffs hug the (now much lower) waterline: hull bottom = -HEIGHT/2
   const puffs = useMemo(
     () => [
-      { phase: 0.0, span: 0.9, size: 2.4, y: -0.92, opacity: 0.17 },
-      { phase: 2.1, span: 1.3, size: 1.7, y: -0.78, opacity: 0.2 },
-      { phase: 4.4, span: 1.1, size: 2.8, y: -1.04, opacity: 0.14 },
-      { phase: 3.2, span: 2.2, size: 4.6, y: -1.12, opacity: 0.09 }, // wide fog bed
+      { phase: 0.0, span: 0.9, size: 2.4, y: -HEIGHT / 2 - 0.14, opacity: 0.17 },
+      { phase: 2.1, span: 1.3, size: 1.7, y: -HEIGHT / 2 - 0.02, opacity: 0.2 },
+      { phase: 4.4, span: 1.1, size: 2.8, y: -HEIGHT / 2 - 0.24, opacity: 0.14 },
+      { phase: 3.2, span: 2.2, size: 4.6, y: -HEIGHT / 2 - 0.3, opacity: 0.09 }, // wide fog bed
     ],
     []
   );
@@ -92,7 +96,7 @@ function FinaleBoat() {
     }
     // the reflection shimmers like water
     if (reflRef.current) {
-      reflRef.current.scale.x = SIZE * 1.5 * (1 + 0.014 * Math.sin(t * 1.7));
+      reflRef.current.scale.x = WIDTH * (1 + 0.014 * Math.sin(t * 1.7));
       (reflRef.current.material as THREE.MeshBasicMaterial).opacity =
         0.24 + 0.05 * Math.sin(t * 0.9);
     }
@@ -109,8 +113,8 @@ function FinaleBoat() {
 
   return (
     <group ref={root} position={[0, BASE_Y, 0]}>
-      {/* the boat itself - true-alpha cutout, 3:2 */}
-      <mesh scale={[SIZE * 1.5, SIZE, 1]}>
+      {/* the boat itself - true-alpha cutout at her measured blade ratio */}
+      <mesh scale={[WIDTH, HEIGHT, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           map={tex}
@@ -119,8 +123,8 @@ function FinaleBoat() {
         />
       </mesh>
 
-      {/* water reflection - mirrored, faded toward the depths */}
-      <mesh ref={reflRef} position={[0, -SIZE * 0.98, 0.02]} scale={[SIZE * 1.5, -SIZE, 1]}>
+      {/* water reflection - mirrored directly beneath the hull, faded down */}
+      <mesh ref={reflRef} position={[0, -HEIGHT * 0.98, 0.02]} scale={[WIDTH, -HEIGHT, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           map={tex}

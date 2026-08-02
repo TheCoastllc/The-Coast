@@ -11,19 +11,19 @@ const smoothstep = (e0: number, e1: number, x: number) => {
   return t * t * (3 - 2 * t);
 };
 
-/** THE COAST ONE in the voyage: real photographic cutouts with true alpha
- *  (background-removed), composited with normal blending. The BOW view sails
+/** The flagship in the voyage: real photographic cutouts with true alpha
+ *  (background-removed), composited with normal blending. The BOW view charges
  *  the approach; as she arrives (voyage ease -> 1) she turns to present her
  *  full profile - a crossfade driven by the ease StoryHero publishes on the
  *  parent group's userData each frame. */
-function CoastOne() {
+function Flagship() {
   const gl = useThree((s) => s.gl);
   const root = useRef<THREE.Group>(null);
   const bowMat = useRef<THREE.MeshBasicMaterial>(null);
   const sideMat = useRef<THREE.MeshBasicMaterial>(null);
   const [side, bow] = useLoader(THREE.TextureLoader, [
-    "/story/coast-one-side.png",
-    "/story/coast-one-bow.png",
+    "/story/flagship-side.png",
+    "/story/flagship-bow.png",
   ]);
   useEffect(() => {
     for (const t of [side, bow]) {
@@ -41,10 +41,12 @@ function CoastOne() {
     if (sideMat.current) sideMat.current.opacity = turn;
   });
 
-  // cutouts are 3:2 (w:h) - plane aspect matches so she never distorts
+  // cutouts are content-trimmed - plane aspect matches each texture's measured
+  // ratio (bow 2.035:1, side 5.644:1) so she never distorts, and each plane's
+  // y-center puts her hull on the same waterline the old frame established
   return (
     <group ref={root}>
-      <mesh position={[0, 0.62, 0.01]} scale={[5.4, 3.6, 1]}>
+      <mesh position={[0, -0.2, 0.01]} scale={[4.8, 4.8 / 2.035, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           ref={bowMat}
@@ -55,7 +57,7 @@ function CoastOne() {
           fog={false}
         />
       </mesh>
-      <mesh position={[0, 0.62, 0]} rotation={[0, 0.5, 0]} scale={[5.4, 3.6, 1]}>
+      <mesh position={[0, -0.7, 0]} rotation={[0, 0.5, 0]} scale={[6.4, 6.4 / 5.644, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial
           ref={sideMat}
@@ -75,7 +77,7 @@ export function Boat({ mode = "all" }: { mode?: BoatMode }) {
   void mode;
   return (
     <Suspense fallback={null}>
-      <CoastOne />
+      <Flagship />
     </Suspense>
   );
 }

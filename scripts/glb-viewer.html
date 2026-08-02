@@ -1,0 +1,53 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<script type="importmap">
+{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}
+</script>
+<style>body{margin:0;background:#0a1420}canvas{display:block}</style>
+</head><body>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const W = 900, H = 620;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a1420);
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+// golden-hour key + cool fill, matching the site's dawn world
+const sun = new THREE.DirectionalLight(0xffc46e, 2.6);
+sun.position.set(4, 3, 2.5);
+scene.add(sun);
+scene.add(new THREE.HemisphereLight(0x8fb4c8, 0x0a1420, 0.55));
+
+const camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 100);
+
+new GLTFLoader().load('/scripts/coast-one-draft.glb', (g) => {
+  const model = g.scene;
+  // center + normalize scale
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  model.position.sub(center);
+  const s = 3.2 / Math.max(size.x, size.y, size.z);
+  model.scale.setScalar(s);
+  scene.add(model);
+  window.__shoot = (yawDeg, pitchDeg = 8) => {
+    const yaw = yawDeg * Math.PI / 180, pitch = pitchDeg * Math.PI / 180;
+    const r = 6.2;
+    camera.position.set(r * Math.sin(yaw) * Math.cos(pitch), r * Math.sin(pitch) + 0.25, r * Math.cos(yaw) * Math.cos(pitch));
+    camera.lookAt(0, 0.18, 0);
+    renderer.render(scene, camera);
+    return renderer.domElement.toDataURL('image/png');
+  };
+  window.__ready = true;
+}, undefined, (e) => { window.__error = String(e); });
+</script></body></html>
