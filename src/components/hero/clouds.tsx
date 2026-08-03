@@ -62,8 +62,8 @@ function makeCloudTexture(variant: number): THREE.Texture | null {
  *  every mount draws the identical cloud. */
 function makeCloudTextureUp(variant: number): THREE.Texture | null {
   if (typeof document === "undefined") return null;
-  const w = 1024;
-  const h = 640;
+  const w = 2048;
+  const h = 1280;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;
@@ -75,10 +75,16 @@ function makeCloudTextureUp(variant: number): THREE.Texture | null {
     seed = (seed * 1664525 + 1013904223) % 4294967296;
     return seed / 4294967296;
   };
+  // CRISP billows (David: "clouds need to not be blurry"): the old stops
+  // held soft alpha all the way out, which read as gaussian mush. These hold
+  // a dense core, then fall off hard past 0.72r so every puff has a readable
+  // edge while the union of puffs stays organic.
   const puff = (px: number, py: number, r: number, a: number) => {
     const g = ctx.createRadialGradient(px, py, 0, px, py, r);
     g.addColorStop(0, `rgba(255,255,255,${a})`);
-    g.addColorStop(0.55, `rgba(255,255,255,${a * 0.5})`);
+    g.addColorStop(0.58, `rgba(255,255,255,${a * 0.9})`);
+    g.addColorStop(0.8, `rgba(255,255,255,${a * 0.42})`);
+    g.addColorStop(0.94, `rgba(255,255,255,${a * 0.05})`);
     g.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = g;
     ctx.beginPath();
@@ -86,15 +92,23 @@ function makeCloudTextureUp(variant: number): THREE.Texture | null {
     ctx.fill();
   };
   for (const [px0, py0, r0] of PUFFS[variant]) {
-    const px = px0 * 4, py = py0 * 4, r = r0 * 4;
-    puff(px, py, r, 0.74); // soft body carries the shape
-    // internal structure: a few gentle density lifts, never speckle
-    const n = 5 + Math.floor(rand() * 4);
+    const px = px0 * 8, py = py0 * 8, r = r0 * 8;
+    puff(px, py, r, 0.8); // dense body carries the shape
+    // billow crown: overlapping mid-size puffs along the top arc give the
+    // cauliflower profile clouds actually have
+    const crowns = 4 + Math.floor(rand() * 3);
+    for (let i = 0; i < crowns; i++) {
+      const cx = px + (i / (crowns - 1) - 0.5) * r * 1.3 + (rand() - 0.5) * r * 0.2;
+      const cy = py - r * (0.34 + rand() * 0.3);
+      puff(cx, cy, r * (0.3 + rand() * 0.22), 0.55 + rand() * 0.25);
+    }
+    // interior density lifts
+    const n = 6 + Math.floor(rand() * 4);
     for (let i = 0; i < n; i++) {
       const ang = rand() * Math.PI * 2;
-      const dist = rand() * r * 0.45;
-      const rr = r * (0.24 + rand() * 0.22);
-      puff(px + Math.cos(ang) * dist, py + Math.sin(ang) * dist * 0.6 - r * 0.12, rr, 0.06 + rand() * 0.1);
+      const dist = rand() * r * 0.5;
+      const rr = r * (0.18 + rand() * 0.2);
+      puff(px + Math.cos(ang) * dist, py + Math.sin(ang) * dist * 0.55 - r * 0.1, rr, 0.14 + rand() * 0.18);
     }
   }
   // dawn underlight: a breath of warmth on the belly, only where cloud exists
@@ -172,7 +186,10 @@ function CloudSprite({
     <Billboard ref={ref} position={[def.x, def.y, def.z]}>
       <mesh scale={[def.scale * 1.7, def.scale, 1]}>
         <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial ref={mat} map={tex} color={def.tint} transparent opacity={0.9} depthWrite={false} />
+        {/* fog OFF: scene fogExp2 was mixing these 60-80% toward the fog color
+            at their depth - THE main source of the blurry-smear look. Depth
+            dimming is handled by the per-cloud tint grays instead. */}
+        <meshBasicMaterial ref={mat} map={tex} color={def.tint} transparent opacity={0.92} depthWrite={false} fog={false} />
       </mesh>
     </Billboard>
   );

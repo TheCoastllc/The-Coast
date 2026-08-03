@@ -28,19 +28,17 @@ void main() {
 const SUN_FRAG = /* glsl */ `
 varying vec2 vUv;
 uniform float uP;
-uniform float uTime;
 void main() {
   vec2 c = (vUv - 0.5) * 2.0;
   float r = length(c);
   // small disc inside a large plane: the remaining room is the ATMOSPHERE.
   // A sun reads as real because the sky glows around it - a hard disc on a
   // dark sky is what made the old one look like a cut-out.
+  // PERFECTLY ROUND by David's order: no limb wobble, no shimmer - the edge
+  // is a pure circle, softened only by a thin symmetric atmosphere band.
   float rd = 0.42;
-  float ang = atan(c.y, c.x);
-  float wob = sin(ang * 9.0 + uTime * 0.5) * 0.0025 + sin(ang * 21.0 - uTime * 0.8) * 0.0012;
-  float edge = rd + wob;
-  // soft limb: atmosphere eats the edge over ~8% of the radius, never a stamp
-  float disc = 1.0 - smoothstep(edge - 0.030, edge + 0.038, r);
+  float edge = rd;
+  float disc = 1.0 - smoothstep(edge - 0.016, edge + 0.020, r);
   // Limb darkening: a small warm core falling quickly to the approved #F4633A
   // ember body. The transition is fast (0.55) so only the inner third is hot -
   // the scene Bloom threshold is 0.55 luminance, and a near-white face here
@@ -57,7 +55,11 @@ void main() {
   float outer = exp(-d * 2.8) * 0.22;
   // horizon haze band, arriving as the sun nears the water
   float haze = exp(-abs(c.y) * 6.0) * exp(-abs(c.x) * 1.1) * smoothstep(0.30, 0.85, uP);
-  float atmos = inner + outer;
+  // plane-edge fade: the scattering terms never reach zero on their own, so
+  // without this the quad's straight edges print faint seams in the dark sky
+  float fade = 1.0 - smoothstep(0.72, 0.97, r);
+  float atmos = (inner + outer) * fade;
+  haze *= fade;
   vec3 col = discCol * disc + glowCol * atmos * (1.0 - disc) + glowCol * haze * 0.16 * (1.0 - disc);
   float a = max(max(disc, atmos), haze * 0.14);
   gl_FragColor = vec4(col, a);
@@ -125,7 +127,7 @@ function StoryScene({
         ? new THREE.ShaderMaterial({
             vertexShader: SUN_VERT,
             fragmentShader: SUN_FRAG,
-            uniforms: { uP: { value: 0 }, uTime: { value: 0 } },
+            uniforms: { uP: { value: 0 } },
             transparent: true,
             depthWrite: false,
           })
@@ -176,7 +178,6 @@ function StoryScene({
       const mat = sun.current.material as THREE.Material;
       if (mat instanceof THREE.ShaderMaterial) {
         mat.uniforms.uP.value = p;
-        mat.uniforms.uTime.value = t;
       } else {
         // always visible (incl. at the very top) - it must read behind the wordmark
         (mat as THREE.MeshBasicMaterial).opacity = 1;

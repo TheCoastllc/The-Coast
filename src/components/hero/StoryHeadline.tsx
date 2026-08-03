@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import { COMPANY } from "@/lib/content/coast";
-import { useVariant } from "@/components/visuals/useVariant";
 import styles from "./StoryHeadline.module.css";
-
-const STAGE_MODES = ["off", "on"] as const;
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 const smoothstep = (e0: number, e1: number, x: number) => {
@@ -37,23 +33,17 @@ function CharSplit({ text }: { text: string }) {
 }
 
 /**
- * Fixed, scroll-scrubbed headline that morphs across the story in three beats:
- *   "The Coast" -> "Design The Future" -> the promise tagline.
+ * Fixed, scroll-scrubbed headline that morphs across the story in two beats:
+ *   "The Coast" -> "Design The Future". The promise tagline appears once on
+ *   the page, under the 4K flagship film - never here.
  * Each beat is a per-character cascade (chars carry their own offset on the
  * same scrub), while blur rides the phrase wrapper so we never animate dozens
  * of filters per frame. Reads the same progress formula as StoryHero.
  */
 export function StoryHeadline() {
-  // ?stage=on build-off: as THE COAST ONE arrives, the promise line flips to
-  // an outlined wordmark so she sails visibly THROUGH the letterforms
-  // (the Ciao can-through-logo trick). Inert unless the flag is set.
-  const stage = useVariant("stage", STAGE_MODES, "off");
-  const stageRef = useRef(stage);
-  stageRef.current = stage;
   const wrapRef = useRef<HTMLDivElement>(null);
   const aRef = useRef<HTMLParagraphElement>(null);
   const bRef = useRef<HTMLParagraphElement>(null);
-  const cRef = useRef<HTMLParagraphElement>(null);
   const cueRef = useRef<HTMLSpanElement>(null);
   const charsRef = useRef<Map<HTMLElement, HTMLElement[]>>(new Map());
   // 0->1 time ramp that cascades "The Coast" in on first paint (timed to land
@@ -63,9 +53,8 @@ export function StoryHeadline() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
-      if (aRef.current) aRef.current.style.opacity = "0";
+      if (aRef.current) aRef.current.style.opacity = "1";
       if (bRef.current) bRef.current.style.opacity = "0";
-      if (cRef.current) cRef.current.style.opacity = "1";
       if (cueRef.current) cueRef.current.style.opacity = "0";
       return;
     }
@@ -115,23 +104,12 @@ export function StoryHeadline() {
       const aOut = smoothstep(0.16, 0.34, p);
       drive(aRef.current, aIntro.current, aOut, 44);
 
-      // beat 2 - "Design The Future" arrives, then leaves
+      // beat 2 - "Design The Future" arrives, holds, then clears the stage
+      // for the sun's solo descent into the 4K film handoff. The promise line
+      // appears exactly once on this page: under the flagship, in the film.
       const bIn = smoothstep(0.26, 0.46, p);
-      const bOut = smoothstep(0.52, 0.68, p);
+      const bOut = smoothstep(0.58, 0.74, p);
       drive(bRef.current, bIn, bOut, 48);
-
-      // beat 3 - the promise rises and holds as the finale
-      const cIn = smoothstep(0.64, 0.82, p);
-      const cOut = smoothstep(0.92, 0.99, p);
-      drive(cRef.current, cIn, cOut, 36);
-
-      // ?stage=on: outline the promise while the boat crosses behind it
-      if (wrapRef.current) {
-        const through = stageRef.current === "on" && p > 0.74 && p < 0.94;
-        if (through !== (wrapRef.current.dataset.outline === "true")) {
-          wrapRef.current.dataset.outline = String(through);
-        }
-      }
 
       if (cueRef.current) cueRef.current.style.opacity = String(1 - smoothstep(0, 0.07, p));
     };
@@ -178,9 +156,6 @@ export function StoryHeadline() {
         </p>
         <p ref={bRef} className={`${styles.phrase} ${styles.phraseB} no-marble`}>
           <CharSplit text="Design The Future" />
-        </p>
-        <p ref={cRef} className={`${styles.phrase} ${styles.phraseC}`}>
-          <CharSplit text={`${COMPANY.promise}.`} />
         </p>
       </div>
       <span ref={cueRef} className={styles.cue}>

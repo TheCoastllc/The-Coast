@@ -4,7 +4,6 @@ import { Suspense, useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
-import { COMPANY } from "@/lib/content/coast";
 import { useQuality, useInView } from "@/lib/perf";
 import styles from "./FoldingBoat.module.css";
 
@@ -164,8 +163,6 @@ function FinaleBoat() {
 export function FoldingBoat() {
   const ref = useRef<HTMLElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
-  const aRef = useRef<HTMLSpanElement>(null);
-  const bRef = useRef<HTMLSpanElement>(null);
   const q = useQuality();
   const inView = useInView(ref, "20% 0px");
 
@@ -184,19 +181,6 @@ export function FoldingBoat() {
         layerRef.current.style.opacity = String(smoothstep(0.02, 0.12, raw) * (1 - smoothstep(0.88, 1, raw)));
       }
 
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const aOut = reduce ? 1 : smoothstep(0.32, 0.52, raw);
-      if (aRef.current) {
-        aRef.current.style.opacity = String(1 - aOut);
-        aRef.current.style.transform = `translateY(${-26 * aOut}px)`;
-        aRef.current.style.filter = `blur(${7 * aOut}px)`;
-      }
-      const bIn = reduce ? 1 : smoothstep(0.48, 0.7, raw);
-      if (bRef.current) {
-        bRef.current.style.opacity = String(bIn);
-        bRef.current.style.transform = `translateY(${26 * (1 - bIn)}px)`;
-        bRef.current.style.filter = `blur(${7 * (1 - bIn)}px)`;
-      }
     };
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -234,13 +218,6 @@ export function FoldingBoat() {
               </EffectComposer>
             )}
           </Canvas>
-        </div>
-        <div className={styles.copy}>
-          <p className={styles.label}>The Craft</p>
-          <h2 className={`${styles.title} no-marble`} aria-label={COMPANY.promise}>
-            <span ref={aRef} className={styles.phraseA}>{COMPANY.promiseA}</span>
-            <span ref={bRef} className={styles.phraseB}>{COMPANY.promiseB}</span>
-          </h2>
         </div>
       </div>
     </>

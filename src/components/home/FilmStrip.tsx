@@ -7,16 +7,29 @@ import styles from "./FilmStrip.module.css";
 
 const FILM_MODES = ["off", "on"] as const;
 
-/** Frame manifest - written by the slicing pipeline (scripts/slice-film-4k.ts).
- *  Two tiers from the same 4K master: uhd (native ~3840w) for large/retina
- *  canvases, hd (1920w) for laptop-class - picked once at load time. */
+/** Frame manifest - two tiers re-encoded from the 4K master (q84/q76, max
+ *  encoder effort): uhd (native 3840w) for large/retina canvases, hd (1920w)
+ *  for laptop-class - picked once at load time. */
 const FRAME_COUNT = 60;
 const frameDir = () =>
   Math.min(2, window.devicePixelRatio || 1) * window.innerWidth > 2200
-    ? "film-uhd"
-    : "film-hd";
+    ? "film-uhd2"
+    : "film-hd2";
 const frameSrc = (i: number, dir: string) =>
   `/story/${dir}/frame-${String(i).padStart(3, "0")}.webp`;
+
+/* The handoff choreography. HeroStage retires over 2.40-2.62vh of scroll; in
+ * the same breath this layer fades in (raw .09-.13 = 2.405-2.585vh), so the
+ * hero's descended sun match-cuts into the film's sunrise with NO dead gap -
+ * one continuous story: sun meets the horizon, the flagship arrives.
+ * The 60-frame turn is remapped onto the VISIBLE window so the full
+ * bow-to-broadside plays on screen, never behind a transparent layer. */
+const FADE_IN_A = 0.095;
+const FADE_IN_B = 0.128;
+const FADE_OUT_A = 0.78;
+const FADE_OUT_B = 0.9;
+const FRAME_WIN_A = 0.13;
+const FRAME_WIN_B = 0.86;
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 const smoothstep = (e0: number, e1: number, x: number) => {
@@ -25,17 +38,20 @@ const smoothstep = (e0: number, e1: number, x: number) => {
 };
 
 /**
- * ?film=on build-off: an Apple-style scroll-linked image sequence. A stack of
- * prerendered film frames (the flagship turning bow -> broadside) painted onto
- * a fixed canvas; the spacer section provides the scroll runway and the scroll
- * position picks the frame - scrub down, she turns; scrub up, she turns back.
- * Same fixed-layer + spacer pattern as the FoldingBoat finale; frames are
- * fetched lazily VideoWave-style only when the section approaches, and the
- * whole component renders nothing on touch/low-end devices or without the flag.
+ * Apple-style scroll-scrubbed film, ON by default on desktop (?film=off kills
+ * it). A stack of prerendered 4K film frames (the flagship turning bow ->
+ * broadside) painted onto a fixed canvas; the spacer section provides the
+ * scroll runway and the scroll position picks the frame.
+ *
+ * Smoothness contract (David: "seamless, lazy loading and fast"):
+ *  - frames decode OFF the paint path (img.decode() before they enter the pool)
+ *  - loading is PRIORITIZED radially around the frame under the scroll position,
+ *    so wherever you scrub, the nearest frames are always the next to arrive
+ *  - a rAF loop eases the painted index toward the scroll target, so even
+ *    coarse wheel deltas render as a glide, and a missing frame never freezes
+ *    the canvas (nearest loaded frame paints instead)
  */
 export function FilmStrip() {
-  // default ON (desktop): promoted from the ?film=on demo after David's
-  // "the 4k boat is still not rendering" - ?film=off remains the escape hatch
   const film = useVariant("film", FILM_MODES, "on");
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger();
@@ -45,108 +61,150 @@ export function FilmStrip() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
   const framesRef = useRef<(HTMLImageElement | null)[]>([]);
+  const targetRef = useRef(0); // frame index under the scroll position
+  const shownRef = useRef(0); // eased index actually painted
   const lastPainted = useRef(-1);
   const near = useInView(sectionRef, "60% 0px");
   const [firstFrameReady, setFirstFrameReady] = useState(false);
 
   const active = film === "on" && webgl && interacted;
 
-  // lazy frame loader: first frame immediately, the rest in small chunks so
-  // the browser never sees a 60-request burst
+  // prioritized lazy loader: 6 workers, each always fetching the unloaded
+  // frame CLOSEST to the current scroll target; every frame is decoded before
+  // it becomes paintable so the paint path never janks
   useEffect(() => {
     if (!active || !near) return;
     let cancelled = false;
     const frames = framesRef.current;
     if (frames.length === 0) frames.length = FRAME_COUNT;
     const dir = frameDir();
-    const load = (i: number) =>
-      new Promise<void>((resolve) => {
-        if (frames[i]) return resolve();
-        const img = new Image();
-        img.onload = () => {
-          if (!cancelled) frames[i] = img;
-          resolve();
-        };
-        img.onerror = () => resolve();
-        img.src = frameSrc(i, dir);
-      });
-    (async () => {
-      await load(0);
-      if (!cancelled) setFirstFrameReady(true);
-      const CHUNK = 8;
-      for (let start = 1; start < FRAME_COUNT && !cancelled; start += CHUNK) {
-        await Promise.all(
-          Array.from({ length: Math.min(CHUNK, FRAME_COUNT - start) }, (_, k) => load(start + k))
-        );
+    const pending = new Set<number>();
+    const nextIndex = (): number => {
+      const t = targetRef.current;
+      let best = -1;
+      let bestDist = Infinity;
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        if (frames[i] || pending.has(i)) continue;
+        const d = Math.abs(i - t);
+        if (d < bestDist) {
+          bestDist = d;
+          best = i;
+        }
       }
-    })();
+      return best;
+    };
+    const load = async (i: number) => {
+      pending.add(i);
+      try {
+        const img = new Image();
+        img.src = frameSrc(i, dir);
+        await img.decode();
+        if (!cancelled) {
+          frames[i] = img;
+          if (i === 0) setFirstFrameReady(true);
+        }
+      } catch {
+        /* skip on error - nearest-loaded painting covers the hole */
+      } finally {
+        pending.delete(i);
+      }
+    };
+    const worker = async () => {
+      while (!cancelled) {
+        const i = nextIndex();
+        if (i < 0) return;
+        await load(i);
+      }
+    };
+    // frame 0 first (the match-cut poster), then the swarm
+    load(0).then(() => {
+      for (let w = 0; w < 6; w++) worker();
+    });
     return () => {
       cancelled = true;
     };
   }, [active, near]);
 
-  // paint = cover-fit blit of the chosen frame; scroll drives the frame index
+  // scroll -> target; rAF eases painted index toward it and blits cover-fit
   useEffect(() => {
     if (!active || !firstFrameReady) return;
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
 
-    const paint = (index: number) => {
-      const img = framesRef.current[index] ?? framesRef.current[lastPainted.current] ?? framesRef.current[0];
+    const nearestLoaded = (index: number): HTMLImageElement | null => {
+      const frames = framesRef.current;
+      if (frames[index]) return frames[index];
+      for (let d = 1; d < FRAME_COUNT; d++) {
+        if (frames[index - d]) return frames[index - d];
+        if (frames[index + d]) return frames[index + d];
+      }
+      return null;
+    };
+
+    const paint = (index: number, force = false) => {
+      const img = nearestLoaded(index);
       if (!img) return;
-      if (framesRef.current[index]) lastPainted.current = index;
       const dpr = Math.min(2, window.devicePixelRatio || 1);
-      const w = canvas.clientWidth * dpr;
-      const h = canvas.clientHeight * dpr;
-      if (canvas.width !== w || canvas.height !== h) {
+      const w = Math.round(canvas.clientWidth * dpr);
+      const h = Math.round(canvas.clientHeight * dpr);
+      const resized = canvas.width !== w || canvas.height !== h;
+      if (resized) {
         canvas.width = w;
         canvas.height = h;
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
       }
+      if (!resized && !force && lastPainted.current === index) return;
+      lastPainted.current = index;
       const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
       const dw = img.naturalWidth * scale;
       const dh = img.naturalHeight * scale;
       ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
     };
 
-    let raf = 0;
-    const apply = () => {
+    const applyScroll = () => {
       const el = sectionRef.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
       const raw = clamp01((vh - r.top) / (r.height + vh));
       if (layerRef.current) {
-        // Entry waits until the hero stage has fully retired (~2.62vh) so the
-        // sun and headline are never on top of the flagship; exit completes
-        // before the next section's copy becomes readable.
         layerRef.current.style.opacity = String(
-          smoothstep(0.2, 0.28, raw) * (1 - smoothstep(0.78, 0.9, raw))
+          smoothstep(FADE_IN_A, FADE_IN_B, raw) * (1 - smoothstep(FADE_OUT_A, FADE_OUT_B, raw))
         );
       }
       if (copyRef.current) {
         copyRef.current.style.opacity = String(
-          smoothstep(0.42, 0.52, raw) * (1 - smoothstep(0.74, 0.84, raw))
+          smoothstep(0.4, 0.5, raw) * (1 - smoothstep(0.74, 0.84, raw))
         );
       }
-      // The turn is remapped onto the VISIBLE window, so the full bow-to-
-      // broadside sequence plays while the film is on screen rather than
-      // burning its first fifth behind a transparent layer.
-      const shown = clamp01((raw - 0.2) / (0.86 - 0.2));
-      const index = reduced ? FRAME_COUNT - 1 : Math.round(shown * (FRAME_COUNT - 1));
-      paint(index);
+      const shown = clamp01((raw - FRAME_WIN_A) / (FRAME_WIN_B - FRAME_WIN_A));
+      targetRef.current = reduced ? FRAME_COUNT - 1 : shown * (FRAME_COUNT - 1);
     };
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(apply);
+
+    let raf = 0;
+    const tick = () => {
+      // glide toward the scroll target: coarse wheel deltas render as motion,
+      // not jumps. Snap when close so we always settle on the exact frame.
+      const diff = targetRef.current - shownRef.current;
+      shownRef.current = Math.abs(diff) < 0.35 ? targetRef.current : shownRef.current + diff * 0.28;
+      paint(Math.round(shownRef.current));
+      raf = requestAnimationFrame(tick);
     };
-    apply();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+
+    applyScroll();
+    shownRef.current = targetRef.current;
+    paint(Math.round(shownRef.current), true);
+    raf = requestAnimationFrame(tick);
+    window.addEventListener("scroll", applyScroll, { passive: true });
+    window.addEventListener("resize", applyScroll);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", applyScroll);
+      window.removeEventListener("resize", applyScroll);
     };
   }, [active, firstFrameReady, reduced]);
 
