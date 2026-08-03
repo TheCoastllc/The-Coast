@@ -29,8 +29,12 @@
   position: absolute;
   left: clamp(1.4rem, 5vw, 5rem);
   bottom: clamp(6rem, 14vh, 9rem);
+  max-width: min(46rem, 62vw);
   opacity: 0;
   will-change: opacity;
+}
+@media (max-width: 700px) {
+  .copy { max-width: none; right: clamp(1.4rem, 5vw, 5rem); }
 }
 
 .eyebrow {

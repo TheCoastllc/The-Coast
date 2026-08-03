@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useWebGLAllowed, useHeroMountTrigger } from "@/lib/perf";
 import { StoryHeroStatic } from "./StoryHeroStatic";
 import type { MeetMode } from "./StoryHero";
-import type { BoatMode } from "./Boat";
 
 // three.js / R3F live ONLY in this chunk. It is loaded lazily (ssr:false) and
 // only when useWebGLAllowed() is true (capable desktop) - so touch / low-end
@@ -20,7 +19,7 @@ const StoryHero = dynamic(() => import("./StoryHero").then((m) => ({ default: m.
  * its first frame paints. On phones / low-end / reduced-motion the static scene IS
  * the hero - zero three.js, instant + smooth.
  */
-export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode; boat?: BoatMode }) {
+export function HeroStage({ meet = "reflect" }: { meet?: MeetMode }) {
   const webgl = useWebGLAllowed();
   // The story plays over a 2.4vh runway; once it ends, retire the whole stage
   // (sun + yacht would otherwise peek through transparent seams between the
@@ -32,7 +31,10 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
     const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
     const apply = () => {
       const vh = window.innerHeight || 1;
-      const past = clamp01((window.scrollY / vh - 2.45) / 0.4); // gone by ~2.85vh
+      // The hero story ends at 2.4vh; retire immediately and briskly so the
+      // stage is fully gone BEFORE the 4K film fades in (they used to overlap
+      // for ~0.3vh, putting the sun and headline on top of the flagship).
+      const past = clamp01((window.scrollY / vh - 2.4) / 0.22); // gone by ~2.62vh
       const o = String(1 - past);
       if (stageRef.current) stageRef.current.style.opacity = o;
       if (staticRef.current) staticRef.current.style.opacity = o;
@@ -103,7 +105,7 @@ export function HeroStage({ meet = "reflect", boat = "rig" }: { meet?: MeetMode;
           aria-hidden
         >
           <div ref={stageRef} style={{ position: "absolute", inset: 0 }}>
-            <StoryHero meet={meet} boat={boat} onReady={() => setReady(true)} />
+            <StoryHero meet={meet} onReady={() => setReady(true)} />
           </div>
         </div>
       )}

@@ -5,7 +5,6 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { WATER_VERT, WATER_FRAG } from "./water";
-import { Boat, BoatMode } from "./Boat";
 import { DriftClouds } from "./clouds";
 import { useHeroProgress } from "./useHeroProgress";
 import { useHeroQuality, useActiveByScroll } from "@/lib/perf";
@@ -33,32 +32,41 @@ uniform float uTime;
 void main() {
   vec2 c = (vUv - 0.5) * 2.0;
   float r = length(c);
-  float rd = 0.62; // disc radius within the plane
-  // barely-there heat shimmer on the limb
+  // small disc inside a large plane: the remaining room is the ATMOSPHERE.
+  // A sun reads as real because the sky glows around it - a hard disc on a
+  // dark sky is what made the old one look like a cut-out.
+  float rd = 0.42;
   float ang = atan(c.y, c.x);
-  float wob = sin(ang * 9.0 + uTime * 0.6) * 0.003 + sin(ang * 23.0 - uTime * 0.9) * 0.0015;
+  float wob = sin(ang * 9.0 + uTime * 0.5) * 0.0025 + sin(ang * 21.0 - uTime * 0.8) * 0.0012;
   float edge = rd + wob;
-  // crisp limb - the approved vector-disc silhouette, just barely softened
-  float disc = 1.0 - smoothstep(edge - 0.008, edge + 0.006, r);
-  // stay in the approved #F4633A family: subtle center lift, deeper limb,
-  // whole disc reddens as it descends - NO white-hot core (bloom multiplies it)
-  vec3 core = mix(vec3(0.99, 0.52, 0.30), vec3(0.97, 0.46, 0.25), uP);
-  vec3 limb = mix(vec3(0.94, 0.36, 0.20), vec3(0.88, 0.30, 0.16), uP);
-  vec3 discCol = mix(core, limb, smoothstep(0.25, 1.0, r / rd));
-  // whisper of atmosphere hugging the limb - tight, low, controlled
-  float glow = exp(-max(r - edge, 0.0) * 14.0) * 0.45;
-  vec3 glowCol = mix(vec3(0.97, 0.50, 0.28), vec3(0.92, 0.42, 0.22), uP);
-  // low horizon haze band that appears as the sun nears the water
-  float haze = exp(-abs(c.y) * 10.0) * exp(-abs(c.x) * 1.6) * smoothstep(0.35, 0.85, uP) * 0.3;
-  vec3 col = discCol * disc + glowCol * glow * (1.0 - disc) + glowCol * haze * (1.0 - disc);
-  float a = max(max(disc, glow), haze);
+  // soft limb: atmosphere eats the edge over ~8% of the radius, never a stamp
+  float disc = 1.0 - smoothstep(edge - 0.030, edge + 0.038, r);
+  // Limb darkening: a small warm core falling quickly to the approved #F4633A
+  // ember body. The transition is fast (0.55) so only the inner third is hot -
+  // the scene Bloom threshold is 0.55 luminance, and a near-white face here
+  // detonates into a washed-out orb that swallows the headline.
+  vec3 core = mix(vec3(1.00, 0.68, 0.40), vec3(1.00, 0.60, 0.32), uP);
+  vec3 limb = mix(vec3(0.95, 0.41, 0.22), vec3(0.89, 0.33, 0.17), uP);
+  vec3 discCol = mix(core, limb, smoothstep(0.0, 0.55, r / rd));
+  vec3 glowCol = mix(vec3(0.98, 0.47, 0.25), vec3(0.93, 0.39, 0.20), uP);
+  // two-stage scattering: a tight bloom hugging the limb, plus a wider soft
+  // wash. The wide term is what stops it reading as a cut-out, but it has to
+  // decay inside ~2 radii or it floods the whole frame.
+  float d = max(r - edge, 0.0);
+  float inner = exp(-d * 7.0) * 0.55;
+  float outer = exp(-d * 2.8) * 0.22;
+  // horizon haze band, arriving as the sun nears the water
+  float haze = exp(-abs(c.y) * 6.0) * exp(-abs(c.x) * 1.1) * smoothstep(0.30, 0.85, uP);
+  float atmos = inner + outer;
+  vec3 col = discCol * disc + glowCol * atmos * (1.0 - disc) + glowCol * haze * 0.16 * (1.0 - disc);
+  float a = max(max(disc, atmos), haze * 0.14);
   gl_FragColor = vec4(col, a);
 }`;
 
-/* Acts: open IN THE WAVES with a tiny sun anchored above the headline ->
-   the sun GROWS and DESCENDS to the horizon -> the origami boat meets it.
-   meet="cross": boat crosses the sun's face.  meet="reflect": boat rides
-   the sun's reflection. One sea, one camera, scroll-driven. */
+/* Acts: open IN THE WAVES with a risen sun behind the headline -> the sun
+   GROWS and DESCENDS to the horizon over one continuous sea. The vessel is
+   NOT here: the flagship appears once, in 4K, in the FilmStrip below.
+   meet="reflect" lays the sun's reflection streak on the water. */
 
 export type MeetMode = "cross" | "reflect";
 
@@ -101,18 +109,15 @@ function StoryScene({
   meet,
   segments,
   clouds,
-  boatMode,
   skyUp,
 }: {
   progress: MutableRefObject<number>;
   meet: MeetMode;
   segments: number;
   clouds: number;
-  boatMode: BoatMode;
   skyUp: boolean;
 }) {
   const sun = useRef<THREE.Mesh>(null);
-  const boat = useRef<THREE.Group>(null);
   const _look = useMemo(() => new THREE.Vector3(), []);
   const sunUpMat = useMemo(
     () =>
@@ -178,35 +183,6 @@ function StoryScene({
       }
     }
 
-    // boat: meets the sun, slowly
-    if (boat.current) {
-      const bp = clamp01((p - 0.6) / 0.4);
-      const appear = smoothstep(0, 0.12, bp);
-      const ease = bp * bp * (3 - 2 * bp); // smootherstep on the boat phase
-      boat.current.visible = bp > 0.001;
-      boat.current.rotation.z = Math.sin(t * 1.1) * 0.06; // gentle heel
-
-      if (meet === "cross") {
-        // sails L->R across the sun's disc; bow +x (direction of travel)
-        boat.current.scale.setScalar(appear * 0.95);
-        boat.current.position.x = lerp(-6, 6, bp) + Math.sin(t * 0.3) * 0.2;
-        boat.current.position.y = -0.1 + Math.sin(t * 1.5) * 0.12;
-        boat.current.position.z = -13;
-        boat.current.rotation.x = 0;
-        boat.current.rotation.y = -Math.PI / 2 + Math.sin(t * 0.5) * 0.06;
-        boat.current.userData.ease = 1; // cross mode sails broadside
-      } else {
-        // THE VOYAGE: emerges from the sun FACING US, grows + nears (bow -> camera)
-        boat.current.scale.setScalar(appear * lerp(0.16, 1.15, ease));
-        boat.current.position.x = Math.sin(t * 0.4) * 0.18 * ease;
-        boat.current.position.y = lerp(0.6, -0.1, ease) + Math.sin(t * 1.5) * 0.1 * ease;
-        boat.current.position.z = lerp(-19, -2.5, ease);
-        boat.current.rotation.x = lerp(0.16, -0.04, ease); // nose-up far -> level near (deck shows)
-        boat.current.rotation.y = Math.PI + Math.sin(t * 0.5) * 0.05; // bow toward camera
-        boat.current.userData.ease = ease; // Boat reads this for the bow->side crossfade
-      }
-    }
-
     const { pos, look } = samplePath(p);
     state.camera.position.set(pos[0], pos[1], pos[2]);
     _look.set(look[0], look[1], look[2]);
@@ -219,19 +195,20 @@ function StoryScene({
       <ambientLight intensity={0.6} color="#7FA8D8" />
       <directionalLight position={[4, 6, 3]} intensity={2.2} color="#FFF3E8" />
       <pointLight position={[-3, 2, 3]} intensity={14} color="#DB5227" />
-      {/* warm rim from the sun, behind the boat - haloes the approaching hull */}
+      {/* warm rim from the sun */}
       <pointLight position={[0, 1.5, -18]} intensity={8} color="#F4633A" distance={34} />
 
       <DriftClouds max={clouds} up={skyUp} progress={progress} />
 
-      {/* the sun - risen behind the wordmark from frame one, then grows +
-          descends to the horizon. Default = the clean flat disc David
-          approved; ?sky=up = the same disc rendered by SUN_FRAG (soft limb,
-          internal gradient, tight glow, deepening color). The shader disc
-          fills 0.62 of the plane, so 16.1 reads as the old dia-10 circle. */}
+      {/* The sun - risen behind the wordmark from frame one, then grows and
+          descends to the horizon. SUN_FRAG renders a small disc inside a large
+          plane so the surrounding room becomes ATMOSPHERE: soft limb, hot core,
+          and a wide scattering wash that lights the sky. The disc fills 0.42 of
+          the plane, so 24 reads as the same dia-10 sun as before.
+          ?sky=off falls back to the old flat vector disc. */}
       {skyUp && sunUpMat ? (
         <mesh ref={sun} position={[0, 3.6, -20]} scale={0.55} material={sunUpMat}>
-          <planeGeometry args={[16.1, 16.1]} />
+          <planeGeometry args={[24, 24]} />
         </mesh>
       ) : (
         <mesh ref={sun} position={[0, 3.6, -20]} scale={0.55}>
@@ -240,10 +217,10 @@ function StoryScene({
         </mesh>
       )}
 
-      {/* the origami boat (switchable upgrade variants) */}
-      <group ref={boat} visible={false}>
-        <Boat mode={boatMode} />
-      </group>
+      {/* No boat here by design. The flagship appears ONCE, in 4K, in the
+          FilmStrip sequence below - one vessel, one orientation, one story.
+          The old WebGL billboard boat read as a cardboard cut-out and flipped
+          orientation mid-approach; it was removed rather than patched. */}
 
       {/* the continuous sea */}
       <mesh geometry={seaGeo} material={seaMat} position={[0, -0.6, -6]} />
@@ -264,12 +241,10 @@ function FirstFrame({ onReady }: { onReady?: () => void }) {
 
 export function StoryHero({
   meet = "cross",
-  boat = "rig",
   postfx = true,
   onReady,
 }: {
   meet?: MeetMode;
-  boat?: BoatMode;
   postfx?: boolean;
   onReady?: () => void;
 }) {
@@ -288,7 +263,7 @@ export function StoryHero({
       >
         <color attach="background" args={["#0A0C12"]} />
         <Suspense fallback={null}>
-          <StoryScene progress={progress} meet={meet} segments={q.seaSegments} clouds={q.clouds} boatMode={boat} skyUp={skyUp} />
+          <StoryScene progress={progress} meet={meet} segments={q.seaSegments} clouds={q.clouds} skyUp={skyUp} />
         </Suspense>
         <FirstFrame onReady={onReady} />
         {active && postfx && q.postfx && (

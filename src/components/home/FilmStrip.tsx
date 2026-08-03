@@ -117,18 +117,23 @@ export function FilmStrip() {
       const vh = window.innerHeight || 1;
       const raw = clamp01((vh - r.top) / (r.height + vh));
       if (layerRef.current) {
-        // exit completes BEFORE the next section's copy becomes readable -
-        // no double exposure with the incoming thesis block
+        // Entry waits until the hero stage has fully retired (~2.62vh) so the
+        // sun and headline are never on top of the flagship; exit completes
+        // before the next section's copy becomes readable.
         layerRef.current.style.opacity = String(
-          smoothstep(0.02, 0.1, raw) * (1 - smoothstep(0.78, 0.9, raw))
+          smoothstep(0.2, 0.28, raw) * (1 - smoothstep(0.78, 0.9, raw))
         );
       }
       if (copyRef.current) {
         copyRef.current.style.opacity = String(
-          smoothstep(0.35, 0.5, raw) * (1 - smoothstep(0.72, 0.82, raw))
+          smoothstep(0.42, 0.52, raw) * (1 - smoothstep(0.74, 0.84, raw))
         );
       }
-      const index = reduced ? FRAME_COUNT - 1 : Math.round(raw * (FRAME_COUNT - 1));
+      // The turn is remapped onto the VISIBLE window, so the full bow-to-
+      // broadside sequence plays while the film is on screen rather than
+      // burning its first fifth behind a transparent layer.
+      const shown = clamp01((raw - 0.2) / (0.86 - 0.2));
+      const index = reduced ? FRAME_COUNT - 1 : Math.round(shown * (FRAME_COUNT - 1));
       paint(index);
     };
     const onScroll = () => {
@@ -160,7 +165,7 @@ export function FilmStrip() {
         <canvas ref={canvasRef} className={styles.canvas} />
         <div ref={copyRef} className={styles.copy}>
           <p className={styles.eyebrow}>The Craft</p>
-          <p className={styles.line}>You are steering this.</p>
+          <p className={styles.line}>{"Bring us a drop, we'll deliver the ocean."}</p>
         </div>
       </div>
     </>
