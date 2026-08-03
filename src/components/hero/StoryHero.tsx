@@ -12,11 +12,11 @@ import { useHeroQuality, useActiveByScroll } from "@/lib/perf";
 import { usePremiumActive } from "@/components/chrome/usePremium";
 import { useVariant } from "@/components/visuals/useVariant";
 
-/* ?sky=up - refined sun/cloud upgrade KEEPING the approved stylized look:
-   same clean disc, same soft distinct clouds, but the disc gains a soft limb,
-   an internal gradient, a tight controlled glow (NOT the big halo David
-   rejected) and a color that deepens as it sinks; clouds gain internal
-   structure + dawn underlighting (built in clouds.tsx). Zero credits. */
+/* The refined sky is the DEFAULT (David: "ship it") - same clean disc and
+   soft distinct clouds as the approved stylized look, upgraded with a soft
+   limb, internal gradient, tight controlled glow and descent color grading;
+   clouds gain internal structure + dawn underlighting (clouds.tsx).
+   ?sky=off restores the flat vector disc + plain puffs for comparison. */
 const SKY_MODES = ["off", "up"] as const;
 
 const SUN_VERT = /* glsl */ `
@@ -277,7 +277,7 @@ export function StoryHero({
   const q = useHeroQuality();
   const active = useActiveByScroll(3); // freeze once content covers the fixed canvas
   const depth = usePremiumActive().has("depth"); // premium: a stronger bloom on the gold sun
-  const skyUp = useVariant("sky", SKY_MODES, "off") === "up";
+  const skyUp = useVariant("sky", SKY_MODES, "up") === "up";
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: -1 }} aria-hidden>
       <Canvas
