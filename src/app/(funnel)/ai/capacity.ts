@@ -7,5 +7,5 @@
 export const CAPACITY = {
   buildsPerMonth: 4,
   spotsRemaining: 2,
-  month: 'July',
+  month: 'August',
 } as const
