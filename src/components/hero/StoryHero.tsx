@@ -10,6 +10,50 @@ import { DriftClouds } from "./clouds";
 import { useHeroProgress } from "./useHeroProgress";
 import { useHeroQuality, useActiveByScroll } from "@/lib/perf";
 import { usePremiumActive } from "@/components/chrome/usePremium";
+import { useVariant } from "@/components/visuals/useVariant";
+
+/* ?sky=up - refined sun/cloud upgrade KEEPING the approved stylized look:
+   same clean disc, same soft distinct clouds, but the disc gains a soft limb,
+   an internal gradient, a tight controlled glow (NOT the big halo David
+   rejected) and a color that deepens as it sinks; clouds gain internal
+   structure + dawn underlighting (built in clouds.tsx). Zero credits. */
+const SKY_MODES = ["off", "up"] as const;
+
+const SUN_VERT = /* glsl */ `
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+
+const SUN_FRAG = /* glsl */ `
+varying vec2 vUv;
+uniform float uP;
+uniform float uTime;
+void main() {
+  vec2 c = (vUv - 0.5) * 2.0;
+  float r = length(c);
+  float rd = 0.62; // disc radius within the plane
+  // barely-there heat shimmer on the limb
+  float ang = atan(c.y, c.x);
+  float wob = sin(ang * 9.0 + uTime * 0.6) * 0.003 + sin(ang * 23.0 - uTime * 0.9) * 0.0015;
+  float edge = rd + wob;
+  // crisp limb - the approved vector-disc silhouette, just barely softened
+  float disc = 1.0 - smoothstep(edge - 0.008, edge + 0.006, r);
+  // stay in the approved #F4633A family: subtle center lift, deeper limb,
+  // whole disc reddens as it descends - NO white-hot core (bloom multiplies it)
+  vec3 core = mix(vec3(0.99, 0.52, 0.30), vec3(0.97, 0.46, 0.25), uP);
+  vec3 limb = mix(vec3(0.94, 0.36, 0.20), vec3(0.88, 0.30, 0.16), uP);
+  vec3 discCol = mix(core, limb, smoothstep(0.25, 1.0, r / rd));
+  // whisper of atmosphere hugging the limb - tight, low, controlled
+  float glow = exp(-max(r - edge, 0.0) * 14.0) * 0.45;
+  vec3 glowCol = mix(vec3(0.97, 0.50, 0.28), vec3(0.92, 0.42, 0.22), uP);
+  // low horizon haze band that appears as the sun nears the water
+  float haze = exp(-abs(c.y) * 10.0) * exp(-abs(c.x) * 1.6) * smoothstep(0.35, 0.85, uP) * 0.3;
+  vec3 col = discCol * disc + glowCol * glow * (1.0 - disc) + glowCol * haze * (1.0 - disc);
+  float a = max(max(disc, glow), haze);
+  gl_FragColor = vec4(col, a);
+}`;
 
 /* Acts: open IN THE WAVES with a tiny sun anchored above the headline ->
    the sun GROWS and DESCENDS to the horizon -> the origami boat meets it.
@@ -58,16 +102,31 @@ function StoryScene({
   segments,
   clouds,
   boatMode,
+  skyUp,
 }: {
   progress: MutableRefObject<number>;
   meet: MeetMode;
   segments: number;
   clouds: number;
   boatMode: BoatMode;
+  skyUp: boolean;
 }) {
   const sun = useRef<THREE.Mesh>(null);
   const boat = useRef<THREE.Group>(null);
   const _look = useMemo(() => new THREE.Vector3(), []);
+  const sunUpMat = useMemo(
+    () =>
+      skyUp
+        ? new THREE.ShaderMaterial({
+            vertexShader: SUN_VERT,
+            fragmentShader: SUN_FRAG,
+            uniforms: { uP: { value: 0 }, uTime: { value: 0 } },
+            transparent: true,
+            depthWrite: false,
+          })
+        : null,
+    [skyUp]
+  );
 
   const seaMat = useMemo(
     () =>
@@ -109,8 +168,14 @@ function StoryScene({
     if (sun.current) {
       sun.current.scale.setScalar(lerp(0.55, 1.25, smoothstep(0.04, 0.6, p)));
       sun.current.position.y = lerp(3.6, 0.55, smoothstep(0.16, 0.72, p));
-      // always visible (incl. at the very top) - it must read behind the wordmark
-      (sun.current.material as THREE.MeshBasicMaterial).opacity = 1;
+      const mat = sun.current.material as THREE.Material;
+      if (mat instanceof THREE.ShaderMaterial) {
+        mat.uniforms.uP.value = p;
+        mat.uniforms.uTime.value = t;
+      } else {
+        // always visible (incl. at the very top) - it must read behind the wordmark
+        (mat as THREE.MeshBasicMaterial).opacity = 1;
+      }
     }
 
     // boat: meets the sun, slowly
@@ -157,16 +222,23 @@ function StoryScene({
       {/* warm rim from the sun, behind the boat - haloes the approaching hull */}
       <pointLight position={[0, 1.5, -18]} intensity={8} color="#F4633A" distance={34} />
 
-      <DriftClouds max={clouds} />
+      <DriftClouds max={clouds} up={skyUp} progress={progress} />
 
       {/* the sun - risen behind the wordmark from frame one, then grows +
-          descends to the horizon. The clean flat disc (the look David
-          approved); bloom supplies the glow. A photographic replacement is
-          on hold until David picks a reference image he loves. */}
-      <mesh ref={sun} position={[0, 3.6, -20]} scale={0.55}>
-        <circleGeometry args={[5, 64]} />
-        <meshBasicMaterial color="#F4633A" transparent toneMapped={false} fog={false} />
-      </mesh>
+          descends to the horizon. Default = the clean flat disc David
+          approved; ?sky=up = the same disc rendered by SUN_FRAG (soft limb,
+          internal gradient, tight glow, deepening color). The shader disc
+          fills 0.62 of the plane, so 16.1 reads as the old dia-10 circle. */}
+      {skyUp && sunUpMat ? (
+        <mesh ref={sun} position={[0, 3.6, -20]} scale={0.55} material={sunUpMat}>
+          <planeGeometry args={[16.1, 16.1]} />
+        </mesh>
+      ) : (
+        <mesh ref={sun} position={[0, 3.6, -20]} scale={0.55}>
+          <circleGeometry args={[5, 64]} />
+          <meshBasicMaterial color="#F4633A" transparent toneMapped={false} fog={false} />
+        </mesh>
+      )}
 
       {/* the origami boat (switchable upgrade variants) */}
       <group ref={boat} visible={false}>
@@ -205,6 +277,7 @@ export function StoryHero({
   const q = useHeroQuality();
   const active = useActiveByScroll(3); // freeze once content covers the fixed canvas
   const depth = usePremiumActive().has("depth"); // premium: a stronger bloom on the gold sun
+  const skyUp = useVariant("sky", SKY_MODES, "off") === "up";
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: -1 }} aria-hidden>
       <Canvas
@@ -215,7 +288,7 @@ export function StoryHero({
       >
         <color attach="background" args={["#0A0C12"]} />
         <Suspense fallback={null}>
-          <StoryScene progress={progress} meet={meet} segments={q.seaSegments} clouds={q.clouds} boatMode={boat} />
+          <StoryScene progress={progress} meet={meet} segments={q.seaSegments} clouds={q.clouds} boatMode={boat} skyUp={skyUp} />
         </Suspense>
         <FirstFrame onReady={onReady} />
         {active && postfx && q.postfx && (

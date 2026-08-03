@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { MutableRefObject, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Billboard } from "@react-three/drei";
 import * as THREE from "three";
@@ -56,6 +56,66 @@ function makeCloudTexture(variant: number): THREE.Texture | null {
   return tex;
 }
 
+/** ?sky=up texture: SAME puff silhouettes, upgraded rendering - internal
+ *  mini-puff structure instead of flat gradient circles, warm dawn underlight
+ *  on the belly, cool top - still stylized, never photographic. Seeded PRNG so
+ *  every mount draws the identical cloud. */
+function makeCloudTextureUp(variant: number): THREE.Texture | null {
+  if (typeof document === "undefined") return null;
+  const w = 1024;
+  const h = 640;
+  const c = document.createElement("canvas");
+  c.width = w;
+  c.height = h;
+  const ctx = c.getContext("2d");
+  if (!ctx) return null;
+  ctx.clearRect(0, 0, w, h);
+  let seed = variant * 7919 + 13;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    return seed / 4294967296;
+  };
+  const puff = (px: number, py: number, r: number, a: number) => {
+    const g = ctx.createRadialGradient(px, py, 0, px, py, r);
+    g.addColorStop(0, `rgba(255,255,255,${a})`);
+    g.addColorStop(0.55, `rgba(255,255,255,${a * 0.5})`);
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(px, py, r, 0, Math.PI * 2);
+    ctx.fill();
+  };
+  for (const [px0, py0, r0] of PUFFS[variant]) {
+    const px = px0 * 4, py = py0 * 4, r = r0 * 4;
+    puff(px, py, r, 0.74); // soft body carries the shape
+    // internal structure: a few gentle density lifts, never speckle
+    const n = 5 + Math.floor(rand() * 4);
+    for (let i = 0; i < n; i++) {
+      const ang = rand() * Math.PI * 2;
+      const dist = rand() * r * 0.45;
+      const rr = r * (0.24 + rand() * 0.22);
+      puff(px + Math.cos(ang) * dist, py + Math.sin(ang) * dist * 0.6 - r * 0.12, rr, 0.06 + rand() * 0.1);
+    }
+  }
+  // dawn underlight: a breath of warmth on the belly, only where cloud exists
+  ctx.globalCompositeOperation = "source-atop";
+  const warm = ctx.createLinearGradient(0, h, 0, h * 0.45);
+  warm.addColorStop(0, "rgba(255,200,158,0.32)");
+  warm.addColorStop(1, "rgba(255,200,158,0)");
+  ctx.fillStyle = warm;
+  ctx.fillRect(0, 0, w, h);
+  // cool crown
+  const cool = ctx.createLinearGradient(0, 0, 0, h * 0.5);
+  cool.addColorStop(0, "rgba(162,182,206,0.12)");
+  cool.addColorStop(1, "rgba(162,182,206,0)");
+  ctx.fillStyle = cool;
+  ctx.fillRect(0, 0, w, h);
+  ctx.globalCompositeOperation = "source-over";
+  const tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  return tex;
+}
+
 type CloudDef = {
   x: number;
   y: number;
@@ -77,8 +137,25 @@ const CLOUDS: CloudDef[] = [
 
 const WRAP = 48;
 
-function CloudSprite({ def, tex }: { def: CloudDef; tex: THREE.Texture }) {
+const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+const sstep = (e0: number, e1: number, x: number) => {
+  const t = clamp01((x - e0) / (e1 - e0));
+  return t * t * (3 - 2 * t);
+};
+
+function CloudSprite({
+  def,
+  tex,
+  progress,
+}: {
+  def: CloudDef;
+  tex: THREE.Texture;
+  progress?: MutableRefObject<number>;
+}) {
   const ref = useRef<THREE.Group>(null);
+  const mat = useRef<THREE.MeshBasicMaterial>(null);
+  const cools = useMemo(() => new THREE.Color(def.tint), [def.tint]);
+  const warms = useMemo(() => new THREE.Color(def.tint).lerp(new THREE.Color("#f0c39a"), 0.65), [def.tint]);
   useFrame((s) => {
     const t = s.clock.elapsedTime;
     if (!ref.current) return;
@@ -86,27 +163,42 @@ function CloudSprite({ def, tex }: { def: CloudDef; tex: THREE.Texture }) {
     x = ((x + WRAP / 2) % WRAP + WRAP) % WRAP - WRAP / 2; // wrap across the sky
     ref.current.position.x = x;
     ref.current.position.y = def.y + Math.sin(t * 0.18 + def.z) * 0.3;
+    // ?sky=up: clouds catch the descending sun - tints warm toward rose-gold
+    if (progress && mat.current) {
+      mat.current.color.lerpColors(cools, warms, sstep(0.3, 0.75, progress.current));
+    }
   });
   return (
     <Billboard ref={ref} position={[def.x, def.y, def.z]}>
       <mesh scale={[def.scale * 1.7, def.scale, 1]}>
         <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial map={tex} color={def.tint} transparent opacity={0.9} depthWrite={false} />
+        <meshBasicMaterial ref={mat} map={tex} color={def.tint} transparent opacity={0.9} depthWrite={false} />
       </mesh>
     </Billboard>
   );
 }
 
-export function DriftClouds({ max = CLOUDS.length }: { max?: number }) {
+export function DriftClouds({
+  max = CLOUDS.length,
+  up = false,
+  progress,
+}: {
+  max?: number;
+  up?: boolean;
+  progress?: MutableRefObject<number>;
+}) {
   const textures = useMemo(
-    () => [makeCloudTexture(0), makeCloudTexture(1), makeCloudTexture(2)],
-    []
+    () =>
+      up
+        ? [makeCloudTextureUp(0), makeCloudTextureUp(1), makeCloudTextureUp(2)]
+        : [makeCloudTexture(0), makeCloudTexture(1), makeCloudTexture(2)],
+    [up]
   );
   if (!textures[0]) return null;
   return (
     <group>
       {CLOUDS.slice(0, max).map((d, i) => (
-        <CloudSprite key={i} def={d} tex={textures[d.variant]!} />
+        <CloudSprite key={i} def={d} tex={textures[d.variant]!} progress={up ? progress : undefined} />
       ))}
     </group>
   );
