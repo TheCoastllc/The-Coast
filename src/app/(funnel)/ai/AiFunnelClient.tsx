@@ -140,11 +140,17 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             <br />
             in your <span className="accent">business.</span>
           </h1>
+          <p className="hero-sub">
+            {"We design, build, and deploy AI systems that give your team back 10+ hours a week and make sure no lead ever slips."}
+          </p>
           <div className="cta-row">
             <CtaLink location="hero" className="btn btn-cta btn-big">
               Book Your AI Strategy Session
             </CtaLink>
           </div>
+          <p className="cta-note">
+            30 minutes {'•'} No obligation {'•'} You leave with a plan
+          </p>
           <div className="scarcity">
             We take on {CAPACITY.buildsPerMonth} builds per month. {CAPACITY.spotsRemaining} spots
             remaining for {CAPACITY.month}.
@@ -222,6 +228,10 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               </p>
             </div>
           </div>
+          <p className="stakes reveal">
+            {"Every quarter you wait is another quarter of hours your team never gets back, and leads you never knew you lost. "}
+            <b>The cost of doing nothing is not zero.</b>
+          </p>
         </div>
       </section>
 
@@ -388,7 +398,11 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               <ul>
                 <li>A focused strategy session that maps your highest-leverage AI moves</li>
                 <li>Deep AI diagnostic of your business</li>
+                <li>Your top three AI opportunities, ranked by impact and effort</li>
                 <li>Documented, prioritized roadmap with clear scope</li>
+                <li>Build-vs-buy guidance on every tool, so you stop paying for the wrong ones</li>
+                <li>Projected time savings on each recommendation</li>
+                <li>Yours to keep and act on, with us or without us</li>
                 <li>Every dollar credits toward your build</li>
               </ul>
               <CtaLink location="pricing_blueprint" className="btn btn-cta">
@@ -401,10 +415,15 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 $2,500<small>/month</small>
               </p>
               <ul>
-                <li>Ongoing roadmap and prioritization</li>
+                <li>A monthly working session with your team</li>
+                <li>Ongoing roadmap and prioritization as the business changes</li>
                 <li>Direct strategic guidance</li>
                 <li>Vendor and tooling decisions, handled</li>
+                <li>Direct access between sessions, not a ticket queue</li>
+                <li>New AI opportunities flagged as they surface</li>
+                <li>A quarterly review of what shipped and what it returned</li>
                 <li>A partner in the room every month</li>
+                <li>No long-term contract</li>
               </ul>
               <CtaLink location="pricing_advisory" className="btn btn-cta">
                 Book a Strategy Session
@@ -419,8 +438,12 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               <ul>
                 <li>We design, build, and deploy</li>
                 <li>AI systems in real production</li>
+                <li>Integrated into the tools you already use</li>
+                <li>Fixed scope and price, agreed before we start</li>
+                <li>Working increments you see early, not months of silence</li>
                 <li>Team training and clean handoff</li>
                 <li>30 days of post-launch support included</li>
+                <li>You own everything we build, source and all</li>
                 <li>Built to hold up, not to demo</li>
               </ul>
               <CtaLink location="pricing_build" className="btn btn-cta">
@@ -437,6 +460,8 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               <li>For operations that need what does not exist yet</li>
               <li>Bespoke systems designed around your stack</li>
               <li>Integrations, data, and workflows built to spec</li>
+              <li>A dedicated build team and a named point of contact</li>
+              <li>You own the source, the data, and the systems</li>
               <li>Scoped and priced around outcomes</li>
             </ul>
             <CtaLink location="pricing_custom" className="btn btn-cta">
@@ -497,6 +522,9 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           <span className="eyebrow mono">Your move</span>
           <h2>Bring us a drop.</h2>
           <p className="tagline">{"We'll deliver the ocean."}</p>
+          <p className="success-line">
+            {"Six weeks from now your team could have its week back, every lead answered in seconds, and systems running in production that you own outright."}
+          </p>
           <div className="cta-row">
             <CtaLink location="final" className="btn btn-cta btn-big">
               Book Your AI Strategy Session

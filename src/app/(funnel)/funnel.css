@@ -259,6 +259,13 @@ body.funnel .chrome-brand span {
   color: #faf4e8;
   text-shadow: 0 1px 10px rgba(28, 31, 35, 0.35);
 }
+/* Below ~700px the centred wordmark collides with both pills (it was
+   overlapping the CTA by ~119px at 390w). The pills are the functional
+   elements and the hero is already branded, so the wordmark steps aside. */
+@media (max-width: 700px) {
+  body.funnel .chrome-brand { display: none; }
+  body.funnel .chrome-pill { font-size: 0.54rem; letter-spacing: 0.1em; padding: 10px 13px; }
+}
 body.funnel .hero-center {
   position: absolute;
   inset: 0;
@@ -308,6 +315,36 @@ body.funnel .hero h1 .accent {
   body.funnel .hero h1 .accent { color: var(--coral); background: none; }
 }
 body.funnel .cta-row { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* hero sub - StoryBrand grunt test, answered above the fold: what we do and
+   what the buyer gets out of it, in one breath */
+body.funnel .hero-sub {
+  margin: 26px 0 0;
+  max-width: 34ch;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.85vw, 1.24rem);
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(36, 58, 68, 0.8);
+}
+body.funnel .hero[data-mood='dark'] .hero-sub {
+  color: rgba(250, 244, 232, 0.92);
+  text-shadow: 0 1px 18px rgba(10, 12, 18, 0.45);
+}
+/* CTA microcopy - answers "what does the next step actually cost me" */
+body.funnel .cta-note {
+  margin: 16px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(36, 58, 68, 0.6);
+}
+body.funnel .hero[data-mood='dark'] .cta-note { color: rgba(250, 244, 232, 0.75); }
+@media (max-width: 560px) {
+  body.funnel .hero-sub { margin-top: 20px; }
+  body.funnel .cta-note { font-size: 0.62rem; letter-spacing: 0.1em; }
+}
 
 /* scarcity - warm urgency with a live coral dot */
 body.funnel .scarcity {
@@ -783,6 +820,25 @@ body.funnel .tier-custom .btn { flex: 0 0 auto; text-align: center; white-space:
 
 body.funnel .audit-note { margin-top: 28px; text-align: center; color: var(--cream-dim); font-size: 0.93rem; }
 body.funnel .audit-note b { color: var(--cream); font-weight: 600; }
+
+/* stakes - StoryBrand: what it costs to keep doing nothing. One line, no more. */
+body.funnel .stakes {
+  margin: 38px auto 0;
+  max-width: 58ch;
+  text-align: center;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--cream-dim);
+}
+body.funnel .stakes b { color: var(--cream); font-weight: 600; }
+/* success - the picture of life after the build, right before the last ask */
+body.funnel .final .success-line {
+  margin: 26px auto 0;
+  max-width: 56ch;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--cream-dim);
+}
 
 /* trust ("why the coast") - warm bronze wash */
 body.funnel .trust {
