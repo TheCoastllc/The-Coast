@@ -21,6 +21,26 @@ if (typeof window !== "undefined") {
  */
 export function LenisProvider() {
   const pathname = usePathname();
+
+  /* Route-change re-measure. Declared FIRST so it runs before the Lenis effect
+   * below re-creates the instance. ScrollTrigger caches every trigger's start/
+   * end against the document it measured; after a client-side navigation swaps
+   * the page it can still be holding the PREVIOUS page's geometry, so reveal
+   * triggers may never fire and content stays at opacity 0 - the "blank page
+   * until refresh" defect. This runs on EVERY navigation, deliberately outside
+   * the early-returns below, because reduced-motion, touch and /portal all skip
+   * Lenis but still have reveals that need correct measurements. */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // after the new DOM paints, then again once fonts/images settle
+    const raf = requestAnimationFrame(() => ScrollTrigger.refresh());
+    const settle = window.setTimeout(() => ScrollTrigger.refresh(), 450);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(settle);
+    };
+  }, [pathname]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
