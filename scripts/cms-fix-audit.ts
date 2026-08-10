@@ -28,12 +28,18 @@
  */
 import { config as loadEnv } from 'dotenv'
 import { existsSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { createClient } from '@libsql/client'
 
 const DRY = process.argv.includes('--dry')
 
-// Prefer the pulled production env; fall back to whatever is already exported.
-const ENV_FILE = ['.env.prod', '.env.production'].find((f) => existsSync(f))
+// Resolve the env file from the REPO ROOT, not the shell's cwd, so this runs
+// correctly from anywhere (including a fresh terminal sitting in ~).
+const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
+const ENV_FILE = ['.env.prod', '.env.production']
+  .map((f) => join(REPO_ROOT, f))
+  .find((f) => existsSync(f))
 if (ENV_FILE) loadEnv({ path: ENV_FILE, override: true })
 
 const url = (process.env.DATABASE_URL || '').replace(/^"|"$/g, '')
