@@ -9,7 +9,10 @@ export type Section = {
 };
 
 export const NAV: Section[] = [
-  { slug: "home",     path: "/",         chamber: "The Coast Global",        label: "Index" },
+  // "Home", not "Index": the editorial register lives in `chamber` (The Journal,
+  // The Brand Lab, Where We Work). The short label is a wayfinding control, and
+  // an external QA audit flagged "Index" twice as unfamiliar to visitors.
+  { slug: "home",     path: "/",         chamber: "The Coast Global",        label: "Home" },
   { slug: "work",     path: "/work",     chamber: "Selected Work",    label: "Work" },
   { slug: "visuals",  path: "/visuals",  chamber: "The Visual Field", label: "Visuals" },
   { slug: "gallery",  path: "https://gallery.coastglobal.org", chamber: "The Collection", label: "Gallery", external: true },

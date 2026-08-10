@@ -5,6 +5,7 @@ import Image from "next/image";
 import { DecorIcon } from "@/components/ui/decor-icon";
 import { TransitionLink } from "@/components/PageTransition";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
+import { COMPANY } from "@/lib/content/coast"
 
 const MAIN_SITE = "https://coastglobal.org"
 
@@ -143,8 +144,16 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 				)}
 
 				<div className={cn("flex px-4 flex-col items-center justify-between gap-2 py-4 sm:flex-row", !isMinimal && "max-w-6xl")}>
+					{/* COMPANY.name, not a hardcoded entity: this footer serves the
+					    gallery/cbi/offers subsites and said "The Coast LLC" while the
+					    main site footer said "The Coast Global Inc.", so a visitor
+					    crossing subdomains saw two different companies claim the
+					    copyright (flagged by an external QA audit). "The Coast LLC" is
+					    a separate owned entity reserved for Twilio-approved SMS consent
+					    copy and the /ai partner paragraphs - see coast.ts - not for a
+					    general copyright line. */}
 					<p className="font-light text-muted-foreground text-sm">
-						&copy; {new Date().getFullYear()} The Coast LLC. All rights reserved.
+						&copy; {new Date().getFullYear()} {COMPANY.name} All rights reserved.
 					</p>
 					<div className="flex gap-4">
 						<FooterLink href="/privacy" isMinimal={isMinimal} className="text-xs text-muted-foreground hover:underline">Privacy Policy</FooterLink>
