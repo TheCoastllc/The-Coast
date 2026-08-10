@@ -9,6 +9,7 @@ import { COMPANY } from '@/lib/content/coast'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import { ORG_ID, WEBSITE_ID } from '@/lib/schema'
 import styles from '../services/[slug]/serviceDetail.module.css'
+import { navIndex } from '@/lib/nav'
 
 const GLOWS = ['', 'gold', 'orange'] as const
 
@@ -62,7 +63,7 @@ export default function LocationsHubPage() {
       />
 
       <ChamberShell
-        index="07"
+        index={navIndex("/locations")}
         label="Service areas"
         chamber="Where we work."
         preface="Home base in Dallas-Fort Worth. Serving the southeast."

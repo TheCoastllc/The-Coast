@@ -24,6 +24,37 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       required: true,
+      admin: {
+        description:
+          'Describe the image for screen readers and search engines. Not the prompt used to generate it.',
+      },
+      /* This field was required but unvalidated, so raw AI image prompts were
+       * pasted in at upload time and shipped to production as the public alt
+       * text - including one containing a chatgpt.com conversation link, live
+       * on the blog index. An external QA audit caught it. Reject the obvious
+       * tells so it cannot happen again. */
+      validate: (value: unknown) => {
+        if (typeof value !== 'string' || !value.trim()) return 'Alt text is required.'
+        const v = value.trim()
+        if (/https?:\/\//i.test(v)) return 'Alt text must not contain a URL.'
+        if (v.length > 180) return 'Alt text must be under 180 characters - describe, do not prompt.'
+        const promptTells = [
+          'hyper-realistic',
+          'photorealistic',
+          'no plastic skin',
+          '--ar',
+          '8k',
+          '4k,',
+          'octane',
+          'midjourney',
+          'dall-e',
+          'stable diffusion',
+          'prompt:',
+        ]
+        const hit = promptTells.find((t) => v.toLowerCase().includes(t))
+        if (hit) return `Alt text looks like a generation prompt (contains "${hit}"). Describe the image instead.`
+        return true
+      },
     },
   ],
   upload: true,

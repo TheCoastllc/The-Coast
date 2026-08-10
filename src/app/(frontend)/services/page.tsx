@@ -7,6 +7,7 @@ import { ServiceStack } from '@/components/home/services/ServiceWorlds'
 import { CardIcon } from '@/components/ui/CardIcon'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './services.module.css'
+import { navIndex } from '@/lib/nav'
 
 export const metadata: Metadata = {
   title: 'Branding, Digital & AI Services',
@@ -68,7 +69,7 @@ export default function ServicesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <ChamberShell
-        index="03"
+        index={navIndex("/services")}
         label="Services"
         chamber="What We Do"
         preface="An end-to-end ecosystem for the visionaries behind the brands."

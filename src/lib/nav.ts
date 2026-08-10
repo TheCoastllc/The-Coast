@@ -24,3 +24,19 @@ export const NAV: Section[] = [
 
 export const getSection = (path: string) =>
   NAV.find((c) => c.path === path) ?? NAV[0];
+
+/**
+ * Zero-padded position of a route in NAV ("02", "05", ...), or undefined when
+ * the route is not a nav section.
+ *
+ * THE single source for the section number. The HUD already derived its "C / NN"
+ * from this order while every chamber page passed its own hardcoded `index`
+ * literal, so the two numbers on screen disagreed (/visuals showed HUD 03 vs
+ * eyebrow 02, /services 05 vs 03, /offers 07 vs 06) and the literals had even
+ * started colliding with each other (work and visuals both "02", blog and
+ * offers both "06"). Call this instead of writing a number by hand.
+ */
+export const navIndex = (path: string): string | undefined => {
+  const i = NAV.findIndex((c) => c.path === path);
+  return i >= 0 ? String(i + 1).padStart(2, "0") : undefined;
+};

@@ -6,6 +6,7 @@ import { WaveSwell } from '@/components/visuals/waves/WaveSwell'
 import { EDITORIAL } from '@/lib/content/coast'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './visuals.module.css'
+import { navIndex } from '@/lib/nav'
 
 export const metadata: Metadata = {
   title: 'Brand Visual Language Archive',
@@ -33,7 +34,7 @@ const code = (i: number) => `00${119 + i * 6}_0${(i % 4) + 1}`
 export default function VisualsPage() {
   return (
     <ChamberShell
-      index="02"
+      index={navIndex("/visuals")}
       label="Visuals"
       chamber="The Archive"
       preface="A working archive - the studio's visual language, collected and catalogued."

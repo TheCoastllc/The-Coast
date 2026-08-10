@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
@@ -21,23 +21,39 @@ if (typeof window !== "undefined") {
  */
 export function LenisProvider() {
   const pathname = usePathname();
+  const firstRun = useRef(true);
 
-  /* Route-change re-measure. Declared FIRST so it runs before the Lenis effect
-   * below re-creates the instance. ScrollTrigger caches every trigger's start/
-   * end against the document it measured; after a client-side navigation swaps
-   * the page it can still be holding the PREVIOUS page's geometry, so reveal
-   * triggers may never fire and content stays at opacity 0 - the "blank page
-   * until refresh" defect. This runs on EVERY navigation, deliberately outside
-   * the early-returns below, because reduced-motion, touch and /portal all skip
-   * Lenis but still have reveals that need correct measurements. */
+  /* Land every client-side navigation at the top of the new page.
+   *
+   * GSAP's ScrollTrigger.refresh() - fired by RevealGroup when a chamber page
+   * mounts - records a scroll offset, jumps to 0 to measure, then writes the
+   * recorded offset back. After a route change that recorded value is the
+   * PREVIOUS page's offset, clamped to the new (shorter) page's maximum, so
+   * the new route opened scrolled to its own footer. An external QA audit
+   * filed that as four Critical "page is blank until I refresh" defects
+   * (/services, /about, /locations, /offers); the content was always rendered,
+   * the viewport was just at the bottom of it. clearScrollMemory() alone does
+   * not help because refresh() re-records after it, so instead we re-assert
+   * the intended position after GSAP's write has landed.
+   *
+   * Declared FIRST and deliberately OUTSIDE the early-returns below: the
+   * defect also reproduced on touch viewports, where Lenis bails out but GSAP
+   * still runs. Skipped on first mount so hard loads, in-place refreshes and
+   * #anchor deep links keep their scroll position. */
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // after the new DOM paints, then again once fonts/images settle
-    const raf = requestAnimationFrame(() => ScrollTrigger.refresh());
-    const settle = window.setTimeout(() => ScrollTrigger.refresh(), 450);
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    if (window.location.hash) return;
+    const toTop = () => window.scrollTo(0, 0);
+    toTop();
+    const raf = requestAnimationFrame(toTop);
+    const afterRefresh = window.setTimeout(toTop, 360);
     return () => {
       cancelAnimationFrame(raf);
-      window.clearTimeout(settle);
+      window.clearTimeout(afterRefresh);
     };
   }, [pathname]);
 

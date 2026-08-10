@@ -9,6 +9,7 @@ import { SERVICE_PAGES, SERVICE_PAGES_MAP } from '@/lib/service-pages'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 import { AREA_SERVED } from '@/lib/schema'
 import styles from './serviceDetail.module.css'
+import { navIndex } from '@/lib/nav'
 
 type Params = Promise<{ slug: string }>
 
@@ -21,6 +22,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params
   const service = SERVICE_PAGES_MAP[slug]
+  // notFound() below discards metadata returned here, so the 404 title is
+  // owned by the not-found boundary (src/app/(frontend)/not-found.tsx).
   if (!service) return {}
 
   return {
@@ -104,7 +107,7 @@ export default async function ServiceSlugPage({ params }: { params: Params }) {
       />
 
       <ChamberShell
-        index="03"
+        index={navIndex("/services")}
         label={`Services / ${service.category}`}
         chamber={service.headline}
         preface={service.tagline}

@@ -7,6 +7,7 @@ import { ChamberShell } from '@/components/ui/ChamberShell'
 import { BLOG_CATEGORIES as CATEGORIES } from '@/lib/blog-categories'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 import styles from '../../blog.module.css'
+import { navIndex } from '@/lib/nav'
 
 type Params = Promise<{ category: string }>
 
@@ -74,7 +75,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <ChamberShell
-        index="06"
+        index={navIndex("/blog")}
         label="Journal"
         chamber={label}
         preface={`${posts.length} article${posts.length !== 1 ? 's' : ''} on ${label.toLowerCase()} from The Coast Global Journal.`}

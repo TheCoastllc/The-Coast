@@ -13,6 +13,7 @@ import UnderConstructionPage from './UnderConstructionPage'
 import CinematicBody from './CinematicBody'
 import { CASE_STUDIES as projectMeta } from '@/lib/case-studies'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
+import { navIndex } from '@/lib/nav'
 
 export async function generateMetadata({ params }: { params: Promise<{ projectId: string }> }) {
   const { projectId } = await params
@@ -139,7 +140,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkSchema) }} />
       <ChamberShell
-        index="02"
+        index={navIndex("/work")}
         label="Work"
         chamber={displayName}
         preface={meta.tagline ?? meta.description}

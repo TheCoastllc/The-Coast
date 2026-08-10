@@ -6,6 +6,7 @@ import { ShineButton } from '@/components/ui/ShineButton'
 import { FlagshipCBI } from '@/components/offers/FlagshipCBI'
 import { TOOLS } from './content'
 import styles from './offers-lab.module.css'
+import { navIndex } from '@/lib/nav'
 
 /**
  * The Brand Lab - merged cinematic + tangible direction.
@@ -20,7 +21,7 @@ import styles from './offers-lab.module.css'
 export function OffersBrandLab() {
   return (
     <ChamberShell
-      index="06"
+      index={navIndex("/offers")}
       label="The Brand Lab"
       chamber="Know Your Brand"
       preface="One flagship index and three free diagnostics. Measure your wave, find where your brand leaks trust, and see what customers read in the first three seconds - then try each one right here before you continue."

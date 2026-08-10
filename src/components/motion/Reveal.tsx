@@ -60,26 +60,7 @@ export function Reveal({
       });
     }, el);
 
-    /* FAIL-SAFE - the reason an external QA audit reported "blank pages that
-     * fix themselves on refresh". Every FROM state above starts the element
-     * invisible (opacity 0 / clipped), so if its ScrollTrigger never fires the
-     * content stays permanently hidden while sitting in the DOM. That can
-     * happen after a client-side route change, when ScrollTrigger still holds
-     * the previous page's geometry. An animation must never be able to
-     * withhold content: if this element is on screen and still invisible
-     * shortly after mount, drop the animation and show it. */
-    const failsafe = window.setTimeout(() => {
-      const r = el.getBoundingClientRect();
-      const onScreen = r.top < window.innerHeight && r.bottom > 0 && r.width > 0;
-      if (onScreen && Number(getComputedStyle(el).opacity) < 0.05) {
-        gsap.set(el, { clearProps: "all" });
-      }
-    }, 1400);
-
-    return () => {
-      window.clearTimeout(failsafe);
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, [variant, delay]);
 
   return (

@@ -5,8 +5,6 @@ import { GtmScript, GtmNoScript } from '@/components/analytics/Gtm'
 import { MetaPixelScript, MetaPixelNoScript } from '@/components/analytics/MetaPixel'
 import { Inter, Anton, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google'
 import { SeaBackdrop } from '@/components/chrome/SeaBackdrop'
-import { HUD } from '@/components/chrome/HUD'
-import { CompassRose } from '@/components/chrome/CompassRose'
 import { Cursor } from '@/components/chrome/Cursor'
 import { OrgSchema } from '@/components/seo/OrgSchema'
 
@@ -53,8 +51,15 @@ export default function SubsitesLayout(props: { children: React.ReactNode }) {
                 <MetaPixelScript />
                 <SeaBackdrop />
                 {children}
-                <HUD />
-                <CompassRose />
+                {/* No <HUD /> or <CompassRose /> here. They are main-site ocean
+                    chrome that renders position:fixed, so on the subsites they
+                    sat ON TOP of the subsite footers ("DALLAS-FORT WORTH, TX" /
+                    "COASTGLOBAL.ORG / 2026" and the compass overlapping the
+                    copyright and legal links on cbi. and offers.). Gallery had
+                    already had to neutralise them in CSS
+                    (gallery/gallery-theme.css: [data-ocean-chrome]{display:none});
+                    removing them at the source fixes cbi + offers-tools too and
+                    makes that CSS override redundant rather than load-bearing. */}
                 <div className="vignette" />
                 <div className="grain" />
                 <Cursor />

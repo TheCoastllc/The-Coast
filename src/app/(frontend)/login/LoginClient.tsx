@@ -210,9 +210,34 @@ function LoginForm() {
   )
 }
 
+/* The sign-in card, minus the interactive form. An empty <Suspense> fallback
+ * meant /login streamed as a completely blank screen until the client bundle
+ * hydrated - which is why a QA audit reported the route as "showing homepage
+ * content instead of an authentication interface". It is a real auth page; it
+ * just rendered nothing to look at while loading (and nothing at all without
+ * JavaScript). Now the card, wordmark and heading are in the server HTML. */
+function LoginFallback() {
+  return (
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <span className="inline-flex items-center gap-1">
+            <span className="text-2xl font-bold tracking-tight text-foreground">THE COAST GLOBAL</span>
+            <span className="text-primary text-3xl leading-none">.</span>
+          </span>
+        </div>
+        <div className="bg-card border border-border rounded-xl p-8 shadow-lg">
+          <h1 className="text-xl font-semibold text-foreground mb-6">Sign in</h1>
+          <p className="text-sm text-muted-foreground">Loading the sign-in form...</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function LoginClient() {
   return (
-    <Suspense>
+    <Suspense fallback={<LoginFallback />}>
       <LoginForm />
     </Suspense>
   )

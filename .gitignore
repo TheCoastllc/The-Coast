@@ -70,6 +70,11 @@ next-sitemap.config.*
 scripts/*-screenshots.ts
 scripts/*-shot.ts
 scripts/*-check.ts
+scripts/audit-*.ts
+scripts/cluster*.ts
+scripts/verify-*.ts
+scripts/cap-*.ts
+scripts/probe-*.ts
 scripts/push-schema-to-prod.ts
 scripts/add-drive-column.ts
 scripts/setup-drive-sync.sh

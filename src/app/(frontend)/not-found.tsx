@@ -1,7 +1,17 @@
+import type { Metadata } from 'next'
 import { BlueprintLayout } from '@/components/blueprint-layout'
 import { TransitionLink } from '@/components/PageTransition'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { RetroGrid } from '@/components/RetroGrid'
+
+/* Titles the 404 boundary itself. A route that calls notFound() discards
+ * whatever its own generateMetadata returned, so every missing page was
+ * inheriting the layout's default homepage title - a 404 that announced
+ * itself as the front page in the tab and to crawlers. */
+export const metadata: Metadata = {
+  title: { absolute: 'Page Not Found | The Coast Global' },
+  robots: { index: false, follow: true },
+}
 
 const links = [
   { label: 'Services', href: '/services', desc: 'Explore what we offer' },

@@ -6,6 +6,7 @@ import BlogSearchClient from './BlogSearchClient'
 import { ChamberShell } from '@/components/ui/ChamberShell'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 import styles from './blog.module.css'
+import { navIndex } from '@/lib/nav'
 
 const formatCategory = (slug: string) =>
   slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -186,7 +187,7 @@ export default async function BlogPage({ searchParams }: { searchParams: SearchP
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogCollectionSchema) }} />
 
       <ChamberShell
-        index="06"
+        index={navIndex("/blog")}
         label="Journal"
         chamber="Latest Thinking"
         preface="Insights on brand design, visual identity, and creative strategy for the visionaries behind the brands."

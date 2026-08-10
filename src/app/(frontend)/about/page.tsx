@@ -9,6 +9,7 @@ import { STUDIO, STATS, COMPANY, PALETTE } from '@/lib/content/coast'
 import { CardIcon } from '@/components/ui/CardIcon'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './about.module.css'
+import { navIndex } from '@/lib/nav'
 
 export const metadata: Metadata = {
   title: 'About The Coast Global - Brand Studio for Visionaries',
@@ -66,7 +67,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
 
       <ChamberShell
-        index="04"
+        index={navIndex("/about")}
         label="About"
         chamber="The Studio"
         preface={STUDIO.intro}

@@ -10,6 +10,7 @@ import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import { ORG_ID, WEBSITE_ID } from '@/lib/schema'
 import { COMPANY } from '@/lib/content/coast'
 import styles from '../../services/[slug]/serviceDetail.module.css'
+import { navIndex } from '@/lib/nav'
 
 type Params = Promise<{ slug: string }>
 
@@ -101,7 +102,7 @@ export default async function LocationPage({ params }: { params: Params }) {
       />
 
       <ChamberShell
-        index="07"
+        index={navIndex("/locations")}
         label={`Areas / ${loc.kind === 'metro' ? 'Home base' : 'Service area'}`}
         chamber={loc.headline}
         preface={loc.preface}

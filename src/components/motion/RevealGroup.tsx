@@ -194,35 +194,26 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
         });
       }
 
-      // refresh after fonts/layout settle
+      /* Refresh after fonts/layout settle.
+       *
+       * clearScrollMemory() FIRST, and it is load-bearing. ScrollTrigger's
+       * refresh records the current scroll offset, jumps to 0 to measure, then
+       * RESTORES what it recorded. This effect runs on every client-side
+       * navigation, just after Next's ScrollAndFocusHandler has set
+       * scrollTop = 0 - so the restore wrote the PREVIOUS page's scroll offset
+       * back, clamped to the new (shorter) page's maximum. The new route
+       * therefore opened parked at its own footer, which an external QA audit
+       * reported as four Critical "page is blank until I refresh" defects
+       * (/services, /about, /locations, /offers). The content was always
+       * there; the viewport was at the bottom of it. clearScrollMemory()
+       * discards those recorded offsets so refresh() cannot restore them.
+       * Proof it is this call site: /work has no RevealGroup and never
+       * mis-scrolled, while every route that mounts one did. */
+      ScrollTrigger.clearScrollMemory();
       ScrollTrigger.refresh();
     }, el);
 
-    /* FAIL-SAFE - this component sets whole `.section` elements to opacity 0
-     * up front (see gsap.set above) and relies on a ScrollTrigger to reveal
-     * them. If that trigger never fires - e.g. after a client-side route
-     * change, while ScrollTrigger still holds the previous page's geometry -
-     * an entire page's content stays invisible in the DOM. That is precisely
-     * the "page is blank until I refresh" defect an external QA audit filed
-     * against /services, /about and /locations. Content must never be
-     * withheld by an animation: any section that is ON SCREEN and still
-     * invisible shortly after mount gets its animation dropped and is shown.
-     * Sections below the fold are left alone so they still reveal on scroll. */
-    const failsafe = window.setTimeout(() => {
-      el.querySelectorAll<HTMLElement>(".section").forEach((s) => {
-        const r = s.getBoundingClientRect();
-        const onScreen = r.top < window.innerHeight && r.bottom > 0 && r.width > 0;
-        if (onScreen && Number(getComputedStyle(s).opacity) < 0.05) {
-          gsap.set(s, { clearProps: "all" });
-          s.querySelectorAll<HTMLElement>("[data-mo]").forEach((m) => {
-            if (Number(getComputedStyle(m).opacity) < 0.05) gsap.set(m, { clearProps: "all" });
-          });
-        }
-      });
-    }, 1400);
-
     return () => {
-      window.clearTimeout(failsafe);
       (el as HTMLElement & { __coastVelStop?: () => void }).__coastVelStop?.();
       ctx.revert();
     };

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ChamberShell } from '@/components/ui/ChamberShell'
 import { ContactGlass } from '@/components/contact/ContactGlass'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
+import { navIndex } from '@/lib/nav'
 
 export const metadata: Metadata = {
   title: 'Contact The Coast Global',
@@ -51,7 +52,7 @@ export default function ContactPage() {
       <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="" />
 
       <ChamberShell
-        index="05"
+        index={navIndex("/contact")}
         label="Contact"
         chamber="Start"
         preface="Tell us what you are building. We reply fast and move fast."

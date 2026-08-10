@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Footer } from '@/components/footer'
 
 const SITE_URL = 'https://offers.coastglobal.org'
 
@@ -74,5 +75,14 @@ export const metadata: Metadata = {
 }
 
 export default function OffersLayout({ children }: { children: React.ReactNode }) {
-    return <>{children}</>
+    /* The tool screens shipped with NO footer at all - the only way out of a
+       quiz was a single relative "Back to Offers" link, so every tool page was
+       a dead end with no route back to the site, no contact and no legal links.
+       Same minimal footer the cbi subsite uses, so the two now match. */
+    return (
+        <>
+            {children}
+            <Footer variant="minimal" />
+        </>
+    )
 }

@@ -321,6 +321,12 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
 // then custom-style (Zapped Co), then under-construction at the end.
 export const CASE_STUDY_ORDER = [
   'troi',
+  // Dada was defined in CASE_STUDIES but never listed here, so /work (which
+  // maps this array) silently dropped it while the homepage (which reads
+  // CASE_STUDIES directly) still showed it. That also sent the case-study
+  // "next" link for Dada back to the first project, and left its sitemap
+  // entry orphaned - indexed by Google but unreachable from /work.
+  'dada-global-finance',
   'kando',
   'solomon-katsman',
   'amg-records',
@@ -330,6 +336,20 @@ export const CASE_STUDY_ORDER = [
   'zappedco',
   'prospry',
 ] as const
+
+/* Guard: every defined project must appear in the display order, or /work and
+ * the homepage silently disagree (see the Dada omission above). Dev-only so a
+ * future addition fails loudly in development instead of vanishing in prod. */
+if (process.env.NODE_ENV !== 'production') {
+  const missing = Object.keys(CASE_STUDIES).filter(
+    (id) => !(CASE_STUDY_ORDER as readonly string[]).includes(id)
+  )
+  if (missing.length) {
+    console.error(
+      `[case-studies] Defined but absent from CASE_STUDY_ORDER, so /work will skip them: ${missing.join(', ')}`
+    )
+  }
+}
 
 // Helper: list projects for the work feed, with ready ones first.
 export function listProjects() {
