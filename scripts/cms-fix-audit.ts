@@ -13,27 +13,40 @@
  *           and names sibling products with no context, so they read on this
  *           site as unrelated companies.
  *
- * Usage (from the repo root):
+ * Usage (from the repo root) - two commands, no env juggling:
  *   vercel env pull .env.prod --environment=production --yes
- *   set -a; . .env.prod; set +a
  *   npx tsx scripts/cms-fix-audit.ts --dry     # print before/after, write nothing
  *   npx tsx scripts/cms-fix-audit.ts          # apply
+ *
+ * This file loads .env.prod itself on purpose. Sourcing it by hand is a trap in
+ * zsh: `. .env.prod` searches $PATH for a name with no slash and fails with
+ * "no such file or directory" even though the file is right there.
  *
  * Safe to re-run: it is idempotent and only touches these seven rows.
  * After applying, redeploy (or save any post in the admin) so the blog pages
  * revalidate: vercel deploy --prod --yes
  */
-import 'dotenv/config'
+import { config as loadEnv } from 'dotenv'
+import { existsSync } from 'node:fs'
 import { createClient } from '@libsql/client'
 
 const DRY = process.argv.includes('--dry')
+
+// Prefer the pulled production env; fall back to whatever is already exported.
+const ENV_FILE = ['.env.prod', '.env.production'].find((f) => existsSync(f))
+if (ENV_FILE) loadEnv({ path: ENV_FILE, override: true })
+
 const url = (process.env.DATABASE_URL || '').replace(/^"|"$/g, '')
 const authToken = (process.env.DATABASE_AUTH_TOKEN || '').replace(/^"|"$/g, '')
 
 if (!url) {
-  console.error('DATABASE_URL is not set. Pull the production env first (see header).')
+  console.error(
+    'DATABASE_URL is not set. Run this from the repo root after:\n' +
+      '  vercel env pull .env.prod --environment=production --yes'
+  )
   process.exit(1)
 }
+console.log(ENV_FILE ? `env: ${ENV_FILE}` : 'env: process environment')
 if (url.startsWith('file:')) {
   console.error(`DATABASE_URL points at a local file (${url}). This must run against production.`)
   process.exit(1)
