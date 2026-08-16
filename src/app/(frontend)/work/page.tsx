@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
+import { CASE_STUDY_ORDER } from '@/lib/case-studies'
 import CinematicWorkFeed from '@/components/CinematicWorkFeed'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 
@@ -47,7 +50,11 @@ export default function WorkPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workBreadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workCollectionSchema) }} />
-      <CinematicWorkFeed />
+      <CinematicWorkFeed
+        videoIds={CASE_STUDY_ORDER.filter((id) =>
+          existsSync(join(process.cwd(), 'public', 'portfolio', id, 'video.webm'))
+        )}
+      />
     </>
   )
 }

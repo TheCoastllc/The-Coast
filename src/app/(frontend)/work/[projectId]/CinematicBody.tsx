@@ -13,6 +13,10 @@ import styles from './case.module.css'
 
 interface Props {
   projectId: string
+  /** Whether /portfolio/<id>/hero.jpg exists on disk - checked on the server. */
+  hasHero?: boolean
+  /** Whether /portfolio/<id>/video.webm exists on disk - checked on the server. */
+  hasVideo?: boolean
 }
 
 /**
@@ -22,7 +26,7 @@ interface Props {
  * sections inside ChamberShell. The hero (title / tagline / index) is supplied
  * by ChamberShell in page.tsx, so this returns body sections only.
  */
-export default function CinematicBody({ projectId }: Props) {
+export default function CinematicBody({ projectId, hasHero = true, hasVideo = true }: Props) {
   const project = CASE_STUDIES[projectId] as CaseStudyMeta | undefined
   const fxRaw = useFxMode()
   const fine = usePointerFine()
@@ -36,8 +40,14 @@ export default function CinematicBody({ projectId }: Props) {
   const nextId = orderedIds[(idx + 1) % orderedIds.length]
   const next = CASE_STUDIES[nextId]
 
-  const heroUrl = `/portfolio/${projectId}/hero.jpg`
+  /* These paths are conventions, not guarantees: several published projects
+   * ship only a cover.jpg. prospry and dada-global-finance were both requesting
+   * a hero.jpg and video.webm that do not exist, 404ing on a live case study.
+   * The server tells us what is actually on disk, so fall back to the cover for
+   * the hero and drop the video section entirely rather than render a broken
+   * player. */
   const coverUrl = `/portfolio/${projectId}/cover.jpg`
+  const heroUrl = hasHero ? `/portfolio/${projectId}/hero.jpg` : coverUrl
   const videoUrl = `/portfolio/${projectId}/video.webm`
 
   return (
@@ -128,7 +138,8 @@ export default function CinematicBody({ projectId }: Props) {
         </section>
       )}
 
-      {/* In motion */}
+      {/* In motion - only when the project actually has a video on disk */}
+      {hasVideo && (
       <section className="section">
         <p className="sectionLabel">03 · In motion</p>
         <Reveal variant="mask-wipe">
@@ -146,6 +157,7 @@ export default function CinematicBody({ projectId }: Props) {
           </div>
         </Reveal>
       </section>
+      )}
 
       {/* By the numbers */}
       {project.stats && project.stats.length > 0 && (

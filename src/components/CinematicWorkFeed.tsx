@@ -49,7 +49,12 @@ function sectionVars(wk: WkVariant, p: { color?: string; textColor?: string }) {
   } as React.CSSProperties
 }
 
-export default function CinematicWorkFeed() {
+export default function CinematicWorkFeed({ videoIds = [] }: { videoIds?: string[] }) {
+  /* Only projects that actually ship a video.webm get a lazy video source.
+   * The feed used to emit one for every project by convention, so the hover
+   * preloader fetched a 404 for any project shipping only a cover.jpg
+   * (dada-global-finance, zappedco). The server passes the real list. */
+  const hasVideo = (id: string) => videoIds.includes(id)
   const rootRef = useRef<HTMLDivElement>(null)
   const wk = useVariant('wk', WK_VARIANTS, 'accent')
 
@@ -173,6 +178,7 @@ export default function CinematicWorkFeed() {
                   fill
                   sizes="(max-width: 760px) 90vw, 760px"
                 />
+                {hasVideo(p.id) && (
                 <video
                   className="t-video"
                   data-video-src={`/portfolio/${p.id}/video.webm`}
@@ -182,6 +188,7 @@ export default function CinematicWorkFeed() {
                   preload="none"
                   aria-hidden="true"
                 />
+                )}
               </div>
             </Link>
           </section>

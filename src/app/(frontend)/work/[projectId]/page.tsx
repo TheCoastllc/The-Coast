@@ -8,9 +8,17 @@
 //   - style: 'custom'    → hand-built body (ZappedCoPage)
 import { notFound } from 'next/navigation'
 import { ChamberShell } from '@/components/ui/ChamberShell'
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 import ZappedCoPage from './ZappedCoPage'
 import UnderConstructionPage from './UnderConstructionPage'
 import CinematicBody from './CinematicBody'
+
+/* Several published projects ship only a cover.jpg, but the case-study body
+ * builds hero/video paths by convention - so prospry and dada-global-finance
+ * were both 404ing a hero.jpg and video.webm on a live page. This runs on the
+ * server, so we can just look. */
+const hasPublicAsset = (rel: string) => existsSync(join(process.cwd(), 'public', rel))
 import { CASE_STUDIES as projectMeta } from '@/lib/case-studies'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
 import { navIndex } from '@/lib/nav'
@@ -129,7 +137,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ projec
   // Pick the body renderer based on style / ready state.
   const renderBody = () => {
     if (!meta.ready) return <UnderConstructionPage />
-    if (meta.style === 'cinematic') return <CinematicBody projectId={projectId} />
+    if (meta.style === 'cinematic')
+      return (
+        <CinematicBody
+          projectId={projectId}
+          hasHero={hasPublicAsset(`portfolio/${projectId}/hero.jpg`)}
+          hasVideo={hasPublicAsset(`portfolio/${projectId}/video.webm`)}
+        />
+      )
     // Default / 'custom' style - hand-built bodies
     if (projectId === 'zappedco') return <ZappedCoPage />
     return <UnderConstructionPage />
