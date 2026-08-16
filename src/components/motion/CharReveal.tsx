@@ -63,9 +63,23 @@ export function CharReveal({
     }
   }, [delay, stagger, trigger, scrollStart]);
 
-  const chars = Array.from(children).map((ch, i) => (
-    <span key={i} className="char">
-      {ch === " " ? " " : ch}
+  /* Characters are grouped into per-WORD wrappers. Each .char is
+   * display:inline-block, so with no wrapper the browser treats every single
+   * letter as its own breakable box and happily wraps mid-word - which is how
+   * a case-study hero rendered "Dada Global Financ / e". Reuses the global .word helper (inline-block + nowrap), so
+   * inline-block + nowrap so a line can only break at a real space, and the
+   * separator sits OUTSIDE it so the space cannot collapse. The animation is
+   * unaffected: it still queries ".char". */
+  const chars = children.split(" ").map((word, wi, all) => (
+    <span key={wi}>
+      <span className="word">
+        {Array.from(word).map((ch, ci) => (
+          <span key={ci} className="char">
+            {ch}
+          </span>
+        ))}
+      </span>
+      {wi < all.length - 1 ? " " : null}
     </span>
   ));
 

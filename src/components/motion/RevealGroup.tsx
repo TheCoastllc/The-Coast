@@ -83,24 +83,39 @@ export function RevealGroup({ children }: { children: React.ReactNode }) {
           );
         }
 
-        // fade OUT as the section leaves the top - scrubbed, so scrolling back
-        // fades it in again (the continuous in/out breathing of award sites)
-        gsap.fromTo(
-          s,
-          { "--exit": 0 } as gsap.TweenVars,
-          {
-            opacity: 0.12,
-            y: -30,
-            ease: "none",
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: s,
-              start: "bottom 34%",
-              end: "bottom 4%",
-              scrub: 0.4,
-            },
-          }
-        );
+        /* Soften as the section leaves the top - scrubbed, so scrolling back
+         * brings it up again (the in/out breathing of award sites).
+         *
+         * TWO deliberate changes from the original, both readability bugs:
+         *
+         * 1. The `from` now states opacity/y explicitly. It used to be
+         *    `{"--exit": 0}`, which names NO opacity, so gsap captured the
+         *    start value from whatever the element happened to have when the
+         *    tween first rendered. If a ScrollTrigger.refresh() landed while a
+         *    section was mid-fade, it re-captured the faded value as the START
+         *    too - collapsing the range to 0.12 -> 0.12 and pinning that
+         *    section at 12% opacity permanently, at any scroll position.
+         * 2. The floor was 0.12. Everything below the hero rendered at 12%
+         *    opacity - the ocean backdrop showing through nearly-transparent
+         *    content, which is the washed-out blue page David reported. An
+         *    exit flourish must never make content unreadable, so even the
+         *    worst case now bottoms out at 0.82. */
+        /* REMOVED, deliberately. Sections used to scrub down to opacity 0.12 as
+         * they left the top. Two problems, both hit production:
+         *   - the tween's `from` named no opacity, so gsap captured the start
+         *     from whatever the element had when it first rendered; a
+         *     ScrollTrigger.refresh() mid-fade re-captured the faded value as
+         *     the start too, collapsing the range and pinning that section at
+         *     its floor forever, at any scroll position;
+         *   - the trigger's measurements go stale the moment the document
+         *     changes height (the 350vh film section mounts only after first
+         *     interaction, images and fonts settle later), so sections sat at
+         *     the END value while fully in view.
+         * Net effect: everything below the hero rendered at 12% opacity - the
+         * ocean backdrop showing through near-transparent content, the
+         * washed-out blue page David reported. A decorative exit flourish is
+         * not worth a page that cannot be read, so content now simply stays at
+         * full opacity once revealed. The reveal-IN choreography is untouched. */
 
         const play = () => tl.play();
         // Already in view on mount - reveal now instead of waiting for a scroll
