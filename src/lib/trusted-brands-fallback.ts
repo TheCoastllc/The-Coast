@@ -9,8 +9,10 @@ import type { LedgerBrand } from '@/components/TrustedLedger'
  * Payload returns zero entries.
  *
  * Roster updated: removed Duda, Global Finance Group, Hatch SN. Added Dada
- * Global Finance (our build, dadaglobalfin.com). OgaTicket, AMG Records and
- * Zapped Co sit at the bottom. All brands render as typographic wordmarks.
+ * Global Finance (our build, dadaglobalfin.com), The World Is Yours Inc and
+ * Gifted Touch Therapeutic Massage; New Era Aesthetics now links to its case
+ * study. OgaTicket, AMG Records and Zapped Co sit at the bottom. All brands
+ * render as typographic wordmarks.
  */
 export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   {
@@ -36,6 +38,25 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
     category: 'MEDICAL TECH · IDENTITY',
     year: 2025,
     url: 'https://neweraaesthetics.com',
+    caseStudySlug: 'new-era-aesthetics',
+  },
+  {
+    id: 'world-is-yours',
+    name: 'The World Is Yours Inc',
+    wordmark: 'The World Is Yours',
+    category: 'REAL ESTATE · FINANCE',
+    year: 2026,
+    url: 'https://theworldisyoursinc.com',
+    caseStudySlug: 'world-is-yours',
+  },
+  {
+    id: 'gifted-touch',
+    name: 'Gifted Touch Therapeutic Massage',
+    wordmark: 'Gifted Touch',
+    category: 'WELLNESS · WEB',
+    year: 2026,
+    url: 'https://giftedtouch.org',
+    caseStudySlug: 'gifted-touch',
   },
   {
     id: 'solomon-katsman',

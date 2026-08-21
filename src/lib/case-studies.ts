@@ -302,6 +302,75 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     summary:
       'End-to-end ticketing platform built for the African events market — fast checkout, organizer tools, and a brand that holds up under scale.',
   },
+  'world-is-yours': {
+    title: 'The World Is Yours - Brand & Website | The Coast Global',
+    description:
+      'Brand and website for The World Is Yours Inc - a real estate, capital and legacy firm. Designed and built by The Coast Global.',
+    ready: true,
+    style: 'cinematic',
+    client: 'The World Is Yours Inc',
+    tagline: 'Real estate, capital, legacy - an old-money standard, built for the web.',
+    category: 'Real Estate · Finance',
+    role: ['Brand', 'Web', 'Development'],
+    year: 2026,
+    color: '#0b1c2c',
+    textColor: '#f4efe3',
+    liveUrl: 'https://theworldisyoursinc.com',
+    stack: ['Design', 'Development', 'Web'],
+    palette: ['#0b1c2c', '#c8a24a', '#1f4763', '#f4efe3'],
+    moments: [
+      { image: '/portfolio/world-is-yours/cover.jpg', caption: 'Hero - Real Estate · Capital · Legacy' },
+    ],
+    stats: [],
+    summary:
+      'A real estate, capital and legacy firm that needed to look like the estates it represents. The Coast Global built the brand and site around an old-money editorial standard - serif wordmark, gold rules, and full-bleed property photography at theworldisyoursinc.com.',
+  },
+  'new-era-aesthetics': {
+    title: 'New Era Aesthetics - Brand & Website | The Coast Global',
+    description:
+      'Brand and website for New Era Aesthetics - an RF microneedling device brand for aesthetic practices. Designed and built by The Coast Global.',
+    ready: true,
+    style: 'cinematic',
+    client: 'New Era Aesthetics',
+    tagline: 'A new beginning for your skin - a medical device made credible.',
+    category: 'Medical Tech · Aesthetics',
+    role: ['Brand', 'Web', 'Development'],
+    year: 2025,
+    color: '#12212b',
+    textColor: '#f2f6f8',
+    liveUrl: 'https://neweraaesthetics.com',
+    stack: ['Design', 'Development', 'Web'],
+    palette: ['#12212b', '#8fbcd4', '#e8eef2', '#ffffff'],
+    moments: [
+      { image: '/portfolio/new-era-aesthetics/cover.jpg', caption: 'Hero - A New Beginning For Your Skin' },
+    ],
+    stats: [],
+    summary:
+      'An RF microneedling device sold to aesthetic practices, where clinical trust has to arrive before the sales conversation. The Coast Global built a calm, evidence-forward brand and site - device detail, pricing and demo booking in a clean clinical white system at neweraaesthetics.com.',
+  },
+  'gifted-touch': {
+    title: 'Gifted Touch Therapeutic Massage - Brand & Website | The Coast Global',
+    description:
+      'Brand and website for Gifted Touch Therapeutic Massage - board certified therapeutic massage in Huntsville, Alabama. Designed and built by The Coast Global.',
+    ready: true,
+    style: 'cinematic',
+    client: 'Gifted Touch Therapeutic Massage',
+    tagline: 'Anointed hands, a gifted touch - twenty years of care in Huntsville.',
+    category: 'Wellness · Web',
+    role: ['Brand', 'Web', 'Development'],
+    year: 2026,
+    color: '#123a2e',
+    textColor: '#f6f1e4',
+    liveUrl: 'https://giftedtouch.org',
+    stack: ['Design', 'Development', 'Web'],
+    palette: ['#123a2e', '#a5642a', '#f6f1e4', '#ffffff'],
+    moments: [
+      { image: '/portfolio/gifted-touch/cover.jpg', caption: 'Hero - Anointed Hands, A Gifted Touch' },
+    ],
+    stats: [],
+    summary:
+      'Board certified therapeutic massage in Huntsville, Alabama, serving studio and corporate clients for more than twenty years. The Coast Global built the brand and site around a warm editorial calm - deep green and bronze on cream, with booking front and centre at giftedtouch.org.',
+  },
   prospry: {
     title: 'Prospry — Brand Identity | The Coast Global',
     description: 'A clean, prosperous visual system for a fintech brand built on trust.',
@@ -321,6 +390,9 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
 // then custom-style (Zapped Co), then under-construction at the end.
 export const CASE_STUDY_ORDER = [
   'troi',
+  'world-is-yours',
+  'gifted-touch',
+  'new-era-aesthetics',
   // Dada was defined in CASE_STUDIES but never listed here, so /work (which
   // maps this array) silently dropped it while the homepage (which reads
   // CASE_STUDIES directly) still showed it. That also sent the case-study
