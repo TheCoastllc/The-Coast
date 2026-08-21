@@ -183,7 +183,7 @@
 .horizonPhoto {
   position: absolute;
   inset: 0;
-  background-image: url("/img/horizon-flagship.jpg");
+  background-image: url("/img/horizon-flagship.webp");
   background-size: cover;
   background-position: center 38%;
   opacity: 0.55;

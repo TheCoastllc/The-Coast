@@ -56,7 +56,7 @@ export function PaintSweep() {
         <div
           ref={imgRef}
           className={styles.plate}
-          style={{ backgroundImage: "url(/story/paint-sweep.jpg)" }}
+          style={{ backgroundImage: "url(/story/paint-sweep.webp)" }}
         />
       </div>
     </section>

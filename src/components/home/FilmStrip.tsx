@@ -7,14 +7,19 @@ import styles from "./FilmStrip.module.css";
 
 const FILM_MODES = ["off", "on"] as const;
 
-/** Frame manifest - two tiers re-encoded from the 4K master (q84/q76, max
- *  encoder effort): uhd (native 3840w) for large/retina canvases, hd (1920w)
- *  for laptop-class - picked once at load time. */
+/** Frame manifest - two tiers, RIGHT-SIZED to real device pixels rather than
+ *  to the master's native resolution:
+ *    uhd 2880w q76 - a retina 1440 canvas is 2880 device px, so the previous
+ *                    3840w tier was 1.33x oversampled and cost 9.5MB for no
+ *                    visible gain; this tier is 6.2MB.
+ *    hd  1920w q78 - laptop-class; 5.7MB -> 4.4MB, verified indistinguishable
+ *                    from q84 on a 1:1 crop of the hull and gold trim.
+ *  Picked once at load time. */
 const FRAME_COUNT = 60;
 const frameDir = () =>
   Math.min(2, window.devicePixelRatio || 1) * window.innerWidth > 2200
-    ? "film-uhd2"
-    : "film-hd2";
+    ? "film-uhd3"
+    : "film-hd3";
 const frameSrc = (i: number, dir: string) =>
   `/story/${dir}/frame-${String(i).padStart(3, "0")}.webp`;
 

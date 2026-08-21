@@ -77,7 +77,7 @@ export function VideoWave({
         ...style,
       }}
     >
-      {active ? <source src="/cbi-wave.mp4" type="video/mp4" /> : null}
+      {active ? <source src="/cbi-wave-v2.mp4" type="video/mp4" /> : null}
     </video>
   );
 }
