@@ -28,6 +28,12 @@ export type LedgerBrand = {
   year?: number
   /** If set, the card links to /work/[slug]. */
   caseStudySlug?: string
+  /** White-on-transparent mark harvested from the client's live site
+   *  (public/clients/<id>.png). Rendered via CSS mask so it tints to the
+   *  palette. Absent = typographic wordmark fallback. */
+  logo?: string
+  /** Rendered aspect ratio (w/h) of the logo asset, for layout stability. */
+  logoAspect?: number
   /** Optional external URL - used when no case study exists. */
   url?: string
 }

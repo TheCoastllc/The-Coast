@@ -240,3 +240,73 @@
   .indexCat { display: none; }
   .indexArrow { display: none; }
 }
+
+/* ─── logos: the clients' real marks, white via CSS mask, gold on hover ── */
+.logoWall {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense; /* backfill the holes the span-2 wordmarks create */
+  border-top: 1px solid var(--hairline, rgba(242, 239, 231, 0.1));
+  border-left: 1px solid var(--hairline, rgba(242, 239, 231, 0.1));
+}
+.logoCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  min-height: 8.6rem;
+  padding: 1.6rem 1.2rem;
+  border-right: 1px solid var(--hairline, rgba(242, 239, 231, 0.1));
+  border-bottom: 1px solid var(--hairline, rgba(242, 239, 231, 0.1));
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.35s ease;
+}
+.logoCell:hover { background: rgba(242, 239, 231, 0.03); }
+.logoMark {
+  display: block;
+  height: clamp(2rem, 3.4vw, 2.7rem);
+  max-width: 100%;
+  background-color: rgba(242, 239, 231, 0.82);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  transition: background-color 0.3s ease;
+}
+.logoCell:hover .logoMark { background-color: var(--gold, #e6b24d); }
+.logoFallback {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  color: rgba(242, 239, 231, 0.82);
+  transition: color 0.3s ease;
+  text-align: center;
+}
+.logoCell:hover .logoFallback { color: var(--gold, #e6b24d); }
+.logoMeta {
+  display: flex;
+  gap: 0.8rem;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-subtle, rgba(242, 239, 231, 0.42));
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 980px) { .logoWall { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) {
+  .logoWall { grid-template-columns: repeat(2, 1fr); }
+  .logoCell { min-height: 7rem; padding: 1.2rem 0.9rem; }
+}
+
+/* ultra-wide wordmarks (The World Is Yours, OgaTicket) span two cells so the
+   mark renders at a legible height instead of a hairline */
+.logoCellWide { grid-column: span 2; }
+.logoCellWide .logoMark { height: clamp(1.5rem, 2.4vw, 2rem); width: 92%; }
+@media (max-width: 640px) { .logoCellWide { grid-column: span 2; } }

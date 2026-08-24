@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { LedgerBrand } from "@/components/TrustedLedger";
 import styles from "./TrustedBy.module.css";
 
-export const CLIENT_VARIANTS = ["index", "wall", "marquee", "ledger"] as const;
+export const CLIENT_VARIANTS = ["logos", "index", "wall", "marquee", "ledger"] as const;
 export type ClientsVariant = (typeof CLIENT_VARIANTS)[number];
 
 function linkOf(c: LedgerBrand): { href: string; external: boolean } | null {
@@ -32,7 +32,13 @@ function Anchor({ c, className, children }: { c: LedgerBrand; className: string;
 }
 
 /**
- * "Trusted by" client roster, four treatments behind ?clients=:
+ * "Trusted by" client roster, five treatments behind ?clients=:
+ *  - logos   : DEFAULT (David: "use their logos from their websites"). The
+ *              clients' real marks, harvested from their live sites and
+ *              normalised to white-on-transparent, sit in a hairline grid.
+ *              Rendered via CSS mask so they tint cream at rest and gold on
+ *              hover, all at a uniform optical height. Clients without a
+ *              usable mark fall back to their typographic wordmark tile.
  *  - index   : DEFAULT. Editorial client index - hovering a row reveals that
  *              client's actual site (the case-study cover) floating beside the
  *              cursor. Names assert; the work proves. Rows without a case study
@@ -46,6 +52,39 @@ function Anchor({ c, className, children }: { c: LedgerBrand; className: string;
 
 const coverOf = (c: LedgerBrand): string | null =>
   c.caseStudySlug ? `/portfolio/${c.caseStudySlug}/cover.jpg` : null;
+
+function LogosVariant({ clients }: { clients: LedgerBrand[] }) {
+  return (
+    <div className={styles.logoWall}>
+      {clients.map((c) => (
+        <Anchor
+          key={c.id}
+          c={c}
+          className={`${styles.logoCell} ${(c.logoAspect ?? 0) >= 6 ? styles.logoCellWide : ""}`}
+        >
+          {c.logo ? (
+            <span
+              className={styles.logoMark}
+              role="img"
+              aria-label={c.name}
+              style={{
+                maskImage: `url(${c.logo})`,
+                WebkitMaskImage: `url(${c.logo})`,
+                aspectRatio: c.logoAspect ?? 3,
+              }}
+            />
+          ) : (
+            <span className={styles.logoFallback}>{c.wordmark ?? c.name}</span>
+          )}
+          <span className={styles.logoMeta}>
+            {c.category && <span>{c.category}</span>}
+            {c.year && <span>{c.year}</span>}
+          </span>
+        </Anchor>
+      ))}
+    </div>
+  );
+}
 
 function IndexVariant({ clients }: { clients: LedgerBrand[] }) {
   const reduced = useReducedMotion();
@@ -142,8 +181,12 @@ function IndexVariant({ clients }: { clients: LedgerBrand[] }) {
     </div>
   );
 }
-export function TrustedBy({ clients, variant = "index" }: { clients: LedgerBrand[]; variant?: ClientsVariant }) {
+export function TrustedBy({ clients, variant = "logos" }: { clients: LedgerBrand[]; variant?: ClientsVariant }) {
   const reduced = useReducedMotion();
+
+  if (variant === "logos") {
+    return <LogosVariant clients={clients} />;
+  }
 
   if (variant === "index") {
     return <IndexVariant clients={clients} />;

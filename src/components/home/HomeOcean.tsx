@@ -20,9 +20,8 @@ import { PaintSweep } from "./PaintSweep";
 import { GlassStatement } from "./GlassStatement";
 import { VideoWave } from "@/components/VideoWave";
 import { RevealGroup } from "@/components/motion/RevealGroup";
-import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { CountUp } from "@/components/motion/CountUp";
-import { STATS, EDITORIAL } from "@/lib/content/coast";
+import { STATS } from "@/lib/content/coast";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { TRUSTED_BRANDS_FALLBACK } from "@/lib/trusted-brands-fallback";
 import { ReviewsMarquee } from "./ReviewsMarquee";
@@ -105,7 +104,7 @@ export function HomeOcean({
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
-  const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "index");
+  const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "logos");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
 
   return (
@@ -230,14 +229,6 @@ export function HomeOcean({
             </section>
           )}
 
-          <section className="section">
-            <div className={styles.imageBand}>
-              <ParallaxImage src={EDITORIAL[3].src} alt={EDITORIAL[3].alt} mode="grain-graded" amount={14} />
-              <div className={styles.imageBandCaption}>
-                <p className={styles.imageBandText} data-mo="lead">{EDITORIAL[3].caption}</p>
-              </div>
-            </div>
-          </section>
 
           <section className={`section ${styles.statsSection}`}>
             <div className={styles.stats}>

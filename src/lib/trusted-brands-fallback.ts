@@ -8,6 +8,10 @@ import type { LedgerBrand } from '@/components/TrustedLedger'
  * change what's actually shown in production - this list only kicks in when
  * Payload returns zero entries.
  *
+ * Every brand carries `logo` - its REAL mark harvested from the live site
+ * (David: "use their logos from their websites"), normalised to
+ * white-on-transparent in public/clients/ by scripts/process-logos.ts.
+ *
  * Roster updated: removed Duda, Global Finance Group, Hatch SN. Added Dada
  * Global Finance (our build, dadaglobalfin.com), The World Is Yours Inc and
  * Gifted Touch Therapeutic Massage; New Era Aesthetics now links to its case
@@ -17,6 +21,8 @@ import type { LedgerBrand } from '@/components/TrustedLedger'
 export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   {
     id: 'troi',
+    logo: '/clients/troi.png',
+    logoAspect: 0.8,
     name: 'TROI Trading & Tech',
     wordmark: 'TROI',
     category: 'FINANCE · AI',
@@ -25,6 +31,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'kando',
+    logo: '/clients/kando.png',
+    logoAspect: 0.97,
     name: 'Kando Elite Health',
     wordmark: 'Kando',
     category: 'HEALTHCARE · CONCIERGE',
@@ -33,6 +41,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'new-era-aesthetics',
+    logo: '/clients/new-era-aesthetics.png',
+    logoAspect: 1.63,
     name: 'New Era Aesthetics',
     wordmark: 'New Era',
     category: 'MEDICAL TECH · IDENTITY',
@@ -42,6 +52,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'world-is-yours',
+    logo: '/clients/world-is-yours.png',
+    logoAspect: 18.71,
     name: 'The World Is Yours Inc',
     wordmark: 'The World Is Yours',
     category: 'REAL ESTATE · FINANCE',
@@ -51,6 +63,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'gifted-touch',
+    logo: '/clients/gifted-touch.png',
+    logoAspect: 1,
     name: 'Gifted Touch Therapeutic Massage',
     wordmark: 'Gifted Touch',
     category: 'WELLNESS · WEB',
@@ -60,6 +74,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'solomon-katsman',
+    logo: '/clients/solomon-katsman.png',
+    logoAspect: 1.07,
     name: 'Solomon Katsman',
     wordmark: 'Solomon Katsman',
     category: 'WEALTH · PERSONAL BRAND',
@@ -68,6 +84,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'dada-global-finance',
+    logo: '/clients/dada-global-finance.png',
+    logoAspect: 2.51,
     name: 'Dada Global Finance',
     wordmark: 'Dada Global Finance',
     category: 'FINANCE · WEB',
@@ -77,6 +95,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'omotunde-hospital',
+    logo: '/clients/omotunde-hospital.png',
+    logoAspect: 1,
     name: 'Omotunde Hospital',
     wordmark: 'Omotunde Hospital',
     category: 'HEALTHCARE',
@@ -85,6 +105,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'iamd-health',
+    logo: '/clients/iamd-health.png',
+    logoAspect: 2.16,
     name: 'iAMD Health',
     wordmark: 'iAMD Health',
     category: 'HEALTHCARE',
@@ -93,6 +115,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'ogaticket',
+    logo: '/clients/ogaticket.png',
+    logoAspect: 7.25,
     name: 'OgaTicket',
     wordmark: 'OgaTicket',
     category: 'WEB · PRODUCT',
@@ -101,6 +125,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'amg-records',
+    logo: '/clients/amg-records.png',
+    logoAspect: 2.53,
     name: 'AMG Records',
     wordmark: 'AMG Records',
     category: 'BRAND IDENTITY',
@@ -109,6 +135,8 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
   },
   {
     id: 'zapped',
+    logo: '/clients/zapped.png',
+    logoAspect: 3.8,
     name: 'Zapped Co',
     wordmark: 'Zapped Co',
     category: 'REBRAND · 15+ DELIVERABLES',
