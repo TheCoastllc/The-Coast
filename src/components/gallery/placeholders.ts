@@ -22,5 +22,4 @@ export const GALLERY_PLACEHOLDERS: GalleryItem[] = [
   { id: 'p11', title: 'Daybreak', caption: 'Vision render, day.', src: '/vision/day.jpg', width: 1024, height: 1024, alt: 'Vision render - Daybreak', category: 'artwork', shopUrl: null, pinUrl: PIN, featured: false },
   { id: 'p12', title: 'Kando - System', caption: 'Brand system, selected frame.', src: '/portfolio/kando/hero.jpg', width: 4800, height: 2700, alt: 'Kando brand system', category: 'brand', shopUrl: null, pinUrl: null, featured: false },
   { id: 'p13', title: 'Out of Home', caption: 'Billboard plate.', src: '/img/billboard-plate.jpg', width: 1920, height: 1279, alt: 'Billboard out-of-home plate', category: 'brand', shopUrl: null, pinUrl: null, featured: false },
-  { id: 'p14', title: 'Katsman - Brand Film', caption: 'Cover frame.', src: '/portfolio/solomon-katsman/cover.jpg', width: 3840, height: 2400, alt: 'Solomon Katsman brand film cover', category: 'brand', shopUrl: null, pinUrl: null, featured: false },
 ]

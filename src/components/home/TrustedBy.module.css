@@ -310,3 +310,71 @@
 .logoCellWide { grid-column: span 2; }
 .logoCellWide .logoMark { height: clamp(1.5rem, 2.4vw, 2rem); width: 92%; }
 @media (max-width: 640px) { .logoCellWide { grid-column: span 2; } }
+
+/* ─── logostrip: continuous ribbon of the real logos (default) ─────────── */
+.stripViewport {
+  position: relative;
+  overflow: hidden;
+  padding: 0.4rem 0;
+  /* dissolve logos at both edges */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.stripTrack {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.6rem, 5.5vw, 5.5rem);
+  width: max-content;
+  animation: logostrip 46s linear infinite;
+}
+.stripViewport:hover .stripTrack { animation-play-state: paused; }
+@keyframes logostrip {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.stripItem {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  text-decoration: none;
+  color: inherit;
+}
+.stripMark {
+  display: block;
+  height: 2.2rem;
+  max-width: 22rem;
+  background-color: rgba(242, 239, 231, 0.8);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.86;
+}
+.stripItem:hover .stripMark { background-color: var(--gold, #e6b24d); opacity: 1; }
+.stripFallback {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 1.3rem;
+  color: rgba(242, 239, 231, 0.8);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+.stripItem:hover .stripFallback { color: var(--gold, #e6b24d); }
+.stripStatic {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 4vw, 3.4rem) clamp(2.6rem, 5vw, 4.6rem);
+}
+@media (prefers-reduced-motion: reduce) {
+  .stripTrack { animation: none; }
+}
+@media (max-width: 640px) {
+  .stripMark { height: 1.8rem; max-width: 16rem; }
+}

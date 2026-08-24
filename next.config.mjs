@@ -45,6 +45,10 @@ const nextConfig = {
       // /visuals retired (David, Aug 2026) - its visual-showcase job belongs
       // to the gallery; permanent so search engines transfer the equity.
       { source: '/visuals', destination: '/gallery', permanent: true },
+      // Dada Global Finance + Solomon Katsman removed from the portfolio
+      // (David, Aug 2026); redirect their old case-study URLs to /work.
+      { source: '/work/dada-global-finance', destination: '/work', permanent: true },
+      { source: '/work/solomon-katsman', destination: '/work', permanent: true },
     ]
   },
 

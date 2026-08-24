@@ -78,30 +78,6 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
       "Full brand site for John Dunham — U.S. Army vet running mentorship for traders and AI for business owners. Includes a 10-card testimonial deck and a /studio template system that generates branded social posts, flyers, and ads.",
   },
 
-  'dada-global-finance': {
-    title: 'Dada Global Finance - Brand & Website | The Coast Global',
-    description:
-      'Brand and website for Dada Global Financial Group - a boutique wealth and life-insurance firm protecting families through generational wealth planning. Designed and built by The Coast Global.',
-    ready: true,
-    style: 'cinematic',
-    client: 'Dada Global Finance',
-    tagline: 'A covenant of protection - generational wealth, quietly architected.',
-    category: 'Finance · Web',
-    role: ['Brand', 'Web', 'Development'],
-    year: 2025,
-    color: '#0c1b30',
-    textColor: '#f4efe3',
-    liveUrl: 'https://dadaglobalfin.com',
-    stack: ['Design', 'Development', 'Web'],
-    palette: ['#0c1b30', '#c9a24a', '#13294a', '#f4efe3'],
-    moments: [
-      { image: '/portfolio/dada-global-finance/cover.jpg', caption: 'Hero - A Covenant of Protection' },
-    ],
-    stats: [],
-    summary:
-      'A boutique wealth and life-insurance brand. The Coast Global designed and built the full brand site for Dada Global Financial Group - an editorial serif identity in dark navy and gold, and a calm, trust-first experience at dadaglobalfin.com.',
-  },
-
   kando: {
     title: 'Kando Elite Health — Brand & Site | The Coast Global',
     description:
@@ -131,37 +107,6 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     ],
     summary:
       'Brand and site for a concierge healthcare practice — refined, exclusive, high-touch. Dusty-rose mauve on warm cream signals luxury and discretion without shouting.',
-  },
-
-  'solomon-katsman': {
-    title: 'Solomon Katsman — Wealth Strategist Site | The Coast Global',
-    description:
-      'Wealth strategist site for taxable-income mitigation — Defined Benefit plans and exit-stage structures for high-earning business owners.',
-    ready: true,
-    style: 'cinematic',
-    client: 'Solomon Katsman',
-    tagline: 'Tax strategy for founders earning $400K–$5M annually.',
-    category: 'Finance',
-    role: ['Brand', 'Design', 'Development'],
-    year: 2026,
-    color: '#0C1B2A',
-    textColor: '#C9A55C',
-    liveUrl: 'https://solomonkatsman.com',
-    stack: ['Design', 'Development', 'Brand'],
-    palette: ['#0C1B2A', '#C9A55C', '#142840', '#F1ECDF', '#B8893A'],
-    moments: [
-      { image: '/portfolio/solomon-katsman/moment-hero.jpg', caption: 'Hero — strategic positioning' },
-      { image: '/portfolio/solomon-katsman/moment-quarterly.jpg', caption: 'Katsman Quarterly' },
-      { image: '/portfolio/solomon-katsman/moment-brochure.jpg', caption: 'Practice brochure' },
-      { image: '/portfolio/solomon-katsman/moment-cta.jpg', caption: 'Referral call to action' },
-    ],
-    stats: [
-      { value: '$400K–$5M', label: 'Target client income' },
-      { value: 'Referral', label: 'Practice access' },
-      { value: 'DB Plans', label: 'Core vehicle' },
-    ],
-    summary:
-      "Wealth strategist site for taxable-income mitigation — Defined Benefit plans and exit-stage structures for high-earning business owners. Referral-only practice via Alpha Innovation Partners.",
   },
 
   'omotunde-hospital': {
@@ -389,18 +334,13 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
 // Order: cinematic ready projects first (TROI showcase, then by recency),
 // then custom-style (Zapped Co), then under-construction at the end.
 export const CASE_STUDY_ORDER = [
-  'troi',
+  // Order per David (Aug 2026): The World Is Yours leads, TROI second, New Era
+  // third; Dada Global Finance and Solomon Katsman removed from the site.
   'world-is-yours',
-  'gifted-touch',
+  'troi',
   'new-era-aesthetics',
-  // Dada was defined in CASE_STUDIES but never listed here, so /work (which
-  // maps this array) silently dropped it while the homepage (which reads
-  // CASE_STUDIES directly) still showed it. That also sent the case-study
-  // "next" link for Dada back to the first project, and left its sitemap
-  // entry orphaned - indexed by Google but unreachable from /work.
-  'dada-global-finance',
+  'gifted-touch',
   'kando',
-  'solomon-katsman',
   'amg-records',
   'ogaticket',
   'omotunde-hospital',

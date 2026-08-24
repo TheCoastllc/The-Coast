@@ -7,7 +7,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { LedgerBrand } from "@/components/TrustedLedger";
 import styles from "./TrustedBy.module.css";
 
-export const CLIENT_VARIANTS = ["logos", "index", "wall", "marquee", "ledger"] as const;
+export const CLIENT_VARIANTS = ["logostrip", "logos", "index", "wall", "marquee", "ledger"] as const;
 export type ClientsVariant = (typeof CLIENT_VARIANTS)[number];
 
 function linkOf(c: LedgerBrand): { href: string; external: boolean } | null {
@@ -33,7 +33,10 @@ function Anchor({ c, className, children }: { c: LedgerBrand; className: string;
 
 /**
  * "Trusted by" client roster, five treatments behind ?clients=:
- *  - logos   : DEFAULT (David: "use their logos from their websites"). The
+ *  - logostrip: DEFAULT (David rejected the logo GRID). The clients' real
+ *              marks in a continuous horizontal ribbon that pauses on hover,
+ *              edges fading out; reduced-motion falls back to a static row.
+ *  - logos   : the same marks in a hairline grid (David: "use their logos"). The
  *              clients' real marks, harvested from their live sites and
  *              normalised to white-on-transparent, sit in a hairline grid.
  *              Rendered via CSS mask so they tint cream at rest and gold on
@@ -52,6 +55,42 @@ function Anchor({ c, className, children }: { c: LedgerBrand; className: string;
 
 const coverOf = (c: LedgerBrand): string | null =>
   c.caseStudySlug ? `/portfolio/${c.caseStudySlug}/cover.jpg` : null;
+
+function LogoStripVariant({ clients }: { clients: LedgerBrand[] }) {
+  const reduced = useReducedMotion();
+
+  const mark = (c: LedgerBrand, key: string) => (
+    <Anchor key={key} c={c} className={styles.stripItem}>
+      {c.logo ? (
+        <span
+          className={styles.stripMark}
+          role="img"
+          aria-label={c.name}
+          style={{
+            maskImage: `url(${c.logo})`,
+            WebkitMaskImage: `url(${c.logo})`,
+            width: `${(c.logoAspect ?? 3) * 2.2}rem`,
+          }}
+        />
+      ) : (
+        <span className={styles.stripFallback}>{c.wordmark ?? c.name}</span>
+      )}
+    </Anchor>
+  );
+
+  // reduced motion: a static centered row (still not a grid), no animation
+  if (reduced) {
+    return <div className={styles.stripStatic}>{clients.map((c) => mark(c, c.id))}</div>;
+  }
+
+  // doubled reel scrolls seamlessly; pauses on hover (CSS)
+  const reel = [...clients, ...clients];
+  return (
+    <div className={styles.stripViewport} data-mo="drift">
+      <div className={styles.stripTrack}>{reel.map((c, i) => mark(c, `${c.id}-${i}`))}</div>
+    </div>
+  );
+}
 
 function LogosVariant({ clients }: { clients: LedgerBrand[] }) {
   return (
@@ -181,8 +220,12 @@ function IndexVariant({ clients }: { clients: LedgerBrand[] }) {
     </div>
   );
 }
-export function TrustedBy({ clients, variant = "logos" }: { clients: LedgerBrand[]; variant?: ClientsVariant }) {
+export function TrustedBy({ clients, variant = "logostrip" }: { clients: LedgerBrand[]; variant?: ClientsVariant }) {
   const reduced = useReducedMotion();
+
+  if (variant === "logostrip") {
+    return <LogoStripVariant clients={clients} />;
+  }
 
   if (variant === "logos") {
     return <LogosVariant clients={clients} />;

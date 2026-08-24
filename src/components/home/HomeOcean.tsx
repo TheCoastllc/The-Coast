@@ -104,7 +104,7 @@ export function HomeOcean({
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
-  const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "logos");
+  const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "logostrip");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
 
   return (
