@@ -17,7 +17,7 @@ interface CalendlyButtonProps {
  * Opens an in-page Calendly modal instead of navigating away or to #contact.
  */
 export function CalendlyButton({
-  children = 'Book a 30-min call',
+  children = 'Book a quick call',
   size = 'md',
   variant = 'default',
   full = false,

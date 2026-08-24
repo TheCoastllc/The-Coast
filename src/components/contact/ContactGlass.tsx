@@ -18,7 +18,7 @@ export function ContactGlass() {
           </h2>
           <p className={styles.glassLead}>{COMPANY.oneLiner}</p>
           <div className={styles.glassActions}>
-            <CalendlyButton>Book a 30-min call</CalendlyButton>
+            <CalendlyButton>Book a quick call</CalendlyButton>
             <a href={`mailto:${COMPANY.email}`} className={styles.glassEmail} data-cursor-label="Email">
               {COMPANY.email}
             </a>

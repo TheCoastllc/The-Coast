@@ -268,7 +268,7 @@ export const STUDIO = {
 };
 
 export const CONTACT = {
-  cta: "Book a 30-min call",
+  cta: "Book a quick call",
   email: "hello@coastglobal.org",
   phone: "+1 (682) 702-0374",
   note: "Tell us what you are building. We reply fast.",

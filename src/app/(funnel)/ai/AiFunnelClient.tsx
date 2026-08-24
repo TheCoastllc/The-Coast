@@ -149,7 +149,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             </CtaLink>
           </div>
           <p className="cta-note">
-            30 minutes {'•'} No obligation {'•'} You leave with a plan
+            Quick call {'•'} No obligation {'•'} You leave with a plan
           </p>
           <div className="scarcity">
             We take on {CAPACITY.buildsPerMonth} builds per month. {CAPACITY.spotsRemaining} spots
