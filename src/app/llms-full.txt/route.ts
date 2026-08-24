@@ -78,9 +78,9 @@ ${STUDIO.intro}
 
 ${PILLARS.map((p) => `### ${p.name}\n\n${p.promise}\n\nServices: ${p.services.join(', ')}.`).join('\n\n')}
 
-## Products Launching
+## Products
 
-${PRODUCTS.map((p) => `- ${p.name}: ${p.line}`).join('\n')}
+${PRODUCTS.map((p) => `- ${p.name} (${p.statusLabel.toLowerCase()}${p.url ? `, ${p.url}` : ''}): ${p.line}`).join('\n')}
 
 ---
 

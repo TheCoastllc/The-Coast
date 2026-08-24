@@ -1,0 +1,142 @@
+/* Colony flagship - full-bleed product moment. Near-black stage quoting
+   colonyapp.ai (their hero is a serif wordmark inside a gold particle ring),
+   framed by the Coast's own hairlines so it still reads as OUR page. */
+
+.stage {
+  position: relative;
+  min-height: min(88vh, 760px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: radial-gradient(90% 120% at 50% 30%, #17120a 0%, #0c0a06 55%, #070604 100%);
+  border: 1px solid rgba(201, 162, 74, 0.16);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: clamp(3rem, 8vh, 5rem) clamp(1.2rem, 5vw, 4rem);
+  max-width: 46rem;
+}
+
+.eyebrow {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #c9a24a;
+  margin: 0 0 1.6rem;
+}
+
+.liveDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7fd3a0;
+  margin-right: 0.6rem;
+  vertical-align: 1px;
+  box-shadow: 0 0 0 0 rgba(127, 211, 160, 0.5);
+  animation: colonyLive 2.2s ease-out infinite;
+}
+@keyframes colonyLive {
+  0% { box-shadow: 0 0 0 0 rgba(127, 211, 160, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(127, 211, 160, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(127, 211, 160, 0); }
+}
+
+/* Colony's OWN brand voice is serif - a deliberate quotation of the product's
+   wordmark, scoped to this element only (the rest of the section stays in the
+   Coast system). */
+.wordmark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: clamp(3.4rem, 11vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f4efe3;
+  margin: 0 0 1.1rem;
+  text-shadow: 0 0 60px rgba(201, 162, 74, 0.25);
+}
+
+.line {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+  color: rgba(244, 239, 227, 0.85);
+  margin: 0 0 1.4rem;
+}
+
+.pitch {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: rgba(244, 239, 227, 0.62);
+  margin: 0 auto 1.6rem;
+  max-width: 36rem;
+}
+
+.chips {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.chip {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(224, 183, 106, 0.9);
+  border: 1px solid rgba(201, 162, 74, 0.3);
+  border-radius: 999px;
+  padding: 0.42em 0.95em;
+}
+
+.ctaRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.3rem;
+  flex-wrap: wrap;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  color: #0c0a06;
+  background: linear-gradient(180deg, #ecc478 0%, #c9a24a 60%, #a57f2e 100%);
+  border-radius: 999px;
+  padding: 0.85em 1.7em;
+  text-decoration: none;
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+.cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+.domain {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: rgba(244, 239, 227, 0.45);
+}
+
+@media (max-width: 700px) {
+  .stage { min-height: 74vh; border-radius: 8px; }
+  .chips { gap: 0.45rem; }
+}

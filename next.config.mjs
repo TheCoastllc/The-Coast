@@ -42,6 +42,9 @@ const nextConfig = {
         destination: 'https://coastglobal.org/:path*',
         permanent: true,
       },
+      // /visuals retired (David, Aug 2026) - its visual-showcase job belongs
+      // to the gallery; permanent so search engines transfer the equity.
+      { source: '/visuals', destination: '/gallery', permanent: true },
     ]
   },
 

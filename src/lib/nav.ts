@@ -14,7 +14,6 @@ export const NAV: Section[] = [
   // an external QA audit flagged "Index" twice as unfamiliar to visitors.
   { slug: "home",     path: "/",         chamber: "The Coast Global",        label: "Home" },
   { slug: "work",     path: "/work",     chamber: "Selected Work",    label: "Work" },
-  { slug: "visuals",  path: "/visuals",  chamber: "The Visual Field", label: "Visuals" },
   { slug: "gallery",  path: "https://gallery.coastglobal.org", chamber: "The Collection", label: "Gallery", external: true },
   { slug: "services", path: "/services", chamber: "What We Do",       label: "Services" },
   { slug: "journal",  path: "/blog",     chamber: "The Journal",      label: "Journal" },

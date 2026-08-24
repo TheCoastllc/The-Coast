@@ -30,7 +30,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/brand-avatar`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/locations`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/vision`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/visuals`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/privacy`, lastModified: CONTENT_UPDATED, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${BASE_URL}/terms`, lastModified: CONTENT_UPDATED, changeFrequency: 'yearly', priority: 0.3 },
     // /cbi lives on cbi.coastglobal.org, /offers-tools/* on offers.coastglobal.org,

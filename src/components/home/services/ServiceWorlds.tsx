@@ -28,22 +28,45 @@ const CARD_ART: Record<string, string> = {
   ai: "/img/ocean-dark.jpg",
 };
 
-/* The launching shelf - Colony, ANT, Demi */
+/* The launching shelf - ANT + Demi teasers. Colony graduated to its own
+   flagship section on the homepage (ColonyFlagship), so live products are
+   filtered out here to keep each product to ONE appearance. */
 export function LaunchShelf() {
   return (
     <div className={styles.shelf}>
-      <p className={styles.shelfLabel} data-mo="eyebrow">Products we are launching</p>
+      <p className={styles.shelfLabel} data-mo="eyebrow">Also in the fleet</p>
       <div className={styles.shelfRow}>
-        {PRODUCTS.map((p) => (
-          <div key={p.name} className={`${styles.vessel} glass`} data-mo="item">
-            <span className={styles.vesselStatus}>
-              <span className={styles.vesselDot} />
-              {p.status}
-            </span>
-            <span className={styles.vesselName}>{p.name}</span>
-            <span className={styles.vesselLine}>{p.line}</span>
-          </div>
-        ))}
+        {PRODUCTS.filter((p) => p.status !== "live").map((p) => {
+          const body = (
+            <>
+              <span className={styles.vesselStatus}>
+                <span className={styles.vesselDot} />
+                {p.statusLabel}
+              </span>
+              <span className={styles.vesselName}>{p.name}</span>
+              <span className={styles.vesselLine}>{p.line}</span>
+            </>
+          );
+          // live vessels link out and wear gold; the rest stay teal teasers
+          return p.url ? (
+            <a
+              key={p.name}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles.vessel} glass`}
+              data-glow="gold"
+              data-mo="item"
+              data-cursor-label="Visit"
+            >
+              {body}
+            </a>
+          ) : (
+            <div key={p.name} className={`${styles.vessel} glass`} data-mo="item">
+              {body}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -152,13 +152,33 @@ export const PILLARS: Pillar[] = [
   },
 ];
 
-/* Products the studio is launching - public teaser lines only. */
-export type Product = { name: string; line: string; status: string };
+/* The product fleet. Colony is LIVE at colonyapp.ai (David's call, Aug 2026);
+ * ANT and Demi remain public teaser lines only. `line` is the poetic
+ * one-liner (llms.txt renders it); `tagline` is the product-voice subtitle
+ * used by the flagship card. */
+export type ProductStatus = "live" | "launching";
+export type Product = {
+  key: string;
+  name: string;
+  line: string;
+  tagline?: string;
+  status: ProductStatus;
+  statusLabel: string;
+  url?: string;
+};
 
 export const PRODUCTS: Product[] = [
-  { name: "Colony", line: "Where ideas come alive.", status: "Launching" },
-  { name: "ANT", line: "Where intelligence comes alive.", status: "Launching" },
-  { name: "Demi", line: "The next vessel in the fleet.", status: "Launching" },
+  {
+    key: "colony",
+    name: "Colony",
+    line: "Where ideas come alive.",
+    tagline: "Start with an idea. Finish with a project.",
+    status: "live",
+    statusLabel: "Live",
+    url: "https://colonyapp.ai",
+  },
+  { key: "ant", name: "ANT", line: "Where intelligence comes alive.", status: "launching", statusLabel: "Launching" },
+  { key: "demi", name: "Demi", line: "The next vessel in the fleet.", status: "launching", statusLabel: "Launching" },
 ];
 
 // Real clients from coastglobal.org. Descriptions are indicative - swap freely.
@@ -235,17 +255,15 @@ export const STUDIO = {
       "He knew exactly what it felt like to be overlooked. So he built a studio for the people the world overlooks - the founders, the artists, the dreamers with everything to prove and no budget to prove it. Today, The Coast Global turns their visions into empires.",
     ],
   },
+  // Roster per David (Aug 2026): Dare, Ebenezer, Ebun and Grace removed;
+  // Favour takes the product/UX seat Rejoice held.
   team: [
     { name: "Ikeji", role: "Technical Lead, SEO & Development", image: "/team/ikeji.jpg" },
     { name: "ABK", role: "Creative & Brand Design", image: "/team/abk.jpg" },
     { name: "Josh", role: "Executive Assistant & Social Media", image: "/team/josh.jpg" },
-    { name: "Dare", role: "AI Engineer", image: "/team/dare.jpg" },
-    { name: "Ebenezer", role: "AI Engineer", image: "/team/ebenezer.jpg" },
-    { name: "Rejoice", role: "Product Lead, UI / UX", image: "/team/rejoice.jpg" },
+    { name: "Favour", role: "Product Lead, UI / UX", image: "/team/favour.jpg" },
     { name: "Subham", role: "Digital Marketing Lead", image: "/team/subham.jpg" },
     { name: "Sammiat", role: "Social Media Intern", image: "/team/sammiat.jpg" },
-    { name: "Ebun", role: "Social Media Intern", image: "/team/ebun.jpg" },
-    { name: "Grace", role: "", image: "/team/grace.jpg" },
   ],
 };
 

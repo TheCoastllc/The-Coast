@@ -146,3 +146,97 @@
   .ledgerLink { grid-template-columns: 1.5rem 1fr auto; gap: 0.9rem; }
   .ledgerCat { display: none; }
 }
+
+/* ─── index: editorial client index with cursor-follow proof ───────────── */
+.index { position: relative; }
+.indexList { list-style: none; margin: 0; padding: 0; }
+.indexRow { border-top: 1px solid var(--hairline, rgba(242, 239, 231, 0.1)); }
+.indexRow:last-child { border-bottom: 1px solid var(--hairline, rgba(242, 239, 231, 0.1)); }
+.indexLink {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr auto auto 2rem;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.05rem 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.35s ease, padding-left 0.35s ease;
+}
+.indexRow:hover .indexLink {
+  background: rgba(242, 239, 231, 0.03);
+  padding-left: 1rem;
+}
+.indexIdx {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  color: var(--gold, #e6b24d);
+  opacity: 0.75;
+}
+.indexName {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+  line-height: 1.1;
+  color: var(--fg, #f2efe7);
+  transition: color 0.3s ease;
+}
+.indexRow:hover .indexName { color: var(--gold, #e6b24d); }
+.indexCat {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fg-subtle, rgba(242, 239, 231, 0.5));
+  white-space: nowrap;
+}
+.indexYear {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 0.66rem;
+  color: var(--fg-subtle, rgba(242, 239, 231, 0.5));
+  font-variant-numeric: tabular-nums;
+}
+.indexArrow {
+  color: var(--fg-subtle, rgba(242, 239, 231, 0.4));
+  font-size: 0.95rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  justify-self: end;
+}
+.indexRow:hover .indexArrow { color: var(--gold, #e6b24d); transform: translate(3px, -3px); }
+
+/* floating preview: fixed, cursor-lerped from JS, never intercepts events */
+.indexPreview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  pointer-events: none;
+  width: 384px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(4, 8, 14, 0.65);
+  opacity: 0;
+  scale: 0.94;
+  transition: opacity 0.28s ease, scale 0.28s ease;
+  will-change: transform;
+}
+.indexPreview[data-visible="true"] { opacity: 1; scale: 1; }
+.indexPreviewImg { display: block; width: 100%; height: auto; }
+
+/* touch: small inline thumbnail on the row's far end */
+.indexThumb {
+  grid-column: 1 / -1;
+  margin-top: 0.55rem;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 128px;
+}
+.indexThumbImg { display: block; width: 100%; height: auto; }
+
+@media (max-width: 700px) {
+  .indexLink { grid-template-columns: 2.4rem 1fr auto; }
+  .indexCat { display: none; }
+  .indexArrow { display: none; }
+}

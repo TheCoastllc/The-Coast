@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { LedgerBrand } from "@/components/TrustedLedger";
 import styles from "./TrustedBy.module.css";
 
-export const CLIENT_VARIANTS = ["wall", "marquee", "ledger"] as const;
+export const CLIENT_VARIANTS = ["index", "wall", "marquee", "ledger"] as const;
 export type ClientsVariant = (typeof CLIENT_VARIANTS)[number];
 
 function linkOf(c: LedgerBrand): { href: string; external: boolean } | null {
@@ -31,14 +32,122 @@ function Anchor({ c, className, children }: { c: LedgerBrand; className: string;
 }
 
 /**
- * "Trusted by" client roster, three premium treatments behind ?clients=:
+ * "Trusted by" client roster, four treatments behind ?clients=:
+ *  - index   : DEFAULT. Editorial client index - hovering a row reveals that
+ *              client's actual site (the case-study cover) floating beside the
+ *              cursor. Names assert; the work proves. Rows without a case study
+ *              still link out, they just carry no preview. On touch, rows show
+ *              a small inline thumbnail instead of the cursor preview.
  *  - wall    : refined tiered grid (wordmark + sector + year, hairline cells)
  *  - marquee : continuous auto-scroll ribbon of names
  *  - ledger  : structured manifest list (## · name · sector · year)
  * All render on every device; marquee falls back to the wall under reduced-motion.
  */
-export function TrustedBy({ clients, variant = "wall" }: { clients: LedgerBrand[]; variant?: ClientsVariant }) {
+
+const coverOf = (c: LedgerBrand): string | null =>
+  c.caseStudySlug ? `/portfolio/${c.caseStudySlug}/cover.jpg` : null;
+
+function IndexVariant({ clients }: { clients: LedgerBrand[] }) {
   const reduced = useReducedMotion();
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [fine, setFine] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const pos = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
+
+  useEffect(() => {
+    setFine(window.matchMedia("(pointer: fine)").matches);
+  }, []);
+
+  // cursor-follow with a soft lag; rAF only runs while a row is hovered
+  useEffect(() => {
+    if (!fine || !hovered || reduced) return;
+    let raf = 0;
+    const onMove = (e: PointerEvent) => {
+      pos.current.tx = e.clientX;
+      pos.current.ty = e.clientY;
+    };
+    const tick = () => {
+      const p = pos.current;
+      p.x += (p.tx - p.x) * 0.18;
+      p.y += (p.ty - p.y) * 0.18;
+      const el = previewRef.current;
+      if (el) el.style.transform = `translate3d(${p.x + 28}px, ${p.y - 110}px, 0)`;
+      raf = requestAnimationFrame(tick);
+    };
+    pos.current.x = pos.current.tx;
+    pos.current.y = pos.current.ty;
+    window.addEventListener("pointermove", onMove, { passive: true });
+    raf = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, [fine, hovered, reduced]);
+
+  const active = clients.find((c) => c.id === hovered);
+  const activeCover = active ? coverOf(active) : null;
+
+  return (
+    <div className={styles.index}>
+      <ol className={styles.indexList}>
+        {clients.map((c, i) => {
+          const cover = coverOf(c);
+          return (
+            <li
+              key={c.id}
+              className={styles.indexRow}
+              onPointerEnter={() => setHovered(c.id)}
+              onPointerLeave={() => setHovered((h) => (h === c.id ? null : h))}
+            >
+              <Anchor c={c} className={styles.indexLink}>
+                <span className={styles.indexIdx}>{String(i + 1).padStart(2, "0")}</span>
+                <span className={styles.indexName}>{c.wordmark ?? c.name}</span>
+                {c.category && <span className={styles.indexCat}>{c.category}</span>}
+                {c.year && <span className={styles.indexYear}>{c.year}</span>}
+                <span className={styles.indexArrow} aria-hidden>
+                  {"\u2197"}
+                </span>
+                {/* touch fallback: a small inline thumb instead of the cursor preview */}
+                {!fine && cover && (
+                  <span className={styles.indexThumb}>
+                    <Image src={cover} alt="" width={128} height={72} className={styles.indexThumbImg} />
+                  </span>
+                )}
+              </Anchor>
+            </li>
+          );
+        })}
+      </ol>
+      {/* the floating proof - only ever mounted on fine pointers */}
+      {fine && !reduced && (
+        <div
+          ref={previewRef}
+          className={styles.indexPreview}
+          data-visible={Boolean(activeCover)}
+          aria-hidden
+        >
+          {activeCover && (
+            <Image
+              key={activeCover}
+              src={activeCover}
+              alt=""
+              width={384}
+              height={216}
+              className={styles.indexPreviewImg}
+              priority={false}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+export function TrustedBy({ clients, variant = "index" }: { clients: LedgerBrand[]; variant?: ClientsVariant }) {
+  const reduced = useReducedMotion();
+
+  if (variant === "index") {
+    return <IndexVariant clients={clients} />;
+  }
 
   if (variant === "ledger") {
     return (

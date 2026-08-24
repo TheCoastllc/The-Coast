@@ -154,7 +154,7 @@ ${postLines}
 
 ## Products
 
-${PRODUCTS.map((p) => `- ${p.name} (${p.status.toLowerCase()}): ${p.line}`).join('\n')}
+${PRODUCTS.map((p) => `- ${p.name} (${p.statusLabel.toLowerCase()}${p.url ? `, ${p.url}` : ''}): ${p.line}`).join('\n')}
 
 ## Company Stats
 

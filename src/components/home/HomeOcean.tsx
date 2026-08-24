@@ -10,6 +10,7 @@ import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
 import { useVariant } from "@/components/visuals/useVariant";
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
 import { ServiceStack } from "./services/ServiceWorlds";
+import { ColonyFlagship } from "./ColonyFlagship";
 import { SelectedWork, WORK_VARIANTS } from "./SelectedWork";
 import { GalleryPreview, type GalleryPreviewItem } from "./GalleryPreview";
 import { IntroCurtain } from "./IntroCurtain";
@@ -104,7 +105,7 @@ export function HomeOcean({
     reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
-  const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "wall");
+  const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "index");
   const workVariant = useVariant("work", WORK_VARIANTS, "rows");
 
   return (
@@ -170,15 +171,6 @@ export function HomeOcean({
             </div>
           </section>
 
-          <section className="section">
-            <div className={styles.imageBand}>
-              <ParallaxImage src={EDITORIAL[1].src} alt={EDITORIAL[1].alt} mode="grain-graded" amount={14} />
-              <div className={styles.imageBandCaption}>
-                <p className={styles.imageBandText} data-mo="lead">{EDITORIAL[1].caption}</p>
-              </div>
-            </div>
-          </section>
-
           <section className={`section ${styles.venturesPreview}`}>
             <p className={styles.thesisLabel} data-mo="eyebrow">What we do</p>
             <ServiceStack />
@@ -186,6 +178,14 @@ export function HomeOcean({
               All services
               <span className={styles.ctaArrow}>→</span>
             </Link>
+          </section>
+
+          {/* The studio's own product, given a flagship moment (David, Aug 2026):
+              proof we ship products, not just brands. Colony leaves the launch
+              shelf (ANT + Demi stay there as teasers) so it appears once. */}
+          <section className="section">
+            <p className={styles.thesisLabel} data-mo="eyebrow">Built by The Coast</p>
+            <ColonyFlagship />
           </section>
 
           <PaintSweep />
