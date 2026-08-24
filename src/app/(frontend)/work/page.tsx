@@ -1,9 +1,42 @@
 import type { Metadata } from 'next'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { CASE_STUDY_ORDER } from '@/lib/case-studies'
-import CinematicWorkFeed from '@/components/CinematicWorkFeed'
+import { CASE_STUDIES, CASE_STUDY_ORDER } from '@/lib/case-studies'
+import { WorkShowcase, type WorkProject } from '@/components/work/WorkShowcase'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
+
+const pub = (rel: string) => existsSync(join(process.cwd(), 'public', rel))
+
+/** Build the showcase manifest, verifying every asset on disk so the client
+ *  never requests a hero/video/moment that doesn't exist (cover-only projects,
+ *  zappedco's custom set, and prospry's placeholder all degrade cleanly). */
+function buildProjects(): WorkProject[] {
+  return CASE_STUDY_ORDER.map((id) => {
+    const c = CASE_STUDIES[id]
+    const heroExists = pub(`portfolio/${id}/hero.jpg`)
+    const videoExists = pub(`portfolio/${id}/video.webm`)
+    const moments = (c.moments ?? []).filter((m) => pub(m.image.replace(/^\//, '')))
+    return {
+      id,
+      client: c.client ?? id,
+      tagline: c.tagline,
+      summary: c.summary,
+      category: c.category,
+      year: c.year,
+      color: c.color,
+      textColor: c.textColor,
+      liveUrl: c.liveUrl,
+      palette: c.palette,
+      role: c.role,
+      ready: c.ready,
+      cover: `/portfolio/${id}/cover.jpg`,
+      hero: heroExists ? `/portfolio/${id}/hero.jpg` : undefined,
+      video: videoExists ? `/portfolio/${id}/video.webm` : undefined,
+      moments,
+      rich: videoExists,
+    }
+  })
+}
 
 export const metadata: Metadata = {
   title: 'Our Work - Brand Transformations',
@@ -42,19 +75,15 @@ const workCollectionSchema = {
   isPartOf: { '@id': 'https://coastglobal.org/#website' },
 }
 
-// The /work index is the cinematic, video-driven feed: full-bleed brand-color
-// takeover sections, one per project, with hover/scroll-play scroll videos.
+// The /work showcase: full-bleed cinematic project frames. Three switchable
+// directions behind ?work= (frames / flood / reel) - see WorkShowcase.
 // (Detail pages at /work/[projectId] stay on their own cinematic renderer.)
 export default function WorkPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workBreadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(workCollectionSchema) }} />
-      <CinematicWorkFeed
-        videoIds={CASE_STUDY_ORDER.filter((id) =>
-          existsSync(join(process.cwd(), 'public', 'portfolio', id, 'video.webm'))
-        )}
-      />
+      <WorkShowcase projects={buildProjects()} />
     </>
   )
 }
