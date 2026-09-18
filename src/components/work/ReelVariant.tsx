@@ -30,7 +30,7 @@ function ReelPanel({ p, index, total }: { p: WorkProject; index: number; total: 
         <div className="wk-reel-num">
           {String(index + 1).padStart(2, "0")} <span>/ {String(total).padStart(2, "0")}</span>
         </div>
-        <h2 className="wk-reel-name">{p.client}</h2>
+        <h2 className="wk-reel-name">{p.display}</h2>
         {p.tagline && <p className="wk-reel-tagline">{p.tagline}</p>}
         <div className="wk-reel-ctas">
           <Link href={`/work/${p.id}`} className="wk-cta" data-cursor-label="Open case">

@@ -92,13 +92,30 @@
   z-index: 2;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 16% 108%, color-mix(in srgb, var(--frame-color) 46%, transparent) 0%, transparent 58%),
-    linear-gradient(0deg, rgba(4, 7, 12, 0.9) 0%, rgba(4, 7, 12, 0.2) 46%, rgba(4, 7, 12, 0.5) 100%);
+    radial-gradient(80% 60% at 10% 112%, color-mix(in srgb, var(--frame-color) 34%, transparent) 0%, transparent 60%),
+    linear-gradient(0deg, rgba(4, 7, 12, 0.84) 0%, rgba(4, 7, 12, 0.34) 24%, rgba(4, 7, 12, 0) 52%, rgba(4, 7, 12, 0) 82%, rgba(4, 7, 12, 0.34) 100%);
+}
+.wk-frame-text::before {
+  content: "";
+  position: absolute;
+  left: -6vw;
+  right: -3rem;
+  top: -2.5rem;
+  bottom: -10vh;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgba(4, 7, 12, 0.9) 0%,
+    rgba(4, 7, 12, 0.78) 42%,
+    rgba(4, 7, 12, 0.36) 74%,
+    rgba(4, 7, 12, 0) 100%
+  );
 }
 .wk-frame-text {
   position: relative;
   z-index: 3;
-  max-width: 1100px;
+  max-width: min(46vw, 560px);
   opacity: 0;
   transform: translateY(34px);
   transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
@@ -119,20 +136,20 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  line-height: 0.86;
-  font-size: clamp(3rem, 13vw, 12rem);
+  line-height: 0.92;
+  font-size: clamp(1.9rem, 4.4vw, 4.2rem);
   margin: 0;
   color: #f6f2ea;
-  text-shadow: 0 8px 60px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
 }
 .wk-frame-tagline {
   font-family: var(--font-grotesk), system-ui, sans-serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.05rem, 2.2vw, 1.7rem);
-  color: rgba(246, 242, 234, 0.82);
-  margin: 1.2rem 0 0;
-  max-width: 32ch;
+  font-size: clamp(0.95rem, 1.35vw, 1.2rem);
+  color: rgba(246, 242, 234, 0.78);
+  margin: 0.7rem 0 0;
+  max-width: 34ch;
 }
 .wk-frame-roles {
   display: flex;
@@ -192,12 +209,14 @@
 /* ── moments filmstrip (rich frames) ────────────────────────────────────── */
 .wk-strip {
   position: absolute;
-  left: 5vw;
   right: 5vw;
+  left: auto;
+  width: min(42vw, 520px);
   bottom: clamp(1.4rem, 3vh, 2.4rem);
   z-index: 3;
   display: flex;
-  gap: 0.9rem;
+  justify-content: flex-end;
+  gap: 0.7rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -206,10 +225,10 @@
   pointer-events: none;
 }
 .wk-strip::-webkit-scrollbar { display: none; }
-.wk-frame[data-revealed="true"] .wk-strip { opacity: 0.9; }
+.wk-frame[data-revealed="true"] .wk-strip { opacity: 0.72; }
 .wk-strip-cell {
   position: relative;
-  flex: 0 0 clamp(150px, 20vw, 260px);
+  flex: 0 0 clamp(96px, 11vw, 150px);
   aspect-ratio: 16 / 10;
   border-radius: 6px;
   overflow: hidden;
@@ -401,13 +420,13 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(0deg, rgba(4, 7, 12, 0.9), rgba(4, 7, 12, 0.15) 55%, rgba(4, 7, 12, 0.45));
+  background: linear-gradient(0deg, rgba(4, 7, 12, 0.84), rgba(4, 7, 12, 0.3) 24%, rgba(4, 7, 12, 0) 54%, rgba(4, 7, 12, 0.3));
 }
 .wk-reel-glow {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: radial-gradient(120% 90% at 16% 108%, color-mix(in srgb, var(--frame-color) 44%, transparent) 0%, transparent 58%);
+  background: radial-gradient(80% 60% at 10% 112%, color-mix(in srgb, var(--frame-color) 32%, transparent) 0%, transparent 60%);
 }
 .wk-reel-video {
   position: absolute;
@@ -421,15 +440,32 @@
   transition: opacity 0.8s ease;
 }
 .wk-reel-panel[data-playing="true"] .wk-reel-video { opacity: 1; }
+.wk-reel-text::before {
+  content: "";
+  position: absolute;
+  left: -6vw;
+  right: -3rem;
+  top: -2.5rem;
+  bottom: -10vh;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgba(4, 7, 12, 0.9) 0%,
+    rgba(4, 7, 12, 0.78) 42%,
+    rgba(4, 7, 12, 0.36) 74%,
+    rgba(4, 7, 12, 0) 100%
+  );
+}
 .wk-reel-text {
   position: relative;
   z-index: 2;
-  max-width: 1100px;
+  max-width: min(46vw, 560px);
   pointer-events: auto;
 }
 .wk-reel-num {
   font-family: var(--font-jetbrains), ui-monospace, monospace;
-  font-size: clamp(2rem, 6vw, 5rem);
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   color: color-mix(in srgb, var(--frame-color) 60%, #eaeef4);
@@ -441,8 +477,8 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  line-height: 0.86;
-  font-size: clamp(3rem, 13vw, 12rem);
+  line-height: 0.92;
+  font-size: clamp(1.9rem, 4.4vw, 4.2rem);
   margin: 0.4rem 0 0;
   color: #f6f2ea;
   text-shadow: 0 8px 60px rgba(0, 0, 0, 0.45);
@@ -450,10 +486,10 @@
 .wk-reel-tagline {
   font-family: var(--font-grotesk), system-ui, sans-serif;
   font-style: italic;
-  font-size: clamp(1.05rem, 2.2vw, 1.7rem);
-  color: rgba(246, 242, 234, 0.82);
-  margin: 1.2rem 0 0;
-  max-width: 32ch;
+  font-size: clamp(0.95rem, 1.35vw, 1.2rem);
+  color: rgba(246, 242, 234, 0.78);
+  margin: 0.7rem 0 0;
+  max-width: 34ch;
 }
 .wk-reel-ctas {
   display: flex;
@@ -464,6 +500,8 @@
 
 /* ── mobile: flood index becomes a stack of full-bleed cards ───────────── */
 @media (max-width: 900px) {
+  .wk-frame-text, .wk-reel-text { max-width: none; }
+  .wk-strip { display: none; }
   .wk-flood-name { font-size: clamp(2rem, 9vw, 3.4rem); }
   .wk-flood-link { grid-template-columns: 2.2rem 1fr; }
   .wk-flood-meta, .wk-flood-arrow { display: none; }

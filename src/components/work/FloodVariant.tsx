@@ -175,7 +175,7 @@ export function FloodVariant({ projects }: { projects: WorkProject[] }) {
                   aria-label={`Open ${p.client} case study`}
                 >
                   <span className="wk-flood-idx">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="wk-flood-name">{p.client}</span>
+                  <span className="wk-flood-name">{p.display}</span>
                   <span className="wk-flood-meta">
                     {p.category}
                     {p.year ? ` · ${p.year}` : ""}

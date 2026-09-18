@@ -11,6 +11,8 @@ import "@/styles/work-showcase.css";
 export type WorkProject = {
   id: string;
   client: string;
+  /** short name for the oversized headline (full `client` stays for a11y) */
+  display: string;
   tagline?: string;
   summary?: string;
   category?: string;

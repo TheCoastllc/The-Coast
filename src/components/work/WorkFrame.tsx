@@ -99,7 +99,7 @@ export function WorkFrame({
             IntersectionObserver latch above) - deliberately NO CharReveal, so
             every /work variant stays ScrollTrigger-free. True per-char kinetic
             type is a finish-pass upgrade for the chosen direction. */}
-        <h2 className="wk-frame-name">{p.client}</h2>
+        <h2 className="wk-frame-name">{p.display}</h2>
         {p.tagline && <p className="wk-frame-tagline">{p.tagline}</p>}
         {p.role && p.role.length > 0 && (
           <div className="wk-frame-roles">

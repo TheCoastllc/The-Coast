@@ -7,6 +7,24 @@ import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 
 const pub = (rel: string) => existsSync(join(process.cwd(), 'public', rel))
 
+/** Short display names for the oversized frame headline. The full `client`
+ *  string (legal suffixes and all) still drives alt text + aria labels; these
+ *  just stop "Gifted Touch Therapeutic Massage" wrapping across three lines
+ *  and swallowing the video behind it. */
+const DISPLAY_NAME: Record<string, string> = {
+  'world-is-yours': 'The World Is Yours',
+  troi: 'TROI',
+  'new-era-aesthetics': 'New Era',
+  'gifted-touch': 'Gifted Touch',
+  kando: 'Kando',
+  'amg-records': 'AMG Records',
+  ogaticket: 'OgaTicket',
+  'omotunde-hospital': 'Omotunde',
+  'iamd-health': 'iAMD Health',
+  zappedco: 'Zapped',
+  prospry: 'Prospry',
+}
+
 /** Build the showcase manifest, verifying every asset on disk so the client
  *  never requests a hero/video/moment that doesn't exist (cover-only projects,
  *  zappedco's custom set, and prospry's placeholder all degrade cleanly). */
@@ -19,6 +37,7 @@ function buildProjects(): WorkProject[] {
     return {
       id,
       client: c.client ?? id,
+      display: DISPLAY_NAME[id] ?? c.client ?? id,
       tagline: c.tagline,
       summary: c.summary,
       category: c.category,
