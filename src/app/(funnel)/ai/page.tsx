@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { fetchReviews, getReviewStats } from '@/lib/google-reviews'
-import { currentMonth } from './capacity'
 import { AiFunnelClient, type FunnelProof } from './AiFunnelClient'
 
 export const revalidate = 3600
@@ -40,5 +39,5 @@ export default async function AiFunnelPage() {
   } catch {
     /* strip renders without the rating */
   }
-  return <AiFunnelClient proof={proof} month={currentMonth()} />
+  return <AiFunnelClient proof={proof} />
 }

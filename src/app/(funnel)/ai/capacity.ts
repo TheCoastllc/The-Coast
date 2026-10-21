@@ -1,23 +1,15 @@
 /**
- * Quantified scarcity for /ai (Credence-style: specific numbers beat vague ones).
+ * Capacity line for /ai.
  *
- * `month` is NOT stored here any more. It used to be a hardcoded string and sat
- * at "August" until late October - a scarcity line that is two months stale
- * reads as neglect, and claims availability for a month that already ended.
- * The page is a server component with `revalidate = 3600`, so the month is now
- * derived from the clock on each revalidation and passed down as a prop.
+ * The per-month "N spots remaining" countdown was REMOVED (David, Oct 2026).
+ * It was a hand-maintained number next to a hand-maintained month, and it sat
+ * at "2 spots remaining for August" into late October - a scarcity claim that
+ * goes stale reads as neglect and advertises availability for a month that
+ * already ended. What is left is a standing capacity statement that is true
+ * without anyone remembering to update it.
  *
- * `spotsRemaining` is real business data - update it as builds get booked.
+ * Do not reintroduce a live countdown unless it is driven by real booking data.
  */
 export const CAPACITY = {
   buildsPerMonth: 4,
-  spotsRemaining: 2,
 } as const
-
-/** Current month name in the studio's own timezone (DFW), e.g. "October". */
-export function currentMonth(): string {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    timeZone: 'America/Chicago',
-  }).format(new Date())
-}
