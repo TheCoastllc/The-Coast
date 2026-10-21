@@ -50,7 +50,7 @@ function CtaLink({
   )
 }
 
-export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
+export function AiFunnelClient({ proof, month }: { proof: FunnelProof; month: string }) {
   // Scroll reveal - same IntersectionObserver behavior as the source page.
   // funnel.css forces .reveal visible under prefers-reduced-motion.
   useEffect(() => {
@@ -153,7 +153,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           </p>
           <div className="scarcity">
             We take on {CAPACITY.buildsPerMonth} builds per month. {CAPACITY.spotsRemaining} spots
-            remaining for {CAPACITY.month}.
+            remaining for {month}.
           </div>
         </div>
         <div className="scroll-cue mono" aria-hidden="true">
@@ -531,7 +531,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             </CtaLink>
           </div>
           <p className="scarcity">
-            {CAPACITY.spotsRemaining} of {CAPACITY.buildsPerMonth} {CAPACITY.month} build spots
+            {CAPACITY.spotsRemaining} of {CAPACITY.buildsPerMonth} {month} build spots
             remaining {'•'} Serious inquiries only
           </p>
         </div>
