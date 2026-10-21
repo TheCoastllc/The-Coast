@@ -7,14 +7,19 @@ import { useRouter } from 'next/navigation'
 import { ArrowRight, Check, Sparkles } from 'lucide-react'
 import { BlueprintLayout, SectionBoundary } from '@/components/blueprint-layout'
 
+/* No published prices. This configurator used to advertise "from $250" per
+ * service and a running total, which undercut the premium positioning on the
+ * rest of the site and priced work before anyone had scoped it. It is now a
+ * scope selector: pick the services, send the configuration, and a strategist
+ * returns a fixed-scope proposal - exactly what the rest of the site promises. */
 const sections = [
-  { id: 'head', label: 'Logo Design', description: 'Your visual identity - the face of your brand', price: 250, emoji: '🎨' },
-  { id: 'eyes', label: 'Social Media', description: 'The eyes your audience sees you through', price: 150, emoji: '👁️' },
-  { id: 'mouth', label: 'Copywriting', description: 'The words that speak for your brand', price: 200, emoji: '💬' },
-  { id: 'heart', label: 'Brand Strategy', description: 'The passion and purpose driving your brand', price: 350, emoji: '❤️' },
-  { id: 'body', label: 'Website Design', description: 'The full presence your brand inhabits online', price: 500, emoji: '🌐' },
-  { id: 'hands', label: 'Marketing Materials', description: 'The reach your brand extends into the world', price: 175, emoji: '🖐️' },
-  { id: 'legs', label: 'Brand Guidelines', description: 'The foundation your brand stands on', price: 300, emoji: '📋' },
+  { id: 'head', label: 'Logo Design', description: 'Your visual identity - the face of your brand', emoji: '🎨' },
+  { id: 'eyes', label: 'Social Media', description: 'The eyes your audience sees you through', emoji: '👁️' },
+  { id: 'mouth', label: 'Copywriting', description: 'The words that speak for your brand', emoji: '💬' },
+  { id: 'heart', label: 'Brand Strategy', description: 'The passion and purpose driving your brand', emoji: '❤️' },
+  { id: 'body', label: 'Website Design', description: 'The full presence your brand inhabits online', emoji: '🌐' },
+  { id: 'hands', label: 'Marketing Materials', description: 'The reach your brand extends into the world', emoji: '🖐️' },
+  { id: 'legs', label: 'Brand Guidelines', description: 'The foundation your brand stands on', emoji: '📋' },
 ]
 
 export default function BrandAvatarClient() {
@@ -30,10 +35,9 @@ export default function BrandAvatarClient() {
     })
   }
 
-  const total = sections.filter((s) => selected.has(s.id)).reduce((sum, s) => sum + s.price, 0)
   const isComplete = selected.size === sections.length
 
-  const handleGetQuote = () => {
+  const handleRequestProposal = () => {
     const selectedServices = sections.filter((s) => selected.has(s.id)).map((s) => s.label)
     localStorage.setItem('inquiry_prefill', JSON.stringify({ services: selectedServices }))
     router.push('/intake')
@@ -52,7 +56,8 @@ export default function BrandAvatarClient() {
             <span className="text-mono text-muted-foreground/50 block mb-3">Brand Builder</span>
             <h1 className="text-heading text-4xl md:text-6xl lg:text-7xl mb-6">Build Your Brand Avatar</h1>
             <p className="text-body text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto">
-              Select the services that make up your brand. Each piece builds toward a complete identity.
+              Select the services that make up your brand. Each piece builds toward a complete
+              identity - send us the scope and we price it properly, to the work.
             </p>
           </motion.div>
 
@@ -82,8 +87,7 @@ export default function BrandAvatarClient() {
                   )}
                   <span className="text-3xl block mb-3">{section.emoji}</span>
                   <h3 className="text-heading text-lg text-foreground mb-1">{section.label}</h3>
-                  <p className="text-body text-muted-foreground text-sm mb-3 leading-relaxed">{section.description}</p>
-                  <p className="text-mono text-primary text-sm">from ${section.price}</p>
+                  <p className="text-body text-muted-foreground text-sm leading-relaxed">{section.description}</p>
                 </motion.button>
               )
             })}
@@ -114,14 +118,16 @@ export default function BrandAvatarClient() {
                       ))}
                     </div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <p className="text-body text-muted-foreground text-sm mb-1">Starting from</p>
-                    <p className="text-heading text-3xl text-foreground mb-4">${total.toLocaleString()}</p>
+                  <div className="md:text-right shrink-0 md:max-w-xs">
+                    <p className="text-body text-muted-foreground text-sm mb-4 leading-relaxed">
+                      Send us this scope and a strategist returns a fixed-scope proposal with a
+                      clear price - usually within a day or two.
+                    </p>
                     <button
-                      onClick={handleGetQuote}
+                      onClick={handleRequestProposal}
                       className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full text-mono text-sm hover:bg-primary/90 transition-colors duration-300"
                     >
-                      Get a Quote
+                      Request a proposal
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>

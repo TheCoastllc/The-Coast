@@ -27,7 +27,7 @@ export default function BrandAvatarPage() {
           identity package, piece by piece. Select the services your business actually needs - 
           from logo design and visual identity, to social media kits, website design and
           development, copywriting, brand strategy, packaging, and ongoing marketing support - and
-          the builder assembles a scope and indicative quote in real time. No two brands should be
+          the builder assembles your scope in real time. No two brands should be
           priced from the same template, and no founder should pay for deliverables they do not
           need.
         </p>
