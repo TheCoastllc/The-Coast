@@ -54,7 +54,6 @@ const FEATURED_CASES = Object.entries(CASE_STUDIES)
  * src/lib/google-reviews.ts is server-only (module-level fetch), so the
  * aggregate rating + representative reviews are inlined here as client-safe
  * constants rather than imported. */
-const REVIEW_RATING = { average: 5.0, count: 7 } as const;
 
 const REVIEWS = [
   {
@@ -101,7 +100,7 @@ export function HomeOcean({
   const displayReviews: DisplayReview[] =
     reviews && reviews.length >= 1 ? reviews : [...REVIEWS];
   const displayRating =
-    reviewStats && reviewStats.count > 0 ? reviewStats : REVIEW_RATING;
+    reviewStats && reviewStats.count > 0 ? reviewStats : null;
   const webgl = useDesktopOnlyWebGL();
   const interacted = useHeroMountTrigger(); // keep three.js out of synthetic audits
   const clientsVariant = useVariant("clients", CLIENT_VARIANTS, "logostrip");

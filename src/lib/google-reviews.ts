@@ -41,9 +41,11 @@ export interface ReviewStats {
  * reviewed a different product. The FTC's 2024 rule on consumer reviews bans
  * undisclosed insider reviews, so these never reach the site - and because the
  * filter runs here in fetchReviews(), they are excluded from the testimonial
- * widget, the rating badge, the review COUNT, and the aggregateRating in
- * schema.org alike. Removing a name here does not delete it from Google; ask
- * the reviewer to take it down there.
+ * widget, the rating badge and the review COUNT alike - a component-level
+ * filter would have hidden the faces while still counting them in the score.
+ * (The Organization JSON-LD carries no aggregateRating by policy - see
+ * schema.ts - so there is nothing to correct there.) Removing a name here does
+ * NOT delete it from Google; ask the reviewer to take it down at the source.
  * Matched case-insensitively on the trimmed display name.
  */
 const EXCLUDED_REVIEWERS = new Set(

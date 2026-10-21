@@ -69,7 +69,7 @@ export function ReviewsMarquee({
   leaveReviewUrl,
 }: {
   reviews: MarqueeReview[]
-  rating: { average: number; count: number }
+  rating: { average: number; count: number } | null
   leaveReviewUrl: string
 }) {
   const reduced = useReducedMotion()
@@ -100,11 +100,13 @@ export function ReviewsMarquee({
   return (
     <>
       <p className={styles.eyebrow} data-mo="eyebrow">What clients say</p>
+      {rating && rating.count > 0 && (
       <p className={styles.rating} data-mo="lead">
         <span className={styles.ratingStars} aria-hidden="true">★</span>
         {rating.average.toFixed(1)}
         <span className={styles.ratingFrom}>from {rating.count} Google reviews</span>
       </p>
+      )}
 
       <div ref={ref} className={styles.viewport} data-mo="drift">
         <motion.div
