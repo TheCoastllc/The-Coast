@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { TeamReveal } from '@/components/team/TeamReveal'
 import { ChamberShell } from '@/components/ui/ChamberShell'
 import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
@@ -126,10 +125,9 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="section">
-          <h2 className={styles.founderTitle}>Team</h2>
-          <TeamReveal members={STUDIO.team} />
-        </section>
+        {/* Team section pulled Oct 2026 (David: "remove the team for now").
+            STUDIO.team and TeamReveal are both intact - restore by putting
+            this section back. */}
 
         <section className="section">
           <p className="sectionLabel">The palette</p>

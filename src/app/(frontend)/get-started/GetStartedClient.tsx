@@ -127,7 +127,7 @@ export default function GetStartedClient() {
                   className={styles.consentBox}
                 />
                 <span className={styles.consentText}>
-                  I agree to receive text messages from The Coast LLC, including marketing texts, at the
+                  I agree to receive text messages from The Coast Global Inc., including marketing texts, at the
                   phone number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP
                   to opt out, HELP for help. Consent is not a condition of any purchase. View our{' '}
                   <Link href="/privacy" className={styles.consentLink}>Privacy Policy</Link>

@@ -144,14 +144,11 @@ export function Footer({ variant = "default" }: { variant?: "default" | "minimal
 				)}
 
 				<div className={cn("flex px-4 flex-col items-center justify-between gap-2 py-4 sm:flex-row", !isMinimal && "max-w-6xl")}>
-					{/* COMPANY.name, not a hardcoded entity: this footer serves the
-					    gallery/cbi/offers subsites and said "The Coast LLC" while the
-					    main site footer said "The Coast Global Inc.", so a visitor
-					    crossing subdomains saw two different companies claim the
-					    copyright (flagged by an external QA audit). "The Coast LLC" is
-					    a separate owned entity reserved for Twilio-approved SMS consent
-					    copy and the /ai partner paragraphs - see coast.ts - not for a
-					    general copyright line. */}
+					{/* COMPANY.name, not a hardcoded entity: this footer also serves the
+					    gallery/cbi/offers subsites, which used to claim a different
+					    company in the copyright than the main site (flagged by an
+					    external QA audit). One name everywhere now: The Coast Global
+					    Inc. */}
 					<p className="font-light text-muted-foreground text-sm">
 						&copy; {new Date().getFullYear()} {COMPANY.name} All rights reserved.
 					</p>

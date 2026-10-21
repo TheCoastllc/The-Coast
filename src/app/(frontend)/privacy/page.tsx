@@ -52,7 +52,7 @@ export default async function PrivacyPage() {
                 <a href="mailto:hello@coastglobal.org">hello@coastglobal.org</a> with any privacy-related questions.
               </p>
               <p>
-                <strong>The Coast LLC</strong> takes your privacy seriously. We collect personal information (name, email, phone, business details) through our intake and contact forms solely to provide our brand design services. We do not sell your data to third parties.
+                <strong>The Coast Global Inc.</strong> takes your privacy seriously. We collect personal information (name, email, phone, business details) through our intake and contact forms solely to provide our brand design services. We do not sell your data to third parties.
               </p>
             </div>
           )}
@@ -60,7 +60,7 @@ export default async function PrivacyPage() {
           <div className="mt-12 rounded-lg border border-border p-6 space-y-4">
             <p className="text-mono text-xs uppercase tracking-[0.2em] text-primary/80">SMS / Text Messaging Program</p>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              The Coast LLC operates an SMS program for people who opt in by checking the consent box on our intake
+              The Coast Global Inc. operates an SMS program for people who opt in by checking the consent box on our intake
               or get-started forms. We send two kinds of messages: (1) transactional messages about your project
               (updates, scheduling, and replies to your inquiries), and (2) marketing messages (offers, news, and
               updates) only to those who separately opt in to marketing. You will only receive texts after providing

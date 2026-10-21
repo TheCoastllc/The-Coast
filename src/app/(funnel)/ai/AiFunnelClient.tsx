@@ -359,7 +359,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 unoptimized
               />
               <p className="line">
-                The Coast LLC is a launch Preferred partner in the Claude Partner Network Services
+                The Coast Global Inc. is a launch Preferred partner in the Claude Partner Network Services
                 Track.
               </p>
             </div>
@@ -509,7 +509,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             <details className="reveal">
               <summary>What does the Claude Partner Network badge mean?</summary>
               <div className="a">
-                {"The Coast LLC is a launch Preferred partner in the Claude Partner Network Services Track, Anthropic's program for firms that help businesses put Claude into production. For you, it means you're working with a firm that's part of an ecosystem built around real, production-level AI deployment."}
+                {"The Coast Global Inc. is a launch Preferred partner in the Claude Partner Network Services Track, Anthropic's program for firms that help businesses put Claude into production. For you, it means you're working with a firm that's part of an ecosystem built around real, production-level AI deployment."}
               </div>
             </details>
           </div>
@@ -542,7 +542,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             <a href="mailto:hello@coastglobal.org">hello@coastglobal.org</a>
           </p>
           <p className="fine">
-            The Coast LLC is a launch Preferred partner in the Claude Partner Network Services Track.
+            The Coast Global Inc. is a launch Preferred partner in the Claude Partner Network Services Track.
           </p>
           <p className="fine">{'©'} 2026 The Coast Global. All rights reserved.</p>
         </div>

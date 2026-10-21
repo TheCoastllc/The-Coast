@@ -3,8 +3,11 @@
 
 /** The public brand name - matches the Google Business Profile exactly.
  *  Every metadata/schema surface imports this; the only "The Coast" strings
- *  left in the codebase are the hero animation headline, verbatim quotes,
- *  and Twilio-approved legal copy (The Coast LLC - a separate owned entity). */
+ *  left in the codebase are the hero animation headline and verbatim quotes.
+ *  ENTITY (Oct 2026, David): The Coast Global Inc. is now the single public
+ *  name everywhere, including the SMS consent copy and the partner paragraphs.
+ *  He owns both entities and retired "The Coast LLC" from the site. The Twilio
+ *  campaign copy must be re-registered to match. */
 export const BRAND = "The Coast Global";
 
 export const COMPANY = {
@@ -282,16 +285,16 @@ export const CONTACT = {
 // email or phone (TCPA / A2P 10DLC: consent + opt-out at point of collection).
 export const CONSENT = {
   marketing:
-    "By submitting your contact information, you consent to receive marketing communications including SMS/text messages from The Coast LLC. You may opt out at any time by replying STOP to any message or contacting Hello@coastglobal.org",
+    "By submitting your contact information, you consent to receive marketing communications including SMS/text messages from The Coast Global Inc.. You may opt out at any time by replying STOP to any message or contacting Hello@coastglobal.org",
   // Carrier-standard SMS opt-in, shown wherever a phone number is collected (A2P 10DLC).
   sms:
     "By providing your phone number, you consent to receive SMS messages from The Coast. Message frequency varies. Reply STOP to unsubscribe, HELP for help. Message & data rates may apply.",
   // Express-consent checkbox labels (Twilio toll-free A2P / CTIA). Both render as
   // UNCHECKED checkboxes at the point of phone collection - see SmsConsent.tsx.
   smsTransactional:
-    "I agree to receive automated, recurring text messages from The Coast LLC at the phone number provided about my project (updates, scheduling, and replies). Message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help.",
+    "I agree to receive automated, recurring text messages from The Coast Global Inc. at the phone number provided about my project (updates, scheduling, and replies). Message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help.",
   smsMarketing:
-    "I also agree to receive marketing and promotional text messages from The Coast LLC (offers, news, and updates). Consent is not a condition of any purchase. Message and data rates may apply. Reply STOP to opt out.",
+    "I also agree to receive marketing and promotional text messages from The Coast Global Inc. (offers, news, and updates). Consent is not a condition of any purchase. Message and data rates may apply. Reply STOP to opt out.",
   // Bump when wording changes; stored with each submission for the consent audit trail.
   version: "2026-06-16",
 } as const;

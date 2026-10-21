@@ -52,7 +52,7 @@ export default async function TermsPage() {
                 <a href="mailto:hello@coastglobal.org">hello@coastglobal.org</a> with any questions about our service agreement.
               </p>
               <p>
-                By engaging <strong>The Coast LLC</strong> for brand design services, you agree to the terms outlined in your project proposal and service agreement. All creative work remains the property of The Coast Global until final payment is received.
+                By engaging <strong>The Coast Global Inc.</strong> for brand design services, you agree to the terms outlined in your project proposal and service agreement. All creative work remains the property of The Coast Global until final payment is received.
               </p>
             </div>
           )}
@@ -60,7 +60,7 @@ export default async function TermsPage() {
           <div className="mt-12 rounded-lg border border-border p-5">
             <p className="text-mono text-xs uppercase tracking-[0.2em] text-primary/80 mb-2">SMS / Text Messaging</p>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              If you opt in to our SMS program, you agree to receive automated text messages from The Coast LLC as
+              If you opt in to our SMS program, you agree to receive automated text messages from The Coast Global Inc. as
               described in our Privacy Policy. Message frequency varies. Message and data rates may apply. Reply STOP
               to opt out, HELP for help. Consent to receive marketing texts is not a condition of any purchase.
             </p>

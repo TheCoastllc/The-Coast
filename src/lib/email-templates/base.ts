@@ -134,7 +134,7 @@ export function emailShell(opts: { title?: string; body: string }) {
                     </tr>
                 </table>
                 <p style="margin:0 0 8px; font-family: Arial, Helvetica, sans-serif; font-size:11px; color:#555555;">
-                    The Coast LLC &bull; Dallas-Fort Worth, TX
+                    The Coast Global Inc. &bull; Dallas-Fort Worth, TX
                 </p>
                 <p style="margin:0; font-family: Arial, Helvetica, sans-serif; font-size:11px;">
                     <a href="${BRAND.url}" style="color:${BRAND.gold}; text-decoration:none;">coastglobal.org</a>
