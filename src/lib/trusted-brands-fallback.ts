@@ -51,17 +51,6 @@ export const TRUSTED_BRANDS_FALLBACK: LedgerBrand[] = [
     caseStudySlug: 'new-era-aesthetics',
   },
   {
-    id: 'world-is-yours',
-    logo: '/clients/world-is-yours.png',
-    logoAspect: 18.71,
-    name: 'The World Is Yours Inc',
-    wordmark: 'The World Is Yours',
-    category: 'REAL ESTATE · FINANCE',
-    year: 2026,
-    url: 'https://theworldisyoursinc.com',
-    caseStudySlug: 'world-is-yours',
-  },
-  {
     id: 'gifted-touch',
     logo: '/clients/gifted-touch.png',
     logoAspect: 1,

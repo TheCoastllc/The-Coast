@@ -229,7 +229,7 @@ const socialLinks = [
 	{
 		name: "LinkedIn",
 		icon: <FaLinkedinIn />,
-		link: "https://www.linkedin.com/company/thecoastcompanylimited/",
+		link: "https://www.linkedin.com/company/thecoastglobal/",
 	},
 	{
 		name: "X (formerly Twitter)",

@@ -247,29 +247,6 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     summary:
       'End-to-end ticketing platform built for the African events market — fast checkout, organizer tools, and a brand that holds up under scale.',
   },
-  'world-is-yours': {
-    title: 'The World Is Yours - Brand & Website | The Coast Global',
-    description:
-      'Brand and website for The World Is Yours Inc - a real estate, capital and legacy firm. Designed and built by The Coast Global.',
-    ready: true,
-    style: 'cinematic',
-    client: 'The World Is Yours Inc',
-    tagline: 'Real estate, capital, legacy - an old-money standard, built for the web.',
-    category: 'Real Estate · Finance',
-    role: ['Brand', 'Web', 'Development'],
-    year: 2026,
-    color: '#0b1c2c',
-    textColor: '#f4efe3',
-    liveUrl: 'https://theworldisyoursinc.com',
-    stack: ['Design', 'Development', 'Web'],
-    palette: ['#0b1c2c', '#c8a24a', '#1f4763', '#f4efe3'],
-    moments: [
-      { image: '/portfolio/world-is-yours/cover.jpg', caption: 'Hero - Real Estate · Capital · Legacy' },
-    ],
-    stats: [],
-    summary:
-      'A real estate, capital and legacy firm that needed to look like the estates it represents. The Coast Global built the brand and site around an old-money editorial standard - serif wordmark, gold rules, and full-bleed property photography at theworldisyoursinc.com.',
-  },
   'new-era-aesthetics': {
     title: 'New Era Aesthetics - Brand & Website | The Coast Global',
     description:
@@ -280,7 +257,7 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     tagline: 'A new beginning for your skin - a medical device made credible.',
     category: 'Medical Tech · Aesthetics',
     role: ['Brand', 'Web', 'Development'],
-    year: 2025,
+    year: 2026,
     color: '#12212b',
     textColor: '#f2f6f8',
     liveUrl: 'https://neweraaesthetics.com',
@@ -336,7 +313,6 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
 export const CASE_STUDY_ORDER = [
   // Order per David (Aug 2026): The World Is Yours leads, TROI second, New Era
   // third; Dada Global Finance and Solomon Katsman removed from the site.
-  'world-is-yours',
   'troi',
   'new-era-aesthetics',
   'gifted-touch',

@@ -23,7 +23,7 @@ export const BRAND = {
   ctaUrl: 'https://coastglobal.org/get-started',
   socials: {
     instagram: 'https://www.instagram.com/coastglobal',
-    linkedin: 'https://www.linkedin.com/company/thecoastcompanylimited',
+    linkedin: 'https://www.linkedin.com/company/thecoastglobal',
     twitter: 'https://x.com/TheCoastHQ',
   },
 } as const

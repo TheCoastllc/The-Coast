@@ -12,7 +12,6 @@ const pub = (rel: string) => existsSync(join(process.cwd(), 'public', rel))
  *  just stop "Gifted Touch Therapeutic Massage" wrapping across three lines
  *  and swallowing the video behind it. */
 const DISPLAY_NAME: Record<string, string> = {
-  'world-is-yours': 'The World Is Yours',
   troi: 'TROI',
   'new-era-aesthetics': 'New Era',
   'gifted-touch': 'Gifted Touch',

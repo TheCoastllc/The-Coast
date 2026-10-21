@@ -36,12 +36,36 @@ export interface ReviewStats {
  * Fetch Google reviews via Featurable. Returns [] on any failure — callers must
  * handle the empty case gracefully (don't render a broken section).
  */
+/**
+ * Reviewers who are part of the studio (team, founders, close contacts) or who
+ * reviewed a different product. The FTC's 2024 rule on consumer reviews bans
+ * undisclosed insider reviews, so these never reach the site - and because the
+ * filter runs here in fetchReviews(), they are excluded from the testimonial
+ * widget, the rating badge, the review COUNT, and the aggregateRating in
+ * schema.org alike. Removing a name here does not delete it from Google; ask
+ * the reviewer to take it down there.
+ * Matched case-insensitively on the trimmed display name.
+ */
+const EXCLUDED_REVIEWERS = new Set(
+  [
+    'Ezeugo Obieze',   // reviewed Colony, not agency work
+    'Abubakar sani',   // ABK - studio designer
+    'adeyemi favour',  // Favour - studio product lead
+  ].map((n) => n.trim().toLowerCase())
+)
+
+function isInsider(displayName: string): boolean {
+  return EXCLUDED_REVIEWERS.has((displayName ?? '').trim().toLowerCase())
+}
+
 export async function fetchReviews(): Promise<GoogleReview[]> {
   try {
     const res = await fetch(API_URL, { next: { revalidate: 18000 } })
     if (!res.ok) return []
     const data = await res.json()
-    return (data.reviews ?? []).map(
+    return (data.reviews ?? [])
+      .filter((r: any) => !isInsider(r.reviewer?.displayName ?? ''))
+      .map(
       (r: any): GoogleReview => ({
         reviewId: r.reviewId ?? null,
         reviewer: {

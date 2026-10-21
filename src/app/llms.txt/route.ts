@@ -141,7 +141,7 @@ ${postLines}
 
 - [Facebook](https://www.facebook.com/coastglobal)
 - [Instagram](https://www.instagram.com/coastglobal)
-- [LinkedIn](https://www.linkedin.com/company/thecoastcompanylimited/)
+- [LinkedIn](https://www.linkedin.com/company/thecoastglobal/)
 - [X (Twitter)](https://x.com/TheCoastHQ)
 - [Pinterest](https://www.pinterest.com/coastglobal)
 

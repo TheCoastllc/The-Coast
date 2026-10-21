@@ -31,10 +31,14 @@ export const HERO = {
   location: "Working globally",
 };
 
+/* Every number here must be checkable by a stranger on this site. The old set
+ * ("50+ projects delivered", "30+ brands built", "98% client satisfaction") had
+ * nothing behind it - unverifiable performance claims are an FTC exposure and
+ * the first thing a sharp prospect discounts. Counts below are the published
+ * case studies and the live service pages; update them when either changes. */
 export const STATS = [
-  { value: "50+", label: "Projects delivered" },
-  { value: "30+", label: "Brands built" },
-  { value: "98%", label: "Client satisfaction" },
+  { value: "9", label: "Case studies published" },
+  { value: "12", label: "Services offered" },
   { value: "2-6 wk", label: "Typical timeline" },
 ];
 

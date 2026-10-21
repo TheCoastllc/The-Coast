@@ -49,6 +49,9 @@ const nextConfig = {
       // (David, Aug 2026); redirect their old case-study URLs to /work.
       { source: '/work/dada-global-finance', destination: '/work', permanent: true },
       { source: '/work/solomon-katsman', destination: '/work', permanent: true },
+      // The World Is Yours case study is down pending the client dispute
+      // (Oct 2026). Temporary on purpose: 307, not 308 - we may restore it.
+      { source: '/work/world-is-yours', destination: '/work', permanent: false },
     ]
   },
 

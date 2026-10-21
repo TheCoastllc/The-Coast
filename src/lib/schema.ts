@@ -37,7 +37,7 @@ export const AREA_SERVED = [
 export const SAME_AS = [
   'https://www.instagram.com/coastglobal',
   'https://www.facebook.com/coastglobal',
-  'https://www.linkedin.com/company/thecoastcompanylimited/',
+  'https://www.linkedin.com/company/thecoastglobal/',
   'https://x.com/TheCoastHQ',
   'https://www.pinterest.com/coastglobal',
 ]
