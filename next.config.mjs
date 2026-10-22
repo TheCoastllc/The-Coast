@@ -55,6 +55,16 @@ const nextConfig = {
     ]
   },
 
+  async rewrites() {
+    return [
+      // David's press media kit: a self-contained static page supplied as a
+      // single HTML file (Oct 2026). Lives in public/ so it ships outside the
+      // app shell on purpose - no site nav, consent banner or analytics on a
+      // page journalists skim - and serves at the clean /media-kit URL.
+      { source: '/media-kit', destination: '/media-kit.html' },
+    ]
+  },
+
   async headers() {
     return [
       {
