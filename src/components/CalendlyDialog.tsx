@@ -1,20 +1,31 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { buildCalendlyEmbedUrl } from '@/lib/calendly'
 
 interface CalendlyDialogProps {
   open: boolean
   onClose: () => void
+  /** Mount the iframe before the dialog opens (hover/focus intent) so the
+   *  scheduler is already loaded by the time the user clicks. */
+  warm?: boolean
 }
 
 /**
  * Modal dialog containing the Calendly scheduler iframe.
- * Renders nothing until `open` becomes true (iframe never mounts otherwise).
+ * The iframe mounts on `open` OR `warm` and then stays mounted, so a hovered
+ * button pre-loads the scheduler and re-opening is instant. A loading state
+ * covers the iframe until Calendly's first paint.
  * Uses the native <dialog> element for focus trapping + ESC handling.
  */
-export function CalendlyDialog({ open, onClose }: CalendlyDialogProps) {
+export function CalendlyDialog({ open, onClose, warm = false }: CalendlyDialogProps) {
   const dialogRef = useRef<HTMLDialogElement | null>(null)
+  const [mounted, setMounted] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    if (open || warm) setMounted(true)
+  }, [open, warm])
 
   // Sync open state with native <dialog>
   useEffect(() => {
@@ -66,13 +77,28 @@ export function CalendlyDialog({ open, onClose }: CalendlyDialogProps) {
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
-          {open && (
+          {mounted && (
             <iframe
               src={buildCalendlyEmbedUrl()}
               title="Book a quick discovery call with The Coast Global"
               className="block h-[80vh] min-h-[600px] w-full"
               style={{ border: 0 }}
+              onLoad={() => setLoaded(true)}
             />
+          )}
+          {!loaded && (
+            <div
+              className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black"
+              aria-live="polite"
+            >
+              <div className="flex items-center gap-3 text-sm text-white/70">
+                <span
+                  className="inline-block size-4 animate-spin rounded-full border-2 border-white/20 border-t-white/80"
+                  aria-hidden="true"
+                />
+                Loading scheduler&hellip;
+              </div>
+            </div>
           )}
         </div>
       </div>

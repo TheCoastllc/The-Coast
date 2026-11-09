@@ -932,3 +932,12 @@ body.ocean {
     overflow-x: clip;
   }
 }
+
+/* While the cookie banner is showing on phones, give the document extra
+   bottom room so the last thing on the page can scroll clear of the fixed
+   banner (CookieBanner sets data-cookie-banner on <html>). */
+@media (max-width: 767px) {
+  html[data-cookie-banner] body {
+    padding-bottom: 11rem;
+  }
+}

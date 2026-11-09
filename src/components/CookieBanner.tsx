@@ -76,6 +76,16 @@ export function CookieBanner() {
 
   const showBanner = hydrated && consent === null
 
+  // Flag the document while the banner is up so CSS can add bottom room on
+  // phones (otherwise whatever sits at the end of the page - footer links, a
+  // form's submit button - is stuck underneath the fixed banner).
+  useEffect(() => {
+    const root = document.documentElement
+    if (showBanner) root.setAttribute('data-cookie-banner', '')
+    else root.removeAttribute('data-cookie-banner')
+    return () => root.removeAttribute('data-cookie-banner')
+  }, [showBanner])
+
   return (
     <>
       <AnimatePresence>
