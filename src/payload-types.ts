@@ -190,6 +190,9 @@ export interface User {
  */
 export interface Media {
   id: number;
+  /**
+   * Describe the image for screen readers and search engines. Not the prompt used to generate it.
+   */
   alt: string;
   /**
    * Cloudinary Media Information
