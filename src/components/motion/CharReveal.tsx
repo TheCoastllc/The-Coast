@@ -38,29 +38,37 @@ export function CharReveal({
     const el = ref.current;
     if (!el) return;
 
-    const chars = el.querySelectorAll<HTMLElement>(".char");
-    gsap.set(chars, { opacity: 0, y: 28, filter: "blur(10px)" });
+    // reduced motion: leave every character visible, never hide-then-reveal
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const animation = {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      duration: 0.9,
-      stagger,
-      ease: "power3.out",
-      delay,
-    };
+    const ctx = gsap.context(() => {
+      const chars = el.querySelectorAll<HTMLElement>(".char");
+      gsap.set(chars, { opacity: 0, y: 28, filter: "blur(10px)" });
 
-    if (trigger === "mount") {
-      gsap.to(chars, animation);
-    } else {
-      ScrollTrigger.create({
-        trigger: el,
-        start: scrollStart,
-        once: true,
-        onEnter: () => gsap.to(chars, animation),
-      });
-    }
+      const animation = {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.9,
+        stagger,
+        ease: "power3.out",
+        delay,
+      };
+
+      if (trigger === "mount") {
+        gsap.to(chars, animation);
+      } else {
+        ScrollTrigger.create({
+          trigger: el,
+          start: scrollStart,
+          once: true,
+          onEnter: () => gsap.to(chars, animation),
+        });
+      }
+    }, el);
+
+    // revert kills the tween AND the ScrollTrigger (this used to leak one per mount)
+    return () => ctx.revert();
   }, [delay, stagger, trigger, scrollStart]);
 
   /* Characters are grouped into per-WORD wrappers. Each .char is

@@ -1,0 +1,220 @@
+.root {
+  position: relative;
+}
+
+/* ---- horizontal S-curve rail (>= 800px) ---- */
+.rail {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1000 / 150;
+  overflow: visible;
+}
+.track {
+  fill: none;
+  stroke: var(--mk-border);
+  stroke-width: 2.4;
+  stroke-dasharray: 5 9;
+}
+.draw {
+  fill: none;
+  stroke: var(--mk-accent);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+.nodeCircle {
+  fill: var(--mk-surface);
+  stroke: var(--mk-border);
+  stroke-width: 2.4;
+}
+.node[data-reached="true"] .nodeCircle {
+  fill: var(--mk-accent);
+  stroke: var(--mk-accent);
+  transition: fill 220ms var(--mk-ease), stroke 220ms var(--mk-ease);
+}
+.check {
+  fill: none;
+  stroke: var(--mk-on-accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+.node[data-reached="true"] .check {
+  opacity: 1;
+}
+.tip {
+  fill: var(--mk-accent-2);
+  opacity: 0;
+}
+.tip[data-show="true"] {
+  opacity: 1;
+  transition: opacity 180ms;
+}
+
+/* ---- step cards ---- */
+.steps {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+  gap: 1rem;
+}
+.step {
+  position: relative;
+  min-width: 0;
+}
+.card {
+  height: 100%;
+}
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 0.9rem;
+  color: var(--mk-accent);
+}
+.icon :global(svg) {
+  width: 100%;
+  height: 100%;
+}
+.num {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  color: var(--mk-accent);
+}
+.title {
+  margin: 0 0 0.45rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  color: var(--mk-ink);
+}
+.body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--mk-ink-dim);
+}
+
+/* compact: node + "01 Title" only (contact page) */
+.compact .rail {
+  aspect-ratio: 1000 / 110;
+}
+.compact .num {
+  display: inline;
+  margin: 0 0.5rem 0 0;
+}
+.compact .title {
+  display: inline;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.compact .card {
+  text-align: center;
+}
+
+/* five or more steps: narrow columns, so the host card's padding tightens */
+.root.dense .card > * {
+  padding-left: 1.15rem;
+  padding-right: 1.15rem;
+}
+@media (min-width: 800px) {
+  .root.dense .steps {
+    gap: 0.75rem;
+  }
+}
+
+/* end marker */
+.final {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  margin: 1.25rem 0 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mk-ink-dim);
+}
+.final[data-show="false"] {
+  opacity: 0;
+}
+.final[data-show="true"] {
+  opacity: 1;
+  transition: opacity 400ms var(--mk-ease);
+}
+.finalDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mk-accent-2);
+}
+
+/* ---- vertical rail (< 800px): pure CSS on the same DOM ---- */
+@media (max-width: 799px) {
+  .rail {
+    display: none;
+  }
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 0;
+  }
+  .step {
+    margin-left: 11px;
+    padding: 0 0 1.6rem 1.9rem;
+    border-left: 2px dashed var(--mk-border);
+  }
+  .step:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0.25rem;
+  }
+  .step::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    top: 14px;
+    bottom: -2px;
+    width: 2px;
+    background: var(--mk-accent);
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+  .step[data-reached="true"]::before {
+    transform: scaleY(1);
+    transition: transform 620ms var(--mk-ease);
+  }
+  .step:last-child::before {
+    display: none;
+  }
+  .step::after {
+    content: "";
+    position: absolute;
+    left: -13px;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 2px solid var(--mk-border);
+    background: var(--mk-surface);
+  }
+  .step[data-reached="true"]::after {
+    border-color: var(--mk-accent);
+    background: var(--mk-accent);
+    transition: background 220ms var(--mk-ease), border-color 220ms var(--mk-ease);
+  }
+  .compact .card {
+    text-align: left;
+  }
+  .final {
+    justify-content: flex-start;
+    margin-left: 32px;
+  }
+}

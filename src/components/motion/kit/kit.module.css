@@ -1,0 +1,31 @@
+/* Shared tokens for every kit primitive. Reads the host palette (ocean or
+   funnel - funnel.css already aliases --color-* onto bronze/cream) and never
+   sets font-family, so primitives inherit the page's type. */
+.kit {
+  --mk-accent: var(--color-gold, #e6b24d);
+  --mk-accent-2: var(--color-teal, #7fd3c7);
+  --mk-ink: var(--color-white, #edeff2);
+  --mk-ink-dim: var(--color-white-dim, #aab2bc);
+  --mk-muted: var(--color-steel, #76828e);
+  --mk-border: var(--color-border, rgba(237, 239, 242, 0.1));
+  --mk-surface: var(--color-bg-alt, #12161d);
+  --mk-on-accent: #0a0c12;
+  --mk-ease: var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

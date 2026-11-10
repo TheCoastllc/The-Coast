@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { CheckCircle, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { SuccessMark } from '@/components/motion/kit'
 
 export const metadata: import('next').Metadata = {
   title: 'Payment Successful',
@@ -13,7 +14,7 @@ export default function PaymentSuccessPage() {
       <div className="flex items-center justify-center min-h-[80vh] p-4">
         <div className="text-center max-w-lg">
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-6">
-            <CheckCircle className="w-10 h-10 text-primary" />
+            <SuccessMark size={40} className="text-primary" />
           </div>
           <h1 className="text-heading text-4xl mb-4">Thank You!</h1>
           <p className="text-body text-muted-foreground text-lg mb-6 leading-relaxed">

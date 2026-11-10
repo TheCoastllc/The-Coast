@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { CalendlyButton } from '@/components/CalendlyButton'
 import { COMPANY } from '@/lib/content/coast'
+import { trackEvent } from '@/lib/analytics'
+import { FadeUp, SuccessButton } from '@/components/motion/kit'
 import styles from './contact-page.module.css'
 
 /** Shared with /api/contact (labels are re-derived server-side from the value). */
@@ -31,14 +33,7 @@ function validate(v: Record<Field, string>): Errors {
 }
 
 function trackLead(topic: string) {
-  const w = window as unknown as {
-    gtag?: (...a: unknown[]) => void
-    fbq?: (...a: unknown[]) => void
-  }
-  try {
-    w.gtag?.('event', 'generate_lead', { method: 'contact_form', topic: topic || 'unspecified' })
-    w.fbq?.('track', 'Lead', { content_name: 'contact_form' })
-  } catch {}
+  trackEvent('generate_lead', { method: 'contact_form', topic: topic || 'unspecified' })
 }
 
 /**
@@ -56,6 +51,8 @@ export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({})
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({})
   const [status, setStatus] = useState<Status>('idle')
+  // the success panel waits for the button's check-draw to finish
+  const [showDone, setShowDone] = useState(false)
   const startedAt = useRef(0)
 
   useEffect(() => {
@@ -118,13 +115,14 @@ export function ContactForm() {
     setErrors({})
     setTouched({})
     setStatus('idle')
+    setShowDone(false)
     startedAt.current = Date.now()
   }
 
-  if (status === 'sent') {
+  if (status === 'sent' && showDone) {
     const first = name.trim().split(/\s+/)[0] || 'there'
     return (
-      <div className={styles.done} role="status" aria-live="polite">
+      <FadeUp className={styles.done} role="status" aria-live="polite">
         <h2 className={`${styles.doneTitle} no-marble`}>Message sent.</h2>
         <p className={styles.doneBody}>
           Thanks, {first}. We&rsquo;ll reply to {email.trim()} within 24 hours.
@@ -137,11 +135,9 @@ export function ContactForm() {
             Send another message
           </button>
         </div>
-      </div>
+      </FadeUp>
     )
   }
-
-  const sending = status === 'sending'
 
   return (
     <form className={styles.form} onSubmit={onSubmit} noValidate>
@@ -275,9 +271,14 @@ export function ContactForm() {
       )}
 
       <div className={styles.actions}>
-        <button type="submit" className={styles.submit} disabled={sending}>
-          {sending ? 'Sending…' : 'Send message'}
-        </button>
+        <SuccessButton
+          state={status}
+          className={styles.submit}
+          label="Send message"
+          sendingLabel="Sending"
+          successLabel="Sent"
+          onDone={() => setShowDone(true)}
+        />
         <p className={styles.fine}>We reply within 24 hours.</p>
       </div>
     </form>

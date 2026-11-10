@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
+import { CountUp, ProcessLine } from '@/components/motion/kit'
 import Image from 'next/image'
 import { CALENDLY_URL, calendlyUrl, trackCTA, type CtaLocation } from './funnel-track'
 import { CAPACITY } from './capacity'
@@ -49,6 +50,32 @@ function CtaLink({
     </a>
   )
 }
+
+
+/** #how steps, verbatim from the approved copy (rendered by ProcessLine). */
+const HOW_STEPS = [
+  {
+    n: 'STEP 01',
+    svc: 'AI Consultation',
+    title: 'The Strategy Session',
+    body:
+      'A focused working session where we map the three highest-impact places AI can work in your business and define what a build would look like. This is where every engagement starts.',
+  },
+  {
+    n: 'STEP 02',
+    svc: 'AI Blueprint',
+    title: 'The Blueprint',
+    body:
+      'A deep diagnostic and a documented roadmap you can act on, with clear priorities and scope. Credits toward your build if you proceed.',
+  },
+  {
+    n: 'STEP 03',
+    svc: 'AI Implementation',
+    title: 'The Build',
+    body:
+      'We design, build, and deploy the systems, then make sure they hold up under real operating conditions. Done for you, working in production.',
+  },
+] as const
 
 export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
   // Scroll reveal - same IntersectionObserver behavior as the source page.
@@ -170,14 +197,14 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             {proof && (
               <div className="proof-item">
                 <span className="proof-value">
-                  {proof.average.toFixed(1)}
+                  <CountUp value={proof.average.toFixed(1)} decimals={1} />
                   <span className="star"> ★</span>
                 </span>
                 <span className="proof-label">Google rating {'·'} {proof.count} reviews</span>
               </div>
             )}
             <div className="proof-item">
-              <span className="proof-value">{STATS[0].value}</span>
+              <span className="proof-value"><CountUp value={STATS[0].value} /></span>
               <span className="proof-label">{STATS[0].label}</span>
             </div>
             <div className="proof-item">
@@ -310,36 +337,19 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
         <div className="wrap center">
           <span className="eyebrow mono reveal">How it works</span>
           <h2 className="reveal">Three steps from idea to working system.</h2>
-          <div className="steps">
-            <div className="step reveal">
-              <span className="num">STEP 01</span>
-              <span className="svc">AI Consultation</span>
-              <p className="h">The Strategy Session</p>
-              <p>
-                A focused working session where we map the three highest-impact places AI can work in
-                your business and define what a build would look like. This is where every engagement
-                starts.
-              </p>
-            </div>
-            <div className="step reveal">
-              <span className="num">STEP 02</span>
-              <span className="svc">AI Blueprint</span>
-              <p className="h">The Blueprint</p>
-              <p>
-                A deep diagnostic and a documented roadmap you can act on, with clear priorities and
-                scope. Credits toward your build if you proceed.
-              </p>
-            </div>
-            <div className="step reveal">
-              <span className="num">STEP 03</span>
-              <span className="svc">AI Implementation</span>
-              <p className="h">The Build</p>
-              <p>
-                We design, build, and deploy the systems, then make sure they hold up under real
-                operating conditions. Done for you, working in production.
-              </p>
-            </div>
-          </div>
+          <ProcessLine
+            className="how-line"
+            steps={HOW_STEPS.map((h) => ({ n: h.n, title: h.title, body: h.body }))}
+            finalLabel="In production"
+            renderCard={(_, i) => (
+              <div className="step">
+                <span className="num">{HOW_STEPS[i].n}</span>
+                <span className="svc">{HOW_STEPS[i].svc}</span>
+                <p className="h">{HOW_STEPS[i].title}</p>
+                <p>{HOW_STEPS[i].body}</p>
+              </div>
+            )}
+          />
         </div>
       </section>
 

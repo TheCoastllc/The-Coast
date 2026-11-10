@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { ContactForm } from '@/components/contact/ContactForm'
 import { ContactChannels } from '@/components/contact/ContactChannels'
 import { fetchReviewStats } from '@/lib/google-reviews'
+import { CONTACT_STEPS } from '@/lib/content/coast'
+import { ProcessLine } from '@/components/motion/kit'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from '@/components/contact/contact-page.module.css'
 
@@ -79,6 +81,13 @@ export default async function ContactPage() {
               Send a message
             </h2>
             <ContactForm />
+            <ProcessLine
+              className={styles.steps}
+              steps={CONTACT_STEPS.map((s) => ({ n: s.n, title: s.title }))}
+              compact
+              drawDuration={1600}
+              finalLabel={null}
+            />
           </section>
           <aside className={styles.sideCol} aria-label="Other ways to reach us">
             <ContactChannels rating={rating} />

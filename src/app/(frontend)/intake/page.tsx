@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { FadeUp, SuccessButton, SuccessMark } from '@/components/motion/kit'
 import { motion, AnimatePresence } from 'motion/react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react'
@@ -49,6 +50,7 @@ export default function IntakePage() {
   const [step, setStep] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [showDone, setShowDone] = useState(false)
   const [form, setForm] = useState<FormData>(initial)
 
   useEffect(() => {
@@ -84,15 +86,15 @@ export default function IntakePage() {
     } finally { setIsSubmitting(false) }
   }
 
-  if (submitted) {
+  if (submitted && showDone) {
     return (
       <div className={styles.page}>
-        <div className={styles.done}>
-          <div className={styles.doneIcon}><Sparkles className="w-9 h-9" /></div>
+        <FadeUp className={styles.done}>
+          <div className={styles.doneIcon}><SuccessMark size={36} /></div>
           <h1 className={styles.doneTitle}>We&apos;re On It</h1>
           <p className={styles.doneSub}>Your intake form has been submitted. Expect a personalized response within 24 hours.</p>
           <button type="button" onClick={() => router.push('/')} className={styles.next}>Back to Home <ArrowRight className="w-4 h-4" /></button>
-        </div>
+        </FadeUp>
       </div>
     )
   }
@@ -222,7 +224,17 @@ export default function IntakePage() {
           {step < steps.length - 1 ? (
             <button type="button" onClick={() => setStep(step + 1)} className={styles.next}>Continue <ArrowRight className="h-4 w-4" /></button>
           ) : (
-            <button type="button" onClick={handleSubmit} disabled={isSubmitting || !form.fullName || !form.email || !form.businessName} className={styles.next}>{isSubmitting ? 'Submitting...' : 'Submit Intake Form'}<Sparkles className="h-4 w-4" /></button>
+            <SuccessButton
+              type="button"
+              onClick={handleSubmit}
+              state={submitted ? 'sent' : isSubmitting ? 'sending' : 'idle'}
+              disabled={!form.fullName || !form.email || !form.businessName}
+              className={styles.next}
+              label={<>Submit Intake Form <Sparkles className="h-4 w-4" /></>}
+              sendingLabel="Submitting"
+              successLabel="Submitted"
+              onDone={() => setShowDone(true)}
+            />
           )}
         </div>
         {step === steps.length - 1 && (

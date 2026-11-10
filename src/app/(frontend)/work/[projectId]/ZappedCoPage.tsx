@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { CountUp } from '@/components/motion/kit'
 import { motion } from 'motion/react'
 import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
@@ -93,7 +94,7 @@ export default function ZappedCoPage() {
         <div className={styles.stats}>
           {stats.map(({ value, label }) => (
             <div key={label} className={styles.stat}>
-              <span className={styles.statValue}>{value}</span>
+              <CountUp value={value} className={styles.statValue} />
               <span className={styles.statLabel}>{label}</span>
             </div>
           ))}

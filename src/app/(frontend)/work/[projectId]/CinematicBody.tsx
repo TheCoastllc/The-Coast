@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { CountUp } from '@/components/motion/kit'
 import { Reveal } from '@/components/motion/Reveal'
 import { CursorReveal } from '@/components/visuals/CursorReveal'
 import { useFxMode } from '@/components/visuals/useFxMode'
@@ -166,7 +167,7 @@ export default function CinematicBody({ projectId, hasHero = true, hasVideo = tr
           <div className={styles.stats}>
             {project.stats.map((s) => (
               <div key={s.label} className={styles.stat}>
-                <span className={styles.statValue}>{s.value}</span>
+                <CountUp value={s.value} className={styles.statValue} />
                 <span className={styles.statLabel}>{s.label}</span>
               </div>
             ))}

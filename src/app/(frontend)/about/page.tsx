@@ -5,6 +5,7 @@ import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
 import { PaletteStack } from '@/components/ui/PaletteStack'
 import { STUDIO, STATS, COMPANY, PALETTE } from '@/lib/content/coast'
+import { CountUp } from '@/components/motion/kit'
 import { CardIcon } from '@/components/ui/CardIcon'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './about.module.css'
@@ -75,7 +76,7 @@ export default function AboutPage() {
           <div className={styles.stats}>
             {STATS.map((s) => (
               <div key={s.label} className={styles.stat}>
-                <span className={styles.statValue}>{s.value}</span>
+                <CountUp value={s.value} className={styles.statValue} />
                 <span className={styles.statLabel}>{s.label}</span>
               </div>
             ))}

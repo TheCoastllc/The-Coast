@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { ChamberShell } from '@/components/ui/ChamberShell'
 import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
+import { CountUp, ProcessLine } from '@/components/motion/kit'
 import { ShineButton } from '@/components/ui/ShineButton'
 import { SERVICE_PAGES, SERVICE_PAGES_MAP } from '@/lib/service-pages'
 import { DEFAULT_OG_IMAGES } from '@/lib/seo'
@@ -121,7 +122,7 @@ export default async function ServiceSlugPage({ params }: { params: Params }) {
           <div className={styles.stats}>
             {service.stats.map(({ value, label }) => (
               <div key={label} className={styles.stat}>
-                <span className={styles.statValue}>{value}</span>
+                <CountUp value={value} className={styles.statValue} />
                 <span className={styles.statLabel}>{label}</span>
               </div>
             ))}
@@ -150,17 +151,17 @@ export default async function ServiceSlugPage({ params }: { params: Params }) {
         <section className="section">
           <p className="sectionLabel">How we work</p>
           <h2 className="sectionTitle">Our process.</h2>
-          <div className={styles.process}>
-            {service.process.map((step, i) => (
-              <Reveal key={step.step} variant={variantForIndex(i)}>
-                <div className={`${styles.step} glass`} data-glow={GLOWS[i % 3] || undefined}>
-                  <span className={styles.stepNum}>{step.step}</span>
-                  <h3 className={styles.stepTitle}>{step.title}</h3>
-                  <p className={styles.stepBody}>{step.description}</p>
-                </div>
-              </Reveal>
+          <ProcessLine
+            steps={service.process.map((step) => ({ n: step.step, title: step.title, body: step.description }))}
+            finalLabel="Delivered"
+            cards={service.process.map((step, i) => (
+              <div key={step.step} className={`${styles.step} glass`} data-glow={GLOWS[i % 3] || undefined}>
+                <span className={styles.stepNum}>{step.step}</span>
+                <h3 className={styles.stepTitle}>{step.title}</h3>
+                <p className={styles.stepBody}>{step.description}</p>
+              </div>
             ))}
-          </div>
+          />
         </section>
 
         {/* ─── Who this is for ──────────────────────────────────── */}

@@ -233,7 +233,7 @@ export function HomeOcean({
             <div className={styles.stats}>
               {STATS.map((s) => (
                 <div key={s.label} className={styles.stat} data-mo="item">
-                  <CountUp value={s.value} className={styles.statValue} />
+                  <CountUp value={s.value} className={styles.statValue} flash />
                   <span className={styles.statLabel}>{s.label}</span>
                 </div>
               ))}

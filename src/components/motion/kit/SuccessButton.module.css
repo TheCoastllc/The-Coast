@@ -1,0 +1,108 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  max-width: 100%;
+}
+.btn {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+/* the consumer's class owns idle colours; we only own the morph */
+.btn[data-morph="fixed"] {
+  width: var(--sb-w);
+}
+.btn[data-morph="circle"] {
+  width: var(--sb-h) !important;
+  min-width: 0 !important;
+  height: var(--sb-h);
+  padding: 0 !important;
+  border-radius: 50% !important;
+  transition: width 320ms var(--mk-ease), border-radius 320ms var(--mk-ease), background-color 240ms ease, color 240ms ease;
+}
+.btn[data-morph="circle"] .label {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+}
+.arc {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  border-top-color: transparent;
+  opacity: 0;
+  animation: sbSpin 800ms linear infinite;
+}
+.btn[data-morph="circle"][data-state="sending"] .arc {
+  opacity: 1;
+  transition: opacity 160ms ease 160ms;
+}
+.btn[data-state="sent"] {
+  background: var(--mk-accent) !important;
+  color: var(--mk-on-accent) !important;
+}
+.check {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 22px;
+  height: 22px;
+  opacity: 0;
+}
+.check path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.btn[data-morph="circle"][data-state="sent"] .check {
+  opacity: 1;
+}
+.burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+@keyframes sbSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- SuccessMark (static success pages) ---- */
+.mark {
+  display: inline-block;
+  color: var(--mk-accent);
+}
+.mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.mark circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+.mark path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

@@ -5,6 +5,7 @@ import { variantForIndex } from '@/components/motion/revealVariants'
 import { SERVICES, PROCESS, ENGAGEMENT, PILLARS } from '@/lib/content/coast'
 import { ServiceStack } from '@/components/home/services/ServiceWorlds'
 import { CardIcon } from '@/components/ui/CardIcon'
+import { ProcessLine } from '@/components/motion/kit'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './services.module.css'
 import { navIndex } from '@/lib/nav'
@@ -110,18 +111,17 @@ export default function ServicesPage() {
         <section className="section">
           <p className="sectionLabel">How we work</p>
           <h2 className="sectionTitle">Four steps, two to six weeks.</h2>
-          <div className={styles.process}>
-            {PROCESS.map((p, i) => (
-              <Reveal key={p.n} variant={variantForIndex(i)}>
-                <div className={`${styles.step} glass`} data-glow={['', 'gold', 'orange'][i % 3] || undefined}>
-                  <CardIcon name={p.icon} className="cardIcon" />
-                  <span className={styles.stepNum}>{p.n}</span>
-                  <h4 className={styles.stepTitle}>{p.title}</h4>
-                  <p className={styles.stepBody}>{p.body}</p>
-                </div>
-              </Reveal>
+          <ProcessLine
+            steps={PROCESS.map((p) => ({ n: p.n, title: p.title, body: p.body }))}
+            cards={PROCESS.map((p, i) => (
+              <div key={p.n} className={`${styles.step} glass`} data-glow={['', 'gold', 'orange'][i % 3] || undefined}>
+                <CardIcon name={p.icon} className="cardIcon" />
+                <span className={styles.stepNum}>{p.n}</span>
+                <h4 className={styles.stepTitle}>{p.title}</h4>
+                <p className={styles.stepBody}>{p.body}</p>
+              </div>
             ))}
-          </div>
+          />
           <p className="pill takeaway">Discovery to launch in two to six weeks</p>
         </section>
 
