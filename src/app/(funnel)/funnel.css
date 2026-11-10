@@ -619,6 +619,7 @@ body.funnel .sol .card .tag {
 /* steps - craft in bronze; each carries its service name */
 body.funnel .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
 body.funnel .how-line { margin-top: 52px; text-align: left; }
+body.funnel .why-deck { max-width: 600px; margin: 56px auto 0; }
 body.funnel .how-line .step { height: 100%; }
 @media (max-width: 840px) { body.funnel .steps { grid-template-columns: 1fr; } }
 body.funnel .step {
