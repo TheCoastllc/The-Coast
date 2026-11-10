@@ -160,3 +160,13 @@
     padding: 1.25rem 1.2rem;
   }
 }
+
+/* Stacked cards must not show through each other: whatever card treatment the
+   host passes (the homepage's translucent .glass), inside the deck it gets a
+   solid surface. Border, radius and shadow from the host class are kept. */
+.slot > * {
+  background-color: var(--mk-surface);
+  background-image: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
