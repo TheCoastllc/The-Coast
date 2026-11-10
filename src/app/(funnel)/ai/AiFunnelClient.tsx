@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
-import { BentoGrid, CountUp, HeroReveal, Odometer, ProcessLine, ReviewDeck } from '@/components/motion/kit'
+import { BentoGrid, CompareTable, CountUp, HeroReveal, Odometer, ProcessLine, ReviewDeck } from '@/components/motion/kit'
+import { COMPARE_COLUMNS, COMPARE_ROWS } from '@/lib/content/coast'
 import type { MarqueeReview } from '@/lib/review-types'
 import Image from 'next/image'
 import { CALENDLY_URL, calendlyUrl, trackCTA, type CtaLocation } from './funnel-track'
@@ -408,6 +409,9 @@ export function AiFunnelClient({ proof, reviews = [] }: { proof: FunnelProof; re
               <ReviewDeck reviews={reviews} label="Google reviews from clients" />
             </div>
           )}
+          <div className="why-table">
+            <CompareTable rows={COMPARE_ROWS} columns={COMPARE_COLUMNS} caption="How a fixed-scope studio compares with a typical agency" />
+          </div>
         </div>
       </section>
 

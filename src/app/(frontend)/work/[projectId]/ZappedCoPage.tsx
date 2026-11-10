@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { CountUp } from '@/components/motion/kit'
+import { CompareSlider, CountUp } from '@/components/motion/kit'
 import { motion } from 'motion/react'
 import { Reveal } from '@/components/motion/Reveal'
 import { variantForIndex } from '@/components/motion/revealVariants'
@@ -135,16 +135,12 @@ export default function ZappedCoPage() {
       {/* Before / After */}
       <section className="section">
         <p className="sectionLabel">Transformation</p>
-        <div className={styles.duo}>
-          <Reveal variant="rise-blur">
-            <span className={styles.mediaLabel}>Before</span>
-            <Media src="/portfolio/zappedco/before.jpg" alt="Zapped Co - before rebrand" tall />
-          </Reveal>
-          <Reveal variant="scale-in">
-            <span className={styles.mediaLabel}>After</span>
-            <Media src="/portfolio/zappedco/final.jpg" alt="Zapped Co - after rebrand" tall />
-          </Reveal>
-        </div>
+        <CompareSlider
+          before={{ src: '/portfolio/zappedco/before.jpg', alt: 'Zapped Co - before rebrand' }}
+          after={{ src: '/portfolio/zappedco/final.jpg', alt: 'Zapped Co - after rebrand' }}
+          fit="contain"
+          aspect="16 / 9"
+        />
       </section>
 
       {/* Process / Development */}

@@ -1,0 +1,45 @@
+.stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.zoom {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  transition: transform 640ms var(--mk-ease), transform-origin 0s;
+  will-change: transform;
+}
+.cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 22px;
+  height: 22px;
+  margin: -2px 0 0 -2px;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 240ms ease;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+  will-change: transform;
+}
+.cursor[data-show="true"] {
+  opacity: 1;
+}
+.cursor svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ripple {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mk-accent-2);
+  pointer-events: none;
+  z-index: 4;
+}

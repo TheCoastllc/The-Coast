@@ -40,6 +40,14 @@ export interface CaseStudyMeta {
   moments?: Moment[]
   stats?: Stat[]
   summary?: string         // long-form description for listings
+  /** Optional before/after pair for a CompareSlider. `fit: 'contain'` when the two frames differ in ratio. */
+  beforeAfter?: {
+    before: { src: string; alt: string }
+    after: { src: string; alt: string }
+    fit?: 'cover' | 'contain'
+    aspect?: string
+    caption?: string
+  }
 }
 
 export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
@@ -186,6 +194,13 @@ export const CASE_STUDIES: Record<string, CaseStudyMeta> = {
     year: 2025,
     color: '#00fa11',
     textColor: '#0d0d0d',
+    beforeAfter: {
+      before: { src: '/portfolio/zappedco/before.jpg', alt: 'Zapped Co - before rebrand' },
+      after: { src: '/portfolio/zappedco/final.jpg', alt: 'Zapped Co - after rebrand' },
+      // the two frames are 3:2 and 2.7:1 - letterbox rather than crop either
+      fit: 'contain',
+      aspect: '16 / 9',
+    },
   },
   'amg-records': {
     title: 'AMG Records — Brand Identity | The Coast Global',

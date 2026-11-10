@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { CountUp } from '@/components/motion/kit'
+import { CompareSlider, CountUp } from '@/components/motion/kit'
 import { Reveal } from '@/components/motion/Reveal'
 import { CursorReveal } from '@/components/visuals/CursorReveal'
 import { useFxMode } from '@/components/visuals/useFxMode'
@@ -158,6 +158,20 @@ export default function CinematicBody({ projectId, hasHero = true, hasVideo = tr
           </div>
         </Reveal>
       </section>
+      )}
+
+      {/* Before / after - only when the case ships a matched pair */}
+      {project.beforeAfter && (
+        <section className="section">
+          <p className="sectionLabel">Before / after</p>
+          <CompareSlider
+            before={project.beforeAfter.before}
+            after={project.beforeAfter.after}
+            fit={project.beforeAfter.fit}
+            aspect={project.beforeAfter.aspect}
+          />
+          {project.beforeAfter.caption && <p className="prose">{project.beforeAfter.caption}</p>}
+        </section>
       )}
 
       {/* By the numbers */}

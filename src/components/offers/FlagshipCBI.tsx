@@ -2,7 +2,7 @@
 
 import { Reveal } from "@/components/motion/Reveal";
 import { CBI } from "@/app/(frontend)/offers/content";
-import { VideoWave } from "@/components/VideoWave";
+import { CbiTour } from "./CbiTour";
 import styles from "@/app/(frontend)/offers/offers-lab.module.css";
 
 /**
@@ -11,7 +11,6 @@ import styles from "@/app/(frontend)/offers/offers-lab.module.css";
  * variant-driven (?wave=swell|crest|curl, default swell) so David can compare.
  */
 export function FlagshipCBI() {
-  const m = CBI.mock;
   return (
     <Reveal variant="scale-in">
       <a
@@ -50,26 +49,9 @@ export function FlagshipCBI() {
 
           <div className={styles.waveWrap}>
             <span className={styles.waveTag}>Illustrative result</span>
-            <div className={styles.score}>
-              <span className={styles.scoreNum}>{m.score}</span>
-              <span className={styles.scoreMax}>/ 100</span>
-              <span className={styles.scoreWave}>Wave · {m.waveName}</span>
-            </div>
-            <p className={styles.scoreLine}>{m.line}</p>
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                maxWidth: 300,
-                aspectRatio: "464 / 688",
-                borderRadius: 16,
-                overflow: "hidden",
-                border: "1px solid var(--color-border)",
-                boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
-              }}
-            >
-              <VideoWave rounded={false} />
-            </div>
+            {/* a cursor takes the Index (3 real questions) and the Wave result counts up;
+                reduced motion shows the result; the score stays the published mock */}
+            <CbiTour />
           </div>
         </div>
       </a>

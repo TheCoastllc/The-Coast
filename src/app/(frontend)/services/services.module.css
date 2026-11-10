@@ -144,3 +144,8 @@
   text-transform: uppercase;
   color: var(--color-gold);
 }
+
+/* us-vs-them table under the engagement models */
+.compare {
+  margin-top: 2.5rem;
+}

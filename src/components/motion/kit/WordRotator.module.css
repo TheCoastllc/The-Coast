@@ -1,0 +1,23 @@
+.root {
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  color: var(--mk-accent);
+}
+.root[data-live="true"] {
+  overflow: hidden;
+  transition: width 420ms var(--mk-ease);
+}
+.col {
+  display: block;
+  will-change: transform;
+}
+.row {
+  display: block;
+  text-align: inherit;
+  opacity: 0.15;
+  transition: opacity 320ms ease;
+}
+.row[data-current="true"] {
+  opacity: 1;
+}

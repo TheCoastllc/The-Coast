@@ -340,3 +340,17 @@ export const EDITORIAL: EditorialImage[] = [
   { src: "/img/editorial/08.jpg", alt: "Editorial brand study by The Coast Global - the brand as a signal", caption: "The brand as a signal." },
   { src: "/img/editorial/09.jpg", alt: "Editorial brand study by The Coast Global - design the future", caption: "Design the future." },
 ];
+
+// "Us vs them" comparison (services Engagement + /ai #why). Every row is backed
+// by copy already on the site; the "typical agency" column uses neutral words,
+// never a categorical claim about anyone. Edit freely - the table re-renders.
+export type CompareCellValue = boolean | string;
+export type CompareRowData = { label: string; them: CompareCellValue; us: CompareCellValue };
+export const COMPARE_COLUMNS = { them: "Typical agency", us: "The Coast" } as const;
+export const COMPARE_ROWS: CompareRowData[] = [
+  { label: "Fixed scope and price agreed before work starts", them: "Varies", us: true },
+  { label: "Delivered in weeks, not quarters", them: "Often months", us: "2-6 weeks" },
+  { label: "Brand, web, growth and AI from one team", them: "Separate vendors", us: true },
+  { label: "No long-term retainer required", them: "Common", us: true },
+  { label: "You own everything we build, source included", them: "Varies", us: true },
+];

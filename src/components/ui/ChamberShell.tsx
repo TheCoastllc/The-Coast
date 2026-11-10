@@ -13,7 +13,7 @@ type Props = {
   /** Functional label e.g. "Vision" */
   label: string;
   /** Big poetic hero line */
-  preface?: string;
+  preface?: ReactNode;
   /** Optional epigraph that sits below the title */
   epigraph?: string;
   /** Optional WebGL backdrop that replaces the default atmosphere (e.g. a kept HeroStage scene) */

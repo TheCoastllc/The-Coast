@@ -1,0 +1,85 @@
+.root {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--cs-aspect, 16 / 9);
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--mk-border);
+  background: var(--mk-surface);
+  touch-action: pan-y;
+  user-select: none;
+  --pos: 50%;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+}
+.layer img {
+  object-fit: var(--cs-fit, cover);
+}
+.after {
+  clip-path: inset(0 0 0 var(--pos));
+}
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--mk-ink);
+  opacity: 0.9;
+  pointer-events: none;
+}
+.handle {
+  position: absolute;
+  top: 50%;
+  left: var(--pos);
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  border: 1px solid var(--mk-border);
+  background: var(--mk-ink);
+  color: var(--mk-on-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ew-resize;
+  transition: transform 180ms var(--mk-ease);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.handle[data-moving="true"] {
+  transform: scale(1.12);
+}
+.handle:focus-visible {
+  outline: 2px solid var(--mk-accent-2);
+  outline-offset: 3px;
+}
+.handle svg {
+  width: 18px;
+  height: 18px;
+}
+.label {
+  position: absolute;
+  top: 12px;
+  padding: 0.3rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(10, 12, 18, 0.72);
+  color: var(--mk-ink);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.label[data-show="false"] {
+  opacity: 0;
+}
+.labelBefore {
+  left: 12px;
+}
+.labelAfter {
+  right: 12px;
+}

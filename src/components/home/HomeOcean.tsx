@@ -8,6 +8,8 @@ import { StoryHeadline } from "@/components/hero/StoryHeadline";
 import dynamic from "next/dynamic";
 import { useDesktopOnlyWebGL, useHeroMountTrigger } from "@/lib/perf";
 import { useVariant } from "@/components/visuals/useVariant";
+
+const CBI_VARIANTS = ["wave", "tour"] as const;
 import { TrustedBy, CLIENT_VARIANTS } from "./TrustedBy";
 import { ServiceStack } from "./services/ServiceWorlds";
 import { ColonyFlagship } from "./ColonyFlagship";
@@ -19,6 +21,7 @@ import { MasterpieceThesis } from "./MasterpieceThesis";
 import { PaintSweep } from "./PaintSweep";
 import { GlassStatement } from "./GlassStatement";
 import { VideoWave } from "@/components/VideoWave";
+import { CbiTour } from "@/components/offers/CbiTour";
 import { RevealGroup } from "@/components/motion/RevealGroup";
 import { CountUp } from "@/components/motion/CountUp";
 import { STATS } from "@/lib/content/coast";
@@ -97,6 +100,7 @@ export function HomeOcean({
   /** A few live gallery images for the homepage teaser. */
   galleryPreview?: GalleryPreviewItem[];
 } = {}) {
+  const cbiVariant = useVariant("cbi", CBI_VARIANTS, "wave");
   const displayReviews: DisplayReview[] =
     reviews && reviews.length >= 1 ? reviews : [...REVIEWS];
   const displayRating =
@@ -146,7 +150,8 @@ export function HomeOcean({
           <section className="section">
             <div className={styles.waveBand}>
               <div className={styles.waveViz}>
-                <VideoWave rounded={false} />
+                {/* ?cbi=tour: the cursor-tour demo of the Index instead of the wave film (flag until Lighthouse signs off) */}
+                {cbiVariant === "tour" ? <CbiTour compact /> : <VideoWave rounded={false} />}
               </div>
               <div className={styles.waveInfo}>
                 <p className={styles.waveLabel} data-mo="eyebrow">Coast Brand Index</p>

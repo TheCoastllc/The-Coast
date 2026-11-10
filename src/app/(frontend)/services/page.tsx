@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { ChamberShell } from '@/components/ui/ChamberShell'
-import { SERVICES, PROCESS, ENGAGEMENT, PILLARS } from '@/lib/content/coast'
+import { SERVICES, PROCESS, ENGAGEMENT, PILLARS, COMPARE_ROWS, COMPARE_COLUMNS } from '@/lib/content/coast'
 import { ServiceStack } from '@/components/home/services/ServiceWorlds'
 import { CardIcon } from '@/components/ui/CardIcon'
-import { BentoGrid, ProcessLine } from '@/components/motion/kit'
+import { BentoGrid, CompareTable, ProcessLine, WordRotator } from '@/components/motion/kit'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './services.module.css'
 import { navIndex } from '@/lib/nav'
@@ -71,7 +71,13 @@ export default function ServicesPage() {
         index={navIndex("/services")}
         label="Services"
         chamber="What We Do"
-        preface="An end-to-end ecosystem for the visionaries behind the brands."
+        preface={
+          <>
+            An end-to-end ecosystem for the{' '}
+            <WordRotator words={['visionaries', 'founders', 'artists', 'challengers']} />{' '}
+            behind the brands.
+          </>
+        }
       >
         {/* The offering - three pillars, stacked (the Awwwards format) */}
         <section className="section">
@@ -135,6 +141,12 @@ export default function ServicesPage() {
               </div>
             ))}
           </div>
+          <CompareTable
+            className={styles.compare}
+            rows={COMPARE_ROWS}
+            columns={COMPARE_COLUMNS}
+            caption="How a fixed-scope studio compares with a typical agency"
+          />
         </section>
       </ChamberShell>
     </>
