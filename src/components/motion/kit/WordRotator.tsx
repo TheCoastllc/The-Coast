@@ -115,6 +115,7 @@ export function WordRotator({ words, interval = 2200, staticIndex = 0, sentence,
       data-motion="word-rotator"
       data-motion-state={live ? 'done' : isStatic ? 'static' : 'static'}
       data-motion-trigger="interaction"
+      data-motion-resizes=""
       data-live={live}
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
