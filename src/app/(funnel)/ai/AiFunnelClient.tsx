@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
-import { CountUp, ProcessLine } from '@/components/motion/kit'
+import { BentoGrid, CountUp, HeroReveal, Odometer, ProcessLine, ReviewDeck } from '@/components/motion/kit'
+import type { MarqueeReview } from '@/lib/review-types'
 import Image from 'next/image'
 import { CALENDLY_URL, calendlyUrl, trackCTA, type CtaLocation } from './funnel-track'
 import { CAPACITY } from './capacity'
@@ -77,7 +78,7 @@ const HOW_STEPS = [
   },
 ] as const
 
-export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
+export function AiFunnelClient({ proof, reviews = [] }: { proof: FunnelProof; reviews?: MarqueeReview[] }) {
   // Scroll reveal - same IntersectionObserver behavior as the source page.
   // funnel.css forces .reveal visible under prefers-reduced-motion.
   useEffect(() => {
@@ -160,28 +161,39 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           </CtaLink>
         </div>
         <div className="drop" aria-hidden="true" />
-        <div className="hero-center">
-          <span className="eyebrow mono">AI Consulting &amp; Implementation</span>
-          <h1>
-            Put AI to work
-            <br />
-            in your <span className="accent">business.</span>
-          </h1>
-          <p className="hero-sub">
-            {"We design, build, and deploy AI systems that give your team back 10+ hours a week and make sure no lead ever slips."}
-          </p>
-          <div className="cta-row">
-            <CtaLink location="hero" className="btn btn-cta btn-big">
-              Book Your AI Strategy Session
-            </CtaLink>
-          </div>
-          <p className="cta-note">
-            Quick call {'•'} No obligation {'•'} You leave with a plan
-          </p>
-          <div className="scarcity">
-            We take on {CAPACITY.buildsPerMonth} builds per month.
-          </div>
-        </div>
+        <HeroReveal
+          className="hero-center"
+          badge={<span className="eyebrow mono">AI Consulting &amp; Implementation</span>}
+          title={
+            <h1>
+              Put AI to work
+              <br />
+              in your <span className="accent">business.</span>
+            </h1>
+          }
+          lead={
+            <p className="hero-sub">
+              {"We design, build, and deploy AI systems that give your team back 10+ hours a week and make sure no lead ever slips."}
+            </p>
+          }
+          actions={
+            <div className="cta-row">
+              <CtaLink location="hero" className="btn btn-cta btn-big">
+                Book Your AI Strategy Session
+              </CtaLink>
+            </div>
+          }
+          note={
+            <>
+              <p className="cta-note">
+                Quick call {'•'} No obligation {'•'} You leave with a plan
+              </p>
+              <div className="scarcity">
+                We take on {CAPACITY.buildsPerMonth} builds per month.
+              </div>
+            </>
+          }
+        />
         <div className="scroll-cue mono" aria-hidden="true">
           Scroll for more
           <span className="scroll-tick" />
@@ -304,8 +316,8 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
           <p className="lead reveal">
             Not bolted on the side. Built into operations, where it changes outcomes.
           </p>
-          <div className="cards">
-            <div className="card reveal">
+          <BentoGrid className="cards" seed="ai-solutions">
+            <div className="card">
               <span className="tag mono">Win back your time</span>
               <p className="h">Get 10+ hours a week back.</p>
               <p>
@@ -313,7 +325,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 what grows the business.
               </p>
             </div>
-            <div className="card reveal">
+            <div className="card">
               <span className="tag mono">Stop the leaks</span>
               <p className="h">Never lose a lead again.</p>
               <p>
@@ -321,7 +333,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 Nothing slips through after hours.
               </p>
             </div>
-            <div className="card reveal">
+            <div className="card">
               <span className="tag mono">Data to decisions</span>
               <p className="h">{"Know exactly what's working."}</p>
               <p>
@@ -329,7 +341,7 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
                 next move.
               </p>
             </div>
-          </div>
+          </BentoGrid>
         </div>
       </section>
 
@@ -391,6 +403,11 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               </div>
             </div>
           </div>
+          {reviews.length > 1 && (
+            <div className="why-deck">
+              <ReviewDeck reviews={reviews} label="Google reviews from clients" />
+            </div>
+          )}
         </div>
       </section>
 
@@ -402,7 +419,8 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             <div className="tier reveal">
               <p className="t-name">AI Consultation + Blueprint</p>
               <p className="t-price">
-                $1,500<small> starting</small>
+                <Odometer value="$1,500" />
+                <small> starting</small>
               </p>
               <ul>
                 <li>A focused strategy session that maps your highest-leverage AI moves</li>
@@ -421,7 +439,8 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
             <div className="tier reveal">
               <p className="t-name">AI Strategy &amp; Advisory</p>
               <p className="t-price">
-                $2,500<small>/month</small>
+                <Odometer value="$2,500" />
+                <small>/month</small>
               </p>
               <ul>
                 <li>A monthly working session with your team</li>
@@ -442,7 +461,8 @@ export function AiFunnelClient({ proof }: { proof: FunnelProof }) {
               <span className="pop">MOST POPULAR</span>
               <p className="t-name">AI Implementation</p>
               <p className="t-price">
-                $5,000<small>+ per build</small>
+                <Odometer value="$5,000" />
+                <small>+ per build</small>
               </p>
               <ul>
                 <li>We design, build, and deploy</li>

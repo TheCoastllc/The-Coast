@@ -162,3 +162,9 @@
 @media (max-width: 360px) {
   .card { width: 85vw; }
 }
+
+/* the dealt card stack (ReviewDeck) */
+.deck {
+  max-width: 620px;
+  margin: 2rem auto 0;
+}

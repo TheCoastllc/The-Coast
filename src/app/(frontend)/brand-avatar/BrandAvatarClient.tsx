@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { BentoGrid } from '@/components/motion/kit'
 import { motion, AnimatePresence } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -64,15 +65,13 @@ export default function BrandAvatarClient() {
           <SectionBoundary />
 
           <h2 className="sr-only">Available Brand Services</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12 mt-12">
-            {sections.map((section, index) => {
+          <BentoGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12 mt-12" seed="brand-avatar" stagger={90}>
+            {sections.map((section) => {
               const isSelected = selected.has(section.id)
               return (
-                <motion.button
+                <button
                   key={section.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  type="button"
                   onClick={() => toggle(section.id)}
                   className={`relative p-6 rounded-2xl border text-left transition-all duration-300 ${
                     isSelected
@@ -88,10 +87,10 @@ export default function BrandAvatarClient() {
                   <span className="text-3xl block mb-3">{section.emoji}</span>
                   <h3 className="text-heading text-lg text-foreground mb-1">{section.label}</h3>
                   <p className="text-body text-muted-foreground text-sm leading-relaxed">{section.description}</p>
-                </motion.button>
+                </button>
               )
             })}
-          </div>
+          </BentoGrid>
 
           {/* Summary */}
           <AnimatePresence>

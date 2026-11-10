@@ -1,0 +1,36 @@
+.root {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+.text[data-hidden="true"] {
+  visibility: hidden;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+  white-space: nowrap;
+}
+.col {
+  display: block;
+  flex: none;
+  overflow: hidden;
+  text-align: center;
+}
+.strip {
+  display: block;
+  will-change: transform;
+}
+.digit {
+  display: block;
+  height: var(--odo-h, 1em);
+  line-height: var(--odo-h, 1em);
+}
+.glyph {
+  display: block;
+  flex: none;
+  line-height: var(--odo-h, 1em);
+}

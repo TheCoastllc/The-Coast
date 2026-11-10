@@ -1,0 +1,29 @@
+.root {
+  position: relative;
+}
+.root :global([data-hr-word]) {
+  display: inline-block;
+  white-space: nowrap;
+}
+.root :global([data-hr-inner]) {
+  display: inline-block;
+  will-change: transform, filter, opacity;
+}
+.root[data-motion-state="done"] :global([data-hr-inner]) {
+  will-change: auto;
+}
+.root :global([data-hr-underline]) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.08em;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--mk-accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+.root[data-motion-state="static"] :global([data-hr-underline]) {
+  display: none;
+}

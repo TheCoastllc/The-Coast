@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { ChamberShell } from '@/components/ui/ChamberShell'
-import { Reveal } from '@/components/motion/Reveal'
-import { variantForIndex } from '@/components/motion/revealVariants'
 import { SERVICES, PROCESS, ENGAGEMENT, PILLARS } from '@/lib/content/coast'
 import { ServiceStack } from '@/components/home/services/ServiceWorlds'
 import { CardIcon } from '@/components/ui/CardIcon'
-import { ProcessLine } from '@/components/motion/kit'
+import { BentoGrid, ProcessLine } from '@/components/motion/kit'
 import { DEFAULT_OG_IMAGES, buildTwitter } from '@/lib/seo'
 import styles from './services.module.css'
 import { navIndex } from '@/lib/nav'
@@ -83,10 +81,9 @@ export default function ServicesPage() {
         {/* Services */}
         <section className="section">
           <p className="sectionLabel">Within the pillars</p>
-          <div className={styles.list}>
+          <BentoGrid className={styles.list} seed="services">
             {SERVICES.map((s, i) => (
-              <Reveal key={s.name} variant={variantForIndex(i)}>
-                <article className={`${styles.service} glass`} data-glow={['', 'gold', 'orange'][i % 3] || undefined}>
+                <article key={s.name} className={`${styles.service} glass`} data-glow={['', 'gold', 'orange'][i % 3] || undefined}>
                   <CardIcon name={s.icon} className="cardIcon" />
                   <div className={styles.head}>
                     <span className={styles.idx}>{String(i + 1).padStart(2, '0')}</span>
@@ -101,9 +98,8 @@ export default function ServicesPage() {
                     ))}
                   </ul>
                 </article>
-              </Reveal>
             ))}
-          </div>
+          </BentoGrid>
           <p className="pill takeaway">Six services, one coherent system</p>
         </section>
 

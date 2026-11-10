@@ -1,0 +1,7 @@
+.root > * {
+  will-change: transform, opacity;
+}
+.root[data-motion-state="done"] > *,
+.root[data-motion-state="static"] > * {
+  will-change: auto;
+}
