@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { fetchReviews, getReviewStats } from '@/lib/google-reviews'
 import { AiFunnelClient, type FunnelProof } from './AiFunnelClient'
 import type { MarqueeReview } from '@/lib/review-types'
+import type { PulseItem } from '@/components/motion/kit'
+import { CASE_STUDIES, CASE_STUDY_ORDER } from '@/lib/case-studies'
+import { getPayloadClient } from '@/lib/payload-client'
+import { GOOGLE_LISTING_URL } from '@/lib/schema'
 
 export const revalidate = 3600
 
@@ -54,5 +58,57 @@ export default async function AiFunnelPage() {
   } catch {
     /* strip renders without the rating; the deck simply does not render */
   }
-  return <AiFunnelClient proof={proof} reviews={deck} />
+
+  // "Recently from the studio": only real, dated items. Any source that fails
+  // is simply omitted; the feed renders nothing with fewer than two items.
+  const pulse: PulseItem[] = []
+  try {
+    if (deck[0]?.date) {
+      pulse.push({
+        kind: 'review',
+        title: `${deck[0].stars}-star review from ${deck[0].name}`,
+        meta: deck[0].quote.length > 90 ? `${deck[0].quote.slice(0, 88).trimEnd()}…` : deck[0].quote,
+        date: deck[0].date,
+        href: GOOGLE_LISTING_URL,
+      })
+    }
+  } catch {}
+  try {
+    const newest = CASE_STUDY_ORDER.map((id) => ({ id, c: CASE_STUDIES[id] }))
+      .filter(({ c }) => c?.ready && c.year)
+      .sort((a, b) => (b.c.year ?? 0) - (a.c.year ?? 0))[0]
+    if (newest) {
+      pulse.push({
+        kind: 'case',
+        title: `Case study: ${newest.c.client ?? newest.id}`,
+        meta: newest.c.tagline ?? newest.c.category ?? 'Published',
+        date: String(newest.c.year),
+        href: `https://coastglobal.org/work/${newest.id}`,
+      })
+    }
+  } catch {}
+  try {
+    const payload = await getPayloadClient()
+    const res = await payload.find({
+      collection: 'posts',
+      where: { status: { equals: 'published' } },
+      sort: '-publishedAt',
+      limit: 1,
+      depth: 0,
+      overrideAccess: true,
+    })
+    const post = res.docs[0] as { title?: string; slug?: string; publishedAt?: string | null; excerpt?: string | null } | undefined
+    if (post?.title && post.publishedAt) {
+      pulse.push({
+        kind: 'post',
+        title: post.title,
+        meta: post.excerpt ? (post.excerpt.length > 90 ? `${post.excerpt.slice(0, 88).trimEnd()}…` : post.excerpt) : 'From the journal',
+        date: post.publishedAt,
+        href: post.slug ? `https://coastglobal.org/blog/${post.slug}` : undefined,
+      })
+    }
+  } catch {}
+  pulse.sort((a, b) => new Date(b.date.length === 4 ? `${b.date}-01-01` : b.date).getTime() - new Date(a.date.length === 4 ? `${a.date}-01-01` : a.date).getTime())
+
+  return <AiFunnelClient proof={proof} reviews={deck} pulse={pulse} />
 }

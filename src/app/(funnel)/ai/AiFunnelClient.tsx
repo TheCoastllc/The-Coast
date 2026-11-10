@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, type ReactNode } from 'react'
-import { BentoGrid, CompareTable, CountUp, HeroReveal, Odometer, ProcessLine, ReviewDeck } from '@/components/motion/kit'
+import { BentoGrid, CompareTable, CountUp, HeroReveal, Odometer, ProcessLine, PulseFeed, ReviewDeck, type PulseItem } from '@/components/motion/kit'
 import { COMPARE_COLUMNS, COMPARE_ROWS } from '@/lib/content/coast'
 import type { MarqueeReview } from '@/lib/review-types'
 import Image from 'next/image'
@@ -79,7 +79,7 @@ const HOW_STEPS = [
   },
 ] as const
 
-export function AiFunnelClient({ proof, reviews = [] }: { proof: FunnelProof; reviews?: MarqueeReview[] }) {
+export function AiFunnelClient({ proof, reviews = [], pulse = [] }: { proof: FunnelProof; reviews?: MarqueeReview[]; pulse?: PulseItem[] }) {
   // Scroll reveal - same IntersectionObserver behavior as the source page.
   // funnel.css forces .reveal visible under prefers-reduced-motion.
   useEffect(() => {
@@ -236,6 +236,11 @@ export function AiFunnelClient({ proof, reviews = [] }: { proof: FunnelProof; re
               loading="lazy"
             />
           </div>
+          {pulse.length > 1 && (
+            <div className="pulse">
+              <PulseFeed items={pulse} />
+            </div>
+          )}
         </div>
       </section>
 
