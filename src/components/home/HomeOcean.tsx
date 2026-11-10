@@ -100,7 +100,9 @@ export function HomeOcean({
   /** A few live gallery images for the homepage teaser. */
   galleryPreview?: GalleryPreviewItem[];
 } = {}) {
-  const cbiVariant = useVariant("cbi", CBI_VARIANTS, "wave");
+  // CBI band: the cursor-tour demo is the default (measured on prod: same bytes/requests as the
+  // wave film, fewer long tasks, better LCP); ?cbi=wave brings the film back.
+  const cbiVariant = useVariant("cbi", CBI_VARIANTS, "tour");
   const displayReviews: DisplayReview[] =
     reviews && reviews.length >= 1 ? reviews : [...REVIEWS];
   const displayRating =
@@ -150,7 +152,7 @@ export function HomeOcean({
           <section className="section">
             <div className={styles.waveBand}>
               <div className={styles.waveViz}>
-                {/* ?cbi=tour: the cursor-tour demo of the Index instead of the wave film (flag until Lighthouse signs off) */}
+                {/* default: a cursor takes the Index (3 real questions) and the Wave result counts up; ?cbi=wave = the wave film */}
                 {cbiVariant === "tour" ? <CbiTour compact /> : <VideoWave rounded={false} />}
               </div>
               <div className={styles.waveInfo}>
